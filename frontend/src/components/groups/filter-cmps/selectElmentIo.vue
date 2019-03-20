@@ -4,6 +4,7 @@
       v-model="value10"
       multiple
       filterable
+      allow-create
       default-first-option
       placeholder="Choose tags for your article"
       @change="onSave"
@@ -19,20 +20,12 @@ export default {
     return {
       options5: [
         {
-          value: "All",
-          label: "All"
+          value: "Israel",
+          label: "Israel"
         },
         {
-          value: "Adult",
-          label: "Adult"
-        },
-        {
-          value: "Educational",
-          label: "Educational"
-        },
-        {
-          value: "Funny",
-          label: "Funny"
+          value: "Dan's Coocking",
+          label: "Dan's Coocking"
         }
       ],
       value10: []
@@ -45,3 +38,5 @@ export default {
   }
 };
 </script>
+
+

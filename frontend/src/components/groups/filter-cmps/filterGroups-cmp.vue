@@ -1,11 +1,10 @@
 <template>
   <section>
-    <form>
-      <label>Search</label>
-      <!-- the normal input -->
-      <!-- <input v-model="filterObj.name" placeholder="Enter name"> -->
-      <selectEl @selectedVals="onSelectedVals"></selectEl>
-    </form>
+    <div class="filter-container">
+      <form>
+        <selectEl @selectedVals="onSelectedVals"></selectEl>
+      </form>
+    </div>
   </section>
 </template>
 
@@ -21,10 +20,10 @@ export default {
     };
   },
   methods: {
-    onSelectedVals(selectedVals) {
-      // this.filterObj.type = selectedVals;
-      // console.log(selectedVals);
-    }
+    // onSelectedVals(selectedVals) {
+    // this.filterObj.type = selectedVals;
+    // console.log(selectedVals);
+    // }
   },
   watch: {
     // filterObj: {
@@ -37,5 +36,9 @@ export default {
 };
 </script>
 
-<style>
+<style scoped lang="scss">
+.filter-container {
+  height: 100vh;
+  background-color: aquamarine;
+}
 </style>

@@ -8,7 +8,7 @@
           <div class="info-container">
             <h2>Country: {{group.country}} ,City: {{group.city}}</h2>
             <h3>Hosting: {{group.createdBy}}</h3>
-            <h3>At: {{group.time}}</h3>
+            <h3>When?: {{group.time}}</h3>
 
             <div class="has-container">
               <span v-for="hash in group.hashtags" :key="hash">#{{hash}}</span>
@@ -24,7 +24,7 @@
 export default {
   props: {
     group: {
-      type: Array,
+      type: Object,
       required: true,
       default: function() {
         return "EMPTY";
@@ -59,8 +59,9 @@ section {
   .preview-container {
     display: inline-block;
     position: relative;
-    width: 249px;
-    height: 353px;
+    margin: 20px;
+    width: 225px;
+    height: 290px;
     background-image: url("../../assets/preview-demo.jpg");
     background-color: lightseagreen;
     background-position: center;

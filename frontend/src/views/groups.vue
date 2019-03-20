@@ -1,6 +1,5 @@
 <template>
   <section>
-    <h1>Explore Groups</h1>
     <GroupList :groups="groups"></GroupList>
   </section>
 </template>
@@ -24,5 +23,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped lang="scss">
+section {
+}
 </style>

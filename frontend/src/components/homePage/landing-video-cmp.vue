@@ -12,7 +12,6 @@ export default {};
 
 <style scoped lang="scss" >
 section {
-  background-color: red;
   h1 {
     font-family: "Cormorant Garamond";
 

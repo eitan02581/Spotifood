@@ -2,7 +2,11 @@
   <section>
     <div class="list-container">
       {{groups}}
-      <GroupPreview></GroupPreview>
+      <div class="group-preview-wrapper" v-for="group in groups" :key="group._id">
+        <router-link :to="'/groups/' + group._id">
+          <GroupPreview :group="group"></GroupPreview>
+        </router-link>
+      </div>
     </div>
   </section>
 </template>

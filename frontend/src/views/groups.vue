@@ -13,9 +13,12 @@ export default {
   components: {
     GroupList
   },
+  created() {
+    this.$store.dispatch({ type: "getGroups" });
+  },
   computed: {
     groups() {
-      return this.$store.getters.groups
+      return this.$store.getters.groups;
     }
   }
 };

@@ -2,14 +2,16 @@
   <section>
     <!-- :style="{ backgroundImage: 'url(' + groupDemoObj.image + ')' }" -->
     <div class="preview-container">
-      <h1>{{groupDemoObj.title}}</h1>
+      <h1>{{group.title}}</h1>
       <div class="main">
         <div class="bottom">
           <div class="info-container">
-            <h2>{{groupDemoObj.country}} , {{groupDemoObj.city}}</h2>
-            <h3>Hosting: {{groupDemoObj.createdBy}}</h3>
+            <h2>Country: {{group.country}} ,City: {{group.city}}</h2>
+            <h3>Hosting: {{group.createdBy}}</h3>
+            <h3>At: {{group.time}}</h3>
+
             <div class="has-container">
-              <span v-for="hash in groupDemoObj.hastag" :key="hash">#{{hash}}</span>
+              <span v-for="hash in group.hashtags" :key="hash">#{{hash}}</span>
             </div>
           </div>
         </div>
@@ -20,6 +22,15 @@
 
 <script>
 export default {
+  props: {
+    group: {
+      type: Array,
+      required: true,
+      default: function() {
+        return "EMPTY";
+      }
+    }
+  },
   data() {
     return {
       groupDemoObj: {
@@ -62,6 +73,7 @@ section {
       padding-top: 12px;
       text-align: center;
       color: white;
+      font-size: 30px;
     }
 
     .main {

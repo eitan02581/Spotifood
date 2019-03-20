@@ -1,6 +1,7 @@
 <template>
     <section class="aside-list">
-        <aside-participants v-for="card in cards" :card="card" :key="card"/>
+        <!-- {{cards}} -->
+        <aside-participants v-for="card in cards" :card="card" :key="card._id"/>
     </section>
 </template>
 
@@ -8,6 +9,9 @@
 import asideParticipants from './participants-list-cmp'
 export default {
     props:['cards'],
+    // {
+    //     cards:array
+    // },
     components:{
         asideParticipants
     },

@@ -1,8 +1,8 @@
 <template>
   <section class="group-aside">
-    <aside-list :cards="usersCard"/>
+    <aside-list :cards="userCards"/>
     <hr>
-    <aside-list :cards="groupsCard"/>
+    <aside-list :cards="groupCards"/>
   </section>
 </template>
 
@@ -10,10 +10,11 @@
 import asideList from "./aside-list-cmp";
 
 export default {
-  props: {
-    userCards: array,
-    groupsCards: array
-  },
+  props: ['userCards','groupCards'],
+  // {
+  //   userCards: array,
+  //   groupsCards: array
+  // },
   components: {
     asideList
   },
@@ -30,9 +31,8 @@ export default {
   display: flex;
   flex-direction: column;
   position: fixed;
-  left: 3vw;
-  top: 20vh;
-  height: 75vh;
+  left: 1vw;
+  height: calc(100vh - 230px);
   width: 20vw;
   background-color: aquamarine;
 }

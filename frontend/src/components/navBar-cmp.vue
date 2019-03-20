@@ -43,9 +43,9 @@ export default {};
     justify-content: space-between;
     align-items: center;
     opacity: 1;
-    .logo-wrapper {
-      // width: 10%;
-    }
+    // .logo-wrapper {
+    //   // width: 10%;
+    // }
     .links-container {
       height: 100%;
       display: flex;

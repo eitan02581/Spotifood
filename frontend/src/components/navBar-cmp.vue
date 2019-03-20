@@ -6,9 +6,6 @@
           <h1>LOGO</h1>
         </router-link>
       </div>
-      <!-- <div class="search-container">
-        <input type="text">
-      </div>-->
       <div class="links-container">
         <router-link to="/about">
           <button>About</button>

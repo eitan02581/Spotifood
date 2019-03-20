@@ -14,7 +14,9 @@ export default {
     GroupList
   },
   computed: {
-    groups() {}
+    groups() {
+      return this.$store.getters.groups
+    }
   }
 };
 </script>

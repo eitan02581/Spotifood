@@ -19,5 +19,7 @@ export default {
 section {
   width: 100%;
   background-color: blue;
+  min-height: 100vh;
+
 }
 </style>

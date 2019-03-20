@@ -1,17 +1,30 @@
 <template>
-  <section class="navBar-warpper">
+  <section class="nav-warpper">
     <div class="nav-container">
       <div class="logo-wrapper">
-        <h1>LOGO</h1>
+        <router-link to="/">
+          <h1>LOGO</h1>
+        </router-link>
       </div>
       <!-- <div class="search-container">
         <input type="text">
       </div>-->
       <div class="links-container">
-        <router-link to="/about">About</router-link>
-        <router-link to="/recipes">Recipes</router-link>
-        <router-link to="/log-in">Log In</router-link>
-        <router-link to="/sign-up">Sign Up</router-link>
+        <router-link to="/about">
+          <button>About</button>
+        </router-link>
+        <router-link to="/recipes">
+          <button>Recipes</button>
+        </router-link>
+        <router-link to="/group">
+          <button>Group</button>
+        </router-link>
+        <router-link to="/log-in">
+          <button>Log In</button>
+        </router-link>
+        <router-link to="/sign-up">
+          <button>Sign Up</button>
+        </router-link>
       </div>
     </div>
   </section>
@@ -22,14 +35,46 @@ export default {};
 </script>
 
 <style scpoed lang="scss">
-.navBar-warpper {
+.nav-warpper {
   width: 100%;
   height: 130px;
-  background-color: burlywood;
-}
-.nav-container {
   display: flex;
-  justify-content: space-between;
+  background-color: #ffffff5c;
   align-items: center;
+  justify-content: space-between;
+  position: fixed;
+  // opacity: 0.5;
+  z-index: 1111;
+  .nav-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    opacity: 1;
+    .logo-wrapper {
+      // width: 10%;
+    }
+    .links-container {
+      height: 100%;
+      display: flex;
+      max-width: 600px;
+      width: 90%;
+      a {
+        flex-grow: 1;
+        margin: 2px;
+
+        button {
+          flex-grow: 1;
+          width: 100%;
+          height: 100%;
+          border: none;
+          font-size: 25px;
+          background-color: unset;
+          cursor: pointer;
+        }
+      }
+    }
+  }
 }
 </style>

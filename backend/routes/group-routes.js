@@ -1,7 +1,7 @@
 const GroupService = require('../services/group-service')
 
 
-function addGroupRoutes(app){
+function addGroupRoutes(app) {
 
     app.get('/group', (req, res) => {
         GroupService.query()

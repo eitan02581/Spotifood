@@ -1,20 +1,21 @@
 import axios from 'axios'
-
-const Group_ROUTE = (process.env.NODE_ENV !== 'development') ? '/group' : 'http://localhost:3003/toy'
+// TODO: UPDATE TO THE ACTUAL PROJ NAME
+const GROUP_ROUTE = (process.env.NODE_ENV !== 'development') ? '/group' : 'http://localhost:3003/group'
 
 function query(filterBy) {
+    return axios.get(`${GROUP_ROUTE}`).then(groups => groups.data)
 }
 
-function add(toy) {
+function add(group) {
 }
 
-function update(toy) {
+function update(group) {
 }
 
-function remove(toyId) {
+function remove(groupId) {
 }
 
-function getById(toyId) {
+function getById(groupId) {
 }
 
 export default {

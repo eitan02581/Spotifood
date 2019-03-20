@@ -13,8 +13,13 @@ export default {
   components: {
     GroupList
   },
+  created() {
+    this.$store.dispatch({ type: "getGroups" });
+  },
   computed: {
-    groups() {}
+    groups() {
+      return this.$store.getters.groups;
+    }
   }
 };
 </script>

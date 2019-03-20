@@ -4,26 +4,26 @@
       <Landing-video></Landing-video>
     </div>
 
-    <div class="recipes-container">
-      <RecipePreview></RecipePreview>
-      <RecipePreview></RecipePreview>
-      <RecipePreview></RecipePreview>
-      <RecipePreview></RecipePreview>
-      <RecipePreview></RecipePreview>
-      <RecipePreview></RecipePreview>
-      <RecipePreview></RecipePreview>
-      <RecipePreview></RecipePreview>
+    <div class="group-container">
+      <GroupPreview></GroupPreview>
+      <GroupPreview></GroupPreview>
+      <GroupPreview></GroupPreview>
+      <GroupPreview></GroupPreview>
+      <GroupPreview></GroupPreview>
+      <GroupPreview></GroupPreview>
+      <GroupPreview></GroupPreview>
+      <GroupPreview></GroupPreview>
     </div>
   </section>
 </template>
 
 <script>
-import LandingVideo from "../components/homePage/landing-video-cmp.vue";
-import RecipePreview from "../components/recipes/recipe-preview-cmp.vue";
+import LandingVideo from "../components/homePage/landing-video-cmp";
+import GroupPreview from "../components/groups/group-preview-cmp";
 export default {
   components: {
     LandingVideo,
-    RecipePreview
+    GroupPreview
   }
 };
 </script>
@@ -32,7 +32,7 @@ export default {
 section {
   // width: 100%;
   // min-height: 100vh;
-  .recipes-container {
+  .group-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;

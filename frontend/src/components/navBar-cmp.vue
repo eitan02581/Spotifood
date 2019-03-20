@@ -7,20 +7,14 @@
         </router-link>
       </div>
       <div class="links-container">
+        <router-link to="/groups">
+          <button>Explore</button>
+        </router-link>
         <router-link to="/about">
           <button>About</button>
         </router-link>
-        <router-link to="/recipes">
-          <button>Recipes</button>
-        </router-link>
-        <router-link to="/group">
-          <button>Group</button>
-        </router-link>
-        <router-link to="/log-in">
+        <router-link to="/login">
           <button>Log In</button>
-        </router-link>
-        <router-link to="/sign-up">
-          <button>Sign Up</button>
         </router-link>
       </div>
     </div>
@@ -39,7 +33,7 @@ export default {};
   background-color: #ffffff5c;
   align-items: center;
   justify-content: space-between;
-  position: fixed;
+  // position: fixed;
   // opacity: 0.5;
   z-index: 1111;
   .nav-container {

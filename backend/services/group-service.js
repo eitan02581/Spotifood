@@ -1,16 +1,23 @@
+const mongoService = require('./mongo-service')
+const ObjectId = require('mongodb').ObjectId;
+const GROUP_COLLECTION = 'groups'
+
 var UtilService = require('./util-service.js');
 var groups = require('../data/groups.json')
-_createGroups()
+// addMany()
 
-
-function query(){
-    return groups
+function addMany() {
+    return mongoService.connect()
+        .then(db => db.collection(GROUP_COLLECTION).insert(groups))
+        .then(res => {
+            group._id = res.insertedId
+            return group
+        })
 }
 
-function _createGroups(){
-    groups.forEach(group => {
-        group._id = UtilService.makeId(10)
-    });
+function query(){
+    return mongoService.connect()
+        .then(db => db.collection(GROUP_COLLECTION).find({}).toArray())
 }
 
 module.exports = {

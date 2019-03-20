@@ -3,7 +3,9 @@
     <div class="video-container">
       <Landing-video></Landing-video>
     </div>
-
+    <div class="how-it-works">
+      <HowItWorks></HowItWorks>
+    </div>
     <div class="group-container">
       <GroupPreview></GroupPreview>
       <GroupPreview></GroupPreview>
@@ -18,12 +20,15 @@
 </template>
 
 <script>
-import LandingVideo from "../components/homePage/landing-video-cmp";
-import GroupPreview from "../components/groups/group-preview-cmp";
+import LandingVideo from "../components/homePage/landing-video-cmp.vue";
+import GroupPreview from "../components/groups/group-preview-cmp.vue";
+import HowItWorks from "../components/homePage/howItWorks-cmp.vue";
+
 export default {
   components: {
     LandingVideo,
-    GroupPreview
+    GroupPreview,
+    HowItWorks
   }
 };
 </script>

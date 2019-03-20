@@ -2,15 +2,15 @@
   <section>
     <!-- :style="{ backgroundImage: 'url(' + groupDemoObj.image + ')' }" -->
     <router-link tag="div" :to="'/groups/' + groupDemoObj._id" class="preview-container">
+      <h1>{{groupDemoObj.title}}</h1>
       <div class="main">
         <div class="bottom">
-          <div class="title-container">
-            <h1>{{groupDemoObj.title}}</h1>
-          </div>
           <div class="info-container">
-            <h3>By: {{groupDemoObj.createdBy}}</h3>
-            <h3>{{groupDemoObj.country}} , {{groupDemoObj.city}}</h3>
-            <h3 v-for="hash in groupDemoObj.hastag" :key="hash">#{{hash}}</h3>
+            <h2>{{groupDemoObj.country}} , {{groupDemoObj.city}}</h2>
+            <h3>Hosting: {{groupDemoObj.createdBy}}</h3>
+            <div class="has-container">
+              <span v-for="hash in groupDemoObj.hastag" :key="hash">#{{hash}}</span>
+            </div>
           </div>
         </div>
       </div>
@@ -29,7 +29,7 @@ export default {
         createdBy: "Eitan Elnekave",
         country: "Israel",
         city: "Ramat Gan",
-        hastag: ["carnibors , Israeli food"]
+        hastag: ["carnibors ", "Israeli food"]
       },
       imgBgClass: {
         backgroundImage: ' url("../../assets/preview-demo.jpg")',
@@ -59,6 +59,12 @@ section {
     border-radius: 10px;
     cursor: pointer;
     transition: 0.3s;
+    h1 {
+      padding-top: 12px;
+      text-align: center;
+      color: white;
+    }
+
     .main {
       position: absolute;
       bottom: 0;
@@ -73,20 +79,29 @@ section {
       border-radius: 0 0 10px 10px;
       .bottom {
         width: 100%;
-        height: 150px;
+        height: 100px;
         position: absolute;
         bottom: 0;
         display: flex;
         flex-direction: column;
         justify-content: space-around;
-        h1 {
-          color: white;
-          font-size: 22px;
-          padding-left: 5px;
+        .info-container {
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-around;
         }
+
+        h2,
         h3 {
           color: white;
           padding-left: 7px;
+        }
+        .has-container {
+          span {
+            padding-left: 7px;
+            color: white;
+          }
         }
       }
     }

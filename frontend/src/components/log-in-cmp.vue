@@ -31,10 +31,6 @@ export default {
     };
   },
   methods: {
-    login() {
-      if (!this.username || !this.password) {
-      }
-    }
   }
 };
 </script>

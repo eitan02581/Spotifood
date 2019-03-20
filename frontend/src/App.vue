@@ -18,7 +18,7 @@ export default {
 </script>
 
 <style lang="scss">
-#app{
+#app {
   height: 100%;
 }
 </style>

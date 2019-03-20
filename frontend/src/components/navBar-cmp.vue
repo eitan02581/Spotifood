@@ -4,12 +4,11 @@
       <div class="logo-wrapper">
         <h1>LOGO</h1>
       </div>
-      <!-- <div class="search-container">
-        <input type="text">
-      </div>-->
       <div class="links-container">
         <router-link to="/about">About</router-link>
-        <router-link to="/recipes">Recipes</router-link>
+        <router-link to="/recipe">Recipes</router-link>
+        <router-link to="/group">Groups</router-link>
+        <router-link to="/about">About</router-link>
         <router-link to="/log-in">Log In</router-link>
         <router-link to="/sign-up">Sign Up</router-link>
       </div>
@@ -31,5 +30,8 @@ export default {};
   display: flex;
   justify-content: space-between;
   align-items: center;
+  a{
+    margin: 0 10px;
+  }
 }
 </style>

@@ -3,7 +3,15 @@
     <div class="video-container">
       <Landing-video></Landing-video>
     </div>
+
     <div class="recipes-container">
+      <RecipePreview></RecipePreview>
+      <RecipePreview></RecipePreview>
+      <RecipePreview></RecipePreview>
+      <RecipePreview></RecipePreview>
+      <RecipePreview></RecipePreview>
+      <RecipePreview></RecipePreview>
+      <RecipePreview></RecipePreview>
       <RecipePreview></RecipePreview>
     </div>
   </section>
@@ -22,7 +30,13 @@ export default {
 
 <style scoped lang="scss">
 section {
-  width: 100%;
-  min-height: 100vh;
+  // width: 100%;
+  // min-height: 100vh;
+  .recipes-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    // max-width: 1200px;
+  }
 }
 </style>

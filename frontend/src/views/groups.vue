@@ -1,6 +1,6 @@
 <template>
     <section>
-        <h1>RECIPES</h1>
+        <h1>Groups</h1>
     </section>
 </template>
 

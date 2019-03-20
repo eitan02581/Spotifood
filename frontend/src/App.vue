@@ -1,14 +1,18 @@
 <template>
   <div id="app">
-    <navBar></navBar>
-    <router-view></router-view>
+    <Header></Header>
+    <router-view/>
+    <Footer></Footer>
   </div>
 </template>
+
 <script>
-import navBar from "./components/navBar-cmp";
+import Header from "@/components/header-cmp";
+import Footer from "@/components/footer-cmp";
 export default {
   components: {
-    navBar
+    Header,
+    Footer
   }
 };
 </script>

@@ -7,11 +7,11 @@
         </router-link>
       </div>
       <div class="links-container">
-        <router-link to="/about">
-          <button>About</button>
-        </router-link>
         <router-link to="/groups">
           <button>Explore</button>
+        </router-link>
+        <router-link to="/about">
+          <button>About</button>
         </router-link>
         <router-link to="/login">
           <button>Log In</button>

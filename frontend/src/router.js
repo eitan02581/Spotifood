@@ -12,7 +12,7 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
     { path: '/', component: HomePage },
-    { path: '/group', component: Group },
+    { path: '/groups', component: Group },
     { path: '/about', component: About },
     { path: '/login', component: Login },
     { path: '/signup', component: Signup },

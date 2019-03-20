@@ -1,16 +1,21 @@
 <template>
   <section>
     <div class="video-container">
-      <landing-video></landing-video>
+      <Landing-video></Landing-video>
+    </div>
+    <div class="groups-container">
+      <GroupPreview></GroupPreview>
     </div>
   </section>
 </template>
 
 <script>
-import landingVideo from "../components/homePage/landing-video-cmp.vue";
+import LandingVideo from "../components/homePage/landing-video-cmp";
+import GroupPreview from "../components/groups/group-preview-cmp";
 export default {
   components: {
-    landingVideo
+    LandingVideo,
+    GroupPreview
   }
 };
 </script>
@@ -18,7 +23,6 @@ export default {
 <style scoped lang="scss">
 section {
   width: 100%;
-  background-color: blue;
   min-height: 100vh;
 }
 </style>

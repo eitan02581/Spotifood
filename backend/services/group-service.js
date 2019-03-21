@@ -24,7 +24,6 @@ function query(filterBy) {
         if (filterBy.general) {
             if (filterBy.general.split(',').length > 1) filterBy.general = filterBy.general.split(',')
             queryToMongo.title = new RegExp(filterBy.general, 'i');
-            // queryToMongo.title = filterBy.general
         }
 
         console.log('fff', queryToMongo);

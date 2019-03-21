@@ -3,7 +3,7 @@
     <div class="nav-container">
       <div class="logo-wrapper">
         <router-link to="/">
-          <h1>FeasTeam</h1>
+          <h1>WEat</h1>
         </router-link>
       </div>
       <div class="links-container">

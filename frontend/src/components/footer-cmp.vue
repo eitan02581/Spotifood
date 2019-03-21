@@ -4,7 +4,7 @@
       <router-link to>
         <h1>Join
           <router-link to="/login">
-            <span>FeasTeam</span>
+            <span>WEat</span>
           </router-link>
         </h1>
       </router-link>

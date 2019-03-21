@@ -1,7 +1,7 @@
 <template>
   <section class="group-details">
     <loading-cmp v-if="!group"/>
-    <template else>
+    <template v-if="group">
       <details-aside :users="group.users"/>
       <group-info :group="group"/>
       <recipes-list :recipes="group.recipes"/>
@@ -26,12 +26,14 @@ export default {
     loadingCmp
   },
   created() {
-    this.$store
+    setTimeout(()=>{
+      this.$store
       .dispatch("getGroupById", { _id: this.$route.params.groupId })
+    },1000)
+    
   },
   computed: {
     group() {
-      console.log('group ',this.$store.getters.group)
       return this.$store.getters.group
     }
   }
@@ -43,7 +45,5 @@ export default {
   min-height: calc(100vh - 230px);
   max-height: 100%;
   width: 80vw;
-  /* overflow: scroll; */
-  /* top: 130px; */
 }
 </style>

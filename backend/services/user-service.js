@@ -15,10 +15,18 @@ function _addMany() {
 }
 
 
+function getById(userId) {
+    const _id = new ObjectId(userId)
+    return mongoService.connect()
+        .then(db => db.collection(USER_COLLECTION).findOne({ _id }))
+}
+
 function query(){
     return users
 }
 
+
 module.exports = {
     query,
+    getById
 }

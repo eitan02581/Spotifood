@@ -6,6 +6,7 @@ import './assets/style.css'
 import Element from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css';
 import store from './store/store'
+import './filters.js'
 Vue.config.productionTip = false
 
 Vue.use(Element)

@@ -13,10 +13,10 @@
 </template>
 
 <script>
-import LandingVideo from "../components/homePage/landing-video-cmp.vue";
-import GroupPreview from "../components/groups/group-preview-cmp.vue";
-import HowItWorks from "../components/homePage/howItWorks-cmp.vue";
-import GroupList from "../components/groups/group-list-cmp.vue";
+import LandingVideo from "../components/homePage/landing-video-cmp";
+import GroupPreview from "../components/groups/group-preview-cmp";
+import HowItWorks from "../components/homePage/howItWorks-cmp";
+import GroupList from "../components/groups/group-list-cmp";
 
 export default {
   components: {

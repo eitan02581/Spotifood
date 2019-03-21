@@ -6,6 +6,7 @@ const session = require('express-session')
 const app = express()
 const addUserRoutes = require('./routes/user-routes')
 const addGroupRoutes = require('./routes/group-routes')
+const addRecipeRoutes = require('./routes/recipe-routes')
 
 app.use(express.static('public'))
 app.use(cors({
@@ -27,6 +28,7 @@ app.get('/', (req, res) => {
 
 addUserRoutes(app)
 addGroupRoutes(app)
+addRecipeRoutes(app)
 
 
 const PORT = process.env.PORT || 3003;

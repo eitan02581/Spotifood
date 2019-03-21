@@ -7,17 +7,25 @@ Vue.use(Vuex)
 const groupStore = {
     state: {
         groups: [],
-        group: null,
+
+        group: null
 
     }, getters: {
         groups(state) {
             return state.groups
+        },
+        group(state) {
+            return state.group
         }
     },
     mutations: {
         setGroups(state, { groups }) {
+
             state.groups = groups
-        }
+        },
+        setGroup(state, { group }) {
+            state.group = group
+        },
     },
     actions: {
         getGroups({ commit }) {
@@ -26,11 +34,17 @@ const groupStore = {
         filterGroups({ commit }, { filterBy }) {
             groupService.query(filterBy).then((groups) => commit({ type: 'setGroups', groups }))
         },
-        getGroup({ commit }, { groupId }) {
-            return groupService.getById(groupId).then((group) => {
-                commit({ type: 'setGroup', group })
-            })
-        },    }
+        // getGroup({ commit }, { groupId }) {
+        //     return groupService.getById(groupId).then((group) => {
+        //         commit({ type: 'setGroup', group })
+        //     })
+        // },    }
+
+        getGroupById({ commit }, payload) {
+            groupService.getById(payload._id)
+                .then(group => commit({ type: 'setGroup', group }))
+        }
+    }
 }
 
 export default groupStore

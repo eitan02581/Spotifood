@@ -2,11 +2,10 @@
   <section>
     <div class="list-container">
       <div class="group-preview-wrapper" v-for="group in groups" :key="group._id">
-        <el-button type="success" @click="$emit('delete' , group._id)">Delete</el-button>
-        <router-link :to="'/group/edit/' + group._id">
+        <!-- <el-button type="success" @click="$emit('delete' , group._id)">Delete</el-button> -->
+        <!-- <router-link :to="'/group/edit/' + group._id">
           <el-button type="danger">Edit</el-button>
-        </router-link>
-
+        </router-link>-->
         <router-link :to="'/groups/' + group._id">
           <GroupPreview :group="group"></GroupPreview>
         </router-link>

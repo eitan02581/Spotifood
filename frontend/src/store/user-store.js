@@ -12,7 +12,10 @@ const userStore = {
 
     },
     actions: {
-
+        getUserById(context,payload) {
+            groupService.query()
+                .then(groups => commit({ type: 'setGroups', groups }))
+        },
     }
 }
 

@@ -1,7 +1,7 @@
 <template>
   <section>
     <!-- :style="{ backgroundImage: 'url(' + groupDemoObj.image + ')' }" -->
-    <div class="preview-container">
+    <router-link tag="div" :to="'/groups/' + group._id" class="preview-container">
       <h1>{{group.title}}</h1>
       <div class="main">
         <div class="bottom">
@@ -16,7 +16,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </router-link>
   </section>
 </template>
 
@@ -34,6 +34,7 @@ export default {
   data() {
     return {
       groupDemoObj: {
+        _id: "dasd",
         image: 'url("assets/preview-demo.jpg")',
         title: "Israeli authentic Experience",
         createdBy: "Eitan Elnekave",

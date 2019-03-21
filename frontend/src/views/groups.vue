@@ -1,5 +1,6 @@
 <template>
   <section>
+    
     <div class="filter-container">
       <FilterGroup @filter="filter"></FilterGroup>
     </div>

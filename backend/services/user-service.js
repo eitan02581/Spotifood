@@ -25,6 +25,7 @@ function query(){
     return users
 }
 
+
 module.exports = {
     query,
     getById

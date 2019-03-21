@@ -34,7 +34,7 @@ export default {};
   background-color: #ffffff5c;
   align-items: center;
   justify-content: space-between;
-  position: fixed;
+  // position: fixed;
   // opacity: 0.5;
   z-index: 1111;
   .nav-container {
@@ -44,9 +44,9 @@ export default {};
     justify-content: space-between;
     align-items: center;
     opacity: 1;
-    .logo-wrapper {
-      // width: 10%;
-    }
+    // .logo-wrapper {
+    //   // width: 10%;
+    // }
     .links-container {
       height: 100%;
       display: flex;

@@ -3,7 +3,7 @@ const GroupService = require('../services/group-service')
 
 function addGroupRoutes(app) {
 
-    app.get('/group/:filterBy?', (req, res) => {
+    app.get('/group', (req, res) => {
         const filterBy = req.query
 
         GroupService.query(filterBy)

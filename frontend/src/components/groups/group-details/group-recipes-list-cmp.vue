@@ -3,7 +3,7 @@
     <h1>Recipes</h1>
     <el-collapse v-model="activeName" accordion v-for="(recipe,idx) in recipes" :key="recipe._id">
       <el-collapse-item :title="recipe.title" :name="idx">
-        <div class="flex space-between">
+        <div class="collapse-context">
           <div>
             <el-carousel height="200px">
               <el-carousel-item v-for="(img,idx) in recipe.imgs" :key="`${img}${idx}`">
@@ -78,7 +78,9 @@ h1{
 .el-carousel__item:nth-child(2n + 1) {
   background-color: #d3dce6;
 }
-.el-collapse-item {
-  padding: 0 5px;
+.collapse-context{
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
 }
 </style>

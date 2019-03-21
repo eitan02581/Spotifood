@@ -1,8 +1,8 @@
 <template>
   <section class="aside-header">
-    <h1> Group Admin:</h1>
+    <h1>Group Admin:</h1>
     <participant-preview :user="admin"/>
-    <button>+</button>
+    <el-button type="success" plain>Add User</el-button>
   </section>
 </template>
 
@@ -21,7 +21,7 @@ export default {
 };
 </script>
 
-<style >
+<style scoped>
 .aside-header {
   height: 30%;
   display: flex;

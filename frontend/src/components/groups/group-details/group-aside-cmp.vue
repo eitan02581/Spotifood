@@ -12,17 +12,12 @@ import asideHeader from './aside-header-cmp'
 
 
 export default {
-  // props: ['users'],
   props:{
       users: {
         type: Array,
         required: true
       }
     },
-  // {
-  //   userCards: array,
-  //   groupsCards: array
-  // },
   components: {
     participantsList,
     asideHeader
@@ -31,12 +26,8 @@ export default {
     return {
     };
   },
-  created() {
-    console.log(this.users)
-  },
   computed:{
     participants(){
-      console.log(this.users.slice(1))
       return this.users.slice(1)
     }
   }

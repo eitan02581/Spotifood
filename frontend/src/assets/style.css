@@ -41,3 +41,10 @@ p {
 li{
     list-style: none;
 }
+/* HELLPERS */
+.flex{
+    display: flex;
+}
+.space-between{
+    justify-content: space-between;
+}

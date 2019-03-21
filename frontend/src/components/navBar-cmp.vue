@@ -10,6 +10,9 @@
         <router-link to="/groups">
           <button>Explore</button>
         </router-link>
+        <router-link to="/groups/add">
+          <button>Create Group</button>
+        </router-link>
         <router-link to="/about">
           <button>About</button>
         </router-link>

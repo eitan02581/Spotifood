@@ -11,7 +11,7 @@ section {
   width: 100%;
   background-color: rgb(66, 66, 66);
   height: 100px;
-  // position: absolute;
+  position: relative;
   bottom: 0;
 }
 </style>

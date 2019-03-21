@@ -130,7 +130,7 @@ const groupStore = {
 
     }, getters: {
         groups(state) {
-            return state.group
+            return state.groups
         },
         group(state){
             return state.group

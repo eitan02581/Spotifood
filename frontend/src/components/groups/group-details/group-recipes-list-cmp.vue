@@ -4,9 +4,10 @@
       <el-collapse-item :title="recipe.title" :name="idx">
         <ul>
           <li
-            v-for="(ingredien,idx) in recipe.ingrediens"
+            v-for="(ingredient, idx) in Object.keys(recipe.ingredients)"
             :key="idx">
-          {{Object.entries(ingredien)[0][1] + ' ' + Object.entries(ingredien)[0][0]}}
+            {{ingredient}} - {{recipe.ingredients[ingredient]}}
+          <!-- {{Object.entries(ingredient)[0][1] + ' ' + Object.entries(ingredient)[0][0]}} -->
           </li>
         </ul>
         <ol>

@@ -2,7 +2,7 @@
 import axios from 'axios'
 
 var users = null
-const USER_ROUTE = (process.env.NODE_ENV !== 'development') ? '/user' : 'http://localhost:3000/user'
+const USER_ROUTE = (process.env.NODE_ENV !== 'development') ? '/user' : 'http://localhost:3001/user'
 
 function getUsers() {
 

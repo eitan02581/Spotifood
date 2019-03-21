@@ -7,7 +7,6 @@ Vue.use(Vuex)
 const groupStore = {
     state: {
         groups: [],
-
         group: null
 
     }, getters: {
@@ -40,9 +39,12 @@ const groupStore = {
         //     })
         // },    }
 
-        getGroupById({ commit }, payload) {
-            groupService.getById(payload._id)
-                .then(group => commit({ type: 'setGroup', group }))
+        getGroupById({ commit, state }, payload) {
+            state.group = null
+            setTimeout(()=>{
+                groupService.getById(payload._id)
+                    .then(group => commit({ type: 'setGroup', group }))
+            },1500)
         }
     }
 }

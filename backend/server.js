@@ -10,7 +10,7 @@ const addRecipeRoutes = require('./routes/recipe-routes')
 
 app.use(express.static('public'))
 app.use(cors({
-  origin: ['http://localhost:8081'],
+  origin: ['http://localhost:8082'],
   credentials: true // enable set cookie
 }));
 app.use(bodyParser.json())
@@ -31,5 +31,5 @@ addGroupRoutes(app)
 addRecipeRoutes(app)
 
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`Example app listening on port ${PORT}`))

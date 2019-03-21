@@ -2,7 +2,7 @@ import axios from 'axios'
 import userService from './UserService'
 import recipesService from './RecipeService'
 // TODO: UPDATE TO THE ACTUAL PROJ NAME
-const GROUP_ROUTE = (process.env.NODE_ENV !== 'development') ? '/group' : 'http://localhost:3000/group'
+const GROUP_ROUTE = (process.env.NODE_ENV !== 'development') ? '/group' : 'http://localhost:3001/group'
 
 function query(filterBy) {
     if (filterBy) {

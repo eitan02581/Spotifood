@@ -1,7 +1,7 @@
 <template>
   <section class="participant-preview">
     <img :src="user.img">
-    <h2>{{user.username}}</h2>
+    <h4>{{user.username}}</h4>
   </section>
 </template>
 
@@ -29,8 +29,11 @@ img {
 }
 .participant-preview {
   display: flex;
-  flex-direction: row;
-  padding: 10px;
+  flex-direction: column;
   align-items: center;
+  margin-right: 15px;
+}
+h4{
+  margin-left: -7px;
 }
 </style>

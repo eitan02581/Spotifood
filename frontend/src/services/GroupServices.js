@@ -20,14 +20,23 @@ function remove(groupId) {
 function getById(groupId) {
     return axios.get(`${GROUP_ROUTE}/${groupId}`)
         .then(groupPrm => {
-            groupPrm.data.users.map(userId => {
+            var groupUsers = []
+            groupPrm.data.users.forEach(userId => {
                 return userService.getUserById(userId)
-                    .then(user => userId = user)
+                    .then(user => {
+                        groupUsers.push(user)
+                    })
             })
-            groupPrm.data.recipes.map(recipeId => {
+            var groupRecipes = []
+            groupPrm.data.recipes.forEach(recipeId => {
                 return recipesService.getRecipeById(recipeId)
-                    .then(recipe => recipeId = recipe)
+                    .then(recipe => {
+                        console.log('recipe',recipe)
+                        groupRecipes.push(recipe)
+                    })
             })
+            groupPrm.data.users = groupUsers
+            groupPrm.data.recipes = groupRecipes
             return groupPrm.data
         })
 }

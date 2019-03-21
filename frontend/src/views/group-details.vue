@@ -1,7 +1,7 @@
 <template>
   <section class="group-details">
     <loading-cmp v-if="!group"/>
-    <template v-else>
+    <template else>
       <details-aside :users="group.users"/>
       <group-info :group="group"/>
       <recipes-list :recipes="group.recipes"/>
@@ -17,7 +17,6 @@ import loadingCmp from "../components/loading-cmp";
 export default {
   data() {
     return {
-      group: null
     };
   },
   components: {
@@ -27,10 +26,14 @@ export default {
     loadingCmp
   },
   created() {
-    this.group = this.$store
-      .getters.groups
-      // .dispatch("getGroupById", { _id: this.$route.params.groupId })
-      // .then(group => (this.group = group));
+    this.$store
+      .dispatch("getGroupById", { _id: this.$route.params.groupId })
+  },
+  computed: {
+    group() {
+      console.log('group ',this.$store.getters.group)
+      return this.$store.getters.group
+    }
   }
 };
 </script>

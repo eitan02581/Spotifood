@@ -17,18 +17,30 @@ function _addMany() {
 
 function query(filterBy) {
 
+
+
     if (filterBy) {
         var queryToMongo = {}
 
         // TODO: HOW TO USE $OR , FOR RETURNING MANY OPTIONS
         if (filterBy.general) {
             if (filterBy.general.split(',').length > 1) filterBy.general = filterBy.general.split(',')
+            else filterBy.general = [filterBy.general]
             queryToMongo.title = new RegExp(filterBy.general, 'i');
+            console.log(filterBy.general);
+            if (filterBy.general.length >= 1)
+                var arr = filterBy.general.map(el => { return { title: new RegExp(el, 'i') } })
+
+            queryToMongo = {
+                $or: arr
+            }
         }
 
         console.log('fff', queryToMongo);
         return mongoService.connect()
             .then(db => db.collection(GROUP_COLLECTION).find(queryToMongo).sort().toArray())
+
+
     }
 
     else return mongoService.connect()

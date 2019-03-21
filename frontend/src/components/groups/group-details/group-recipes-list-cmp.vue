@@ -57,6 +57,9 @@ ol {
   width: 250px;
   height: 200px;
 }
+.el-carousel__container{
+  height: 200px !important;
+}
 .el-carousel__item {
   width: 250px;
   height: 200px;

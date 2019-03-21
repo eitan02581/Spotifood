@@ -33,6 +33,12 @@ export default {
     };
   },
   created() {
+    var path = this.$route.path;
+    if (path !== "/") {
+      this.isHomePage = false;
+      this.isNavNerrow = true;
+    }
+
     var vm = this;
     var val = window.addEventListener("scroll", function(e) {
       if (vm.isHomePage) {
@@ -88,6 +94,7 @@ export default {
     -moz-box-shadow: 0px 12px 118px -30px rgba(0, 0, 0, 0.75);
     box-shadow: 0px 12px 118px -30px rgba(0, 0, 0, 0.75);
     .logo-wrapper {
+      padding-left: 10px;
       font-size: 30px;
       h1 {
         color: #f44336;

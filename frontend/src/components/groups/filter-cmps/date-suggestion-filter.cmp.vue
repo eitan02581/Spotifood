@@ -1,6 +1,7 @@
 <template>
   <el-autocomplete
     class="inline-input"
+    
     v-model="state1"
     :fetch-suggestions="querySearch"
     placeholder="When?"

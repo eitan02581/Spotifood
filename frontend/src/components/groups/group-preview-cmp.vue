@@ -1,13 +1,8 @@
 <template>
   <section>
     <!-- :style="{ backgroundImage: 'url(' + groupDemoObj.image + ')' }" -->
-<<<<<<< HEAD
-    <router-link tag="div" :to="'/groups/' + groupDemoObj._id" class="preview-container">
-      <h1>{{groupDemoObj.title}}</h1>
-=======
-    <div class="preview-container">
+    <router-link tag="div" :to="'/groups/' + group._id" class="preview-container">
       <h1>{{group.title}}</h1>
->>>>>>> 6b1bed562db3f9d1df85932ad9d85c47618ef832
       <div class="main">
         <div class="bottom">
           <div class="info-container">

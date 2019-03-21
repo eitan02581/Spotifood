@@ -1,6 +1,7 @@
 import UtilService from './UtilService.js'
 
 var users = null
+const USER_ROUTE = (process.env.NODE_ENV !== 'development') ? '/user' : 'http://localhost:3003/user'
 
 function getUsers() {
 
@@ -9,6 +10,10 @@ function getUsers() {
 function _createUsers() {
 }
 
-export default {
+function getUserById(userId){
+    return axios.get(`${USER_ROUTE}/${userId}`).then(user => user.data)
+}
 
+export default {
+    getUserById
 } 

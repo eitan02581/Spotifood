@@ -6,13 +6,11 @@
             "https://picsum.photos/500/500",
             "https://picsum.photos/500/500"
         ],
-        "ingredients": [
-            {
-                "cli": 3,
-                "state management": 6,
-                "eggs": 2
-            }
-        ],
+        "ingredients": {
+            "cli": 3,
+            "state management": 6,
+            "eggs": 2
+        },
         "instructions": [
             "make a new vue project usin vue cli",
             "drink a shot of jack daniels",
@@ -38,13 +36,11 @@
             "https://picsum.photos/500/500",
             "https://picsum.photos/500/500"
         ],
-        "ingredients": [
-            {
-                "muki": 3,
-                "oil": 6,
-                "flour": 2
-            }
-        ],
+        "ingredients": {
+            "muki": 3,
+            "oil": 6,
+            "flour": 2
+        },
         "instructions": [
             "bring puki to a slow simmer",
             "drink a shot of jack daniels",
@@ -68,20 +64,18 @@
         "imgs": [
             "https://picsum.photos/500/500"
         ],
-        "ingredients": [
-            {
-                "lb sirloin steak, (grilled or pan-seared first, then sliced)": 0.5,
-                "cups greens – we used Romaine lettuce": 4,
-                "cup red cherry tomatoes": 0.25,
-                "yellow cherry tomatoes": 0.25,
-                "hard-boiled eggs, peeled and sliced": 2,
-                "avocado, pitted and sliced": 1,
-                "Tbsp of avocado oil or olive oil": 3,
-                "Tbsp white wine vinegar": 2,
-                "Tbsp paleo mayo": 2,
-                "small to medium garlic clove, pressed": 1
-            }
-        ],
+        "ingredients": {
+            "lb sirloin steak, (grilled or pan-seared first, then sliced)": 0.5,
+            "cups greens – we used Romaine lettuce": 4,
+            "cup red cherry tomatoes": 0.25,
+            "yellow cherry tomatoes": 0.25,
+            "hard-boiled eggs, peeled and sliced": 2,
+            "avocado, pitted and sliced": 1,
+            "Tbsp of avocado oil or olive oil": 3,
+            "Tbsp white wine vinegar": 2,
+            "Tbsp paleo mayo": 2,
+            "small to medium garlic clove, pressed": 1
+        },
         "instructions": [
             "Pat dry and season steak with your favorite prepackaged seasoning, or sprinkle liberally with salt and pepper. Cook on well-oiled grill or in a cast iron pan (along with 1 Tbsp of oil) over medium-high heat about 5 minutes per side for medium rare steak. Remove from heat, place on plate and tent with aluminum foil for 10-15 minutes before slicing crosswise into thin strips.",
             "Arrange salad ingredients on plates as desired, or place in large bowl and toss",

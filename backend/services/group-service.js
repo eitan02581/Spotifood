@@ -15,8 +15,24 @@ function _addMany() {
         })
 }
 
-function query() {
-    return mongoService.connect()
+function query(filterBy) {
+
+    if (filterBy) {
+        var queryToMongo = {}
+
+        // TODO: HOW TO USE $OR , FOR RETURNING MANY OPTIONS
+        if (filterBy.general) {
+            if (filterBy.general.split(',').length > 1) filterBy.general = filterBy.general.split(',')
+            queryToMongo.title = new RegExp(filterBy.general, 'i');
+            // queryToMongo.title = filterBy.general
+        }
+
+        console.log('fff', queryToMongo);
+        return mongoService.connect()
+            .then(db => db.collection(GROUP_COLLECTION).find(queryToMongo).sort().toArray())
+    }
+
+    else return mongoService.connect()
         .then(db => db.collection(GROUP_COLLECTION).find({}).toArray())
 }
 

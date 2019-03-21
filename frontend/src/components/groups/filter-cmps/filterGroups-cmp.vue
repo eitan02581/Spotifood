@@ -3,6 +3,7 @@
     <div class="filter-container">
       <form>
         <selectEl @selectedVals="onSelectedVals"></selectEl>
+        <dateSuggestions></dateSuggestions>
       </form>
     </div>
   </section>
@@ -10,35 +11,38 @@
 
 <script>
 import selectEl from "./selectElmentIo.vue";
+import dateSuggestions from "./date-suggestion-filter.cmp.vue";
 export default {
   components: {
-    selectEl
+    selectEl,
+    dateSuggestions
   },
   data() {
     return {
-      searcInput
+      filterBy: {
+        searcInput: []
+      }
     };
   },
   methods: {
-    // onSelectedVals(selectedVals) {
-    // this.filterObj.type = selectedVals;
-    // console.log(selectedVals);
-    // }
+    onSelectedVals(selectedVals) {
+      this.filterBy.searcInput = [...selectedVals];
+      console.log(this.filterBy.searcInput);
+    }
   },
   watch: {
-    // filterObj: {
-    //   deep: true,
-    //   handler(newVal, oldVal) {
-    //     this.$emit("filter", newVal);
-    //   }
-    // }
+    filterBy: {
+      deep: true,
+      handler(newVal, oldVal) {
+        this.$emit("filter", this.filterBy);
+      }
+    }
   }
 };
 </script>
 
 <style scoped lang="scss">
 .filter-container {
-  height: 100vh;
-  background-color: aquamarine;
+  min-width: 210px;
 }
 </style>

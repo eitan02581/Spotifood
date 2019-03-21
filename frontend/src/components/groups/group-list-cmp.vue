@@ -1,10 +1,12 @@
 <template>
   <section>
-    <div v-if="!isHomePage" class="filter-container">
-      <FilterGroup></FilterGroup>
-    </div>
     <div class="list-container">
       <div class="group-preview-wrapper" v-for="group in groups" :key="group._id">
+        <el-button type="success" @click="$emit('delete' , group._id)">Delete</el-button>
+        <router-link :to="'/group/edit/' + group._id">
+          <el-button type="danger">Edit</el-button>
+        </router-link>
+
         <router-link :to="'/groups/' + group._id">
           <GroupPreview :group="group"></GroupPreview>
         </router-link>
@@ -15,7 +17,6 @@
 
 <script>
 import GroupPreview from "./group-preview-cmp.vue";
-import FilterGroup from "./filter-cmps/filterGroups-cmp.vue";
 export default {
   props: {
     groups: {
@@ -27,25 +28,14 @@ export default {
     }
   },
   components: {
-    GroupPreview,
-    FilterGroup
-  },
-  data() {
-    return {
-      isHomePage: false
-    };
-  },
-  created() {
-    this.$route.fullPath === "/"
-      ? (this.isHomePage = true)
-      : (this.isHomePage = false);
+    GroupPreview
   }
 };
 </script>
 
 <style scoped lang="scss">
 section {
-  margin-top: 100px;
+  // margin-top: 100px;
 
   display: flex;
   justify-content: center;

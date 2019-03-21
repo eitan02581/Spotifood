@@ -3,15 +3,17 @@ const GroupService = require('../services/group-service')
 
 function addGroupRoutes(app) {
 
-    app.get('/group', (req, res) => {
-        GroupService.query()
+    app.get('/group/:filterBy?', (req, res) => {
+        const filterBy = req.query
+
+        GroupService.query(filterBy)
             .then(groups => {
-                console.log('answer from query', groups)
+                // console.log('answer from query', groups)
                 return res.json(groups)
             })
     })
 
-    app.get('/group/:groupId', (req,res) => {
+    app.get('/group/:groupId', (req, res) => {
         let groupId = req.params.groupId
         console.log('group id to get is', groupId)
         GroupService.getById(groupId)
@@ -21,7 +23,7 @@ function addGroupRoutes(app) {
             })
     })
 
-    app.post('/group', (req,res) => {
+    app.post('/group', (req, res) => {
         let group = req.body
         GroupService.add(group)
             .then(updatedGroup => {

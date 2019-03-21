@@ -22,8 +22,15 @@ const groupStore = {
     actions: {
         getGroups({ commit }) {
             groupService.query().then(groups => commit({ type: 'setGroups', groups }))
-        }
-    }
+        },
+        filterGroups({ commit }, { filterBy }) {
+            groupService.query(filterBy).then((groups) => commit({ type: 'setGroups', groups }))
+        },
+        getGroup({ commit }, { groupId }) {
+            return groupService.getById(groupId).then((group) => {
+                commit({ type: 'setGroup', group })
+            })
+        },    }
 }
 
 export default groupStore

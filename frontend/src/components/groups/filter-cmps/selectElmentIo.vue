@@ -6,7 +6,7 @@
       filterable
       allow-create
       default-first-option
-      placeholder="Choose tags for your article"
+      placeholder="Search Groups"
       @change="onSave"
     >
       <el-option v-for="item in options5" :key="item.value" :label="item.label" :value="item.value"></el-option>
@@ -20,12 +20,10 @@ export default {
     return {
       options5: [
         {
-          value: "Israel",
-          label: "Israel"
+          value: "sprint 3"
         },
         {
-          value: "Dan's Coocking",
-          label: "Dan's Coocking"
+          value: "test"
         }
       ],
       value10: []

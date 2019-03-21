@@ -27,13 +27,14 @@ export default {};
 
 <style scpoed lang="scss">
 .nav-warpper {
+  top: 0;
   width: 100%;
   height: 130px;
   display: flex;
   background-color: #ffffff5c;
   align-items: center;
   justify-content: space-between;
-  // position: fixed;
+  position: fixed;
   // opacity: 0.5;
   z-index: 1111;
   .nav-container {

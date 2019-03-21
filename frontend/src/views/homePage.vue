@@ -7,14 +7,7 @@
       <HowItWorks></HowItWorks>
     </div>
     <div class="group-container">
-      <GroupPreview></GroupPreview>
-      <GroupPreview></GroupPreview>
-      <GroupPreview></GroupPreview>
-      <GroupPreview></GroupPreview>
-      <GroupPreview></GroupPreview>
-      <GroupPreview></GroupPreview>
-      <GroupPreview></GroupPreview>
-      <GroupPreview></GroupPreview>
+      <GroupList :groups="groups"></GroupList>
     </div>
   </section>
 </template>
@@ -23,12 +16,22 @@
 import LandingVideo from "../components/homePage/landing-video-cmp.vue";
 import GroupPreview from "../components/groups/group-preview-cmp.vue";
 import HowItWorks from "../components/homePage/howItWorks-cmp.vue";
+import GroupList from "../components/groups/group-list-cmp.vue";
 
 export default {
   components: {
     LandingVideo,
     GroupPreview,
-    HowItWorks
+    HowItWorks,
+    GroupList
+  },
+  created() {
+    this.$store.dispatch({ type: "getGroups" });
+  },
+  computed: {
+    groups() {
+      return this.$store.getters.groups;
+    }
   }
 };
 </script>

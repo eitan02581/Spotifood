@@ -1,5 +1,6 @@
 <template>
   <section class="aside-header">
+    <h1> Group Admin:</h1>
     <participant-preview :user="admin"/>
     <button>+</button>
   </section>

@@ -1,5 +1,6 @@
 <template>
   <section class="participant-list">
+    <h1> participants: </h1>
     <participant-preview v-for="user in users" :user="user" :key="user._id"/>
   </section>
 </template>

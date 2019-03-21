@@ -34,7 +34,7 @@ export default {};
   background-color: #ffffff5c;
   align-items: center;
   justify-content: space-between;
-  position: fixed;
+  // position: fixed;
   // opacity: 0.5;
   z-index: 1111;
   .nav-container {

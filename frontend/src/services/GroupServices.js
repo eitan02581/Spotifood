@@ -21,11 +21,11 @@ function getById(groupId) {
     return axios.get(`${GROUP_ROUTE}/${groupId}`)
         .then(groupPrm => {
             groupPrm.data.users.map(userId => {
-                userService.getUserById(userId)
+                return userService.getUserById(userId)
                     .then(user => userId = user)
             })
             groupPrm.data.recipes.map(recipeId => {
-                recipesService.getRecipeById(recipeId)
+                return recipesService.getRecipeById(recipeId)
                     .then(recipe => recipeId = recipe)
             })
             return groupPrm.data

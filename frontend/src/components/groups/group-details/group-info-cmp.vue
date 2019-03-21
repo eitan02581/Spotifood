@@ -20,7 +20,7 @@ export default {
 
 <style scoped lang="scss">
 .group-info {
-  margin-top: 130px;
+  // margin-top: 130px;
   padding-left: 10px;
   h1 {
     font-size: 2.5em;

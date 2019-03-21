@@ -31,7 +31,9 @@ export default {
     return {
     };
   },
-  created() {},
+  created() {
+    console.log(this.users)
+  },
   computed:{
     participants(){
       console.log(this.users.slice(1))

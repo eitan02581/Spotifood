@@ -2,9 +2,9 @@
   <section class="group-details">
     <loading-cmp v-if="!group"/>
     <template v-else>
-    <details-aside :users="group.users"/>
-    <group-info :group="group"/>
-    <recipes-list :recipes="group.recipes"/>
+      <details-aside :users="group.users"/>
+      <group-info :group="group"/>
+      <recipes-list :recipes="group.recipes"/>
     </template>
   </section>
 </template>
@@ -13,7 +13,7 @@
 import detailsAside from "../components/groups/group-details/group-aside-cmp";
 import groupInfo from "../components/groups/group-details/group-info-cmp";
 import recipesList from "../components/groups/group-details/group-recipes-list-cmp";
-import loadingCmp from '../components/loading-cmp'
+import loadingCmp from "../components/loading-cmp";
 export default {
   data() {
     return {
@@ -27,22 +27,20 @@ export default {
     loadingCmp
   },
   created() {
-    console.log(this.$route.params.groupId);
-    // console.log(this.$store.getters.groups[0]);
-    this.$store.dispatch('getGroupById',{_id:this.$route.params.groupId})
-    .then(group=> this.group = group)
-    console.log("Hello there", this.$store.getters.groups[0]);
-    // this.group = this.$store.getters.groups[0];
+    this.group = this.$store
+      .getters.groups
+      // .dispatch("getGroupById", { _id: this.$route.params.groupId })
+      // .then(group => (this.group = group));
   }
 };
 </script>
 
 <style>
 .group-details {
-  height: calc(100vh - 230px);
+  min-height: calc(100vh - 230px);
+  max-height: 100%;
   width: 80vw;
   /* overflow: scroll; */
-  top: 130px;
-
+  /* top: 130px; */
 }
 </style>

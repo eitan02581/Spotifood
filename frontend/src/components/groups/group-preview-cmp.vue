@@ -16,6 +16,7 @@
               <div class="meal">Dinner</div>
             </h3>
             <h1>{{groupDemoObj.title}}</h1>
+            <h2 style="color:#f44336">3 seats left</h2>
             <h3>
               <i style="color:orange" class="fas fa-star"></i>
               <i style="color:orange" class="fas fa-star"></i>
@@ -48,7 +49,7 @@ export default {
   data() {
     return {
       groupDemoObj: {
-        _id: "dasd",
+        _id: "5c9265c2c6bd2228fea79dd1",
         image: 'url("assets/preview-demo.jpg")',
         title: "Israeli authentic Experience",
         createdBy: "Dana",

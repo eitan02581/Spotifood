@@ -1,12 +1,15 @@
 <template>
-  <el-autocomplete
-    class="inline-input"
-    
-    v-model="state1"
-    :fetch-suggestions="querySearch"
-    placeholder="When?"
-    @select="handleSelect"
-  ></el-autocomplete>
+  <section>
+    <el-autocomplete 
+      class="inline-input"
+      v-model="state1"
+      :fetch-suggestions="querySearch"
+      placeholder="When?"
+      @select="handleSelect"
+    ></el-autocomplete>
+        <button v-if="state1.length >=1" @click="clearSelect" class="delete">X</button>
+
+  </section>
 </template>
 
 <script>

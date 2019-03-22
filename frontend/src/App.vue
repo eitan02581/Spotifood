@@ -10,6 +10,7 @@
 import Header from "@/components/header-cmp";
 import Footer from "@/components/footer-cmp";
 
+import { eventBus, USER_LOGGED } from "./services/EventBusService.js";
 export default {
   components: {
     Header,
@@ -17,6 +18,12 @@ export default {
   },
   data() {
     return {};
+  },
+  created() {
+    this.$store.dispatch({ type: "checkIfLogged" }).then(user => {
+      eventBus.$emit("USER_LOGGED", user);
+      console.log(user);
+    });
   }
 };
 </script>

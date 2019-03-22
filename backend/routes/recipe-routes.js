@@ -22,10 +22,10 @@ function addRecipeRoutes(app) {
     })
 
     app.post('/recipe', (req,res) => {
-        let recipe = req.body
-        RecipeService.add(recipe)
+        let payload = req.body.recipe
+        RecipeService.add(payload)
             .then(updatedrecipe => {
-                console.log('recipe added and is', res.json(updatedrecipe))
+                // console.log('recipe added and is', res.json(updatedrecipe))
                 res.json(updatedrecipe)
             })
     })
@@ -37,11 +37,11 @@ function addRecipeRoutes(app) {
     })
 
     app.put('/recipe/:recipeId', (req, res) => {
-        const recipe = req.body;
+        const recipe = req.body.recipe
         console.log('request recipe to update', recipe)
         RecipeService.update(recipe)
             .then(recipe => {
-                console.log('successfuly updated recipe')
+                console.log('successfuly updated recipe',recipe)
                 return res.json(recipe)
             })
     })

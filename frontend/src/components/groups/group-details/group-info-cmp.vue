@@ -44,7 +44,6 @@ export default {
     font-size: 1em;
     color: gray;
     margin-left: 30px;
-    margin-bottom: 7px;
     margin-top: -2px;
   }
   & > * {

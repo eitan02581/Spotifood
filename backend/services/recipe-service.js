@@ -28,6 +28,7 @@ function getById(recipeId) {
 
 function update(recipe) {
     console.log('recipe to update is', recipe)
+    console.log('recipeId',recipe._id)
     recipe._id = new ObjectId(recipe._id)
     return mongoService.connect()
         .then(db => {
@@ -39,6 +40,7 @@ function update(recipe) {
 function add(recipe) {
     recipe.rating = 0
     recipe.createdAt = new Date().getTime()
+    console.log('before Adding',recipe)
     return mongoService.connect()
         .then(db => {
             return db.collection(RECIPE_COLLECTION).insertOne(recipe)

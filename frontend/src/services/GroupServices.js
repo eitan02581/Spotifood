@@ -2,7 +2,7 @@ import axios from 'axios'
 import userService from './UserService'
 import recipesService from './RecipeService'
 // TODO: UPDATE TO THE ACTUAL PROJ NAME
-const GROUP_ROUTE = (process.env.NODE_ENV !== 'development') ? '/group' : 'http://localhost:3000/group'
+const GROUP_ROUTE = (process.env.NODE_ENV !== 'development') ? '/group' : 'http://localhost:3005/group'
 
 function query(filterBy) {
     if (filterBy) {
@@ -33,6 +33,7 @@ function getById(groupId) {
     return axios.get(`${GROUP_ROUTE}/${groupId}`)
         .then(res => res.data)
         .then(group => {
+            console.log('group',group)
             var groupUsers = group.users.map(userId => {
                 return userService.getUserById(userId)
             })

@@ -2,7 +2,7 @@ import axios from 'axios'
 import userService from './UserService'
 import recipesService from './RecipeService'
 // TODO: UPDATE TO THE ACTUAL PROJ NAME
-const GROUP_ROUTE = (process.env.NODE_ENV !== 'development') ? '/group' : 'http://localhost:3005/group'
+const GROUP_ROUTE = (process.env.NODE_ENV !== 'development') ? '/group' : 'http://localhost:3007/group'
 
 function query(filterBy) {
     if (filterBy) {
@@ -33,14 +33,14 @@ function getById(groupId) {
     return axios.get(`${GROUP_ROUTE}/${groupId}`)
         .then(res => res.data)
         .then(group => {
-            console.log('group',group)
+            console.log('group', group)
             var groupUsers = group.users.map(userId => {
                 return userService.getUserById(userId)
             })
             var groupRecipes = group.recipes.map(recipeId => {
                 return recipesService.getRecipeById(recipeId)
             })
-            var promiseArray = [Promise.all(groupUsers),Promise.all(groupRecipes)]
+            var promiseArray = [Promise.all(groupUsers), Promise.all(groupRecipes)]
             return Promise.all(promiseArray)
                 .then(array => {
                     group.users = array[0]
@@ -50,10 +50,15 @@ function getById(groupId) {
         })
 }
 
+function removeRecipeFromGroup(recipeId, groupId) {
+    return axios.delete(`${GROUP_ROUTE}/${groupId}/${recipeId}`).then(res => console.log(res))
+}
+
 export default {
     query,
     getById,
     add,
     remove,
-    update
+    update,
+    removeRecipeFromGroup
 }

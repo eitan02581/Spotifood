@@ -79,10 +79,35 @@ function remove(groupId) {
         })
 }
 
+function addRecipeToGroup(recipeId, groupId) {
+    const _id = new ObjectId(groupId)
+    return mongoService.connect()
+        .then(db => {
+            return db.collection(GROUP_COLLECTION).updateOne(
+                { _id },
+                { $push: { recipes: recipeId } }
+            )
+        })
+}
+
+function removeRecipeFromGroup(recipeId, groupId) {
+    const _id = new ObjectId(groupId)
+    const recipe = new ObjectId(recipeId)
+    return mongoService.connect()
+        .then(db => {
+            return db.collection(GROUP_COLLECTION).updateOne(
+                { _id },
+                { $pull: { recipes: recipe } }
+            )
+        })
+}
+
 module.exports = {
     query,
     getById,
     update,
     add,
     remove,
+    addRecipeToGroup,
+    removeRecipeFromGroup
 }

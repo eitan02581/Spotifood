@@ -22,7 +22,7 @@ function addRecipeRoutes(app) {
     })
 
     app.post('/recipe', (req,res) => {
-        let payload = req.body.recipe
+        let payload = req.body
         RecipeService.add(payload)
             .then(updatedrecipe => {
                 // console.log('recipe added and is', res.json(updatedrecipe))

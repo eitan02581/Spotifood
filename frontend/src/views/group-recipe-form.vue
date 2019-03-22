@@ -96,18 +96,17 @@ export default {
       this.dialogVisible = true;
     },
     SaveRecipe() {
-      this.recipe.ingredients = {}
+      this.recipe.ingredients = {};
       this.ingredients.forEach((ingredient, idx) => {
         if (!ingredient || !this.ingredientsQuantity[idx]) return;
         this.recipe.ingredients[ingredient] = this.ingredientsQuantity[idx];
       });
       if (this.recipeId) {
-        recipeService
-          .updateRecipe(this.recipe)
-          .then(() => console.log("Saved!"));
+        recipeService.updateRecipe(this.recipe).then(() => this.$router.go(-1));
       } else {
-        //TODO: Add recipe to group!
-        recipeService.addRecipe(this.recipe).then(() => console.log("Added!"));
+        recipeService
+          .addRecipe(this.recipe, this.groupId)
+          .then(() => this.$router.go(-1));
       }
     },
     addIngredientInput() {

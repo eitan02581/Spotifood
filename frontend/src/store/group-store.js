@@ -19,12 +19,15 @@ const groupStore = {
     },
     mutations: {
         setGroups(state, { groups }) {
-
             state.groups = groups
         },
         setGroup(state, { group }) {
             state.group = group
         },
+        removeRecipeFromGroup(state, { recipeId }) {
+            let recipeIdx = state.group.recipes.findIndex(recipe=> recipe._id === recipeId)
+            state.group.recipes.splice(recipeIdx,1)
+        }
     },
     actions: {
         getGroups({ commit }) {
@@ -38,13 +41,16 @@ const groupStore = {
         //         commit({ type: 'setGroup', group })
         //     })
         // },    }
-
         getGroupById({ commit, state }, payload) {
             state.group = null
-            setTimeout(()=>{
+            setTimeout(() => {
                 groupService.getById(payload._id)
                     .then(group => commit({ type: 'setGroup', group }))
-            },1500)
+            }, 1500)
+        },
+        removeRecipeFromGroup({ commit }, { recipeId, groupId }) {
+            groupService.removeRecipeFromGroup(recipeId, groupId)
+                .then(() => commit({ type: 'removeRecipeFromGroup', recipeId }))
         }
     }
 }

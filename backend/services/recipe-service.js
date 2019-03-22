@@ -1,4 +1,5 @@
 const mongoService = require('./mongo-service')
+const GroupService = require('../services/group-service')
 const ObjectId = require('mongodb').ObjectId;
 const RECIPE_COLLECTION = 'recipes'
 
@@ -27,8 +28,6 @@ function getById(recipeId) {
 }
 
 function update(recipe) {
-    console.log('recipe to update is', recipe)
-    console.log('recipeId',recipe._id)
     recipe._id = new ObjectId(recipe._id)
     return mongoService.connect()
         .then(db => {
@@ -37,13 +36,19 @@ function update(recipe) {
         })
 }
 
-function add(recipe) {
-    recipe.rating = 0
-    recipe.createdAt = new Date().getTime()
-    console.log('before Adding',recipe)
+function add(payload) {
+    payload.recipe.rating = 0
+    payload.recipe.createdAt = new Date().getTime()
     return mongoService.connect()
         .then(db => {
-            return db.collection(RECIPE_COLLECTION).insertOne(recipe)
+            return db.collection(RECIPE_COLLECTION)
+                .insertOne(payload.recipe, () => {
+                    if (payload.groupId) {
+                        return GroupService.addRecipeToGroup(payload.recipe._id, payload.groupId)
+                            .then(() => payload.recipe)
+                    }
+                    return payload.recipe
+                })
         })
 }
 

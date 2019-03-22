@@ -8,10 +8,15 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-
+    categories:['food','Yami!','Meat']
   },
   mutations: {
 
+  },
+  getters:{
+    categories(state){
+      return state.categories
+    }
   },
   actions: {
 

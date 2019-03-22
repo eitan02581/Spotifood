@@ -1,33 +1,37 @@
 <template>
-  <section class="participant-list">
-    <h1> participants: </h1>
-    <participant-preview v-for="user in users" :user="user" :key="user._id"/>
+  <section>
+    <h3>participants</h3>
+    <div class="participant-list">
+      <participant-preview v-for="user in users" :user="user" :key="user._id"/>
+    </div>
   </section>
 </template>
 
 <script>
 import participantPreview from "./participant-preview-cmp";
 export default {
-  props:{
-      users: {
-        type: Array,
-        required: true
-      }
-    },
+  props: {
+    users: {
+      type: Array,
+      required: true
+    }
+  },
   components: {
     participantPreview
   },
   data() {
     return {
-      // cards:['fdsf','fdsfd','sdfsd']
     };
   }
 };
 </script>
 
-<style>
+<style scoped>
 .participant-list {
-  height: 100%;
-  width: 100%;
+  display: flex;
+}
+h3 {
+  color: gray;
+  margin-bottom: 10px;
 }
 </style>

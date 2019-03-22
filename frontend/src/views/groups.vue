@@ -1,7 +1,6 @@
 <template>
   <section>
-    
-    <div class="filter-container">
+    <div data-aos="fade-down" data-aos-duration="900" class="filter-container">
       <FilterGroup @filter="filter"></FilterGroup>
     </div>
     <div class="group-list-container">
@@ -38,14 +37,20 @@ export default {
 <style scoped lang="scss">
 section {
   display: flex;
-  align-items: baseline;
+  // align-items: baseline;
+  flex-direction: column;
 
   .filter-container {
-    margin-top: 200px;
-    background-color: beige;
+    margin-top: 37px;
+    position: fixed;
+    z-index: 111;
+    background-color: white;
     padding: 20px;
-    // height: 80px;
+    -webkit-transition: 0.3s;
     transition: 0.3s;
+  }
+  .group-list-container {
+    margin-top: 150px;
   }
 }
 </style>

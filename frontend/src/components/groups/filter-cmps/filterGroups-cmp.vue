@@ -2,8 +2,11 @@
   <section>
     <div class="filter-container">
       <form>
-        <selectEl @selectedVals="onSelectedVals"></selectEl>
+        <eventSelect @eventType="onSelectedVals"></eventSelect>
+        <cuisineSelect @cuisine="onSelectedVals"></cuisineSelect>
+        <guestsSelect @guests="onSelectedVals"></guestsSelect>
         <dateSuggestions></dateSuggestions>
+        <selectEl @selectedVals="onSelectedVals"></selectEl>
       </form>
     </div>
   </section>
@@ -12,10 +15,16 @@
 <script>
 import selectEl from "./selectElmentIo.vue";
 import dateSuggestions from "./date-suggestion-filter.cmp.vue";
+import guestsSelect from "./guests-select-cmp";
+import eventSelect from "./event-select-cmp.vue";
+import cuisineSelect from "./cuisine-select-cmp.vue";
 export default {
   components: {
     selectEl,
-    dateSuggestions
+    dateSuggestions,
+    guestsSelect,
+    eventSelect,
+    cuisineSelect
   },
   data() {
     return {
@@ -43,6 +52,9 @@ export default {
 
 <style scoped lang="scss">
 .filter-container {
+  form {
+    display: flex;
+  }
   min-width: 210px;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <section>
-    <h1>Join Spotifood Experience</h1>
+    <h1>Join WEat Experience</h1>
     <div class="main-img"></div>
     <video src></video>
   </section>

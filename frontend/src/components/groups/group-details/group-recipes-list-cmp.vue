@@ -1,25 +1,32 @@
 <template>
   <section class="accordion">
+    <div class="recipes-header">
+      <h1>Recipes</h1>
+      <i class="fas fa-plus" @click="addRecipe"></i>
+      <i class="fas fa-upload" @click="uploadRecipe"></i>
+    </div>
     <el-collapse v-model="activeName" accordion v-for="(recipe,idx) in recipes" :key="recipe._id">
       <el-collapse-item :title="recipe.title" :name="idx">
-        <div class="flex space-between">
+        <div class="collapse-context">
           <div>
-            <el-carousel>
+            <el-carousel height="200px">
               <el-carousel-item v-for="(img,idx) in recipe.imgs" :key="`${img}${idx}`">
                 <img :src="img" alt="Recipe Img">
               </el-carousel-item>
             </el-carousel>
             <ul>
-              <li
-                v-for="ingredient in Object.keys(recipe.ingredients)"
-                :key="ingredient"
-              >{{recipe.ingredients[ingredient]}} {{ingredient}}</li>
+              <li v-for="ingredient in Object.keys(recipe.ingredients)" :key="ingredient">
+                <span class="quantity">{{recipe.ingredients[ingredient]}}</span>
+                {{ingredient}}
+              </li>
             </ul>
           </div>
           <ol>
             <li v-for="(instruction,idx) in recipe.instructions" :key="idx">{{instruction}}</li>
           </ol>
         </div>
+        <i class="far fa-edit" @click="updateRecipe(recipe._id,recipe.createdBy)"></i>
+        <i class="far fa-trash-alt"></i>
       </el-collapse-item>
     </el-collapse>
   </section>
@@ -37,21 +44,56 @@ export default {
       activeName: "1"
     };
   },
+  methods: {
+    addRecipe() {
+      this.$router.push({
+        path: "/groups/recipeForm",
+        query: {
+          groupId: this.$route.params.groupId,
+          creatorId: this.$store.getters.group.users[0]._id
+        }
+      });
+    },
+    updateRecipe(recipeId,creatorId) {
+      this.$router.push({
+        path: "/groups/recipeForm",
+        query: {
+          groupId: this.$route.params.groupId,
+          creatorId,
+          recipeId
+        }
+      });
+    },
+    uploadRecipe(){
+
+    }
+  },
   computed: {},
-  created() {
-    console.log(this.recipes);
-  }
+  created() {}
 };
 </script>
 
 <style scoped lang="scss">
 ul,
 ol {
-  padding: 2vw;
+  padding-top: 5vh;
+  &li > .quantity {
+    font-size: 1.3em !important;
+  }
+}
+h1 {
+  margin: 15px 0;
+  font-size: 1.75em;
 }
 .accordion {
-  width: 70vw;
-  margin-left: 5vw;
+  margin: 0 50px;
+  .recipes-header {
+    display: flex;
+    align-items: center;
+    h1 {
+      margin-right: 5px;
+    }
+  }
 }
 .el-carousel {
   width: 250px;
@@ -70,5 +112,18 @@ ol {
 }
 .el-carousel__item:nth-child(2n + 1) {
   background-color: #d3dce6;
+}
+.collapse-context {
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+}
+i {
+  margin-left: 5px;
+  font-size: 2em;
+  &:hover {
+    color: lightseagreen;
+    cursor: pointer;
+  }
 }
 </style>

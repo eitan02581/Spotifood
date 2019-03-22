@@ -7,6 +7,7 @@ import Element from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css';
 import store from './store/store'
 import './filters.js'
+<<<<<<< HEAD
 import * as VueGoogleMaps from 'vue2-google-maps'
 
 Vue.use(VueGoogleMaps, {
@@ -34,12 +35,19 @@ Vue.use(VueGoogleMaps, {
   // installComponents: true,
 })
 
+=======
+import AOS from '../node_modules/aos'
+import '../node_modules/aos/dist/aos.css'
+>>>>>>> 7b4bdfdd77075bad4d9abf7eab23527904f53fdd
 
 Vue.config.productionTip = false
 
 Vue.use(Element)
 
 new Vue({
+  created() {
+    AOS.init()
+  },
   router,
   store,
   render: h => h(App)

@@ -1,18 +1,33 @@
 <template>
   <section>
     <!-- :style="{ backgroundImage: 'url(' + groupDemoObj.image + ')' }" -->
-    <router-link tag="div" :to="'/groups/' + group._id" class="preview-container">
-      <h1>{{group.title}}</h1>
+    <router-link tag="div" :to="'/groups/' + groupDemoObj._id" class="preview-container">
+      <div class="img-container"></div>
       <div class="main">
         <div class="bottom">
+          <img src="../../assets/profiles/women.png" alt>
           <div class="info-container">
-            <h2>Country: {{group.country}} ,City: {{group.city}}</h2>
-            <h3>Hosting: {{group.createdBy}}</h3>
-            <h3>When?: {{group.time}}</h3>
+            <h2>
+              Hosted by:
+              <span>{{groupDemoObj.createdBy}}</span>
+              in {{groupDemoObj.city}}
+            </h2>
+            <h3>
+              <div class="meal">Dinner</div>
+            </h3>
+            <h1>{{groupDemoObj.title}}</h1>
+            <h2 style="color:#f44336">3 seats left</h2>
+            <h3>
+              <i style="color:orange" class="fas fa-star"></i>
+              <i style="color:orange" class="fas fa-star"></i>
+              <i style="color:orange" class="fas fa-star"></i>
+              <i style="color:orange" class="fas fa-star"></i>
+              <i style="color:orange" class="fas fa-star"></i> (37)
+            </h3>
 
-            <div class="has-container">
+            <!-- <div class="has-container">
               <span v-for="hash in group.hashtags" :key="hash">#{{hash}}</span>
-            </div>
+            </div>-->
           </div>
         </div>
       </div>
@@ -34,10 +49,10 @@ export default {
   data() {
     return {
       groupDemoObj: {
-        _id: "dasd",
+        _id: "5c9265c2c6bd2228fea79dd1",
         image: 'url("assets/preview-demo.jpg")',
         title: "Israeli authentic Experience",
-        createdBy: "Eitan Elnekave",
+        createdBy: "Dana",
         country: "Israel",
         city: "Ramat Gan",
         hastag: ["carnibors ", "Israeli food"]
@@ -61,21 +76,26 @@ section {
     display: inline-block;
     position: relative;
     margin: 20px;
-    width: 225px;
-    height: 290px;
-    background-image: url("../../assets/preview-demo.jpg");
-    background-color: lightseagreen;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    border-radius: 10px;
+    width: 280px;
+    height: 488px;
+
+    // border-radius: 10px;
     cursor: pointer;
     transition: 0.3s;
+    .img-container {
+      height: 250px;
+      width: 280px;
+      background-image: url("../../assets/preview-demo.jpg");
+      background-color: lightseagreen;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
     h1 {
       padding-top: 12px;
       text-align: center;
-      color: white;
-      font-size: 30px;
+      color: #414a55;
+      font-size: 19px;
     }
 
     .main {
@@ -92,37 +112,63 @@ section {
       border-radius: 0 0 10px 10px;
       .bottom {
         width: 100%;
-        height: 100px;
+        background-color: white;
+        height: 238px;
         position: absolute;
         bottom: 0;
         display: flex;
         flex-direction: column;
         justify-content: space-around;
+        img {
+          width: 60px;
+          height: 60px;
+          border: 3px white solid;
+          background-color: white;
+          border-radius: 73px;
+          position: absolute;
+          top: -30px;
+          left: 110px;
+          object-fit: contain;
+        }
         .info-container {
+          padding-top: 27px;
+
           height: 100%;
           display: flex;
           flex-direction: column;
           justify-content: space-around;
+          text-align: center;
         }
+        h2 {
+          font-size: 14px;
+          span {
+            color: orangered;
+          }
+        }
+        h3 {
+          font-size: 13px;
+        }
+        .meal {
+          background-color: rgb(223, 226, 231);
 
+          display: inline-block;
+          padding: 3px;
+        }
         h2,
         h3 {
-          color: white;
+          color: #414a55;
           padding-left: 7px;
         }
         .has-container {
           span {
             padding-left: 7px;
-            color: white;
+            color: #414a55;
           }
         }
       }
     }
   }
   .preview-container:hover {
-    -webkit-box-shadow: 0px 0px 49px -10px rgba(0, 0, 0, 0.75);
-    -moz-box-shadow: 0px 0px 49px -10px rgba(0, 0, 0, 0.75);
-    box-shadow: 0px 0px 49px -10px rgba(0, 0, 0, 0.75);
   }
 }
 </style>

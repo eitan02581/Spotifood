@@ -46,5 +46,9 @@ section {
     justify-content: center;
     // max-width: 1200px;
   }
+  .how-it-works {
+    margin-top: 100px;
+    margin-bottom: 150px;
+  }
 }
 </style>

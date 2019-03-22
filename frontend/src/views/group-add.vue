@@ -1,12 +1,21 @@
 <template>
   <section class="add-group-form">
-    <el-steps :active="active" finish-status="success">
-      <el-step title="Step 1"></el-step>
-      <el-step title="Step 2"></el-step>
-      <el-step title="Step 3"></el-step>
-    </el-steps>
-
-    <el-button style="margin-top: 12px;" @click="next">Next step</el-button>
+    <el-form class="form-text-input" ref="form" :model="form" label-width="120px">
+      <div class="inputs">
+        <el-form-item label="Group Name">
+          <el-input v-model="form.name"></el-input>
+        </el-form-item>
+      </div>
+      <div class="btns">
+        <el-form-item>
+          <el-button type="primary">Create</el-button>
+          <el-button>Cancel</el-button>
+        </el-form-item>
+      </div>
+    </el-form>
+    <GmapMap v-if="currLoc" :center="currLoc" :zoom="7" style="width: 350px; height: 350px">
+      <GmapMarker :position="currLoc" :clickable="true" :draggable="true"/>
+    </GmapMap>
   </section>
 </template>
 
@@ -14,12 +23,33 @@
 export default {
   data() {
     return {
-      active: 0
+      currLoc: null,
+      form: {
+        name: "",
+        region: "",
+        date1: "",
+        date2: "",
+        delivery: false,
+        type: [],
+        resource: "",
+        desc: ""
+      }
     };
   },
+  created() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(this.setCurrentLocation);
+    } else {
+      x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+  },
   methods: {
-    next() {
-      if (this.active++ > 2) this.active = 0;
+    setCurrentLocation(position) {
+      this.currLoc = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+      console.log("curr location is", this.currLoc);
     }
   }
 };
@@ -32,5 +62,12 @@ section.add-group-form {
   padding: 20px;
   border: 1px solid rgb(223, 223, 223);
   border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+.add-group-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 </style>

@@ -41,7 +41,9 @@ section {
   flex-direction: column;
 
   .filter-container {
-    margin-top: 37px;
+    // margin-top: 37px;
+    margin-top: -63px;
+
     position: fixed;
     z-index: 111;
     background-color: white;

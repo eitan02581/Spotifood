@@ -39,6 +39,7 @@ export default {
 <style scoped lang="scss">
 section {
   // width: 100%;
+  margin-top: -100px;
   // min-height: 100vh;
   .group-container {
     display: flex;

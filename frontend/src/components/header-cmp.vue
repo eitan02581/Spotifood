@@ -14,7 +14,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-section{
+section {
   margin-bottom: 100px;
 }
 </style>

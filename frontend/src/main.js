@@ -7,8 +7,10 @@ import Element from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css';
 import store from './store/store'
 import './filters.js'
-<<<<<<< HEAD
 import * as VueGoogleMaps from 'vue2-google-maps'
+import AOS from '../node_modules/aos'
+import '../node_modules/aos/dist/aos.css'
+
 
 Vue.use(VueGoogleMaps, {
   load: {
@@ -20,7 +22,7 @@ Vue.use(VueGoogleMaps, {
 
     //// If you want to set the version, you can do so:
     // v: '3.26',
-  },
+  },  
 
   //// If you intend to programmatically custom event listener code
   //// (e.g. `this.$refs.gmap.$on('zoom_changed', someFunc)`)
@@ -33,12 +35,7 @@ Vue.use(VueGoogleMaps, {
   //// Vue.component('GmapMarker', GmapMarker)
   //// then disable the following:
   // installComponents: true,
-})
-
-=======
-import AOS from '../node_modules/aos'
-import '../node_modules/aos/dist/aos.css'
->>>>>>> 7b4bdfdd77075bad4d9abf7eab23527904f53fdd
+})  
 
 Vue.config.productionTip = false
 

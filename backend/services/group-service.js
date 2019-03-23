@@ -80,7 +80,8 @@ function add(group) {
     group.users = []
     group.recipes = []
     group.hashtags = []
-    group.pendingRequests = []
+    group.pendingUsers = []
+    group.admin = new ObjectId(group.admin)
     return mongoService.connect()
         .then(db => {
             return db.collection(GROUP_COLLECTION).insertOne(group)

@@ -141,7 +141,6 @@ export default {
         console.log(Object.keys(place).length);
         return;
       }
-      console.log("place is", place);
       this.group.location = {
         lat: place.geometry.location.lat(),
         lng: place.geometry.location.lng()
@@ -151,7 +150,6 @@ export default {
       let country = place.address_components.find(
         adr => adr.types[0] === "country"
       );
-      console.log("country is", country);
       country = {
         longName: country.long_name,
         shortName: country.short_name
@@ -163,8 +161,6 @@ export default {
         country,
         city: city.long_name
       };
-      console.log("city is", city);
-      console.log("group is", this.group);
     },
     createGroup() {
       let vals = Object.values(this.group);
@@ -172,7 +168,6 @@ export default {
         return !val
       });
       if (emptyVal !== -1 || !this.group.eventType.length || !this.group.cuisineType.length) {
-        console.log("group is not valid", emptyVal);
         return;
       }
       this.group.img =

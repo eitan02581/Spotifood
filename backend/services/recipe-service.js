@@ -7,7 +7,6 @@ var recipes = require('../data/recipes.json')
 // _addMany()
 
 function _addMany() {
-    console.log('recipes are', recipes)
     return mongoService.connect()
         .then(db => db.collection(RECIPE_COLLECTION).insert(recipes))
         .then(res => {

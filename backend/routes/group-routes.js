@@ -27,7 +27,7 @@ function addGroupRoutes(app) {
         let group = req.body
         GroupService.add(group)
             .then(updatedGroup => {
-                console.log('group added and is', res.json(updatedGroup))
+                console.log('group added and is', updatedGroup)
                 res.json(updatedGroup)
             })
     })

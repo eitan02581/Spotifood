@@ -21,6 +21,11 @@ function query(filterBy) {
 }
 
 function add(group) {
+    console.log('inside add group with', group)
+    return axios.post(`${GROUP_ROUTE}`, group)
+        .then(res => {
+            return res.data
+        })
 }
 
 function update(group) {

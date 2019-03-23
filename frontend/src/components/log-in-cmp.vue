@@ -16,8 +16,7 @@
         <el-button type="primary" @click.enter="login">Log In</el-button>
       </form>
       <div class="signup-container">
-        <h4>
-          Not A User?
+        <h4>Not A User?
           <router-link to="/signup">Sign Up</router-link>
         </h4>
       </div>
@@ -39,11 +38,16 @@ export default {
   },
   methods: {
     login() {
-      this.$store.dispatch({ type: "logIn", user: this.user }).then(() => {
-        var user = this.$store.getters.user;
-        eventBus.$emit("USER_LOGGED", user);
-        this.$router.push("/");
-      });
+      if (!this.user.username || !this.user.password) {
+        return;
+      } else {
+        console.log("user to login is", this.user);
+        this.$store.dispatch({ type: "logIn", user: this.user }).then(() => {
+          var user = this.$store.getters.user;
+          eventBus.$emit("USER_LOGGED", user);
+          this.$router.push("/");
+        });
+      }
     }
   }
 };

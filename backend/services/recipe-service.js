@@ -45,9 +45,9 @@ function add(payload) {
                 .insertOne(payload.recipe, () => {
                     if (payload.groupId) {
                         return GroupService.addRecipeToGroup(payload.recipe._id, payload.groupId)
-                            .then(() => payload.recipe)
+                            .then(() => payload.recipe._id)
                     }
-                    return payload.recipe
+                    return payload.recipe._id
                 })
         })
 }
@@ -55,7 +55,38 @@ function add(payload) {
 function remove(recipeId) {
     return mongoService.connect()
         .then(db => {
-            db.collection(RECIPE_COLLECTION).remove({ _id: ObjectId(recipeId) })
+            return db.collection(RECIPE_COLLECTION).remove({ _id: ObjectId(recipeId) })
+        })
+}
+
+function addImg(recipeId, Imgs) {
+    const _id = new ObjectId(recipeId)
+    const imgsUrl = Imgs.map(img => img.url);
+    return mongoService.connect()
+        .then(db => {
+            console.log('after connection mongo')
+            // return db.collection(RECIPE_COLLECTION).findOneAndUpdate(
+            //     { _id },
+            //     { $push: { imgs: imgsUrl[0] } }
+            // )
+            // // return db.collection(RECIPE_COLLECTION).updateMany(
+            //     { _id },
+            //     { $push: { imgs: { $each: imgsUrl } } }
+            // )
+            return db.collection(RECIPE_COLLECTION).findOne({ _id })
+        })
+        .then(res => {
+            console.log('imgs from mongo',res.imgs)
+            console.log('imgs from upload',imgsUrl)
+            var updatedImgs = res.imgs.concat(imgsUrl)
+            console.log('updated imgs from mongo with uploads',updatedImgs)
+            return mongoService.connect()
+                .then(db => {
+                    db.collection(RECIPE_COLLECTION).updateOne(
+                        { _id },
+                        { $set: { imgs: updatedImgs } }
+                    )
+                })
         })
 }
 
@@ -65,4 +96,5 @@ module.exports = {
     update,
     add,
     remove,
+    addImg
 }

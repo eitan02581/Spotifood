@@ -8,19 +8,19 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    categories:['food','Yami!','Meat']
+    categories: ['food', 'Yami!', 'Meat']
   },
   mutations: {
 
   },
-  getters:{
-    categories(state){
+  getters: {
+    categories(state) {
       return state.categories
     }
   },
   actions: {
-
-  }, modules: {
+  },
+  modules: {
     groupStore,
     userStore
   }

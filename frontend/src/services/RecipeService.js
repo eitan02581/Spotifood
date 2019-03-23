@@ -18,5 +18,5 @@ function addRecipe(recipe, groupId) {
 export default {
     getRecipeById,
     updateRecipe,
-    addRecipe
+    addRecipe,
 } 

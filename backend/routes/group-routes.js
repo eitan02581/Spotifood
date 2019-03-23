@@ -33,7 +33,6 @@ function addGroupRoutes(app) {
     })
 
     app.delete('/group/:groupId/:recipeId', (req, res) => {
-        console.log('group id :',req.params.groupId,'recipe id : ',req.params.recipeId)
         const grouopId = req.params.groupId;
         const recipeId = req.params.recipeId
         GroupService.removeRecipeFromGroup(recipeId,grouopId)

@@ -3,7 +3,6 @@
     <div class="recipes-header">
       <h1>Recipes</h1>
       <i class="fas fa-plus" @click="addRecipe"></i>
-      <i class="fas fa-upload" @click="uploadRecipe"></i>
     </div>
     <el-collapse v-model="activeName" accordion v-for="(recipe,idx) in recipes" :key="recipe._id">
       <el-collapse-item :title="recipe.title" :name="idx">
@@ -81,8 +80,11 @@ export default {
 ul,
 ol {
   padding-top: 5vh;
-  &li > .quantity {
+  li > .quantity {
     font-size: 1.3em !important;
+  }
+  li{
+    list-style: unset;
   }
 }
 h1 {

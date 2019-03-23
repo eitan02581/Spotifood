@@ -1,17 +1,17 @@
 <template>
   <section>
     <div class="how-it-works-wrapper">
-      <div class="item-container">
+      <div data-aos="fade-right" class="item-container">
         <h1>Discover People</h1>
         <img src="../../assets/New folder/globos.svg" alt>
         <h3>… and never eat alone</h3>
       </div>
-      <div class="item-container">
+      <div data-aos="fade-up" class="item-container">
         <h1>Attend Event</h1>
         <img src="../../assets/New folder/calender.svg" alt>
         <h3>… and find delicious food</h3>
       </div>
-      <div class="item-container">
+      <div data-aos="fade-left" class="item-container">
         <h1>Enjoy</h1>
         <img src="../../assets/New folder/cheers.svg" alt>
         <h3>… and experience the magic of Eatwith</h3>

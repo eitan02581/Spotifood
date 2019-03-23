@@ -7,29 +7,47 @@
         </router-link>
       </div>
       <div class="links-container">
-        <router-link  to="/groups">
+        <router-link class="nav-link-classic" to="/groups">
           <button>Explore</button>
         </router-link>
-        <router-link to="/groups/add">
+        <router-link class="nav-link-classic" to="/groups/add">
           <button>Create Group</button>
         </router-link>
-        <router-link to="/about">
+        <router-link class="nav-link-classic" to="/about">
           <button>About</button>
         </router-link>
-        <router-link to="/login">
-          <button>Log In</button>
-        </router-link>
+        <template v-if="!user">
+          <router-link class="nav-link-classic" to="/login">
+            <button>Log In</button>
+          </router-link>
+          <router-link class="nav-link-classic" to="/signup">
+            <button>Sign Up</button>
+          </router-link>
+        </template>
+        <template v-if="user">
+          <div class="user-info-container">
+            <router-link :to="'user/' + user">
+              <button>Hey {{user.nickname}}</button>
+              <img :src="user.img" alt>
+            </router-link>
+          </div>
+          <a class="nav-link-classic">
+            <button class="logout" @click="onLogOut">Log Out</button>
+          </a>
+        </template>
       </div>
     </div>
   </section>
 </template>
 
 <script>
+import { eventBus, USER_LOGGED } from "../services/EventBusService.js";
 export default {
   data() {
     return {
       isNavNerrow: false,
-      isHomePage: true
+      isHomePage: true,
+      user: null
     };
   },
   created() {
@@ -50,10 +68,20 @@ export default {
         }
       }
     });
+    eventBus.$on("USER_LOGGED", user => {
+      this.user = user;
+    });
   },
   methods: {
     narrowNav(state) {
       this.isNavNerrow = state;
+    },
+    onLogOut() {
+      console.log("dd");
+
+      this.$store.dispatch({ type: "logOut" });
+      this.user = null;
+      this.$router.push("/");
     }
   },
   watch: {
@@ -64,7 +92,7 @@ export default {
         this.isNavNerrow = true;
       } else {
         this.isHomePage = true;
-      this.isNavNerrow = false;
+        this.isNavNerrow = false;
       }
     }
   }
@@ -108,7 +136,27 @@ export default {
       display: flex;
       max-width: 600px;
       width: 90%;
-      a {
+      .user-info-container {
+        display: flex;
+        flex-direction: row;
+        width: 135px;
+        transition: 0.3s;
+        a {
+          text-align: center;
+
+          button {
+            border: none;
+            background-color: unset;
+          }
+          img {
+            width: 29px;
+            height: 29px;
+            border-radius: 73px;
+            transition: 0.3s;
+          }
+        }
+      }
+      .nav-link-classic {
         flex-grow: 1;
         margin: 2px;
 
@@ -132,6 +180,7 @@ export default {
     }
   }
 }
+// homepage
 .nav-warpper {
   top: 0;
   width: 100%;
@@ -163,7 +212,27 @@ export default {
       display: flex;
       max-width: 600px;
       width: 90%;
-      a {
+      .user-info-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transition: 0.3s;
+        a {
+          text-align: center;
+
+          button {
+            border: none;
+            background-color: unset;
+          }
+          img {
+            width: 44px;
+            border-radius: 73px;
+            transition: 0.3s;
+          }
+        }
+      }
+      .nav-link-classic {
         flex-grow: 1;
         margin: 2px;
 

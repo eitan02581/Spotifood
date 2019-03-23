@@ -12,7 +12,9 @@
     box-sizing: border-box;
     font-family: roboto;
 }
-
+html{
+    background-color: #f6f6f6;
+}
 html, body {
     font-family: roboto;
     margin: 0;

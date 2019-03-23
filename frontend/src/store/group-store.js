@@ -40,7 +40,7 @@ const groupStore = {
         // },    }
         getGroupById({ commit, state }, payload) {
             state.group = null
-            setTimeout(()=>{
+            setTimeout(() => {
                 groupService.getById(payload._id)
                     .then(group => commit({ type: 'setGroup', group }))
             },1500)

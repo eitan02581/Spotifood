@@ -13,7 +13,7 @@
             <i class="fas fa-lock red"></i>
           </template>
         </el-input>
-        <el-button type="primary" @click="login">Sign In</el-button>
+        <el-button type="primary" @click.enter="login">Log In</el-button>
       </form>
       <div class="signup-container">
         <h4>Not A User?
@@ -25,6 +25,8 @@
 </template>
 
 <script>
+import { eventBus, USER_LOGGED } from "../services/EventBusService.js";
+
 export default {
   data() {
     return {
@@ -39,7 +41,12 @@ export default {
       if (!this.user.username || !this.user.password) {
         return;
       } else {
-        console.log('user to login is', this.user);
+        console.log("user to login is", this.user);
+        this.$store.dispatch({ type: "logIn", user: this.user }).then(() => {
+          var user = this.$store.getters.user;
+          eventBus.$emit("USER_LOGGED", user);
+          this.$router.push("/");
+        });
       }
     }
   }

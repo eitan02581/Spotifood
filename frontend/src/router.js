@@ -9,7 +9,7 @@ import GroupEdit from './views/group-edit.vue'
 import GroupDetails from '@/views/group-details'
 import GroupAdd from '@/views/group-add'
 import recipeForm from '@/views/group-recipe-form'
-
+import userProfile from '@/views/user-profile.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -26,5 +26,6 @@ export default new Router({
     { path: '/about', component: About },
     { path: '/login', component: Login },
     { path: '/signup', component: Signup },
+    { path: '/user/:userId', component: userProfile },
   ]
 })

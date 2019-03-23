@@ -3,11 +3,13 @@
     <h1 class="wrong-route" v-if="!recipe.createdBy">Who U?</h1>
     <form @submit.prevent="SaveRecipe" v-else>
       <h1>{{formTitle}}</h1>
-      <label>Title:
+      <label>
+        Title:
         <el-input placeholder="Enter Recipe Title" v-model="recipe.title"></el-input>
         <br>
       </label>
-      <label v-for="(ingredient,idx) in ingredients" :key="idx + 'ingredient'">Ingredient:
+      <label v-for="(ingredient,idx) in ingredients" :key="idx + 'ingredient'">
+        Ingredient:
         <el-input-number v-model="ingredientsQuantity[idx]" :step="0.25" :max="100"></el-input-number>
         <el-input placeholder="ingredient" v-model="ingredients[idx]"></el-input>
         <br>
@@ -16,7 +18,8 @@
         v-for="(instruction,idx) in recipe.instructions"
         :key="idx + 'instruction'"
         style="display: inherit; width: 100%;"
-      >Instruction:
+      >
+        Instruction:
         <el-input
           type="textarea"
           autosize
@@ -26,11 +29,13 @@
       </label>
       <i class="fas fa-plus-circle" @click="addTextArea" title="Add Instruction"></i>
       <br>
-      <label>Prep Time:
+      <label>
+        Prep Time:
         <el-input-number v-model="recipe.prepTime" :step="1" :max="10000"></el-input-number>
         <br>
       </label>
-      <label>Categories:
+      <label>
+        Categories:
         <el-select multiple v-model="recipe.categories" filterable placeholder="Select Categories">
           <el-option
             v-for="category in allCategories"

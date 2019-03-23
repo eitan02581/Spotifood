@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import groupService from '../services/GroupServices.js'
+import RecipeService from '../services/RecipeService.js';
 Vue.use(Vuex)
 
 const groupStore = {
@@ -25,8 +26,8 @@ const groupStore = {
             state.group = group
         },
         removeRecipeFromGroup(state, { recipeId }) {
-            let recipeIdx = state.group.recipes.findIndex(recipe=> recipe._id === recipeId)
-            state.group.recipes.splice(recipeIdx,1)
+            let recipeIdx = state.group.recipes.findIndex(recipe => recipe._id === recipeId)
+            state.group.recipes.splice(recipeIdx, 1)
         }
     },
     actions: {
@@ -36,11 +37,6 @@ const groupStore = {
         filterGroups({ commit }, { filterBy }) {
             groupService.query(filterBy).then((groups) => commit({ type: 'setGroups', groups }))
         },
-        // getGroup({ commit }, { groupId }) {
-        //     return groupService.getById(groupId).then((group) => {
-        //         commit({ type: 'setGroup', group })
-        //     })
-        // },    }
         getGroupById({ commit, state }, payload) {
             state.group = null
             setTimeout(() => {
@@ -51,7 +47,7 @@ const groupStore = {
         removeRecipeFromGroup({ commit }, { recipeId, groupId }) {
             groupService.removeRecipeFromGroup(recipeId, groupId)
                 .then(() => commit({ type: 'removeRecipeFromGroup', recipeId }))
-        }
+        },
     }
 }
 

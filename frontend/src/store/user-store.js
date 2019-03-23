@@ -46,7 +46,6 @@ const userStore = {
             userService.logOut()
         },
         getUserById({ commit }, { userId }) {
-            
             return userService.getUserById(userId)
                 .then(user => commit({ type: 'setUser', user }))
         },

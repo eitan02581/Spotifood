@@ -3,7 +3,7 @@
     <!-- ONLY FOR ADMIN -->
     <loading-cmp v-if="!group"/>
     <template v-if="group">
-    <pandingUser :groupId="group._id" :pendUsers="pendUsers" ></pandingUser>
+      <pandingUser :groupId="group._id" :pendUsers="pendUsers"></pandingUser>
       <div class="join-btn-container">
         <el-button @click.native="onJoinGroup" type="success">Join +</el-button>
       </div>
@@ -29,7 +29,14 @@ export default {
     pandingUser
   },
   created() {
-    this.$store.dispatch("getGroupById", { _id: this.$route.params.groupId });
+    this.$store
+      .dispatch("getGroupById", { _id: this.$route.params.groupId })
+      .then(() => {
+        this.$store.dispatch("getUserById", { userId: this.$store.getters.user._id })
+          .then(()=>{
+            this.$store.commit('setAdminObj',{admin:this.$store.getters.user})
+            })
+      });
   },
   computed: {
     group() {

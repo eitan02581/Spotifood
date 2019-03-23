@@ -13,7 +13,7 @@
             <i class="fas fa-user"></i>
           </template>
         </el-input>
-        <el-input placeholder="Password" v-model="user.password">
+        <el-input type="password" placeholder="Password" v-model="user.password">
           <template slot="prepend">
             <i class="fas fa-lock red"></i>
           </template>

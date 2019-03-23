@@ -4,8 +4,8 @@
 }
 
 @font-face {
-    font-family: 'Cormorant Garamond';
-    src: url('./fonts/Cormorant-Garamond/CormorantGaramond-Light.ttf');
+    font-family: 'rigth';
+    src: url('./fonts/righteous/Righteous-Regular.ttf');
 }
 
 * {
@@ -49,4 +49,21 @@ li{
 }
 .space-between{
     justify-content: space-between;
+}
+
+
+
+::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+    background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #F44336;
 }

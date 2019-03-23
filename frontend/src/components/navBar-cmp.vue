@@ -205,6 +205,7 @@ export default {
       font-size: 30px;
       h1 {
         color: white;
+        padding-left: 10px;
       }
     }
     .links-container {

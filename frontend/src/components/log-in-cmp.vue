@@ -8,7 +8,7 @@
             <i class="fas fa-user"></i>
           </template>
         </el-input>
-        <el-input placeholder="Password" v-model="user.password">
+        <el-input type="password" placeholder="Password" v-model="user.password">
           <template slot="prepend">
             <i class="fas fa-lock red"></i>
           </template>
@@ -41,8 +41,10 @@ export default {
     login() {
       this.$store.dispatch({ type: "logIn", user: this.user }).then(() => {
         var user = this.$store.getters.user;
-        eventBus.$emit("USER_LOGGED", user);
-        this.$router.push("/");
+        if (user.username) {
+          eventBus.$emit("USER_LOGGED", user);
+          this.$router.push("/");
+        }
       });
     }
   }

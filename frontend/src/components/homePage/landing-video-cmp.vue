@@ -13,8 +13,6 @@ export default {};
 <style scoped lang="scss" >
 section {
   h1 {
-    font-family: "Cormorant Garamond";
-
     position: absolute;
     top: 50%;
     left: 50%;

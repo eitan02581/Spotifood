@@ -46,6 +46,7 @@ const groupStore = {
             },1500)
         },
         addGroup({commit, state}, {group}){
+            console.log('user to group is', group.admin)
             return groupService.add(group)
                 .then(newGroup => {
                     console.log('newly added group is', newGroup)

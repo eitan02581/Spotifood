@@ -27,14 +27,34 @@
           <i class="el-icon-plus"></i>
         </el-upload>
       </el-form-item>
+      <el-form-item label="Guests">
+        <el-input-number v-model="group.guests" :step="1"></el-input-number>
+      </el-form-item>
+      <el-form-item label="Event Type">
+        <el-select multiple v-model="group.eventType" filterable placeholder="Select Event">
+          <el-option v-for="event in eventType" :key="event" :label="event" :value="event"></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="Cuisine Type">
+        <el-select multiple v-model="group.cuisineType" filterable placeholder="Select Cuisine">
+          <el-option
+            v-for="cuisine in cuisineType"
+            :key="cuisine"
+            :label="cuisine"
+            :value="cuisine"
+          ></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="Location">
+        <GmapAutocomplete class="el-input__inner" @place_changed="setPlace"></GmapAutocomplete>
+      </el-form-item>
+      <div class="map-container">
+        <img v-if="!currLoc" src="@/assets/loading_imgs/map.gif" alt="map_loading">
+        <GmapMap v-if="currLoc" :center="currLoc" :zoom="10" ref="groupMap" style="flex-grow: 1">
+          <GmapMarker :position="markerPos" :clickable="true" :draggable="true"/>
+        </GmapMap>
+      </div>
     </el-form>
-    <GmapAutocomplete class="el-input__inner" @place_changed="setPlace"></GmapAutocomplete>
-    <div class="map-container">
-      <img v-if="!currLoc" src="@/assets/loading_imgs/map.gif" alt="map_loading">
-      <GmapMap v-if="currLoc" :center="currLoc" :zoom="10" ref="groupMap" style="flex-grow: 1">
-        <GmapMarker :position="markerPos" :clickable="true" :draggable="true"/>
-      </GmapMap>
-    </div>
     <div class="btns">
       <el-button type="primary" @click="createGroup">Create</el-button>
       <el-button @click="cancelGroup">Cancel</el-button>
@@ -63,8 +83,22 @@ export default {
         title: "",
         location: null,
         time: null,
-        place: null
-      }
+        place: null,
+        cuisineType: [],
+        guests: 1,
+        eventType: []
+      },
+      cuisineType: [
+        "Israeli",
+        "French",
+        "Italian",
+        "British",
+        "Vietnamese",
+        "Chinese",
+        "Indian",
+        "Other"
+      ],
+      eventType: ["Breakfast", "Brunch", "Lunch", "Dinner", "Other"]
     };
   },
   created() {
@@ -134,16 +168,20 @@ export default {
     },
     createGroup() {
       let vals = Object.values(this.group);
-      let emptyVal = vals.findIndex(val => !val);
-      if (emptyVal !== -1) {
-        console.log("group is not valid");
+      let emptyVal = vals.findIndex(val => {
+        return !val
+      });
+      if (emptyVal !== -1 || !this.group.eventType.length || !this.group.cuisineType.length) {
+        console.log("group is not valid", emptyVal);
         return;
       }
-      this.group.img = "https://api.adorable.io/avatars/400/5c9265c2c6bd2228fea79dd1";
-      this.$store.dispatch("addGroup", { group: this.group })
-        .then(newGroup => {
-          this.$router.push('/groups/' + newGroup._id)
-        })
+      this.group.img =
+        "https://api.adorable.io/avatars/400/5c9265c2c6bd2228fea79dd1";
+      let admin = this.$store.getters.user;
+      this.group.admin = admin._id;
+      this.$store.dispatch("addGroup", { group: this.group }).then(newGroup => {
+        this.$router.push("/groups/" + newGroup._id);
+      });
     }
   }
 };

@@ -42,12 +42,13 @@ const userStore = {
                     // TODO: RETURN A LOG FIX IT 
                 }).catch((res) => console.log(res))
         },
-        logOut({commit}){
+        logOut({ commit }) {
             userService.logOut()
         },
-        getUserById(context, payload) {
-            groupService.query()
-                .then(groups => commit({ type: 'setGroups', groups }))
+        getUserById({ commit }, { userId }) {
+            
+            return userService.getUserById(userId)
+                .then(user => commit({ type: 'setUser', user }))
         },
     }
 }

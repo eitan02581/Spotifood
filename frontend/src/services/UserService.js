@@ -27,10 +27,10 @@ function logIn(user) {
 }
 function signUp(newUser) {
 
-    newUser.img = ''
     newUser.groups = []
     newUser.favCategories = []
     newUser.isAdmin = false
+    newUser.img = `https://api.adorable.io/avatars/300/${newUser.username}`
 
     return axios.post(`${USER_ROUTE}/signup`, newUser)
         .then(user => {

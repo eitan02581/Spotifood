@@ -1,73 +1,192 @@
 <template>
   <section class="add-group-form">
-    <el-form class="form-text-input" ref="form" :model="form" label-width="120px">
-      <div class="inputs">
-        <el-form-item label="Group Name">
-          <el-input v-model="form.name"></el-input>
-        </el-form-item>
-      </div>
-      <div class="btns">
-        <el-form-item>
-          <el-button type="primary">Create</el-button>
-          <el-button>Cancel</el-button>
-        </el-form-item>
-      </div>
+    <el-form class="form-text-input" ref="group" label-width="120px">
+      <!-- Form Label -->
+      <el-form-item>
+        <h1>Create Group</h1>
+      </el-form-item>
+      <!-- Group Name Input -->
+      <el-form-item label="Group Name">
+        <el-input v-model="group.title"></el-input>
+      </el-form-item>
+      <!-- Group Time Input -->
+      <el-form-item label="Meal time">
+        <el-date-picker
+          v-model="group.time"
+          type="datetime"
+          value-format="timestamp"
+          placeholder="Select date and time"
+        ></el-date-picker>
+      </el-form-item>
+      <el-form-item>
+        <el-upload
+          action="https://jsonplaceholder.typicode.com/posts/"
+          list-type="picture-card"
+          :on-success="handlePictureCardPreview"
+        >
+          <i class="el-icon-plus"></i>
+        </el-upload>
+      </el-form-item>
     </el-form>
-    <GmapMap v-if="currLoc" :center="currLoc" :zoom="7" style="width: 350px; height: 350px">
-      <GmapMarker :position="currLoc" :clickable="true" :draggable="true"/>
-    </GmapMap>
+    <GmapAutocomplete class="el-input__inner" @place_changed="setPlace"></GmapAutocomplete>
+    <div class="map-container">
+      <img v-if="!currLoc" src="@/assets/loading_imgs/map.gif" alt="map_loading">
+      <GmapMap v-if="currLoc" :center="currLoc" :zoom="10" ref="groupMap" style="flex-grow: 1">
+        <GmapMarker :position="markerPos" :clickable="true" :draggable="true"/>
+      </GmapMap>
+    </div>
+    <div class="btns">
+      <el-button type="primary" @click="createGroup">Create</el-button>
+      <el-button @click="cancelGroup">Cancel</el-button>
+    </div>
   </section>
 </template>
 
 <script>
+import FunctionalCalendar from "vue-functional-calendar";
+import GroupService from "../services/GroupService.js";
+import { gmapApi } from "vue2-google-maps";
+import moment from "moment";
+
 export default {
+  components: {
+    FunctionalCalendar
+  },
   data() {
     return {
+      searchInput: "",
       currLoc: null,
-      form: {
-        name: "",
-        region: "",
-        date1: "",
-        date2: "",
-        delivery: false,
-        type: [],
-        resource: "",
-        desc: ""
+      markerPos: null,
+      dialogVisible: false,
+      dialogImageUrl: "",
+      group: {
+        title: "",
+        location: null,
+        time: null,
+        place: null
       }
     };
   },
   created() {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(this.setCurrentLocation);
-    } else {
-      x.innerHTML = "Geolocation is not supported by this browser.";
+      console.log("created");
+      setTimeout(() => {
+        navigator.geolocation.getCurrentPosition(this.setUserLocation);
+      }, 1500);
     }
   },
+  computed: {
+    google: gmapApi
+  },
   methods: {
-    setCurrentLocation(position) {
+    handlePictureCardPreview(file) {
+      console.log(file);
+      this.group.img = file.url;
+      this.dialogVisible = true;
+    },
+
+    cancelGroup() {
+      this.$router.push("/");
+    },
+    setUserLocation(position) {
+      console.log("user location is", position);
       this.currLoc = {
         lat: position.coords.latitude,
         lng: position.coords.longitude
       };
-      console.log("curr location is", this.currLoc);
+      this.markerPos = this.currLoc;
+    },
+    getLatLngFromEvent(event) {
+      return {
+        lat: event.latLng.lat(),
+        lng: event.latLng.lng()
+      };
+    },
+    setPlace(place) {
+      if (Object.keys(place).length < 2) {
+        console.log(Object.keys(place).length);
+        return;
+      }
+      console.log("place is", place);
+      this.group.location = {
+        lat: place.geometry.location.lat(),
+        lng: place.geometry.location.lng()
+      };
+      this.$refs.groupMap.panTo(this.group.location);
+      this.markerPos = this.group.location;
+      let country = place.address_components.find(
+        adr => adr.types[0] === "country"
+      );
+      console.log("country is", country);
+      country = {
+        longName: country.long_name,
+        shortName: country.short_name
+      };
+      let city = place.address_components.find(
+        adr => adr.types[0] === "locality"
+      );
+      this.group.place = {
+        country,
+        city: city.long_name
+      };
+      console.log("city is", city);
+      console.log("group is", this.group);
+    },
+    createGroup() {
+      let vals = Object.values(this.group);
+      let emptyVal = vals.findIndex(val => !val);
+      if (emptyVal !== -1) {
+        console.log("group is not valid");
+        return;
+      }
+      this.group.img = "https://api.adorable.io/avatars/400/5c9265c2c6bd2228fea79dd1";
+      this.$store.dispatch("addGroup", { group: this.group })
+        .then(newGroup => {
+          this.$router.push('/groups/' + newGroup._id)
+        })
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
-section.add-group-form {
+section {
   width: 80%;
   margin: 10px auto;
-  padding: 20px;
+  padding: 20px 5px;
   border: 1px solid rgb(223, 223, 223);
   border-radius: 10px;
   display: flex;
-  justify-content: space-between;
-}
-.add-group-form {
-  display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
   justify-content: space-between;
+  .form-text-input {
+    h1 {
+      justify-self: flex-start;
+      font-size: 45px;
+      margin: 10px;
+    }
+    min-width: 200px;
+    margin: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .map-container {
+    width: 500px;
+    margin: 5px;
+  }
+  .vue-map-container {
+    border: 1px solid rgb(219, 219, 219);
+    width: 400px;
+    // max-width: 400px;
+    min-height: 400px;
+    flex-grow: 1;
+  }
+  .btns {
+    margin-left: 50px;
+    align-self: flex-end;
+    justify-self: flex-start;
+  }
 }
 </style>

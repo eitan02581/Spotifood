@@ -25,9 +25,9 @@
               <i style="color:orange" class="fas fa-star"></i> (37)
             </h3>
 
-            <!-- <div class="has-container">
+            <div class="has-container">
               <span v-for="hash in group.hashtags" :key="hash">#{{hash}}</span>
-            </div>-->
+            </div>
           </div>
         </div>
       </div>
@@ -49,7 +49,7 @@ export default {
   data() {
     return {
       groupDemoObj: {
-        _id: "5c9265c2c6bd2228fea79dd1",
+        _id: "5c96741617e61f08bf0f65fe",
         image: 'url("assets/preview-demo.jpg")',
         title: "Israeli authentic Experience",
         createdBy: "Dana",

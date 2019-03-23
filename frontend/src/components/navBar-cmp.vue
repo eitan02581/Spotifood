@@ -10,7 +10,7 @@
         <router-link class="nav-link-classic" to="/groups">
           <button>Explore</button>
         </router-link>
-        <router-link class="nav-link-classic" to="/groups/add">
+        <router-link v-if="user" class="nav-link-classic" to="/groups/add">
           <button>Create Group</button>
         </router-link>
         <router-link class="nav-link-classic" to="/about">
@@ -26,9 +26,8 @@
         </template>
         <template v-if="user">
           <div class="user-info-container">
-            <router-link :to="'user/' + user">
-              <button>Hey {{user.nickname}}</button>
-              <img :src="user.img" alt>
+            <router-link :to="'/user/' + user._id">
+              <img :src="userImg" alt>
             </router-link>
           </div>
           <a class="nav-link-classic">
@@ -82,6 +81,13 @@ export default {
       this.$store.dispatch({ type: "logOut" });
       this.user = null;
       this.$router.push("/");
+    }
+  },
+  computed: {
+    userImg() {
+      return this.user.img
+        ? this.user.img
+        : "https://api.adorable.io/avatars/300/";
     }
   },
   watch: {
@@ -139,8 +145,9 @@ export default {
       .user-info-container {
         display: flex;
         flex-direction: row;
-        width: 135px;
         transition: 0.3s;
+        justify-content: center;
+        align-items: center;
         a {
           text-align: center;
 

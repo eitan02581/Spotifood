@@ -8,7 +8,10 @@ function query(filterBy) {
     if (filterBy) {
 
         let filterQuery = '?';
-        if (filterBy.searcInput) filterQuery += `general=${filterBy.searcInput}&`
+        if (filterBy.hashtags.length >= 1) filterQuery += `hashtags=${filterBy.hashtags}&`
+        if (filterBy.cuisineType) filterQuery += `cuisineType=${filterBy.cuisineType}&`
+        if (filterBy.eventType) filterQuery += `eventType=${filterBy.eventType}&`
+        if (filterBy.guests) filterQuery += `guests=${filterBy.guests}&`
         // if (filterBy.type !== 'All' && filterObj.type) filterQuery += `type=${filterObj.type}&`
         // if (filterBy.inStock !== 'All' && filterObj.inStock) filterQuery += `inStock=${filterObj.inStock}&`
         // filterQuery += `sortBy=${filterObj.sortBy}`
@@ -21,6 +24,11 @@ function query(filterBy) {
 }
 
 function add(group) {
+    console.log('inside add group with', group)
+    return axios.post(`${GROUP_ROUTE}`, group)
+        .then(res => {
+            return res.data
+        })
 }
 
 function update(group) {
@@ -33,14 +41,14 @@ function getById(groupId) {
     return axios.get(`${GROUP_ROUTE}/${groupId}`)
         .then(res => res.data)
         .then(group => {
-            console.log('group',group)
+            console.log('group', group)
             var groupUsers = group.users.map(userId => {
                 return userService.getUserById(userId)
             })
             var groupRecipes = group.recipes.map(recipeId => {
                 return recipesService.getRecipeById(recipeId)
             })
-            var promiseArray = [Promise.all(groupUsers),Promise.all(groupRecipes)]
+            var promiseArray = [Promise.all(groupUsers), Promise.all(groupRecipes)]
             return Promise.all(promiseArray)
                 .then(array => {
                     group.users = array[0]
@@ -50,10 +58,27 @@ function getById(groupId) {
         })
 }
 
+function askJoinGroup(ids) {
+    return axios.put(`${GROUP_ROUTE}/join/${ids.groupId}`, ids).then((res) => res.data)
+}
+function addUserToGroup(ids) {
+    return axios.put(`${GROUP_ROUTE}/accept/${ids.groupId}`, ids).then((res) => res.data)
+
+
+}
+function declineUserRequest(ids) {
+    return axios.put(`${GROUP_ROUTE}/decline/${ids.groupId}`, ids).then((res) => res.data)
+
+
+}
+
 export default {
     query,
     getById,
     add,
     remove,
-    update
+    update,
+    askJoinGroup,
+    addUserToGroup,
+    declineUserRequest
 }

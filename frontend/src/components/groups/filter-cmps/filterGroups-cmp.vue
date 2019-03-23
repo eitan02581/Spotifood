@@ -2,13 +2,14 @@
   <section>
     <div class="filter-container">
       <form>
-        <eventSelect @eventType="onSelectedVals"></eventSelect>
-        <cuisineSelect @cuisine="onSelectedVals"></cuisineSelect>
-        <guestsSelect @guests="onSelectedVals"></guestsSelect>
+        <eventSelect @eventType="onSelectedVals('eventType' ,  $event)"></eventSelect>
+        <cuisineSelect @cuisine="onSelectedVals('cuisineType' ,  $event)"></cuisineSelect>
+        <guestsSelect @guests="onSelectedVals('guests' ,  $event)"></guestsSelect>
         <dateSuggestions></dateSuggestions>
-        <selectEl @selectedVals="onSelectedVals"></selectEl>
+        <selectEl @selectedVals="onSelectedVals('hashtags' ,  $event)"></selectEl>
       </form>
     </div>
+    {{filterBy}}
   </section>
 </template>
 
@@ -29,14 +30,19 @@ export default {
   data() {
     return {
       filterBy: {
-        searcInput: []
+        hashtags: [],
+        cuisineType: "",
+        eventType: "",
+        guests: null
       }
     };
   },
   methods: {
-    onSelectedVals(selectedVals) {
-      this.filterBy.searcInput = [...selectedVals];
-      console.log(this.filterBy.searcInput);
+    onSelectedVals(filterBy, val) {
+      if (filterBy === "hashtags") this.filterBy.hashtags = val;
+      if (filterBy === "cuisineType") this.filterBy.cuisineType = val;
+      if (filterBy === "eventType") this.filterBy.eventType = val;
+      if (filterBy === "guests") this.filterBy.guests = val;
     }
   },
   watch: {

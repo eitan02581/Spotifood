@@ -10,7 +10,7 @@
       <h3>{{group.time | time }}</h3>
     </div>
     <div class="admin-profile">
-      <img :src="group.users[0].img" alt>
+      <img :src="group.users[0].img">
       <h2>{{group.users[0].username}}</h2>
     </div>
     <el-tag type="warning" v-for="hashtag in group.hashtags" :key="hashtag">#{{hashtag}}</el-tag>

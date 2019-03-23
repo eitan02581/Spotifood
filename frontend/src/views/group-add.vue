@@ -19,12 +19,17 @@
         ></el-date-picker>
       </el-form-item>
       <el-form-item>
+        <!-- UPLOAD PROFILE IMG -->
         <el-upload
-          action="https://jsonplaceholder.typicode.com/posts/"
-          list-type="picture-card"
-          :on-success="handlePictureCardPreview"
+          class="avatar-uploader"
+          action="squeeze rubber duck"
+          :http-request="uploadImg"
+          :show-file-list="false"
         >
-          <i class="el-icon-plus"></i>
+          <!-- :before-upload="beforeAvatarUpload"
+          :on-success="handleAvatarSuccess"-->
+          <img v-if="group.img" :src="group.img" class="avatar">
+          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
       </el-form-item>
       <el-form-item label="Guests">
@@ -65,6 +70,7 @@
 <script>
 import FunctionalCalendar from "vue-functional-calendar";
 import GroupService from "../services/GroupService.js";
+import uploadService from "../services/UploadService";
 import { gmapApi } from "vue2-google-maps";
 import moment from "moment";
 
@@ -77,8 +83,6 @@ export default {
       searchInput: "",
       currLoc: null,
       markerPos: null,
-      dialogVisible: false,
-      dialogImageUrl: "",
       group: {
         title: "",
         location: null,
@@ -86,7 +90,8 @@ export default {
         place: null,
         cuisineType: [],
         guests: 1,
-        eventType: []
+        eventType: [],
+        img: ""
       },
       cuisineType: [
         "Israeli",
@@ -113,12 +118,6 @@ export default {
     google: gmapApi
   },
   methods: {
-    handlePictureCardPreview(file) {
-      console.log(file);
-      this.group.img = file.url;
-      this.dialogVisible = true;
-    },
-
     cancelGroup() {
       this.$router.push("/");
     },
@@ -165,24 +164,77 @@ export default {
     createGroup() {
       let vals = Object.values(this.group);
       let emptyVal = vals.findIndex(val => {
-        return !val
+        return !val;
       });
-      if (emptyVal !== -1 || !this.group.eventType.length || !this.group.cuisineType.length) {
+      if (
+        emptyVal !== -1 ||
+        !this.group.eventType.length ||
+        !this.group.cuisineType.length
+      ) {
         return;
       }
-      this.group.img =
-        "https://api.adorable.io/avatars/400/5c9265c2c6bd2228fea79dd1"; //uploaded img
+      if (!this.group.img) {
+        this.group.img =
+          "https://api.adorable.io/avatars/400/5c9265c2c6bd2228fea79dd1";
+      }
       let admin = this.$store.getters.user;
       this.group.admin = admin._id;
       this.$store.dispatch("addGroup", { group: this.group }).then(newGroup => {
         this.$router.push("/groups/" + newGroup._id);
       });
-    }
+    },
+    uploadImg(input) {
+      const formData = new FormData();
+      formData.append("image", input.file);
+      uploadService.uploadImg(formData).then(url => {
+        this.group.img = url;
+        console.log(this.group.img); //// TODO: show success popup
+      });
+    },
+    ////////////////////////////////
+    // handleAvatarSuccess(res, file) {
+    //   this.imageUrl = URL.createObjectURL(file.raw);
+    // },
+    // beforeAvatarUpload(file) {
+    //   const isJPG = file.type === "image/jpeg";
+    //   const isLt2M = file.size / 1024 / 1024 < 2;
+    //
+    //   if (!isJPG) {
+    //     this.$message.error("Avatar picture must be JPG format!");
+    //   }
+    //   if (!isLt2M) {
+    //     this.$message.error("Avatar picture size can not exceed 2MB!");
+    //   }
+    //   return isJPG && isLt2M;
+    // }
   }
 };
 </script>
 
 <style lang="scss" scoped>
+.avatar-uploader .el-upload {
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.avatar-uploader .el-upload:hover {
+  border-color: #409eff;
+}
+.avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 178px;
+  height: 178px;
+  line-height: 178px;
+  text-align: center;
+}
+.avatar {
+  width: 178px;
+  height: 178px;
+  display: block;
+}
 section {
   width: 80%;
   margin: 10px auto;

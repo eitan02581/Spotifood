@@ -73,7 +73,7 @@ const groupStore = {
         acceptUserToGroup({ commit }, { ids }) {
             return groupService.addUserToGroup(ids).then((res) => res)
         },
-        declineUserRequest({commit} ,{ids}){
+        declineUserRequest({ commit }, { ids }) {
             return groupService.declineUserRequest(ids).then((res) => res)
         }
     }

@@ -4,7 +4,12 @@ const GROUP_COLLECTION = 'groups'
 
 var UtilService = require('./util-service.js');
 var groups = require('../data/groups.json')
-// _addMany()
+// _resetDb()
+
+function _resetDb(){
+    _cleanCollection()
+    _addMany()    
+}
 
 function _addMany() {
     return mongoService.connect()
@@ -12,6 +17,14 @@ function _addMany() {
         .then(res => {
             group._id = res.insertedId
             return group
+        })
+}
+
+function _cleanCollection() {
+    return mongoService.connect()
+        .then(db => db.collection(GROUP_COLLECTION).remove({}))
+        .then(res => {
+            console.log('result after clearing', res)
         })
 }
 
@@ -70,6 +83,8 @@ function add(group) {
     group.users = []
     group.recipes = []
     group.hashtags = []
+    group.pendingUsers = []
+    group.admin = new ObjectId(group.admin)
     return mongoService.connect()
         .then(db => {
             return db.collection(GROUP_COLLECTION).insertOne(group)

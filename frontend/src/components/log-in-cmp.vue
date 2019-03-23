@@ -3,12 +3,12 @@
     <div class="form-wrapper">
       <form>
         <h1>Login</h1>
-        <el-input placeholder="Username" v-model="username">
+        <el-input placeholder="Username" v-model="user.username">
           <template slot="prepend">
             <i class="fas fa-user"></i>
           </template>
         </el-input>
-        <el-input placeholder="Password" v-model="password">
+        <el-input placeholder="Password" v-model="user.password">
           <template slot="prepend">
             <i class="fas fa-lock red"></i>
           </template>
@@ -28,11 +28,21 @@
 export default {
   data() {
     return {
-      username: null,
-      password: null
+      user: {
+        username: null,
+        password: null
+      }
     };
   },
-  methods: {}
+  methods: {
+    login() {
+      if (!this.user.username || !this.user.password) {
+        return;
+      } else {
+        console.log('user to login is', this.user);
+      }
+    }
+  }
 };
 </script>
 

@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import groupService from '../services/GroupServices.js'
+import groupService from '../services/GroupService.js'
 Vue.use(Vuex)
 
 const groupStore = {
@@ -38,13 +38,20 @@ const groupStore = {
         //         commit({ type: 'setGroup', group })
         //     })
         // },    }
-
         getGroupById({ commit, state }, payload) {
             state.group = null
             setTimeout(()=>{
                 groupService.getById(payload._id)
                     .then(group => commit({ type: 'setGroup', group }))
             },1500)
+        },
+        addGroup({commit, state}, {group}){
+            return groupService.add(group)
+                .then(newGroup => {
+                    console.log('newly added group is', newGroup)
+                    commit({type:'setGroup', newGroup})
+                    return newGroup
+                })
         }
     }
 }

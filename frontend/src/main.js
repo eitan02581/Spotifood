@@ -10,6 +10,12 @@ import './filters.js'
 import * as VueGoogleMaps from 'vue2-google-maps'
 import AOS from '../node_modules/aos'
 import '../node_modules/aos/dist/aos.css'
+import 'vue-event-calendar/dist/style.css' //^1.1.10, CSS has been extracted as one file, so you can easily update it.
+import vueEventCalendar from 'vue-event-calendar'
+import FunctionalCalendar from 'vue-functional-calendar';
+
+Vue.use(FunctionalCalendar)
+Vue.use(vueEventCalendar, { locale: 'en' })
 
 
 Vue.use(VueGoogleMaps, {
@@ -22,7 +28,7 @@ Vue.use(VueGoogleMaps, {
 
     //// If you want to set the version, you can do so:
     // v: '3.26',
-  },  
+  },
 
   //// If you intend to programmatically custom event listener code
   //// (e.g. `this.$refs.gmap.$on('zoom_changed', someFunc)`)
@@ -35,11 +41,11 @@ Vue.use(VueGoogleMaps, {
   //// Vue.component('GmapMarker', GmapMarker)
   //// then disable the following:
   // installComponents: true,
-})  
+})
 
 Vue.config.productionTip = false
 
-Vue.use(Element)
+Vue.use(Element, { locale: 'en' })
 
 new Vue({
   created() {

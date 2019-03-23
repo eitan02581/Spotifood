@@ -66,9 +66,14 @@ function update(group) {
 function add(group) {
     group.users = []
     group.recipes = []
+    group.hashtags = []
     return mongoService.connect()
         .then(db => {
             return db.collection(GROUP_COLLECTION).insertOne(group)
+                .then(result => {
+                    console.log('result from database is', result.ops[0])
+                    return result.ops[0]
+                })
         })
 }
 

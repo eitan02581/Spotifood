@@ -176,7 +176,7 @@ export default {
         return;
       }
       this.group.img =
-        "https://api.adorable.io/avatars/400/5c9265c2c6bd2228fea79dd1";
+        "https://api.adorable.io/avatars/400/5c9265c2c6bd2228fea79dd1"; //uploaded img
       let admin = this.$store.getters.user;
       this.group.admin = admin._id;
       this.$store.dispatch("addGroup", { group: this.group }).then(newGroup => {

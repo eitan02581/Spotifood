@@ -4,7 +4,7 @@ const GROUP_COLLECTION = 'groups'
 
 var UtilService = require('./util-service.js');
 var groups = require('../data/groups.json')
-_resetDb()
+// _resetDb()
 
 function _resetDb(){
     _cleanCollection()

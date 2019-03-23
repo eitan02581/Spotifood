@@ -2,7 +2,7 @@ import axios from 'axios'
 import userService from './UserService'
 import recipesService from './RecipeService'
 // TODO: UPDATE TO THE ACTUAL PROJ NAME
-const GROUP_ROUTE = (process.env.NODE_ENV !== 'development') ? '/group' : 'http://localhost:3005/group'
+const GROUP_ROUTE = (process.env.NODE_ENV !== 'development') ? '/group' : 'http://localhost:3007/group'
 
 function query(filterBy) {
     if (filterBy) {
@@ -68,8 +68,10 @@ function addUserToGroup(ids) {
 }
 function declineUserRequest(ids) {
     return axios.put(`${GROUP_ROUTE}/decline/${ids.groupId}`, ids).then((res) => res.data)
+}
 
-
+function removeRecipeFromGroup(recipeId, groupId) {
+    return axios.delete(`${GROUP_ROUTE}/${groupId}/${recipeId}`).then(res => console.log(res))
 }
 
 export default {
@@ -80,5 +82,6 @@ export default {
     update,
     askJoinGroup,
     addUserToGroup,
-    declineUserRequest
+    declineUserRequest,
+    removeRecipeFromGroup
 }

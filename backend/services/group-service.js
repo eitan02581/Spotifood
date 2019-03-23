@@ -6,9 +6,9 @@ var UtilService = require('./util-service.js');
 var groups = require('../data/groups.json')
 // _resetDb()
 
-function _resetDb(){
+function _resetDb() {
     _cleanCollection()
-    _addMany()    
+    _addMany()
 }
 
 function _addMany() {
@@ -139,6 +139,29 @@ function removePendingUser(ids) {
         })
 }
 
+function addRecipeToGroup(recipeId, groupId) {
+    const _id = new ObjectId(groupId)
+    return mongoService.connect()
+        .then(db => {
+            return db.collection(GROUP_COLLECTION).updateOne(
+                { _id },
+                { $push: { recipes: recipeId } }
+            )
+        })
+}
+
+function removeRecipeFromGroup(recipeId, groupId) {
+    const _id = new ObjectId(groupId)
+    const recipe = new ObjectId(recipeId)
+    return mongoService.connect()
+        .then(db => {
+            return db.collection(GROUP_COLLECTION).updateOne(
+                { _id },
+                { $pull: { recipes: recipe } }
+            )
+        })
+}
+
 module.exports = {
     query,
     getById,
@@ -147,5 +170,7 @@ module.exports = {
     remove,
     askJoin,
     addParticipant,
-    removePendingUser
+    removePendingUser,
+    addRecipeToGroup,
+    removeRecipeFromGroup
 }

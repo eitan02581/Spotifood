@@ -2,7 +2,7 @@
 import axios from 'axios'
 import storageService from './StorageService.js'
 var users = null
-const USER_ROUTE = (process.env.NODE_ENV !== 'development') ? '/user' : 'http://localhost:3005/user'
+const USER_ROUTE = (process.env.NODE_ENV !== 'development') ? '/user' : 'http://localhost:3007/user'
 
 const CURR_USER = 'currUser'
 

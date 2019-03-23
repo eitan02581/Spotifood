@@ -3,13 +3,11 @@
     <h1 class="wrong-route" v-if="!recipe.createdBy">Who U?</h1>
     <form @submit.prevent="SaveRecipe" v-else>
       <h1>{{formTitle}}</h1>
-      <label>
-        Title:
+      <label>Title:
         <el-input placeholder="Enter Recipe Title" v-model="recipe.title"></el-input>
         <br>
       </label>
-      <label v-for="(ingredient,idx) in ingredients" :key="idx + 'ingredient'">
-        Ingredient:
+      <label v-for="(ingredient,idx) in ingredients" :key="idx + 'ingredient'">Ingredient:
         <el-input-number v-model="ingredientsQuantity[idx]" :step="0.25" :max="100"></el-input-number>
         <el-input placeholder="ingredient" v-model="ingredients[idx]"></el-input>
         <br>
@@ -18,8 +16,7 @@
         v-for="(instruction,idx) in recipe.instructions"
         :key="idx + 'instruction'"
         style="display: inherit; width: 100%;"
-      >
-        Instruction:
+      >Instruction:
         <el-input
           type="textarea"
           autosize
@@ -29,13 +26,11 @@
       </label>
       <i class="fas fa-plus-circle" @click="addTextArea" title="Add Instruction"></i>
       <br>
-      <label>
-        Prep Time:
+      <label>Prep Time:
         <el-input-number v-model="recipe.prepTime" :step="1" :max="10000"></el-input-number>
         <br>
       </label>
-      <label>
-        Categories:
+      <label>Categories:
         <el-select multiple v-model="recipe.categories" filterable placeholder="Select Categories">
           <el-option
             v-for="category in allCategories"
@@ -45,21 +40,25 @@
           ></el-option>
         </el-select>
       </label>
-      <el-upload
-        action="https://jsonplaceholder.typicode.com/posts/"
-        list-type="picture-card"
-        :on-preview="handlePictureCardPreview"
-        :on-remove="handleRemove"
-      >
-        <i class="el-icon-plus"></i>
-      </el-upload>
-      <el-dialog :visible.sync="dialogVisible">
-        <img width="100%" :src="dialogImageUrl" alt>
-        <span v-for="img in recipe.imgs" :key="img">
-          <!-- Check How Shows All Photos -->
+      <div class="upload-gallery">
+        <div class="exist-imgs" v-for="(img,idx) in recipe.imgs" :key="idx + img">
+          <!-- TODO: SHOW DELETE AND PREVIEW ON HOVER -->
           <img :src="img">
-        </span>
-      </el-dialog>
+        </div>
+        <el-upload
+          action="moon walk"
+          :http-request="uploadImg"
+          list-type="picture-card"
+          :on-preview="handlePictureCardPreview"
+          :on-remove="handleRemove"
+        >
+          <i class="el-icon-plus"></i>
+        </el-upload>
+        <el-dialog :visible.sync="dialogVisible">
+          <img width="100%" :src="dialogImageUrl" alt>
+        </el-dialog>
+      </div>
+
       <button>Submit</button>
     </form>
   </section>
@@ -67,6 +66,7 @@
 
 <script>
 import recipeService from "../services/RecipeService";
+import uploadService from "../services/UploadService";
 export default {
   data() {
     return {
@@ -83,37 +83,32 @@ export default {
         createdBy: this.$route.query.creatorId
       },
       allCategories: [],
+      ingredients: [""],
+      ingredientsQuantity: [],
       dialogImageUrl: "",
       dialogVisible: false,
-      ingredients: [""],
-      ingredientsQuantity: []
+      uploadedImgs: []
     };
   },
   methods: {
     addTextArea() {
       this.recipe.instructions.push("");
     },
-    handleRemove(file, fileList) {
-      console.log(file, fileList);
-    },
-    handlePictureCardPreview(file) {
-      this.dialogImageUrl = file.url;
-      this.dialogVisible = true;
-    },
     SaveRecipe() {
       this.recipe.ingredients = {};
+
       this.ingredients.forEach((ingredient, idx) => {
         if (!ingredient || !this.ingredientsQuantity[idx]) return;
         this.recipe.ingredients[ingredient] = this.ingredientsQuantity[idx];
       });
-      if (this.recipeId) {
-        recipeService
-          .updateRecipe(this.recipe)
-          .then(() => console.log("Saved!"));
-      } else {
-        //TODO: Add recipe to group!
-        recipeService.addRecipe(this.recipe).then(() => console.log("Added!"));
-      }
+
+      let imgsUrls = Object.values(this.uploadedImgs);
+      this.recipe.imgs = this.recipe.imgs.concat(imgsUrls);
+
+      var saveRecipe = this.recipeId
+        ? recipeService.updateRecipe(this.recipe)
+        : recipeService.addRecipe(this.recipe, this.groupId);
+      saveRecipe.then(() => this.$router.go(-1));
     },
     addIngredientInput() {
       if (
@@ -123,6 +118,24 @@ export default {
         this.ingredients.push("");
         this.ingredientsQuantity.push(0);
       }
+    },
+    handleRemove(file, fileList) {
+      var idx = this.uploadedImgs.find(img => Object.keys(img)[0] === file.uid);
+      this.uploadedImgs.splice(idx, 1);
+    },
+    handlePictureCardPreview(file) {
+      this.dialogImageUrl = file.url;
+      this.dialogVisible = true;
+    },
+    uploadImg(input) {
+      const formData = new FormData();
+      formData.append("image", input.file);
+      uploadService.uploadImg(formData).then(url => {
+        let imgUrl = {};
+        imgUrl[input.file.uid] = url;
+        this.uploadedImgs.push(imgUrl);
+        console.log(this.uploadedImgs); //// TODO: show success popup
+      });
     }
   },
   computed: {
@@ -186,6 +199,27 @@ form {
   align-items: baseline;
   & > * {
     margin-bottom: 15px;
+  }
+}
+.upload-img {
+  width: 100px;
+  height: 100px;
+  background-color: aliceblue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px dotted gainsboro;
+  border-radius: 10px;
+}
+.upload-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  .exist-imgs > img{
+    height: 148px;
+    width: 148px;
+    object-fit: fill;
+    border-radius: 5px;
+    margin-right: 10px;
   }
 }
 </style>

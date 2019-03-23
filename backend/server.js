@@ -7,6 +7,7 @@ const app = express()
 const addUserRoutes = require('./routes/user-routes')
 const addGroupRoutes = require('./routes/group-routes')
 const addRecipeRoutes = require('./routes/recipe-routes')
+const addUploadRoutes = require('./routes/upload-routes')
 
 app.use(express.static('public'))
 app.use(cors({
@@ -14,6 +15,7 @@ app.use(cors({
   credentials: true // enable set cookie
 }));
 app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(session({
   secret: 'puki muki',
@@ -29,7 +31,8 @@ app.get('/', (req, res) => {
 addUserRoutes(app)
 addGroupRoutes(app)
 addRecipeRoutes(app)
+addUploadRoutes(app)
 
 
-const PORT = process.env.PORT || 3005;
+const PORT = process.env.PORT || 3007;
 app.listen(PORT, () => console.log(`Example app listening on port ${PORT}`))

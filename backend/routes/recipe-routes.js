@@ -1,6 +1,7 @@
 const RecipeService = require('../services/recipe-service')
 
 
+
 function addRecipeRoutes(app) {
 
     app.get('/recipe', (req, res) => {
@@ -22,13 +23,18 @@ function addRecipeRoutes(app) {
     })
 
     app.post('/recipe', (req,res) => {
-        let payload = req.body.recipe
+        let payload = req.body
         RecipeService.add(payload)
             .then(updatedrecipe => {
                 // console.log('recipe added and is', res.json(updatedrecipe))
                 res.json(updatedrecipe)
             })
     })
+
+    // app.post('/recipe/:recipeId/uploadImg',parser.single("image"),(req,res)=>{
+    //     console.log(req.body)
+    //     res.json()
+    // })
 
     app.delete('/recipe/:recipeId', (req, res) => {
         const grouopId = req.params.recipeId;

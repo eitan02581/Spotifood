@@ -12,6 +12,7 @@
   "dependencies": {
     "aos": "^2.3.4",
     "axios": "^0.18.0",
+    "cloudinary-core": "^2.6.2",
     "element-ui": "^2.6.1",
     "google-maps-api-loader": "^1.1.1",
     "moment": "^2.24.0",

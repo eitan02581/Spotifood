@@ -3,7 +3,6 @@
     <div class="recipes-header">
       <h1>Recipes</h1>
       <i class="fas fa-plus" @click="addRecipe"></i>
-      <i class="fas fa-upload" @click="uploadRecipe"></i>
     </div>
     <el-collapse v-model="activeName" accordion v-for="(recipe,idx) in recipes" :key="recipe._id">
       <el-collapse-item :title="recipe.title" :name="idx">
@@ -26,7 +25,7 @@
           </ol>
         </div>
         <i class="far fa-edit" @click="updateRecipe(recipe._id,recipe.createdBy)"></i>
-        <i class="far fa-trash-alt"></i>
+        <i class="far fa-trash-alt" @click="removeRecipe(recipe._id)"></i>
       </el-collapse-item>
     </el-collapse>
   </section>
@@ -54,7 +53,7 @@ export default {
         }
       });
     },
-    updateRecipe(recipeId,creatorId) {
+    updateRecipe(recipeId, creatorId) {
       this.$router.push({
         path: "/groups/recipeForm",
         query: {
@@ -64,9 +63,13 @@ export default {
         }
       });
     },
-    uploadRecipe(){
-
-    }
+    removeRecipe(recipeId) {
+      this.$store.dispatch("removeRecipeFromGroup", {
+        recipeId,
+        groupId: this.$route.params.groupId
+      })
+    },
+    uploadRecipe() {}
   },
   computed: {},
   created() {}
@@ -77,8 +80,11 @@ export default {
 ul,
 ol {
   padding-top: 5vh;
-  &li > .quantity {
+  li > .quantity {
     font-size: 1.3em !important;
+  }
+  li{
+    list-style: unset;
   }
 }
 h1 {

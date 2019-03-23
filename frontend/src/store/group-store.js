@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import groupService from '../services/GroupService.js'
+import RecipeService from '../services/RecipeService.js';
 Vue.use(Vuex)
 
 const groupStore = {
@@ -23,7 +24,6 @@ const groupStore = {
     },
     mutations: {
         setGroups(state, { groups }) {
-
             state.groups = groups
         },
         setGroup(state, { group }) {
@@ -31,6 +31,10 @@ const groupStore = {
         },
         setPendUsers(state, { pendUsers }) {
             state.pendUsers = pendUsers
+        },
+        removeRecipeFromGroup(state, { recipeId }) {
+            let recipeIdx = state.group.recipes.findIndex(recipe => recipe._id === recipeId)
+            state.group.recipes.splice(recipeIdx, 1)
         }
     },
     actions: {
@@ -49,13 +53,25 @@ const groupStore = {
             state.group = null
             setTimeout(() => {
                 groupService.getById(payload._id)
+                    // <<<<<<< HEAD
                     .then(group => {
                         commit({ type: 'setGroup', group })
                         commit({ type: 'setPendUsers', pendUsers: group.pendingUsers })
                     })
             }, 1500)
         },
+        //         addGroup({ commit, state }, { group }) {
+        // =======
+        //                     .then(group => commit({ type: 'setGroup', group }))
+        //             }, 1500)
+        //         },
+        removeRecipeFromGroup({ commit }, { recipeId, groupId }) {
+            groupService.removeRecipeFromGroup(recipeId, groupId)
+                .then(() => commit({ type: 'removeRecipeFromGroup', recipeId }))
+        },
         addGroup({ commit, state }, { group }) {
+            console.log('user to group is', group.admin)
+            // >>>>>>> c8d34d188a950778baf07f013ae5fc55b2928192
             return groupService.add(group)
                 .then(newGroup => {
                     console.log('newly added group is', newGroup)

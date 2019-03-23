@@ -65,6 +65,7 @@ function query(filterBy) {
 
 function getById(groupId) {
     const _id = new ObjectId(groupId)
+    console.log('id of group to get', _id)
     return mongoService.connect()
         .then(db => db.collection(GROUP_COLLECTION).findOne({ _id }))
 }

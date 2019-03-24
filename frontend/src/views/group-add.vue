@@ -21,6 +21,7 @@
       <el-form-item>
         <!-- UPLOAD PROFILE IMG -->
         <el-upload
+          v-if="!isUploading"
           class="avatar-uploader"
           action="squeeze rubber duck"
           :http-request="uploadImg"
@@ -58,8 +59,7 @@
           allow-create
           default-first-option
           placeholder="Add Tags"
-        >
-        </el-select>
+        ></el-select>
         <!-- <button v-if="value10.length >=1" @click="clearSelect" class="delete">X</button> -->
       </el-form-item>
       <el-form-item label="Location">
@@ -92,6 +92,7 @@ export default {
   },
   data() {
     return {
+      isUploading: false,
       searchInput: "",
       currLoc: null,
       markerPos: null,
@@ -199,6 +200,7 @@ export default {
       }
     },
     uploadImg(input) {
+      this.isUploading = true
       console.log(input.file);
       const formData = new FormData();
       formData.append("file", input.file);
@@ -206,6 +208,7 @@ export default {
         console.log(url);
         this.group.img = url;
         console.log(this.group.img); //// TODO: show success popup
+        this.isUploading = false
       });
     }
     ////////////////////////////////

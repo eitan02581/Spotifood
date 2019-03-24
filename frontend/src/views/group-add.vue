@@ -27,6 +27,9 @@
           :http-request="uploadImg"
           :show-file-list="false"
         >
+          <div style="width: 100px;height:100px" v-if="isUploading">
+            <i class="el-icon-loading"></i>
+          </div>
           <!-- :before-upload="beforeAvatarUpload"
           :on-success="handleAvatarSuccess"-->
           <img v-if="group.img" :src="group.img" class="avatar">
@@ -189,10 +192,12 @@ export default {
       if (!this.group.img) {
         this.group.img = "https://picsum.photos/200/300/?random";
       }
-      if (this.isInValid()) return;
+      if (this.isInValid()) {
+        console.log('invalid group')
+        return;
+      }
       let admin = this.$store.getters.user;
       this.group.admin = admin._id;
-      console.log("group to add with admin");
       try {
         const newGroup = await this.$store.dispatch("addGroup", {
           group: this.group

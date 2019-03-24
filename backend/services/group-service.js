@@ -33,25 +33,38 @@ function query(filterBy) {
 
 
     if (filterBy) {
+        console.log('a', filterBy);
         var queryToMongo = {}
         // TODO: CONTINIUE FROM HERE 
         if (filterBy.hashtags) {
-            if (filterBy.hashtags.length >= 1) filterBy.hashtags = filterBy.hashtags.split(',')
-            else filterBy.hashtags = [filterBy.hashtags]
+            filterBy.hashtags = filterBy.hashtags.split(',')
             queryToMongo.hashtags = new RegExp(filterBy.hashtags, 'i');
-            console.log(filterBy.hashtags);
-            if (filterBy.hashtags.length >= 1)
-                var hashtags = filterBy.hashtags.map(el => { return { hashtags: new RegExp(el, 'i') } })
+            var hashtags = filterBy.hashtags.map(el => { return { hashtags: new RegExp(el, 'i') } })
         }
-        if (filterBy.hashtags) {
-            queryToMongo = {
-                $and: [
-                    { cuisineType: filterBy.cuisineType },
-                    { $or: hashtags }
+        if (filterBy.cuisineType) queryToMongo.cuisineType = filterBy.cuisineType
+        if (filterBy.eventType) queryToMongo.eventType = filterBy.eventType
+        if (filterBy.guests) queryToMongo.guests = +filterBy.guests
+        if (filterBy.title) queryToMongo.title = new RegExp(filterBy.title, 'i');
 
-                ]
-            }
-        }
+
+        // if (filterBy.hashtags) {
+        //     queryToMongo = {
+        //         $and: [
+        //             { cuisineType: filterBy.cuisineType },
+        //             { $or: hashtags }
+
+        //         ]
+        //     }
+        // }
+        // else if (filterBy.cuisineType || filterBy.eventType) {
+        //     queryToMongo = {
+        //         $and: [
+        //             { cuisineType: filterBy.cuisineType },
+        //             { eventType: filterBy.eventType },
+        //         ]
+        //     }
+
+        // }
         console.log('fff', queryToMongo);
         return mongoService.connect()
             .then(db => db.collection(GROUP_COLLECTION).find(queryToMongo).sort().toArray())

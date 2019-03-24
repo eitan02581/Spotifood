@@ -13,31 +13,49 @@ export default {
     return {
       options: [
         {
-          value: "1 guest"
+          value: 1
         },
         {
-          value: "2 guests"
+          value: 2
         },
         {
-          value: "3 guests"
+          value: 3
         },
         {
-          value: "4 guests"
+          value: 4
         },
         {
-          value: "6 guests"
+          value: 5
         },
         {
-          value: "7 guests"
+          value: 6
         },
         {
-          value: "8 guests"
+          value: 7
         },
         {
-          value: "9 guests"
+          value: 8
         },
         {
-          value: "above 10"
+          value: 9
+        },
+        {
+          value: 10
+        },
+        {
+          value: 11
+        },
+        {
+          value: 12
+        },
+        {
+          value: 13
+        },
+        {
+          value: 14
+        },
+        {
+          value: 15
         }
       ],
       value: ""

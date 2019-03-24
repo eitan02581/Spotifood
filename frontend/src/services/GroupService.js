@@ -12,6 +12,7 @@ function query(filterBy) {
         if (filterBy.cuisineType) filterQuery += `cuisineType=${filterBy.cuisineType}&`
         if (filterBy.eventType) filterQuery += `eventType=${filterBy.eventType}&`
         if (filterBy.guests) filterQuery += `guests=${filterBy.guests}&`
+        if (filterBy.title) filterQuery += `title=${filterBy.title}&`
         // if (filterBy.type !== 'All' && filterObj.type) filterQuery += `type=${filterObj.type}&`
         // if (filterBy.inStock !== 'All' && filterObj.inStock) filterQuery += `inStock=${filterObj.inStock}&`
         // filterQuery += `sortBy=${filterObj.sortBy}`

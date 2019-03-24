@@ -10,6 +10,7 @@ const groupStore = {
     state: {
         groups: [],
         group: null,
+        groupAdmin: {},
         pendUsers: []
 
     }, getters: {
@@ -21,6 +22,9 @@ const groupStore = {
         },
         pendUsers(state) {
             return state.pendUsers
+        },
+        groupAdmin(state) {
+            return state.groupAdmin
         }
     },
     mutations: {
@@ -54,15 +58,13 @@ const groupStore = {
         //     })
         // },    }
         getGroupById({ commit, state }, { groupId }) {
-            // setTimeout(() => {
-            console.log(groupId);
-
             return groupService.getById(groupId)
                 .then(group => {
                     commit({ type: 'setGroup', group })
                     commit({ type: 'setPendUsers', pendUsers: group.pendingUsers })
+                }).then(() => {
+                    // this.$store.dispatch({ type: 'getUserById', userId: group.admin }).then()
                 })
-            // }, 1500)
         },
 
         removeRecipeFromGroup({ commit }, { recipeId, groupId }) {
@@ -83,11 +85,15 @@ const groupStore = {
         },
         acceptUserToGroup({ commit }, { ids }) {
             return groupService.addUserToGroup(ids).then((res) => res)
-            
+
         },
         declineUserRequest({ commit }, { ids }) {
             return groupService.declineUserRequest(ids).then((res) => res)
-        }
+        },
+        // getAdminGroupById({ commit }, { ids }) {
+        //     return groupService.getAdminGroupById(ids).then((res) => res)
+
+        // }
     }
 }
 

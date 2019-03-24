@@ -46,6 +46,7 @@ export default {
   },
   created() {
     this.$store
+      // <<<<<<< HEAD
       .dispatch({ type: "getGroupById", groupId: this.$route.params.groupId })
       // get group
       .then(() => {
@@ -56,6 +57,15 @@ export default {
       .then(() => {
         // TODO: FIX NAMMING AFTER ALEX PUSH
         this.checkIfUserAbaleToJoin();
+        // =======
+        // .dispatch({type:"getGroupById", groupId: this.$route.params.groupId })
+        // .then(() => {
+        //   this.$store
+        //     .dispatch({type:"getUserById", userId: this.$store.getters.group.admin })
+        //     .then(adminUser => {
+        //       this.$store.commit("setAdminObj", { admin: adminUser });
+        //     });
+        // >>>>>>> 329929b18896f1a128398ae63689f67f94043e3e
       });
   },
   computed: {

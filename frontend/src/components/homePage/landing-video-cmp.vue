@@ -1,8 +1,22 @@
 <template>
   <section>
-    <h1>Join WEat Experience</h1>
+    <!-- <h1>Join WEat Experience</h1>
     <div class="main-img"></div>
-    <video src></video>
+    <video src></video>-->
+    <div id="videoDiv">
+      <div id="videoBlock">
+        <video style preload="preload" id="video" autoplay="autoplay" loop="loop">
+          <source src="../../assets/People-Eating-Out.mp4" type="video/webm">
+          <source src="../../assets/Group-Music.mp4" type="video/webm">
+        </video>
+        <div id="videoMessage">
+          <h1 class="spacer">
+            Join
+            <span style="color:red">WEat</span> Experience
+          </h1>
+        </div>
+      </div>
+    </div>
   </section>
 </template>
 
@@ -28,6 +42,40 @@ section {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+  }
+  #videoDiv {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+  }
+  #videoBlock {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  #videoMessage {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+  }
+  #videoMessage * {
+    padding: 0.4em;
+    margin: 0;
+  }
+  #videoMessage {
+    text-shadow: 2px 2px 2px #000000;
+    color: white;
+    z-index: 99;
+  }
+  #videoMessage h1 {
+    font-size: 4em;
+    color: #ffffff;
+    text-align: center;
   }
 }
 </style>

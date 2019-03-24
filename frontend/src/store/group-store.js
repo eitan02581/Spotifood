@@ -58,7 +58,8 @@ const groupStore = {
             groupService.query().then(groups => commit({ type: 'setGroups', groups }))
         },
         filterGroups({ commit }, { filterBy }) {
-            groupService.query(filterBy).then((groups) => commit({ type: 'setGroups', groups }))
+            groupService.query(filterBy)
+                .then((groups) => { commit({ type: 'setGroups', groups }) })
         },
 
         getGroupById({ commit, state }, { groupId }) {
@@ -79,7 +80,6 @@ const groupStore = {
             console.log('user to group is', group.admin)
             return groupService.add(group)
                 .then(newGroup => {
-                    console.log('newly added group is', newGroup)
                     commit({ type: 'setGroup', newGroup })
                     dispatch({ type: 'addGroupToUser', ids: { userId: group.admin, groupId: group._id } })
                     return newGroup

@@ -36,7 +36,7 @@
         <el-input-number v-model="group.guests" :step="1"></el-input-number>
       </el-form-item>
       <el-form-item label="Event Type">
-        <el-select multiple v-model="group.eventType" filterable placeholder="Select Event">
+        <el-select v-model="group.eventType" filterable placeholder="Select Event">
           <el-option v-for="event in eventType" :key="event" :label="event" :value="event"></el-option>
         </el-select>
       </el-form-item>
@@ -49,6 +49,18 @@
             :value="cuisine"
           ></el-option>
         </el-select>
+      </el-form-item>
+      <el-form-item label="Tags">
+        <el-select
+          v-model="group.hashtags"
+          multiple
+          filterable
+          allow-create
+          default-first-option
+          placeholder="Add Tags"
+        >
+        </el-select>
+        <!-- <button v-if="value10.length >=1" @click="clearSelect" class="delete">X</button> -->
       </el-form-item>
       <el-form-item label="Location">
         <GmapAutocomplete class="el-input__inner" @place_changed="setPlace"></GmapAutocomplete>
@@ -90,8 +102,9 @@ export default {
         place: null,
         cuisineType: [],
         guests: 1,
-        eventType: [],
-        img: ""
+        eventType: "",
+        img: "",
+        hashtags: []
       },
       cuisineType: [
         "Israeli",
@@ -140,6 +153,7 @@ export default {
         console.log(Object.keys(place).length);
         return;
       }
+      console.log(place);
       this.group.location = {
         lat: place.geometry.location.lat(),
         lng: place.geometry.location.lng()
@@ -161,36 +175,39 @@ export default {
         city: city.long_name
       };
     },
-    createGroup() {
+    isInValid() {
       let vals = Object.values(this.group);
-      let emptyVal = vals.findIndex(val => {
-        return !val;
-      });
-      if (
-        emptyVal !== -1 ||
-        !this.group.eventType.length ||
-        !this.group.cuisineType.length
-      ) {
-        return;
-      }
+      let emptyVal = vals.findIndex(val => !val);
+
+      return emptyVal !== -1 || !this.group.cuisineType.length;
+    },
+    async createGroup() {
       if (!this.group.img) {
-        this.group.img =
-          "https://api.adorable.io/avatars/400/5c9265c2c6bd2228fea79dd1";
+        this.group.img = "https://picsum.photos/200/300/?random";
       }
+      if (this.isInValid()) return;
       let admin = this.$store.getters.user;
       this.group.admin = admin._id;
-      this.$store.dispatch("addGroup", { group: this.group }).then(newGroup => {
+      console.log("group to add with admin");
+      try {
+        const newGroup = await this.$store.dispatch("addGroup", {
+          group: this.group
+        });
         this.$router.push("/groups/" + newGroup._id);
-      });
+      } catch (e) {
+        console.log(e);
+      }
     },
     uploadImg(input) {
+      console.log(input.file);
       const formData = new FormData();
-      formData.append('file', input.file)
+      formData.append("file", input.file);
       uploadService.uploadImg(formData).then(url => {
+        console.log(url);
         this.group.img = url;
         console.log(this.group.img); //// TODO: show success popup
       });
-    },
+    }
     ////////////////////////////////
     // handleAvatarSuccess(res, file) {
     //   this.imageUrl = URL.createObjectURL(file.raw);

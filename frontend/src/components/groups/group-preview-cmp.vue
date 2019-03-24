@@ -1,22 +1,21 @@
 <template>
-  <section>
-    <!-- :style="{ backgroundImage: 'url(' + groupDemoObj.image + ')' }" -->
+  <section v-if="groupAdmin">
     <router-link tag="div" :to="'/groups/' + group._id" class="preview-container">
       <div class="img-container" :style="{ backgroundImage: 'url(' + group.img + ')' }"></div>
       <div class="main">
         <div class="bottom">
-          <img src="../../assets/profiles/women.png" alt>
+          <img :src="groupAdmin.img" alt>
           <div class="info-container">
             <h2>
               Hosted by:
-              <span>{{group.createdBy}}</span>
-              in {{group.city}}
+              <span>{{groupAdmin.username}}</span>
             </h2>
+            <h2>in {{group.place.city}}, {{group.place.country.shortName}}</h2>
             <h3>
-              <div class="meal">Dinner</div>
+              <div class="meal">{{group.eventType}}</div>
             </h3>
             <h1>{{group.title}}</h1>
-            <h2 style="color:#f44336">3 seats left</h2>
+            <h2 style="color:#f44336">{{seatsLeft}} seats left</h2>
             <h3>
               <i style="color:orange" class="fas fa-star"></i>
               <i style="color:orange" class="fas fa-star"></i>
@@ -26,7 +25,8 @@
             </h3>
 
             <div class="has-container">
-              <span v-for="hash in group.hashtags" :key="hash">#{{hash}}</span>
+              <!-- <span v-for="hash in group.hashtags" :key="hash">#{{hash}}</span> -->
+              <el-tag type="warning" v-for="hashtag in group.hashtags" :key="hashtag">#{{hashtag}}</el-tag>
             </div>
           </div>
         </div>
@@ -48,22 +48,19 @@ export default {
   },
   data() {
     return {
-      groupDemoObj: {
-        _id: "5c96741617e61f08bf0f65fe",
-        image: 'url("assets/preview-demo.jpg")',
-        title: "Israeli authentic Experience",
-        createdBy: "Dana",
-        country: "Israel",
-        city: "Ramat Gan",
-        hastag: ["carnibors ", "Israeli food"]
-      },
-      imgBgClass: {
-        backgroundImage: ' url("../../assets/preview-demo.jpg")',
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover"
-      }
+      groupAdmin: null
     };
+  },
+  computed: {
+    seatsLeft() {
+      return this.group.guests - this.group.users.length;
+    }
+  },
+  async created() {
+    this.groupAdmin = await this.$store.dispatch({
+      type: "getUserById",
+      userId: this.group.admin
+    });
   }
 };
 </script>

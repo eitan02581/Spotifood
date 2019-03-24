@@ -13,10 +13,6 @@
       <i class="fas fa-utensils"></i>
       <h3>{{group.eventType}}</h3>
     </div>
-    <div class="flex">
-      <i class="fas fa-utensils"></i>
-      <h3 v-for="event in group.cuisineType" :key="event">{{event}}</h3>
-    </div>
     <div class="admin-profile">
       <img :src="group.admin.img">
       <h2>{{group.admin.username}}</h2>
@@ -25,8 +21,10 @@
       <el-tag type="info" v-for="cuisine in group.cuisineType" :key="cuisine">{{cuisine}}</el-tag>
     </div>
     <el-tag type="warning" v-for="hashtag in group.hashtags" :key="hashtag">#{{hashtag}}</el-tag>
+    <div>
     <i class="fas fa-users"></i>
     <h3>participants {{participants}}</h3>
+    </div>
     <participants-list :users="group.users"/>
   </section>
 </template>

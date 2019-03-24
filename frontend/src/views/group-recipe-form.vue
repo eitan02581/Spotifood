@@ -1,7 +1,7 @@
 <template>
-  <section class="recipe-form">
+  <section class="recipe-form" v-loading="isLoading">
     <h1 class="wrong-route" v-if="!recipe.createdBy">Who U?</h1>
-    <form @submit.prevent="SaveRecipe" v-else>
+    <form v-else>
       <h1>{{formTitle}}</h1>
       <label>Title:
         <el-input placeholder="Enter Recipe Title" v-model="recipe.title"></el-input>
@@ -46,11 +46,11 @@
           <img :src="img">
         </div>
         <el-upload
-          action="moon walk"
-          :http-request="uploadImg"
+          action="http://localhost:3007/upload-img"
           list-type="picture-card"
           :on-preview="handlePictureCardPreview"
           :on-remove="handleRemove"
+          :on-success="onUpload"
         >
           <i class="el-icon-plus"></i>
         </el-upload>
@@ -58,8 +58,7 @@
           <img width="100%" :src="dialogImageUrl" alt>
         </el-dialog>
       </div>
-
-      <button>Submit</button>
+      <el-button plain @click="SaveRecipe">Submit</el-button>
     </form>
   </section>
 </template>
@@ -87,7 +86,8 @@ export default {
       ingredientsQuantity: [],
       dialogImageUrl: "",
       dialogVisible: false,
-      uploadedImgs: {}
+      uploadedImgs: {},
+      isLoading: false
     };
   },
   methods: {
@@ -95,6 +95,7 @@ export default {
       this.recipe.instructions.push("");
     },
     SaveRecipe() {
+      this.isLoading = true;
       this.recipe.ingredients = {};
 
       this.ingredients.forEach((ingredient, idx) => {
@@ -103,12 +104,14 @@ export default {
       });
 
       let imgsUrls = Object.values(this.uploadedImgs);
-      this.recipe.imgs = this.recipe.imgs.concat(imgsUrls);
 
       var saveRecipe = this.recipeId
-        ? recipeService.updateRecipe(this.recipe)
-        : recipeService.addRecipe(this.recipe, this.groupId);
-      saveRecipe.then(() => this.$router.go(-1));
+        ? recipeService.updateRecipe(this.recipe, imgsUrls)
+        : recipeService.addRecipe(this.recipe, this.groupId, imgsUrls);
+      saveRecipe.then(() => {
+        this.isLoading = false;
+        this.$router.go(-1);
+      });
     },
     addIngredientInput() {
       if (
@@ -133,6 +136,10 @@ export default {
         this.uploadedImgs[input.file.uid] = url;
         console.log("uploaded img", this.uploadedImgs); //// TODO: show success popup
       });
+    },
+    onUpload(url, file, fileList) {
+      this.uploadedImgs[file.uid] = url;
+      console.log("uploaded img", this.uploadedImgs);
     }
   },
   computed: {

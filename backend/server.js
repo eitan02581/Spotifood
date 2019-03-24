@@ -11,7 +11,7 @@ const addUploadRoutes = require('./routes/upload-routes')
 
 app.use(express.static('public'))
 app.use(cors({
-  origin: ['http://localhost:8085'],
+  origin: ['http://localhost:8080'],
   credentials: true // enable set cookie
 }));
 app.use(bodyParser.json())

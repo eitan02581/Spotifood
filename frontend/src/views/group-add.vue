@@ -18,7 +18,7 @@
           placeholder="Select date and time"
         ></el-date-picker>
       </el-form-item>
-      <el-form-item>
+      <el-form-item label="Image">
         <!-- UPLOAD PROFILE IMG -->
         <el-upload
           v-if="!isUploading"
@@ -32,6 +32,9 @@
           <img v-if="group.img" :src="group.img" class="avatar">
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
+        <div class="loading" v-else>
+          <i class="el-icon-loading"></i>
+        </div>
       </el-form-item>
       <el-form-item label="Guests">
         <el-input-number v-model="group.guests" :step="1"></el-input-number>
@@ -200,7 +203,7 @@ export default {
       }
     },
     uploadImg(input) {
-      this.isUploading = true
+      this.isUploading = true;
       console.log(input.file);
       const formData = new FormData();
       formData.append("file", input.file);
@@ -208,7 +211,7 @@ export default {
         console.log(url);
         this.group.img = url;
         console.log(this.group.img); //// TODO: show success popup
-        this.isUploading = false
+        this.isUploading = false;
       });
     }
     ////////////////////////////////
@@ -249,6 +252,8 @@ export default {
   height: 178px;
   line-height: 178px;
   text-align: center;
+  border: 1px dashed #2196f3;
+  border-radius: 10px;
 }
 .avatar {
   width: 178px;
@@ -293,5 +298,13 @@ section {
     align-self: flex-end;
     justify-self: flex-start;
   }
+}
+.loading {
+  font-size: 28px;
+  color: #2196f3;
+  width: 178px;
+  height: 178px;
+  line-height: 178px;
+  text-align: center;
 }
 </style>

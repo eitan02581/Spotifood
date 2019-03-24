@@ -55,8 +55,6 @@ const groupStore = {
         // },    }
         getGroupById({ commit, state }, { groupId }) {
             // setTimeout(() => {
-            console.log(groupId);
-
             return groupService.getById(groupId)
                 .then(group => {
                     commit({ type: 'setGroup', group })

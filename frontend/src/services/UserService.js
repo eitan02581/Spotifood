@@ -1,4 +1,4 @@
-// import UtilService from './UtilService.js'
+
 import axios from 'axios'
 import storageService from './StorageService.js'
 var users = null
@@ -14,11 +14,11 @@ function _createUsers() {
 }
 
 function getUserById(userId) {
-    console.log('service user id :',userId)
     console.log(`axios ${USER_ROUTE}/${userId}`)
 
     return axios.get(`${USER_ROUTE}/${userId}`).then(user => user.data)
 }
+
 function logIn(user) {
     return axios.post(`${USER_ROUTE}/login`, user)
         .then(user => {
@@ -55,5 +55,6 @@ export default {
     getUserById,
     logIn,
     signUp,
-    checkIfLogged, logOut
+    checkIfLogged, 
+    logOut,
 } 

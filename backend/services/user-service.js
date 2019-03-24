@@ -15,10 +15,12 @@ function _addMany() {
 }
 
 
-function getById(userId) {
+async function getById(userId) {
     const _id = new ObjectId(userId)
-    return mongoService.connect()
-        .then(db => db.collection(USER_COLLECTION).findOne({ _id }))
+    var db = await mongoService.connect()
+    var user = db.collection(USER_COLLECTION).findOne({ _id })
+    delete user.password
+    return user
 }
 
 function query() {
@@ -65,5 +67,5 @@ module.exports = {
     getById,
     login,
     addUser,
-    addGroupToUser
+    addGroupToUser,
 }

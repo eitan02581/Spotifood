@@ -13,8 +13,12 @@ function getUsers() {
 function _createUsers() {
 }
 
-function getUserById(userId) {
-    return axios.get(`${USER_ROUTE}/${userId}`).then(user => user.data)
+async function getUserById(userId) {
+    console.log('service user id :',userId)
+    console.log(`axios to: ${USER_ROUTE}/${userId}`)
+    let user = await axios.get(`${USER_ROUTE}/${userId}`)
+    console.log('user from id',user)
+    return user
 }
 function logIn(user) {
     return axios.post(`${USER_ROUTE}/login`, user)

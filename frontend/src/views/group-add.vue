@@ -41,7 +41,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="Cuisine Type">
-        <el-select multiple v-model="group.cuisineType" filterable placeholder="Select Cuisine">
+        <el-select v-model="group.cuisineType" filterable placeholder="Select Cuisine">
           <el-option
             v-for="cuisine in cuisineType"
             :key="cuisine"
@@ -90,7 +90,7 @@ export default {
         place: null,
         cuisineType: [],
         guests: 1,
-        eventType: [],
+        eventType: "",
         img: ""
       },
       cuisineType: [
@@ -140,6 +140,7 @@ export default {
         console.log(Object.keys(place).length);
         return;
       }
+      console.log(place);
       this.group.location = {
         lat: place.geometry.location.lat(),
         lng: place.geometry.location.lng()
@@ -161,36 +162,52 @@ export default {
         city: city.long_name
       };
     },
-    createGroup() {
+    isInValid() {
       let vals = Object.values(this.group);
-      let emptyVal = vals.findIndex(val => {
-        return !val;
-      });
-      if (
+      let emptyVal = vals.findIndex(val => !val);
+
+      return (
         emptyVal !== -1 ||
         !this.group.eventType.length ||
         !this.group.cuisineType.length
-      ) {
-        return;
-      }
+      );
+    },
+    async createGroup() {
+      if (this.isInValid()) return;
+
+      // if (
+      //   emptyVal !== -1 ||
+      //   !this.group.eventType.length ||
+      //   !this.group.cuisineType.length
+      // )
+      //   return;
+
       if (!this.group.img) {
         this.group.img =
           "https://api.adorable.io/avatars/400/5c9265c2c6bd2228fea79dd1";
       }
       let admin = this.$store.getters.user;
       this.group.admin = admin._id;
-      this.$store.dispatch("addGroup", { group: this.group }).then(newGroup => {
+
+      try {
+        const newGroup = await this.$store.dispatch("addGroup", {
+          group: this.group
+        });
         this.$router.push("/groups/" + newGroup._id);
-      });
+      } catch (e) {
+        console.log(e);
+      }
     },
     uploadImg(input) {
+      console.log(input.file);
       const formData = new FormData();
       formData.append("image", input.file);
       uploadService.uploadImg(formData).then(url => {
+        console.log(url);
         this.group.img = url;
         console.log(this.group.img); //// TODO: show success popup
       });
-    },
+    }
     ////////////////////////////////
     // handleAvatarSuccess(res, file) {
     //   this.imageUrl = URL.createObjectURL(file.raw);

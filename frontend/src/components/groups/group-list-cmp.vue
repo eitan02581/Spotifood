@@ -45,7 +45,7 @@ section {
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    width: 75%;
+    width: 100%;
   }
   .group-preview-wrapper {
     display: inline-block;

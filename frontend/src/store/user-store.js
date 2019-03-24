@@ -24,11 +24,8 @@ const userStore = {
         checkIfLogged({ commit }) {
             var user = userService.checkIfLogged()
             if (!user) return
-
-            console.log(user);
             commit({ type: 'setUser', user })
             return Promise.resolve(user)
-
         },
         logIn({ commit }, { user }) {
             return userService.logIn(user).then(user => {
@@ -49,13 +46,14 @@ const userStore = {
             userService.logOut()
         },
         getUserById({ commit }, { userId }) {
-            console.log('userId', userId)
             return userService.getUserById(userId)
                 .then((user) => user)
             // TODO: CHANGE THE PLACE OF THIS COMMIT 
             // .then(user => commit({ type: 'setUser', user }))
         },
         addGroupToUser({ dispatch, commit }, { ids }) {
+            console.log('hey man ', ids);
+
             return userService.addGroupToUser(ids).then(() => { 'group added' })
         }
     }

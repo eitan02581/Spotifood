@@ -3,6 +3,7 @@
     <div class="user-container" v-for="user in users" :key="user._id">
       <div class="info-container">
         <div class="name">{{user.username}}</div>
+        <div class="country">{{user.country}}</div>
         <div class="img-container">
           <img :src="user.img" alt>
         </div>
@@ -33,9 +34,9 @@ export default {
     };
   },
   created() {
-    this.pendUsers.map(userId => {
-      this.$store.dispatch({ type: "getUserById", userId }).then(() => {
-        var user = this.$store.getters.user;
+    this.pendUsers.forEach(userId => {
+      this.$store.dispatch({ type: "getUserById", userId }).then(user => {
+        // var user = this.$store.getters.user;
         this.users.push(user);
       });
     });

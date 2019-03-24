@@ -42,7 +42,7 @@ function getById(groupId) {
     return axios.get(`${GROUP_ROUTE}/${groupId}`)
         .then(res => res.data)
         .then(group => {
-            
+
             var groupUsers = group.users.map(userId => {
                 return userService.getUserById(userId)
             })
@@ -63,6 +63,8 @@ function askJoinGroup(ids) {
     return axios.put(`${GROUP_ROUTE}/join/${ids.groupId}`, ids).then((res) => res.data)
 }
 function addUserToGroup(ids) {
+    console.log(ids);
+
     return axios.put(`${GROUP_ROUTE}/accept/${ids.groupId}`, ids).then((res) => res.data)
 
 
@@ -75,7 +77,7 @@ function removeRecipeFromGroup(recipeId, groupId) {
     return axios.delete(`${GROUP_ROUTE}/${groupId}/${recipeId}`).then(res => console.log(res))
 }
 
-function leaveGroup(ids){
+function leaveGroup(ids) {
     return axios.put(`${GROUP_ROUTE}/leave/${ids.groupId}`, ids).then((res) => res.data)
 
 }

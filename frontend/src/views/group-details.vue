@@ -1,19 +1,24 @@
 <template>
   <section class="group-details">
-    <!-- ONLY FOR ADMIN -->
     <loading-cmp v-if="!group"/>
     <template v-if="group">
-      <pandingUser :groupId="group._id" :pendUsers="pendUsers"></pandingUser>
-      <div v-if="isAbleToJoin" class="join-btn-container">
-        <div class="join-btn-container">
-          <el-button @click.native="onStatusActionGroup('join')" type="success">Join +</el-button>
+      <!-- ONLY FOR ADMIN pending users -->
+      <template v-if="isAdmin">
+        <pandingUser :groupId="group._id" :pendUsers="pendUsers"></pandingUser>
+      </template>
+      <!-- ONLY FOR USER  join or leave btn-->
+      <template v-if="!isAdmin">
+        <div v-if="isAbleToJoin" class="join-btn-container">
+          <div class="join-btn-container">
+            <el-button @click.native="onStatusActionGroup('join')" type="success">Join +</el-button>
+          </div>
         </div>
-      </div>
-      <div v-else class="cancel-btn-container">
-        <div class="cancel-btn-container">
-          <el-button @click.native="onStatusActionGroup('leave')" type="danger">leave</el-button>
+        <div v-else class="cancel-btn-container">
+          <div class="cancel-btn-container">
+            <el-button @click.native="onStatusActionGroup('leave')" type="danger">leave</el-button>
+          </div>
         </div>
-      </div>
+      </template>
       <group-main-content :group="group"/>
       <recipes-list :recipes="group.recipes"/>
     </template>
@@ -28,7 +33,9 @@ import pandingUser from "../components/groups/group-details/pending-users-cmp";
 export default {
   data() {
     return {
-      isAbleToJoin: true
+      isAbleToJoin: true,
+      isAdmin: true,
+      user: null
     };
   },
   components: {
@@ -40,29 +47,15 @@ export default {
   created() {
     this.$store
       .dispatch({ type: "getGroupById", groupId: this.$route.params.groupId })
+      // get group
       .then(() => {
-        this.$store
-          .dispatch({
-            type: "getUserById",
-            userId: this.$store.getters.group.admin
-          })
-          .then(adminUser => {
-            console.log(adminUser);
-
-            this.$store.commit("setAdminObj", { admin: adminUser });
-          });
+        this.user = this.$store.getters.user;
+        this.checkIfUserIsAdmin();
       })
       // check if user able to join a group
       .then(() => {
         // TODO: FIX NAMMING AFTER ALEX PUSH
-        var group = this.$store.getters.group;
-        var user = this.$store.getters.user;
-        var isParticipant = group.pendingUsers.find(
-          userId => userId._id === user._id
-        );
-        if (isParticipant) {
-          this.isAbleToJoin = false;
-        }
+        this.checkIfUserAbaleToJoin();
       });
   },
   computed: {
@@ -96,6 +89,36 @@ export default {
             this.isAbleToJoin = true;
           });
       }
+    },
+    checkIfUserIsAdmin() {
+      this.$store
+        .dispatch({
+          type: "getUserById",
+          userId: this.$store.getters.group.admin
+        })
+        // check if admin
+        .then(adminUser => {
+          // if user is the group admin => disable to join
+          if (this.user._id !== adminUser._id) {
+            this.$store.commit({ type: "setIsGroupAdmin", bool: false });
+            this.isAdmin = false;
+          } else {
+            this.$store.commit({ type: "setIsGroupAdmin", bool: true });
+            this.isAdmin = true;
+          }
+          this.$store.commit("setAdminObj", { admin: adminUser });
+        });
+    },
+    checkIfUserAbaleToJoin() {
+      var group = this.$store.getters.group;
+      var isParticipant = group.pendingUsers.findIndex(participant => {
+        return participant._id === this.user._id;
+      });
+      console.log(isParticipant);
+
+      if (isParticipant === -1) {
+        this.isAbleToJoin = false;
+      }
     }
   }
 };
@@ -110,6 +133,8 @@ export default {
   text-align: center;
   button {
     position: fixed;
+    right: 0;
+    margin-right: 50px;
   }
 }
 </style>

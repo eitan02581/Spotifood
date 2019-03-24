@@ -33,29 +33,27 @@ function query(filterBy) {
 
 
     if (filterBy) {
-        console.log('a', filterBy);
+        // console.log('a', filterBy);
         var queryToMongo = {}
-        // TODO: CONTINIUE FROM HERE 
+        // TODO: fix hashtags
         if (filterBy.hashtags) {
             filterBy.hashtags = filterBy.hashtags.split(',')
-            queryToMongo.hashtags = new RegExp(filterBy.hashtags, 'i');
+            // queryToMongo.hashtags = new RegExp(filterBy.hashtags, 'i');
             var hashtags = filterBy.hashtags.map(el => { return { hashtags: new RegExp(el, 'i') } })
+            // console.log('hash', hashtags);
+            // { '$or': [ { hashtags: /wed/i }, { hashtags: /s/i } ] }
+            // { '$or': [ { hashtags: /wed/i } ] } oved
+            // queryToMongo.hashtags = { $or: hashtags }
+            queryToMongo['$or'] = hashtags
+            console.log('queryToMongo', queryToMongo.hashtags);
+
         }
         if (filterBy.cuisineType) queryToMongo.cuisineType = filterBy.cuisineType
         if (filterBy.eventType) queryToMongo.eventType = filterBy.eventType
         if (filterBy.guests) queryToMongo.guests = +filterBy.guests
         if (filterBy.title) queryToMongo.title = new RegExp(filterBy.title, 'i');
 
-
-        // if (filterBy.hashtags) {
-        //     queryToMongo = {
-        //         $and: [
-        //             { cuisineType: filterBy.cuisineType },
-        //             { $or: hashtags }
-
-        //         ]
-        //     }
-        // }
+        // console.log('queryToMongo', queryToMongo);
         // else if (filterBy.cuisineType || filterBy.eventType) {
         //     queryToMongo = {
         //         $and: [
@@ -65,9 +63,13 @@ function query(filterBy) {
         //     }
 
         // }
-        console.log('fff', queryToMongo);
+        // console.log('fff', queryToMongo);
         return mongoService.connect()
             .then(db => db.collection(GROUP_COLLECTION).find(queryToMongo).sort().toArray())
+            .then(groups => {
+                // console.log('groups are', groups)
+                return groups
+            })
 
 
     }
@@ -78,8 +80,13 @@ function query(filterBy) {
 
 function getById(groupId) {
     const _id = new ObjectId(groupId)
+    // console.log('id of group to get', _id)
     return mongoService.connect()
         .then(db => db.collection(GROUP_COLLECTION).findOne({ _id }))
+        .then(group => {
+            // console.log('group selected is', group)
+            return group
+        })
 }
 
 function update(group) {
@@ -98,17 +105,17 @@ function getCollection() {
 function add(group) {
     group.users = []
     group.recipes = []
-    group.hashtags = []
     group.pendingUsers = []
     group.admin = new ObjectId(group.admin)
     return mongoService.connect()
         .then(db => {
             return db.collection(GROUP_COLLECTION).insertOne(group)
                 .then(result => {
-                    console.log('result from database is', result.ops[0])
+                    // console.log('result from database is', result.ops[0])
                     return result.ops[0]
                 })
         })
+
 }
 
 function remove(groupId) {
@@ -123,7 +130,7 @@ function remove(groupId) {
 function askJoin(ids) {
     var group = {}
     group._id = new ObjectId(ids.groupId)
-    console.log('asd', group._id);
+    // console.log('asd', group._id);
 
     return mongoService.connect()
         .then(db => {
@@ -136,7 +143,7 @@ function askJoin(ids) {
 function leaveGroup(ids) {
     var group = {}
     group._id = new ObjectId(ids.groupId)
-    console.log('asd', group._id);
+    // console.log('asd', group._id);
 
     return mongoService.connect()
         .then(db => {
@@ -153,7 +160,7 @@ function addParticipant(ids) {
     return mongoService.connect()
         .then(db => {
             return db.collection(GROUP_COLLECTION)
-                .updateOne({ _id: group._id }, { $pull: { users: ids.userId } })
+                .updateOne({ _id: group._id }, { $push: { users: ids.userId } })
 
         }).then(removePendingUser(ids))
 }

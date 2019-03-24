@@ -22,7 +22,6 @@ export default {
   created() {
     this.$store.dispatch({ type: "checkIfLogged" }).then(user => {
       eventBus.$emit("USER_LOGGED", user);
-      console.log(user);
     });
   }
 };

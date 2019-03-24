@@ -10,6 +10,7 @@ const groupStore = {
     state: {
         groups: [],
         group: null,
+        isGroupAdmin: false,
         pendUsers: []
 
     }, getters: {
@@ -24,6 +25,9 @@ const groupStore = {
         },
         groupAdmin(state) {
             return state.groupAdmin
+        },
+        isGroupAdmin(state){
+            return state.isGroupAdmin
         }
     },
     mutations: {
@@ -42,6 +46,11 @@ const groupStore = {
         },
         setAdminObj(state, { admin }) {
             state.group.admin = admin
+        },
+        setIsGroupAdmin(state, { bool }) {
+            console.log(bool);
+
+            state.isGroupAdmin = bool
         }
     },
     actions: {
@@ -51,21 +60,14 @@ const groupStore = {
         filterGroups({ commit }, { filterBy }) {
             groupService.query(filterBy).then((groups) => commit({ type: 'setGroups', groups }))
         },
-        // getGroup({ commit }, { groupId }) {
-        //     return groupService.getById(groupId).then((group) => {
-        //         commit({ type: 'setGroup', group })
-        //     })
-        // },    }
+
         getGroupById({ commit, state }, { groupId }) {
-            // setTimeout(() => {
             return groupService.getById(groupId)
                 .then(group => {
                     console.log(group);
 
                     commit({ type: 'setGroup', group })
                     commit({ type: 'setPendUsers', pendUsers: group.pendingUsers })
-                }).then(() => {
-                    // this.$store.dispatch({ type: 'getUserById', userId: group.admin }).then()
                 })
         },
 
@@ -73,12 +75,13 @@ const groupStore = {
             groupService.removeRecipeFromGroup(recipeId, groupId)
                 .then(() => commit({ type: 'removeRecipeFromGroup', recipeId }))
         },
-        addGroup({ commit, state }, { group }) {
+        addGroup({ dispatch, commit, state }, { group }) {
             console.log('user to group is', group.admin)
             return groupService.add(group)
                 .then(newGroup => {
                     console.log('newly added group is', newGroup)
                     commit({ type: 'setGroup', newGroup })
+                    dispatch({ type: 'addGroupToUser', ids: { userId: group.admin, groupId: group._id } })
                     return newGroup
                 })
         },

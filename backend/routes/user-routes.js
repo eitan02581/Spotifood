@@ -47,7 +47,7 @@ function addUserRoutes(app) {
 
     app.get('/user/:userId', (req, res) => {
         const userId = req.params.userId
-
+        console.log('userId in backend', userId)
         UserService.getById(userId)
             .then(user => {
                 console.log('user by id got', user)

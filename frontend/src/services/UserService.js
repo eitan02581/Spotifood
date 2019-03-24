@@ -1,4 +1,4 @@
-// import UtilService from './UtilService.js'
+
 import axios from 'axios'
 import storageService from './StorageService.js'
 var users = null
@@ -16,6 +16,7 @@ function _createUsers() {
 function getUserById(userId) {
     return axios.get(`${USER_ROUTE}/${userId}`).then(user => user.data)
 }
+
 function logIn(user) {
     return axios.post(`${USER_ROUTE}/login`, user)
         .then(user => {
@@ -48,15 +49,10 @@ function checkIfLogged() {
 function logOut() {
     storageService.remove(CURR_USER)
 }
-
-function addGroupToUser(ids) {
-    return axios.put(`${USER_ROUTE}/addGroup/${ids.userId}`, ids).then((res) => res.data)
-
-}
 export default {
     getUserById,
     logIn,
     signUp,
-    checkIfLogged, logOut,
-    addGroupToUser
+    checkIfLogged, 
+    logOut,
 } 

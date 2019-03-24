@@ -11,7 +11,7 @@ function _resetDb() {
     _addMany()
 }
 
-function _addMany() {
+function _addMany() {  
     return mongoService.connect()
         .then(db => db.collection(GROUP_COLLECTION).insert(groups))
         .then(res => {

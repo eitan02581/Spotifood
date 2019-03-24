@@ -7,7 +7,7 @@ Vue.use(Vuex)
 
 const userStore = {
     state: {
-        user: {}
+        user: {},
     },
     getters: {
         user: (state) => state.user
@@ -15,7 +15,10 @@ const userStore = {
     mutations: {
         setUser(state, { user }) {
             state.user = user
-        }
+        },
+        // setGroupAdmin(state, { user }) {
+        //     state.groupAdmin = user
+        // },
     },
     actions: {
         checkIfLogged({ commit }) {
@@ -44,7 +47,6 @@ const userStore = {
         getUserById({ commit }, { userId }) {
             return userService.getUserById(userId)
                 .then(user => user)
-                // .then(user => commit({ type: 'setUser', user }))
         },
         addGroupToUser({ commit }, { ids }) {
             return userService.addGroupToUser(ids).then(() => 'group added')

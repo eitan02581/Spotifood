@@ -157,6 +157,10 @@ section {
           padding-left: 7px;
         }
         .has-container {
+          overflow-x: scroll;
+          overflow-y: hidden;
+          white-space: nowrap;
+
           span {
             padding-left: 7px;
             color: #414a55;

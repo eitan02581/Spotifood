@@ -46,7 +46,8 @@ const groupStore = {
             groupService.query().then(groups => commit({ type: 'setGroups', groups }))
         },
         filterGroups({ commit }, { filterBy }) {
-            groupService.query(filterBy).then((groups) => commit({ type: 'setGroups', groups }))
+            groupService.query(filterBy)
+                .then((groups) => { commit({ type: 'setGroups', groups }) })
         },
         // getGroup({ commit }, { groupId }) {
         //     return groupService.getById(groupId).then((group) => {
@@ -57,7 +58,6 @@ const groupStore = {
             // setTimeout(() => {
             return groupService.getById(groupId)
                 .then(group => {
-                    console.log(group)
                     commit({ type: 'setGroup', group })
                     commit({ type: 'setPendUsers', pendUsers: group.pendingUsers })
                 })
@@ -80,7 +80,7 @@ const groupStore = {
         },
         acceptUserToGroup({ commit }, { ids }) {
             return groupService.addUserToGroup(ids).then((res) => res)
-            
+
         },
         declineUserRequest({ commit }, { ids }) {
             return groupService.declineUserRequest(ids).then((res) => res)

@@ -45,7 +45,7 @@ section {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    // max-width: 1200px;
+    width: 99%;
   }
   .how-it-works {
     margin-top: 100px;

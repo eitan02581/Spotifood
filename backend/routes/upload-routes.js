@@ -26,8 +26,7 @@ const RecipeService = require('../services/recipe-service')
 
 
 function addUploadRoutes(app) {
-    app.post('/uploadImg', parser.single('image'), (req, res) => {
-        console.log('req.file',req.file)
+    app.post('/upload-img' , parser.single('file'), (req, res) => {
         const image = {};
         image.url = req.file.url;
         image.id = req.file.public_id;

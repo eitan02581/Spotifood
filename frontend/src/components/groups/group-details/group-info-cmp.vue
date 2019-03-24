@@ -21,6 +21,9 @@
       <img :src="group.admin.img">
       <h2>{{group.admin.username}}</h2>
     </div>
+    <div class="flex">
+      <el-tag type="info" v-for="cuisine in group.cuisineType" :key="cuisine">{{cuisine}}</el-tag>
+    </div>
     <el-tag type="warning" v-for="hashtag in group.hashtags" :key="hashtag">#{{hashtag}}</el-tag>
     <i class="fas fa-users"></i>
     <h3>participants {{participants}}</h3>
@@ -83,6 +86,9 @@ export default {
     h2 {
       margin-left: 10px;
     }
+  }
+  .tags {
+    margin-left: 30px;
   }
 }
 </style>

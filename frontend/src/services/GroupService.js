@@ -24,7 +24,6 @@ function query(filterBy) {
 }
 
 function add(group) {
-    console.log('inside add group with', group)
     return axios.post(`${GROUP_ROUTE}`, group)
         .then(res => {
             return res.data
@@ -71,7 +70,7 @@ function declineUserRequest(ids) {
 }
 
 function removeRecipeFromGroup(recipeId, groupId) {
-    return axios.delete(`${GROUP_ROUTE}/${groupId}/${recipeId}`).then(res => console.log(res))
+    return axios.delete(`${GROUP_ROUTE}/${groupId}/${recipeId}`).then(res => res)
 }
 
 export default {

@@ -14,8 +14,6 @@ function _createUsers() {
 }
 
 function getUserById(userId) {
-    console.log(`axios ${USER_ROUTE}/${userId}`)
-
     return axios.get(`${USER_ROUTE}/${userId}`).then(user => user.data)
 }
 

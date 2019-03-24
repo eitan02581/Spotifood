@@ -185,7 +185,7 @@ export default {
     },
     uploadImg(input) {
       const formData = new FormData();
-      formData.append("image", input.file);
+      formData.append('file', input.file)
       uploadService.uploadImg(formData).then(url => {
         this.group.img = url;
         console.log(this.group.img); //// TODO: show success popup

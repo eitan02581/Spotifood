@@ -9,17 +9,16 @@
       <i class="far fa-clock"></i>
       <h3>{{group.time | time }}</h3>
     </div>
-    <div class="flex" >
+    <div class="flex">
       <i class="fas fa-utensils"></i>
-      <h3 v-for="event in group.eventType" :key="event">{{event}}</h3>
-    </div>
-    <div class="flex" >
-      <i class="fas fa-utensils"></i>
-      <h3 v-for="event in group.eventType" :key="event">{{event}}</h3>
+      <h3>{{group.eventType[0]}}</h3>
     </div>
     <div class="admin-profile">
       <img :src="group.admin.img">
       <h2>{{group.admin.username}}</h2>
+    </div>
+    <div class="flex">
+      <el-tag type="info" v-for="cuisine in group.cuisineType" :key="cuisine">{{cuisine}}</el-tag>
     </div>
     <el-tag type="warning" v-for="hashtag in group.hashtags" :key="hashtag">#{{hashtag}}</el-tag>
     <i class="fas fa-users"></i>
@@ -44,8 +43,8 @@ export default {
     place() {
       return `${this.group.place.city}, ${this.group.place.country.longName}`;
     },
-    participants(){
-      return `${this.group.users.length}/${this.group.guests}`
+    participants() {
+      return `${this.group.users.length}/${this.group.guests}`;
     }
   }
 };
@@ -83,6 +82,9 @@ export default {
     h2 {
       margin-left: 10px;
     }
+  }
+  .tags {
+    margin-left: 30px;
   }
 }
 </style>

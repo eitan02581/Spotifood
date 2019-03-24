@@ -31,11 +31,6 @@ function addRecipeRoutes(app) {
             })
     })
 
-    // app.post('/recipe/:recipeId/uploadImg',parser.single("image"),(req,res)=>{
-    //     console.log(req.body)
-    //     res.json()
-    // })
-
     app.delete('/recipe/:recipeId', (req, res) => {
         const grouopId = req.params.recipeId;
         RecipeService.remove(grouopId)

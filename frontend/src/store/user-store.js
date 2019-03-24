@@ -37,6 +37,7 @@ const userStore = {
         signUp({ commit }, { newUser }) {
             return userService.signUp(newUser)
                 .then(user => {
+                    console.log(user);
                     commit({ type: 'setUser', user })
                     // TODO: RETURN A LOG FIX IT 
                 }).catch((res) => console.log(res))
@@ -45,13 +46,13 @@ const userStore = {
             userService.logOut()
         },
         getUserById({ commit }, { userId }) {
-            console.log('userId',userId)
+            console.log('userId', userId)
             return userService.getUserById(userId)
                 .then((user) => user)
-            // .then(user => commit({ type: 'setUser', user }))
+                .then(user => commit({ type: 'setUser', user }))
         },
-        addGroupToUser({ commit }, { ids }) {
-            return userService.addGroupToUser(ids).then(() => 'group added')
+        addGroupToUser({ dispatch, commit }, { ids }) {
+            return userService.addGroupToUser(ids).then(() => { 'group added' })
         }
     }
 }

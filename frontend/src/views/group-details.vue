@@ -6,7 +6,12 @@
       <pandingUser :groupId="group._id" :pendUsers="pendUsers"></pandingUser>
       <div v-if="isAbleToJoin" class="join-btn-container">
         <div class="join-btn-container">
-          <el-button @click.native="onJoinGroup" type="success">Join +</el-button>
+          <el-button @click.native="onStatusActionGroup('join')" type="success">Join +</el-button>
+        </div>
+      </div>
+      <div v-else class="cancel-btn-container">
+        <div class="cancel-btn-container">
+          <el-button @click.native="onStatusActionGroup('leave')" type="danger">leave</el-button>
         </div>
       </div>
       <group-main-content :group="group"/>
@@ -46,6 +51,18 @@ export default {
               admin: this.$store.getters.user
             });
           });
+      })
+      // check if user able to join a group
+      .then(() => {
+        // TODO: FIX NAMMING AFTER ALEX PUSH
+        var group = this.$store.getters.group;
+        var user = this.$store.getters.user;
+        var isParticipant = group.pendingUsers.find(
+          userId => userId._id === user._id
+        );
+        if (isParticipant) {
+          this.isAbleToJoin = false;
+        }
       });
   },
   computed: {
@@ -57,17 +74,28 @@ export default {
     }
   },
   methods: {
-    onJoinGroup() {
+    onStatusActionGroup(status) {
       var user = this.$store.getters.user;
       var group = this.$store.getters.group;
-      this.$store
-        .dispatch({
-          type: "askJoinGroup",
-          ids: { userId: user._id, groupId: group._id }
-        })
-        .then(() => {
-          this.isAbleToJoin = false;
-        });
+      if (status === "join") {
+        this.$store
+          .dispatch({
+            type: "askJoinGroup",
+            ids: { userId: user._id, groupId: group._id }
+          })
+          .then(() => {
+            this.isAbleToJoin = false;
+          });
+      } else {
+        this.$store
+          .dispatch({
+            type: "leaveGroup",
+            ids: { userId: user._id, groupId: group._id }
+          })
+          .then(() => {
+            this.isAbleToJoin = true;
+          });
+      }
     }
   }
 };

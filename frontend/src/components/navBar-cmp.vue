@@ -27,6 +27,7 @@
         <template v-if="user">
           <div class="user-info-container">
             <router-link :to="'/user/' + user._id">
+            
               <img :src="userImg" alt>
             </router-link>
           </div>

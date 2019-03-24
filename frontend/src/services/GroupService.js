@@ -75,6 +75,11 @@ function removeRecipeFromGroup(recipeId, groupId) {
     return axios.delete(`${GROUP_ROUTE}/${groupId}/${recipeId}`).then(res => console.log(res))
 }
 
+function leaveGroup(ids){
+    return axios.put(`${GROUP_ROUTE}/leave/${ids.groupId}`, ids).then((res) => res.data)
+
+}
+
 export default {
     query,
     getById,
@@ -84,5 +89,6 @@ export default {
     askJoinGroup,
     addUserToGroup,
     declineUserRequest,
-    removeRecipeFromGroup
+    removeRecipeFromGroup,
+    leaveGroup
 }

@@ -131,6 +131,20 @@ function askJoin(ids) {
                 .updateOne({ _id: group._id }, { $push: { pendingUsers: ids.userId } })
         })
 }
+
+// leave Group 
+function leaveGroup(ids) {
+    var group = {}
+    group._id = new ObjectId(ids.groupId)
+    console.log('asd', group._id);
+
+    return mongoService.connect()
+        .then(db => {
+            return db.collection(GROUP_COLLECTION)
+                .updateOne({ _id: group._id }, { $push: { pendingUsers: ids.userId } })
+        })
+}
+
 // add participant to group
 function addParticipant(ids) {
     var group = {}
@@ -139,7 +153,7 @@ function addParticipant(ids) {
     return mongoService.connect()
         .then(db => {
             return db.collection(GROUP_COLLECTION)
-                .updateOne({ _id: group._id }, { $push: { users: ids.userId } })
+                .updateOne({ _id: group._id }, { $pull: { users: ids.userId } })
 
         }).then(removePendingUser(ids))
 }
@@ -188,5 +202,6 @@ module.exports = {
     addParticipant,
     removePendingUser,
     addRecipeToGroup,
-    removeRecipeFromGroup
+    removeRecipeFromGroup,
+    leaveGroup
 }

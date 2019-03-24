@@ -83,6 +83,9 @@ const groupStore = {
         askJoinGroup({ commit }, { ids }) {
             return groupService.askJoinGroup(ids).then(() => { 'asked successfuly' })
         },
+        leaveGroup({ commit }, { ids }) {
+            return groupService.leaveGroup(ids).then(() => { 'leave successfuly' })
+        },
         acceptUserToGroup({ commit }, { ids }) {
             return groupService.addUserToGroup(ids).then((res) => res)
 

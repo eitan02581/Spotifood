@@ -57,6 +57,16 @@ function addGroupRoutes(app) {
                 return res.json()
             })
     })
+    app.put('/group/leave/:groupId', (req, res) => {
+        const ids = req.body;
+        GroupService.leaveGroup(ids)
+            .then(() => {
+                console.log('successfuly leaved')
+                return res.json()
+            })
+    })
+
+
     // add user to group participants
     app.put('/group/accept/:groupId', (req, res) => {
         const ids = req.body;

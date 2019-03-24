@@ -11,7 +11,11 @@
     </div>
     <div class="flex">
       <i class="fas fa-utensils"></i>
-      <h3>{{group.eventType[0]}}</h3>
+      <h3>{{group.eventType}}</h3>
+    </div>
+    <div class="flex">
+      <i class="fas fa-utensils"></i>
+      <h3 v-for="event in group.cuisineType" :key="event">{{event}}</h3>
     </div>
     <div class="admin-profile">
       <img :src="group.admin.img">

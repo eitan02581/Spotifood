@@ -52,9 +52,15 @@ function checkIfLogged() {
 function logOut() {
     storageService.remove(CURR_USER)
 }
+
+function addGroupToUser(ids) {
+    return axios.put(`${USER_ROUTE}/addGroup/${ids.userId}`, ids).then((res) => res.data)
+
+}
 export default {
     getUserById,
     logIn,
     signUp,
-    checkIfLogged, logOut
+    checkIfLogged, logOut,
+    addGroupToUser
 } 

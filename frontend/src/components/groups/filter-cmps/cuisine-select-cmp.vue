@@ -19,7 +19,7 @@ export default {
           value: "French"
         },
         {
-          value: "Italien"
+          value: "Italian"
         },
         {
           value: "British"
@@ -32,6 +32,9 @@ export default {
         },
         {
           value: "Indian"
+        },
+        {
+          value: "Other"
         }
       ],
       value: ""

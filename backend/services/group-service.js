@@ -72,11 +72,14 @@ function getById(groupId) {
 function update(group) {
     console.log('group to update is', group)
     group._id = new ObjectId(group._id)
+    return getCollection()
+        .updateOne({ _id: group._id }, { $set: group })
+}
+
+function getCollection() {
     return mongoService.connect()
-        .then(db => {
-            return db.collection(GROUP_COLLECTION)
-                .updateOne({ _id: group._id }, { $set: group })
-        })
+        .then(db => db.collection(GROUP_COLLECTION))
+
 }
 
 function add(group) {

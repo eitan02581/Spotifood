@@ -1,21 +1,21 @@
 <template>
   <section>
     <!-- :style="{ backgroundImage: 'url(' + groupDemoObj.image + ')' }" -->
-    <router-link tag="div" :to="'/groups/' + groupDemoObj._id" class="preview-container">
-      <div class="img-container"></div>
+    <router-link tag="div" :to="'/groups/' + group._id" class="preview-container">
+      <div class="img-container" :style="{ backgroundImage: 'url(' + group.img + ')' }"></div>
       <div class="main">
         <div class="bottom">
           <img src="../../assets/profiles/women.png" alt>
           <div class="info-container">
             <h2>
               Hosted by:
-              <span>{{groupDemoObj.createdBy}}</span>
-              in {{groupDemoObj.city}}
+              <span>{{group.createdBy}}</span>
+              in {{group.city}}
             </h2>
             <h3>
               <div class="meal">Dinner</div>
             </h3>
-            <h1>{{groupDemoObj.title}}</h1>
+            <h1>{{group.title}}</h1>
             <h2 style="color:#f44336">3 seats left</h2>
             <h3>
               <i style="color:orange" class="fas fa-star"></i>
@@ -85,7 +85,7 @@ section {
     .img-container {
       height: 250px;
       width: 280px;
-      background-image: url("../../assets/preview-demo.jpg");
+      // background-image: url("../../assets/preview-demo.jpg");
       background-color: lightseagreen;
       background-position: center;
       background-repeat: no-repeat;

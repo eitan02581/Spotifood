@@ -36,6 +36,15 @@ function addUserRoutes(app) {
         return res.json(UserService.query())
     })
 
+    app.put('/user/addGroup/:userId', (req, res) => {
+        const ids = req.body;
+        UserService.addGroupToUser(ids)
+            .then(() => {
+                console.log('successfuly added group to user')
+                return res.json()
+            })
+    })
+
     app.get('/user/:userId', (req, res) => {
         const userId = req.params.userId
         UserService.getById(userId)

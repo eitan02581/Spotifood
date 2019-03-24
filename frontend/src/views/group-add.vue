@@ -201,7 +201,7 @@ export default {
     uploadImg(input) {
       console.log(input.file);
       const formData = new FormData();
-      formData.append("image", input.file);
+      formData.append('file', input.file)
       uploadService.uploadImg(formData).then(url => {
         console.log(url);
         this.group.img = url;

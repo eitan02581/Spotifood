@@ -14,12 +14,13 @@
         </div>
       </div>
     </div>
+    <div class="group-preview-item" v-for="group in groups" :key="group._id">
+      <groupPreview :group="group"></groupPreview>
+    </div>
     <!-- <el-button type="success" @click="$emit('delete' , group._id)">Delete</el-button> -->
     <!-- <router-link :to="'/group/edit/' + group._id">
             <el-button type="danger">Edit</el-button>
     </router-link>-->
-    <!-- <groupPreview></groupPreview>
-    <groupPreview></groupPreview>-->
   </section>
 </template>
 
@@ -30,11 +31,23 @@ export default {
     groupPreview
   },
   data() {
-    return {};
+    return {
+      groups: []
+    };
   },
   created() {
     var userId = this.$route.params.userId;
-    this.$store.dispatch({ type: "getUserById", userId });
+    this.$store.dispatch({ type: "getUserById", userId }).then(() => {
+      var user = this.$store.getters.user;
+      if (user.groups) {
+        user.groups.forEach(groupId => {
+          this.$store.dispatch({ type: "getGroupById", groupId }).then(() => {
+            var group = this.$store.getters.group;
+            this.groups.push(group);
+          });
+        });
+      }
+    });
   },
   computed: {
     user() {

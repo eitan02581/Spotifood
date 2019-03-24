@@ -37,8 +37,8 @@ const groupStore = {
             let recipeIdx = state.group.recipes.findIndex(recipe => recipe._id === recipeId)
             state.group.recipes.splice(recipeIdx, 1)
         },
-        setAdminObj(state,{admin}){
-            state.group.admin =admin
+        setAdminObj(state, { admin }) {
+            state.group.admin = admin
         }
     },
     actions: {
@@ -53,30 +53,24 @@ const groupStore = {
         //         commit({ type: 'setGroup', group })
         //     })
         // },    }
-        getGroupById({ commit, state, dispatch, getters }, payload) {
-            state.group = null
+        getGroupById({ commit, state }, { groupId }) {
             // setTimeout(() => {
-                return groupService.getById(payload._id)
-                    // <<<<<<< HEAD
-                    .then(group => {
-                        commit({ type: 'setGroup', group })
-                        commit({ type: 'setPendUsers', pendUsers: group.pendingUsers })
-                        return group
-                    })
+            console.log(groupId);
+
+            return groupService.getById(groupId)
+                .then(group => {
+                    commit({ type: 'setGroup', group })
+                    commit({ type: 'setPendUsers', pendUsers: group.pendingUsers })
+                })
             // }, 1500)
         },
-        //         addGroup({ commit, state }, { group }) {
-        // =======
-        //                     .then(group => commit({ type: 'setGroup', group }))
-        //             }, 1500)
-        //         },
+
         removeRecipeFromGroup({ commit }, { recipeId, groupId }) {
             groupService.removeRecipeFromGroup(recipeId, groupId)
                 .then(() => commit({ type: 'removeRecipeFromGroup', recipeId }))
         },
         addGroup({ commit, state }, { group }) {
             console.log('user to group is', group.admin)
-            // >>>>>>> c8d34d188a950778baf07f013ae5fc55b2928192
             return groupService.add(group)
                 .then(newGroup => {
                     console.log('newly added group is', newGroup)
@@ -85,14 +79,11 @@ const groupStore = {
                 })
         },
         askJoinGroup({ commit }, { ids }) {
-
-            groupService.askJoinGroup(ids).then((group) => {
-                console.log(group);
-
-            })
+            return groupService.askJoinGroup(ids).then(() => { 'asked successfuly' })
         },
         acceptUserToGroup({ commit }, { ids }) {
             return groupService.addUserToGroup(ids).then((res) => res)
+            
         },
         declineUserRequest({ commit }, { ids }) {
             return groupService.declineUserRequest(ids).then((res) => res)

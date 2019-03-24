@@ -87,7 +87,7 @@ export default {
       ingredientsQuantity: [],
       dialogImageUrl: "",
       dialogVisible: false,
-      uploadedImgs: []
+      uploadedImgs: {}
     };
   },
   methods: {
@@ -120,8 +120,7 @@ export default {
       }
     },
     handleRemove(file, fileList) {
-      var idx = this.uploadedImgs.find(img => Object.keys(img)[0] === file.uid);
-      this.uploadedImgs.splice(idx, 1);
+      delete this.uploadedImgs[file.uid];
     },
     handlePictureCardPreview(file) {
       this.dialogImageUrl = file.url;
@@ -129,12 +128,10 @@ export default {
     },
     uploadImg(input) {
       const formData = new FormData();
-      formData.append("image", input.file);
+      formData.append("file", input.file);
       uploadService.uploadImg(formData).then(url => {
-        let imgUrl = {};
-        imgUrl[input.file.uid] = url;
-        this.uploadedImgs.push(imgUrl);
-        console.log(this.uploadedImgs); //// TODO: show success popup
+        this.uploadedImgs[input.file.uid] = url;
+        console.log("uploaded img", this.uploadedImgs); //// TODO: show success popup
       });
     }
   },
@@ -214,7 +211,7 @@ form {
 .upload-gallery {
   display: flex;
   flex-wrap: wrap;
-  .exist-imgs > img{
+  .exist-imgs > img {
     height: 148px;
     width: 148px;
     object-fit: fill;

@@ -4,8 +4,10 @@
     <loading-cmp v-if="!group"/>
     <template v-if="group">
       <pandingUser :groupId="group._id" :pendUsers="pendUsers"></pandingUser>
-      <div class="join-btn-container">
-        <el-button @click.native="onJoinGroup" type="success">Join +</el-button>
+      <div v-if="isAbleToJoin" class="join-btn-container">
+        <div class="join-btn-container">
+          <el-button @click.native="onJoinGroup" type="success">Join +</el-button>
+        </div>
       </div>
       <group-main-content :group="group"/>
       <recipes-list :recipes="group.recipes"/>
@@ -20,7 +22,9 @@ import loadingCmp from "../components/loading-cmp";
 import pandingUser from "../components/groups/group-details/pending-users-cmp";
 export default {
   data() {
-    return {};
+    return {
+      isAbleToJoin: true
+    };
   },
   components: {
     recipesList,
@@ -29,13 +33,19 @@ export default {
     pandingUser
   },
   created() {
+    // this.$store.dispatch("getGroupById", {
+    //   groupId: this.$route.params.groupId
+    // });
     this.$store
-      .dispatch("getGroupById", { _id: this.$route.params.groupId })
+      .dispatch("getGroupById", { groupId: this.$route.params.groupId })
       .then(() => {
-        this.$store.dispatch("getUserById", { userId: this.$store.getters.user._id })
-          .then(()=>{
-            this.$store.commit('setAdminObj',{admin:this.$store.getters.user})
-            })
+        this.$store
+          .dispatch("getUserById", { userId: this.$store.getters.user._id })
+          .then(() => {
+            this.$store.commit("setAdminObj", {
+              admin: this.$store.getters.user
+            });
+          });
       });
   },
   computed: {
@@ -50,10 +60,14 @@ export default {
     onJoinGroup() {
       var user = this.$store.getters.user;
       var group = this.$store.getters.group;
-      this.$store.dispatch({
-        type: "askJoinGroup",
-        ids: { userId: user._id, groupId: group._id }
-      });
+      this.$store
+        .dispatch({
+          type: "askJoinGroup",
+          ids: { userId: user._id, groupId: group._id }
+        })
+        .then(() => {
+          this.isAbleToJoin = false;
+        });
     }
   }
 };

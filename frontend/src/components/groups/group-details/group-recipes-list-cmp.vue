@@ -49,7 +49,7 @@ export default {
         path: "/groups/recipeForm",
         query: {
           groupId: this.$route.params.groupId,
-          creatorId: this.$store.getters.group.users[0]._id
+          creatorId: this.$store.getters.group.admin._id
         }
       });
     },

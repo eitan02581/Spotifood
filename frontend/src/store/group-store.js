@@ -60,6 +60,8 @@ const groupStore = {
             // setTimeout(() => {
             return groupService.getById(groupId)
                 .then(group => {
+                    console.log(group);
+
                     commit({ type: 'setGroup', group })
                     commit({ type: 'setPendUsers', pendUsers: group.pendingUsers })
                 }).then(() => {

@@ -52,8 +52,8 @@ const userStore = {
             console.log('userId', userId)
             return userService.getUserById(userId)
                 .then((user) => user)
-                // TODO: CHANGE THE PLACE OF THIS COMMIT
-                .then(user => commit({ type: 'setUser', user }))
+            // TODO: CHANGE THE PLACE OF THIS COMMIT 
+            // .then(user => commit({ type: 'setUser', user }))
         },
         addGroupToUser({ dispatch, commit }, { ids }) {
             return userService.addGroupToUser(ids).then(() => { 'group added' })

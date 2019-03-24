@@ -39,11 +39,16 @@ export default {
   },
   created() {
     this.$store
-      .dispatch("getGroupById", { groupId: this.$route.params.groupId })
+      .dispatch({ type: "getGroupById", groupId: this.$route.params.groupId })
       .then(() => {
         this.$store
-          .dispatch("getUserById", { userId: this.$store.getters.group.admin })
+          .dispatch({
+            type: "getUserById",
+            userId: this.$store.getters.group.admin
+          })
           .then(adminUser => {
+            console.log(adminUser);
+
             this.$store.commit("setAdminObj", { admin: adminUser });
           });
       })

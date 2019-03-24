@@ -19,7 +19,7 @@ function addGroupRoutes(app) {
         console.log('group id to get is', groupId)
         GroupService.getById(groupId)
             .then(group => {
-                console.log('group retrieved is', group)
+                console.log('group retrieved is', group.admin)
                 res.json(group)
             })
     })
@@ -36,7 +36,7 @@ function addGroupRoutes(app) {
     app.delete('/group/:groupId/:recipeId', (req, res) => {
         const grouopId = req.params.groupId;
         const recipeId = req.params.recipeId
-        GroupService.removeRecipeFromGroup(recipeId,grouopId)
+        GroupService.removeRecipeFromGroup(recipeId, grouopId)
             .then(() => {
                 res.end(`Recipe ${recipeId} deleted from group ${grouopId}`)
             })

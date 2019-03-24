@@ -38,18 +38,13 @@ export default {
     pandingUser
   },
   created() {
-    // this.$store.dispatch("getGroupById", {
-    //   groupId: this.$route.params.groupId
-    // });
     this.$store
       .dispatch("getGroupById", { groupId: this.$route.params.groupId })
       .then(() => {
         this.$store
-          .dispatch("getUserById", { userId: this.$store.getters.user._id })
-          .then(() => {
-            this.$store.commit("setAdminObj", {
-              admin: this.$store.getters.user
-            });
+          .dispatch("getUserById", { userId: this.$store.getters.group.admin })
+          .then(adminUser => {
+            this.$store.commit("setAdminObj", { admin: adminUser });
           });
       })
       // check if user able to join a group

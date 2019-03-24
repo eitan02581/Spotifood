@@ -110,7 +110,8 @@ export default {
         : recipeService.addRecipe(this.recipe, this.groupId, imgsUrls);
       saveRecipe.then(() => {
         this.isLoading = false;
-        this.$router.go(-1);
+        this.$router.push(`/groups/${this.groupId}`)
+        // this.$router.go(-1);
       });
     },
     addIngredientInput() {

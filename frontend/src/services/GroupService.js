@@ -40,8 +40,9 @@ function getById(groupId) {
     return axios.get(`${GROUP_ROUTE}/${groupId}`)
         .then(res => res.data)
         .then(group => {
-            
+
             var groupUsers = group.users.map(userId => {
+                console.log('group users:', userId)
                 return userService.getUserById(userId)
             })
             var groupRecipes = group.recipes.map(recipeId => {

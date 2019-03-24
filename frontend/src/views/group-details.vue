@@ -33,14 +33,18 @@ export default {
     pandingUser
   },
   created() {
+    console.log("group details created!");
     this.$store
-      .dispatch({type:"getGroupById", groupId: this.$route.params.groupId })
+      .dispatch({ type: "getGroupById", groupId: this.$route.params.groupId })
       .then(() => {
         this.$store
-          .dispatch({type:"getUserById", userId: this.$store.getters.group.admin })
+          .dispatch({
+            type: "getUserById",
+            userId: this.$store.getters.group.admin
+          })
           .then(adminUser => {
-            this.$store.commit("setAdminObj", { admin: adminUser });
-          }); 
+            this.$store.commit({ type: "setAdminObj", admin: adminUser });
+          });
       });
   },
   computed: {

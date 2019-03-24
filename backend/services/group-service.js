@@ -151,7 +151,9 @@ function removePendingUser(ids) {
 }
 
 function addRecipeToGroup(recipeId, groupId) {
-    const _id = new ObjectId(groupId)
+    // const _id = new ObjectId(groupId)
+    const _id = groupId
+
     return mongoService.connect()
         .then(db => {
             return db.collection(GROUP_COLLECTION).updateOne(

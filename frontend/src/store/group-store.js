@@ -55,13 +55,12 @@ const groupStore = {
         //     })
         // },    }
         getGroupById({ commit, state }, { groupId }) {
-            // setTimeout(() => {
             return groupService.getById(groupId)
                 .then(group => {
+                    console.log('group: ',group)
                     commit({ type: 'setGroup', group })
                     commit({ type: 'setPendUsers', pendUsers: group.pendingUsers })
                 })
-            // }, 1500)
         },
 
         removeRecipeFromGroup({ commit }, { recipeId, groupId }) {

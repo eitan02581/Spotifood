@@ -49,22 +49,18 @@ const groupStore = {
         //         commit({ type: 'setGroup', group })
         //     })
         // },    }
-        getGroupById({ commit, state }, payload) {
-            state.group = null
-            setTimeout(() => {
-                groupService.getById(payload._id)
-                    // <<<<<<< HEAD
-                    .then(group => {
-                        commit({ type: 'setGroup', group })
-                        commit({ type: 'setPendUsers', pendUsers: group.pendingUsers })
-                    })
-            }, 1500)
+        getGroupById({ commit, state }, { groupId }) {
+            // setTimeout(() => {
+            console.log(groupId);
+
+            return groupService.getById(groupId)
+                .then(group => {
+                    commit({ type: 'setGroup', group })
+                    commit({ type: 'setPendUsers', pendUsers: group.pendingUsers })
+                })
+            // }, 1500)
         },
-        //         addGroup({ commit, state }, { group }) {
-        // =======
-        //                     .then(group => commit({ type: 'setGroup', group }))
-        //             }, 1500)
-        //         },
+
         removeRecipeFromGroup({ commit }, { recipeId, groupId }) {
             groupService.removeRecipeFromGroup(recipeId, groupId)
                 .then(() => commit({ type: 'removeRecipeFromGroup', recipeId }))
@@ -80,11 +76,7 @@ const groupStore = {
                 })
         },
         askJoinGroup({ commit }, { ids }) {
-
-            groupService.askJoinGroup(ids).then((group) => {
-                console.log(group);
-
-            })
+            return groupService.askJoinGroup(ids).then(() => { 'asked successfuly' })
         },
         acceptUserToGroup({ commit }, { ids }) {
             return groupService.addUserToGroup(ids).then((res) => res)

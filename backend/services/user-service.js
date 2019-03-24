@@ -30,7 +30,7 @@ function login(userInfo) {
         $and: [{ username: userInfo.username }, { password: userInfo.password }]
     }
     return mongoService.connect()
-        .then(db => db.collection('users').findOne(user)).then(user => {
+        .then(db => db.collection(USER_COLLECTION).findOne(user)).then(user => {
             if (!user) throw ('wrong Cradentials')
             else return user
         })
@@ -42,10 +42,20 @@ function login(userInfo) {
 function addUser(newUser) {
     var user = newUser
     return mongoService.connect()
-        .then(db => db.collection('users').insertOne(user))
+        .then(db => db.collection(USER_COLLECTION).insertOne(user))
         .then(res => {
             user._id = res.insertedId
             return user
+        })
+}
+
+function addGroupToUser(ids) {
+    var user = {}
+    user._id = new ObjectId(ids.userId)
+    return mongoService.connect()
+        .then(db => {
+            return db.collection(USER_COLLECTION)
+                .updateOne({ _id: user._id }, { $push: { groups: ids.groupId } })
         })
 }
 
@@ -54,5 +64,6 @@ module.exports = {
     query,
     getById,
     login,
-    addUser
+    addUser,
+    addGroupToUser
 }

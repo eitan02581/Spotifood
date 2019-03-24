@@ -6,7 +6,7 @@ const GROUP_ROUTE = (process.env.NODE_ENV !== 'development') ? '/group' : 'http:
 
 function query(filterBy) {
     if (filterBy) {
-
+        // TODO: ENABLE OTHER FILTERS EXEPT HASHTAGS
         let filterQuery = '?';
         if (filterBy.hashtags.length >= 1) filterQuery += `hashtags=${filterBy.hashtags}&`
         if (filterBy.cuisineType) filterQuery += `cuisineType=${filterBy.cuisineType}&`

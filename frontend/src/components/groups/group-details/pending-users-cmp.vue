@@ -48,11 +48,19 @@ export default {
           ids: { userId: user._id, groupId: this.groupId }
         })
         .then(res => {
+          // update user's group array
+          this.$store
+            .dispatch({
+              type: "addGroupToUser",
+              ids: { userId: user._id, groupId: this.groupId }
+            })
+            .then(console.log("heyyy"));
           // TODO: ALERT THE USER ABOUT THE ACTION
           this.pendingRes = `${user.nickName} added!`;
           setTimeout(() => {
             this.pendingRes = null;
           }, 1200);
+          // remove user from users
           this.users = this.users.filter(user => user._id !== user._id);
         });
     },

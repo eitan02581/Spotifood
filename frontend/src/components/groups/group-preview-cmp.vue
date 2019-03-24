@@ -1,7 +1,7 @@
 <template>
   <section>
     <!-- :style="{ backgroundImage: 'url(' + groupDemoObj.image + ')' }" -->
-    <router-link tag="div" :to="'/groups/' + groupDemoObj._id" class="preview-container">
+    <router-link tag="div" :to="'/groups/' + group._id" class="preview-container">
       <div class="img-container"></div>
       <div class="main">
         <div class="bottom">
@@ -9,13 +9,13 @@
           <div class="info-container">
             <h2>
               Hosted by:
-              <span>{{groupDemoObj.createdBy}}</span>
-              in {{groupDemoObj.city}}
+              <span>{{group.createdBy}}</span>
+              in {{group.city}}
             </h2>
             <h3>
               <div class="meal">Dinner</div>
             </h3>
-            <h1>{{groupDemoObj.title}}</h1>
+            <h1>{{group.title}}</h1>
             <h2 style="color:#f44336">3 seats left</h2>
             <h3>
               <i style="color:orange" class="fas fa-star"></i>

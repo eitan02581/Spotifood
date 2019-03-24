@@ -13,12 +13,11 @@ function getUsers() {
 function _createUsers() {
 }
 
-async function getUserById(userId) {
+function getUserById(userId) {
     console.log('service user id :',userId)
-    console.log(`axios to: ${USER_ROUTE}/${userId}`)
-    let user = await axios.get(`${USER_ROUTE}/${userId}`)
-    console.log('user from id',user)
-    return user
+    console.log(`axios ${USER_ROUTE}/${userId}`)
+
+    return axios.get(`${USER_ROUTE}/${userId}`).then(user => user.data)
 }
 function logIn(user) {
     return axios.post(`${USER_ROUTE}/login`, user)
@@ -52,15 +51,9 @@ function checkIfLogged() {
 function logOut() {
     storageService.remove(CURR_USER)
 }
-
-function addGroupToUser(ids) {
-    return axios.put(`${USER_ROUTE}/addGroup/${ids.userId}`, ids).then((res) => res.data)
-
-}
 export default {
     getUserById,
     logIn,
     signUp,
-    checkIfLogged, logOut,
-    addGroupToUser
+    checkIfLogged, logOut
 } 

@@ -14,6 +14,7 @@ function _createUsers() {
 }
 
 function getUserById(userId) {
+    console.log('userid in front service', userId)
     return axios.get(`${USER_ROUTE}/${userId}`).then(user => user.data)
 }
 function logIn(user) {

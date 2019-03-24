@@ -33,7 +33,7 @@ export default {
     };
   },
   created() {
-    this.pendUsers.map(userId => {
+    this.pendUsers.forEach(userId => {
       this.$store.dispatch({ type: "getUserById", userId }).then(() => {
         var user = this.$store.getters.user;
         this.users.push(user);

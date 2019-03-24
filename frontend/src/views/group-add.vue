@@ -36,12 +36,12 @@
         <el-input-number v-model="group.guests" :step="1"></el-input-number>
       </el-form-item>
       <el-form-item label="Event Type">
-        <el-select multiple v-model="group.eventType" filterable placeholder="Select Event">
+        <el-select v-model="group.eventType" filterable placeholder="Select Event">
           <el-option v-for="event in eventType" :key="event" :label="event" :value="event"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="Cuisine Type">
-        <el-select v-model="group.cuisineType" filterable placeholder="Select Cuisine">
+        <el-select multiple v-model="group.cuisineType" filterable placeholder="Select Cuisine">
           <el-option
             v-for="cuisine in cuisineType"
             :key="cuisine"
@@ -50,6 +50,18 @@
           ></el-option>
         </el-select>
       </el-form-item>
+      <!-- <el-form-item label="Tags">
+        <el-select
+          v-model="group.hashtags"
+          multiple
+          filterable
+          allow-create
+          default-first-option
+          placeholder="Add Tags"
+        >
+        </el-select>
+        <button v-if="value10.length >=1" @click="clearSelect" class="delete">X</button>
+      </el-form-item> -->
       <el-form-item label="Location">
         <GmapAutocomplete class="el-input__inner" @place_changed="setPlace"></GmapAutocomplete>
       </el-form-item>
@@ -91,7 +103,8 @@ export default {
         cuisineType: [],
         guests: 1,
         eventType: "",
-        img: ""
+        img: "",
+        hashtags: []
       },
       cuisineType: [
         "Israeli",
@@ -166,29 +179,16 @@ export default {
       let vals = Object.values(this.group);
       let emptyVal = vals.findIndex(val => !val);
 
-      return (
-        emptyVal !== -1 ||
-        !this.group.eventType.length ||
-        !this.group.cuisineType.length
-      );
+      return emptyVal !== -1 || !this.group.cuisineType.length;
     },
     async createGroup() {
-      if (this.isInValid()) return;
-
-      // if (
-      //   emptyVal !== -1 ||
-      //   !this.group.eventType.length ||
-      //   !this.group.cuisineType.length
-      // )
-      //   return;
-
       if (!this.group.img) {
-        this.group.img =
-          "https://api.adorable.io/avatars/400/5c9265c2c6bd2228fea79dd1";
+        this.group.img = "https://picsum.photos/200/300/?random";
       }
+      if (this.isInValid()) return;
       let admin = this.$store.getters.user;
       this.group.admin = admin._id;
-
+      console.log("group to add with admin");
       try {
         const newGroup = await this.$store.dispatch("addGroup", {
           group: this.group
@@ -201,7 +201,7 @@ export default {
     uploadImg(input) {
       console.log(input.file);
       const formData = new FormData();
-      formData.append('file', input.file)
+      formData.append("file", input.file);
       uploadService.uploadImg(formData).then(url => {
         console.log(url);
         this.group.img = url;

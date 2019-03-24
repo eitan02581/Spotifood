@@ -10,9 +10,7 @@ const userStore = {
         user: {}
     },
     getters: {
-        user(state) {
-            return state.user
-        }
+        user: (state) => state.user
     },
     mutations: {
         setUser(state, { user }) {
@@ -22,11 +20,12 @@ const userStore = {
     actions: {
         checkIfLogged({ commit }) {
             var user = userService.checkIfLogged()
-            if (user) {
-                console.log(user);
-                commit({ type: 'setUser', user })
-                return Promise.resolve(user)
-            }
+            if (!user) return
+
+            console.log(user);
+            commit({ type: 'setUser', user })
+            return Promise.resolve(user)
+
         },
         logIn({ commit }, { user }) {
             return userService.logIn(user).then(user => {

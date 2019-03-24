@@ -2,7 +2,7 @@
   <section>
     <!-- :style="{ backgroundImage: 'url(' + groupDemoObj.image + ')' }" -->
     <router-link tag="div" :to="'/groups/' + group._id" class="preview-container">
-      <div class="img-container"></div>
+      <div class="img-container" :style="{ backgroundImage: 'url(' + group.img + ')' }"></div>
       <div class="main">
         <div class="bottom">
           <img src="../../assets/profiles/women.png" alt>
@@ -85,7 +85,7 @@ section {
     .img-container {
       height: 250px;
       width: 280px;
-      background-image: url("../../assets/preview-demo.jpg");
+      // background-image: url("../../assets/preview-demo.jpg");
       background-color: lightseagreen;
       background-position: center;
       background-repeat: no-repeat;

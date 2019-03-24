@@ -1,6 +1,6 @@
 <template>
   <section>
-    <h3>participants</h3>
+    <!-- <h3>participants</h3> -->
     <div class="participant-list">
       <participant-preview v-for="user in users" :user="user" :key="user._id"/>
     </div>
@@ -30,8 +30,8 @@ export default {
 .participant-list {
   display: flex;
 }
-h3 {
+/* h3 {
   color: gray;
   margin-bottom: 10px;
-}
+} */
 </style>

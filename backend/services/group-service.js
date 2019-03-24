@@ -55,6 +55,10 @@ function query(filterBy) {
         console.log('fff', queryToMongo);
         return mongoService.connect()
             .then(db => db.collection(GROUP_COLLECTION).find(queryToMongo).sort().toArray())
+            .then(groups => {
+                console.log('groups are', groups)
+                return groups
+            })
 
 
     }
@@ -68,6 +72,10 @@ function getById(groupId) {
     console.log('id of group to get', _id)
     return mongoService.connect()
         .then(db => db.collection(GROUP_COLLECTION).findOne({ _id }))
+        .then(group => {
+            console.log('group selected is', group)
+            return group
+        })
 }
 
 function update(group) {
@@ -86,7 +94,6 @@ function getCollection() {
 function add(group) {
     group.users = []
     group.recipes = []
-    group.hashtags = []
     group.pendingUsers = []
     group.admin = new ObjectId(group.admin)
     return mongoService.connect()

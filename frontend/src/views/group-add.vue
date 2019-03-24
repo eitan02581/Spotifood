@@ -50,7 +50,7 @@
           ></el-option>
         </el-select>
       </el-form-item>
-      <!-- <el-form-item label="Tags">
+      <el-form-item label="Tags">
         <el-select
           v-model="group.hashtags"
           multiple
@@ -60,8 +60,8 @@
           placeholder="Add Tags"
         >
         </el-select>
-        <button v-if="value10.length >=1" @click="clearSelect" class="delete">X</button>
-      </el-form-item> -->
+        <!-- <button v-if="value10.length >=1" @click="clearSelect" class="delete">X</button> -->
+      </el-form-item>
       <el-form-item label="Location">
         <GmapAutocomplete class="el-input__inner" @place_changed="setPlace"></GmapAutocomplete>
       </el-form-item>

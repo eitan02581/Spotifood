@@ -21,11 +21,8 @@ const userStore = {
         checkIfLogged({ commit }) {
             var user = userService.checkIfLogged()
             if (!user) return
-
-            console.log(user);
             commit({ type: 'setUser', user })
             return Promise.resolve(user)
-
         },
         logIn({ commit }, { user }) {
             return userService.logIn(user).then(user => {

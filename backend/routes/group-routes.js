@@ -19,7 +19,7 @@ function addGroupRoutes(app) {
         console.log('group id to get is', groupId)
         GroupService.getById(groupId)
             .then(group => {
-                console.log('group retrieved is', group)
+                console.log('group admin retrieved is', group.admin)
                 res.json(group)
             })
     })

@@ -57,6 +57,7 @@ const groupStore = {
             // setTimeout(() => {
             return groupService.getById(groupId)
                 .then(group => {
+                    console.log(group)
                     commit({ type: 'setGroup', group })
                     commit({ type: 'setPendUsers', pendUsers: group.pendingUsers })
                 })
@@ -68,10 +69,8 @@ const groupStore = {
                 .then(() => commit({ type: 'removeRecipeFromGroup', recipeId }))
         },
         addGroup({ commit, state }, { group }) {
-            console.log('user to group is', group.admin)
             return groupService.add(group)
                 .then(newGroup => {
-                    console.log('newly added group is', newGroup)
                     commit({ type: 'setGroup', newGroup })
                     return newGroup
                 })

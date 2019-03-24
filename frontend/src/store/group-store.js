@@ -10,7 +10,6 @@ const groupStore = {
     state: {
         groups: [],
         group: null,
-        groupAdmin: {},
         pendUsers: []
 
     }, getters: {

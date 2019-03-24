@@ -27,6 +27,9 @@
           :http-request="uploadImg"
           :show-file-list="false"
         >
+        <div style="width: 100px;height:100px" v-if="isUploading">
+        <i class="el-icon-loading" ></i>
+        </div>
           <!-- :before-upload="beforeAvatarUpload"
           :on-success="handleAvatarSuccess"-->
           <img v-if="group.img" :src="group.img" class="avatar">

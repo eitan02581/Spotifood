@@ -83,7 +83,7 @@ section {
     margin: 0;
   }
   #videoMessage {
-    text-shadow: 2px 2px 2px #000000;
+    // text-shadow: 2px 2px 2px #000000;
     color: white;
     z-index: 99;
   }

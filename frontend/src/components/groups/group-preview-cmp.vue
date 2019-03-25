@@ -15,7 +15,7 @@
               <div class="meal">{{group.eventType}}</div>
             </h3>
             <h1>{{group.title}}</h1>
-            <h2 style="color:#f44336">{{seatsLeft}} seats left</h2>
+            <h2 style="color:#f44336">{{seatsLeft === 0 ? 'Full' : seatsLeft + ' seats left'}}</h2>
             <!-- {{group.hashtags}} -->
             <h3>
               <i style="color:orange" class="fas fa-star"></i>
@@ -24,10 +24,10 @@
               <i style="color:orange" class="fas fa-star"></i>
               <i style="color:orange" class="fas fa-star"></i> (37)
             </h3>
-            <!-- <div class="has-container"> -->
-            <el-tag type="warning" v-for="hashtag in group.hashtags" :key="hashtag">#{{hashtag}}</el-tag>
-            <!-- <span v-for="hash in group.hashtags" :key="hash">#{{hash}}</span> -->
-            <!-- </div> -->
+            <div class="has-container">
+              <el-tag type="warning" v-for="hashtag in group.hashtags" :key="hashtag">#{{hashtag}}</el-tag>
+              <!-- <span v-for="hash in group.hashtags" :key="hash">#{{hash}}</span> -->
+            </div>
           </div>
         </div>
       </div>
@@ -157,7 +157,7 @@ section {
           padding-left: 7px;
         }
         .has-container {
-          overflow-x: scroll;
+          // overflow-x: scroll;
           overflow-y: hidden;
           white-space: nowrap;
 

@@ -6,7 +6,6 @@
       <template v-if="isAdmin">
         <pandingUser :groupId="group._id" :pendUsers="pendUsers"></pandingUser>
       </template>
-      <!-- ONLY FOR USER  join or leave btn-->
 
       <div class="full-message" v-if="!isPlaceLeft">
         <h1>Event is full</h1>
@@ -128,10 +127,11 @@ export default {
         });
     },
     checkIfUserAbaleToJoin() {
-      console.log("here");
+      // console.log("here");
 
       var group = this.$store.getters.group;
       // TODO: CHECK IF EVEN IF THERE ARE NULLS AND A REAL PENDING USER , IF IT WORKS
+      // TODO: CHANGE FINDINDEX TO INCLUDES
       var isPending = group.pendingUsers.findIndex(pending => {
         if (pending) {
           return pending === this.user._id;

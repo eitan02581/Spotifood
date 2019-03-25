@@ -23,5 +23,5 @@ export default new Vuex.Store({
   modules: {
     groupStore,
     userStore
-  }
+  },
 })

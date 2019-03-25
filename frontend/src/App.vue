@@ -14,7 +14,7 @@ import { eventBus, USER_LOGGED } from "./services/EventBusService.js";
 export default {
   components: {
     Header,
-    Footer,
+    Footer
   },
   data() {
     return {};

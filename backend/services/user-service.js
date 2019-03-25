@@ -16,6 +16,7 @@ function _addMany() {
 
 
 async function getById(userId) {
+    // if (userId) return {}
     const _id = new ObjectId(userId)
     var db = await mongoService.connect()
     var user = db.collection(USER_COLLECTION).findOne({ _id })

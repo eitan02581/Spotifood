@@ -24,6 +24,8 @@
     "vue-google-autocomplete": "^1.1.0",
     "vue-router": "^3.0.1",
     "vue2-google-maps": "^0.10.6",
+    "vuetify": "^1.5.7",
+    "vuetify-toast-snackbar": "^0.1.5",
     "vuex": "^3.0.1"
   },
   "devDependencies": {

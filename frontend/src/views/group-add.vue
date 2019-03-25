@@ -202,9 +202,11 @@ export default {
         const newGroup = await this.$store.dispatch("addGroup", {
           group: this.group
         });
-        this.$router.push("/groups/" + newGroup._id);
+        this.$toast.Success('Group Added Successfully')
+        this.$router.push("/groups/" + newGroup._id)
       } catch (e) {
         console.log(e);
+        this.$toast.Error('Something went wrong')
       }
     },
     uploadImg(input) {

@@ -35,6 +35,8 @@ export default {
   },
   created() {
     this.pendUsers.forEach(userId => {
+      console.log('Problem is Here?')
+      console.log('User id : ',userId)
       this.$store.dispatch({ type: "getUserById", userId }).then(user => {
         // var user = this.$store.getters.user;
         this.users.push(user);
@@ -57,6 +59,8 @@ export default {
             })
             .then(console.log("heyyy"));
           // TODO: ALERT THE USER ABOUT THE ACTION
+          this.$toast.Success(`${user.nickName} added to group!`)
+          // check if its enough 
           this.pendingRes = `${user.nickName} added!`;
           setTimeout(() => {
             this.pendingRes = null;

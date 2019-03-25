@@ -109,10 +109,15 @@ export default {
         ? recipeService.updateRecipe(this.recipe, imgsUrls)
         : recipeService.addRecipe(this.recipe, this.groupId, imgsUrls);
       saveRecipe.then(() => {
+        if (this.recipeId) this.$toast.Success("Recipe Updated Successfully");
+        else this.$toast.Success("Recipe Added Successfully");
         this.isLoading = false;
-        this.$router.push(`/groups/${this.groupId}`)
-        // this.$router.go(-1);
-      });
+        this.$router.push(`/groups/${this.groupId}`);
+      })
+      .catch(err=>{
+        this.$toast.Error("Something went wrong");
+        console.log('err',err)
+      })
     },
     addIngredientInput() {
       if (

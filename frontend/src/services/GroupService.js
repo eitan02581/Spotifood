@@ -41,19 +41,21 @@ function getById(groupId) {
     return axios.get(`${GROUP_ROUTE}/${groupId}`)
         .then(res => res.data)
         .then(group => {
-
+            console.log('users length : ',group.users.length)
             var groupUsers = group.users.map(userId => {
-                console.log('group users:', userId)
                 return userService.getUserById(userId)
             })
             var groupRecipes = group.recipes.map(recipeId => {
                 return recipesService.getRecipeById(recipeId)
             })
+            console.log('after users axios')
             var promiseArray = [Promise.all(groupUsers), Promise.all(groupRecipes)]
             return Promise.all(promiseArray)
                 .then(array => {
+                    console.log('after promise all !')
                     group.users = array[0]
                     group.recipes = array[1]
+                    console.log('after promise all 2!')
                     return group
                 })
         })

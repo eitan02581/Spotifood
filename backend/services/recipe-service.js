@@ -35,20 +35,20 @@ function update(recipe) {
         })
 }
 
-function add(payload) {
+async function add(payload) {
+    const _id = new ObjectId(payload.groupId)
     payload.recipe.rating = 0
     payload.recipe.createdAt = new Date().getTime()
-    return mongoService.connect()
-        .then(db => {
-            return db.collection(RECIPE_COLLECTION)
-                .insertOne(payload.recipe, () => {
-                    if (payload.groupId) {
-                        return GroupService.addRecipeToGroup(payload.recipe._id, payload.groupId)
-                            .then(() => payload.recipe._id)
-                    }
-                    return payload.recipe._id
-                })
-        })
+    var db = await mongoService.connect()
+    db.collection(RECIPE_COLLECTION).insertOne(payload.recipe)
+    // if (payload.groupId) {
+    db.collection('groups').updateOne(
+        { _id },
+        { $push: { recipes: payload.recipe._id } }
+    )
+    // }
+    return payload.recipe._id
+
 }
 
 function remove(recipeId) {

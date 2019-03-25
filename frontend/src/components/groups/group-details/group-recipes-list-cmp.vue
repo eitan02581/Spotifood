@@ -67,7 +67,7 @@ export default {
       this.$store.dispatch("removeRecipeFromGroup", {
         recipeId,
         groupId: this.$route.params.groupId
-      })
+      }).then(()=>this.$toast.Success('Recipe Deleted Successfully'))
     },
     uploadRecipe() {}
   },

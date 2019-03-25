@@ -13,7 +13,12 @@ import '../node_modules/aos/dist/aos.css'
 import 'vue-event-calendar/dist/style.css' //^1.1.10, CSS has been extracted as one file, so you can easily update it.
 import vueEventCalendar from 'vue-event-calendar'
 import FunctionalCalendar from 'vue-functional-calendar';
+import Vuetify from 'vuetify'
+import VuetifyToast from 'vuetify-toast-snackbar'
+// require('https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons')
+require('vuetify/dist/vuetify.min.css')
 
+Vue.use(Vuetify)
 Vue.use(FunctionalCalendar)
 Vue.use(vueEventCalendar, { locale: 'en' })
 
@@ -46,6 +51,29 @@ Vue.use(VueGoogleMaps, {
 Vue.config.productionTip = false
 
 Vue.use(Element, { locale: 'en' })
+
+Vue.use(VuetifyToast, {
+  x: 'center', // default
+  y: 'bottom', // default
+  color: '#292929', // default
+  icon: 'WEat',
+  timeout: 3000, // default
+  dismissable: true, // default
+  autoHeight: false, // default
+  multiLine: false, // default
+  vertical: false, // default
+  shorts: {
+    Success: {
+      color: 'green'
+    },
+    Error: {
+      color: 'red'
+    }
+  },
+  property: '$toast' // default
+})
+
+
 
 new Vue({
   created() {

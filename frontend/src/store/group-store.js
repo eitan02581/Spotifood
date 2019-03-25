@@ -26,11 +26,14 @@ const groupStore = {
         groupAdmin(state) {
             return state.groupAdmin
         },
-        isGroupAdmin(state){
+        isGroupAdmin(state) {
             return state.isGroupAdmin
         }
     },
     mutations: {
+        cleanGroup(state) {
+            state.group = null
+        },
         setGroups(state, { groups }) {
             state.groups = groups
         },
@@ -40,6 +43,11 @@ const groupStore = {
         setPendUsers(state, { pendUsers }) {
             state.pendUsers = pendUsers
         },
+        removeUserFromGroup(state, { userId }) {
+            console.log(userId);
+
+            state.group.users = state.group.users.filter(user => user !== userId)
+        },
         removeRecipeFromGroup(state, { recipeId }) {
             let recipeIdx = state.group.recipes.findIndex(recipe => recipe._id === recipeId)
             state.group.recipes.splice(recipeIdx, 1)
@@ -48,8 +56,6 @@ const groupStore = {
             state.group.admin = admin
         },
         setIsGroupAdmin(state, { bool }) {
-            console.log(bool);
-
             state.isGroupAdmin = bool
         }
     },
@@ -63,12 +69,12 @@ const groupStore = {
         },
 
         getGroupById({ commit, state }, { groupId }) {
+            commit({ type: 'cleanGroup' })
             return groupService.getById(groupId)
                 .then(group => {
-                    console.log(group);
-
                     commit({ type: 'setGroup', group })
                     commit({ type: 'setPendUsers', pendUsers: group.pendingUsers })
+                    return group
                 })
         },
 
@@ -88,8 +94,11 @@ const groupStore = {
         askJoinGroup({ commit }, { ids }) {
             return groupService.askJoinGroup(ids).then(() => { 'asked successfuly' })
         },
-        leaveGroup({ commit }, { ids }) {
-            return groupService.leaveGroup(ids).then(() => { 'leave successfuly' })
+        removeUserFromGroup({ commit }, { ids }) {
+            return groupService.removeUserFromGroup(ids).then(() => {
+                // make it reactive
+                commit({ type: 'removeUserFromGroup', userId: ids.userId })
+            })
         },
         acceptUserToGroup({ commit }, { ids }) {
             return groupService.addUserToGroup(ids).then((res) => res)
@@ -98,10 +107,7 @@ const groupStore = {
         declineUserRequest({ commit }, { ids }) {
             return groupService.declineUserRequest(ids).then((res) => res)
         },
-        // getAdminGroupById({ commit }, { ids }) {
-        //     return groupService.getAdminGroupById(ids).then((res) => res)
 
-        // }
     }
 }
 

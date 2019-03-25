@@ -2,12 +2,14 @@
 
 <template>
   <section>
-    <!-- <h3>participants</h3> -->
     <div class="participant-item" v-for="user in users" :key="user._id">
-      <div v-if="isAdmin" class="remove-btn">
-        <button>X</button>
+      <!-- ONLY FOR ADMIN -->
+      <div v-if="isAdmin && user" class="remove-btn">
+        <button @click="onRemoveParticipant(user._id)">X</button>
       </div>
-      <participant-preview :user="user"/>
+      <router-link :to="'/user/' + user._id">
+        <participant-preview :user="user"/>
+      </router-link>
     </div>
   </section>
 </template>
@@ -31,6 +33,17 @@ export default {
   computed: {
     isAdmin() {
       return this.$store.getters.isGroupAdmin;
+    },
+    user(){
+      return this.$store.getters.user
+    }
+  },
+  methods: {
+    onRemoveParticipant(userId) {
+      var groupId = this.$store.getters.group._id;
+      var ids = { userId, groupId };
+
+      this.$store.dispatch({ type: "removeUserFromGroup", ids });
     }
   }
 };

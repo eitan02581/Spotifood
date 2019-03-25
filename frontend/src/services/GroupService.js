@@ -6,20 +6,13 @@ const GROUP_ROUTE = (process.env.NODE_ENV !== 'development') ? '/group' : 'http:
 
 function query(filterBy) {
     if (filterBy) {
-        // TODO: ENABLE OTHER FILTERS EXEPT HASHTAGS
         let filterQuery = '?';
         if (filterBy.hashtags.length >= 1) filterQuery += `hashtags=${filterBy.hashtags}&`
         if (filterBy.cuisineType) filterQuery += `cuisineType=${filterBy.cuisineType}&`
         if (filterBy.eventType) filterQuery += `eventType=${filterBy.eventType}&`
         if (filterBy.guests) filterQuery += `guests=${filterBy.guests}&`
         if (filterBy.title) filterQuery += `title=${filterBy.title}&`
-        // if (filterBy.type !== 'All' && filterObj.type) filterQuery += `type=${filterObj.type}&`
-        // if (filterBy.inStock !== 'All' && filterObj.inStock) filterQuery += `inStock=${filterObj.inStock}&`
-        // filterQuery += `sortBy=${filterObj.sortBy}`
-        // console.log(filterQuery);
-
         return axios.get(`${GROUP_ROUTE}/${filterQuery}`).then(filterdGroups => filterdGroups.data)
-        // axios.get(`${GROUP_ROUTE}/${filterQuery}`).then(groups => groups.data)
     }
     else return axios.get(`${GROUP_ROUTE}`).then(groups => groups.data)
 }
@@ -76,7 +69,9 @@ function removeRecipeFromGroup(recipeId, groupId) {
     return axios.delete(`${GROUP_ROUTE}/${groupId}/${recipeId}`).then(res => res)
 }
 
-function leaveGroup(ids) {
+function removeUserFromGroup(ids) {
+    console.log(ids.groupId);
+
     return axios.put(`${GROUP_ROUTE}/leave/${ids.groupId}`, ids).then((res) => res.data)
 
 }
@@ -91,5 +86,5 @@ export default {
     addUserToGroup,
     declineUserRequest,
     removeRecipeFromGroup,
-    leaveGroup
+    removeUserFromGroup
 }

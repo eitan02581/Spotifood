@@ -1,6 +1,6 @@
 <template>
   <section>
-    <div class="user-profile-container">
+    <div v-if="user" class="user-profile-container">
       <div class="img-container">
         <img :src="user.img" alt>
       </div>
@@ -32,29 +32,24 @@ export default {
   },
   data() {
     return {
+      user: null,
       groups: []
     };
   },
   created() {
     var userId = this.$route.params.userId;
-    this.$store.dispatch({ type: "getUserById", userId }).then(() => {
-      var user = this.$store.getters.user;
-      // console.log(user);
-
-      if (user.groups) {
-        // get groups that user takes part and render it
-        user.groups.forEach(groupId => {
-          this.$store.dispatch({ type: "getGroupById", groupId }).then(() => {
-            var group = this.$store.getters.group;
-            this.groups.push(group);
-          });
-        });
-      }
+    this.$store.dispatch({ type: "getUserById", userId }).then(user => {
+      this.user = user;
+      if (user.groups) this.getUserGroups();
     });
   },
-  computed: {
-    user() {
-      return this.$store.getters.user;
+  methods: {
+    getUserGroups() {
+      this.user.groups.forEach(groupId => {
+        this.$store.dispatch({ type: "getGroupById", groupId }).then(group => {
+          this.groups.push(group);
+        });
+      });
     }
   }
 };

@@ -61,6 +61,16 @@ function addGroupToUser(ids) {
         })
 }
 
+function removeGroupFromUser(ids) {
+    var user = {}
+    user._id = new ObjectId(ids.userId)
+
+    return mongoService.connect()
+        .then(db => {
+            return db.collection(USER_COLLECTION)
+                .updateOne({ _id: user._id }, { $pull: { groups: ids.groupId } })
+        })
+}
 
 
 
@@ -70,4 +80,5 @@ module.exports = {
     login,
     addUser,
     addGroupToUser,
+    removeGroupFromUser
 }

@@ -35,8 +35,8 @@ export default {
   },
   created() {
     this.pendUsers.forEach(userId => {
-      console.log('Problem is Here?')
-      console.log('User id : ',userId)
+      console.log("Problem is Here?");
+      console.log("User id : ", userId);
       this.$store.dispatch({ type: "getUserById", userId }).then(user => {
         // var user = this.$store.getters.user;
         this.users.push(user);
@@ -52,21 +52,6 @@ export default {
         })
         .then(res => {
           // update user's group array
-<<<<<<< HEAD
-          this.$store
-            .dispatch({
-              type: "addGroupToUser",
-              ids: { userId: user._id, groupId: this.groupId }
-            })
-            .then(console.log("heyyy"));
-          // TODO: ALERT THE USER ABOUT THE ACTION
-          this.$toast.Success(`${user.nickName} added to group!`)
-          // check if its enough 
-          this.pendingRes = `${user.nickName} added!`;
-          setTimeout(() => {
-            this.pendingRes = null;
-          }, 1200);
-=======
           this.$store.dispatch({
             type: "addGroupToUser",
             ids: { userId: user._id, groupId: this.groupId }
@@ -74,7 +59,6 @@ export default {
           // show message
           this.showMsg(true, user);
 
->>>>>>> a131fde3a99283ff4461aba9817ff94df7d70864
           // remove user from users
           // TODO: FIX BUG WHEN ACC OR DEC ON ONE , ALL THE PENDING USERS DISAPPEAR
           this.users = this.users.filter(user => user._id !== user._id);

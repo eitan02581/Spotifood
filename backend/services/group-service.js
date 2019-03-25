@@ -32,63 +32,6 @@ function query(filterBy) {
 
 
 
-<<<<<<< HEAD
-   if (filterBy) {
-       // console.log('a', filterBy);
-       var queryToMongo = {}
-       // TODO: fix hashtags
-       if (filterBy.hashtags) {
-           filterBy.hashtags = filterBy.hashtags.split(',')
-           // queryToMongo.hashtags = new RegExp(filterBy.hashtags, 'i');
-           var hashtags = filterBy.hashtags.map(el => { return { hashtags: new RegExp(el, 'i') } })
-           // console.log('hash', hashtags);
-           // { '$or': [ { hashtags: /wed/i }, { hashtags: /s/i } ] }
-           // { '$or': [ { hashtags: /wed/i } ] } oved
-           // queryToMongo.hashtags = { $or: hashtags }
-           queryToMongo['$or'] = hashtags
-           console.log('queryToMongo', queryToMongo.hashtags);
-
-       }
-       if (filterBy.cuisineType) queryToMongo.cuisineType = filterBy.cuisineType
-       if (filterBy.eventType) queryToMongo.eventType = filterBy.eventType
-       if (filterBy.guests) queryToMongo.guests = +filterBy.guests
-       if (filterBy.title) queryToMongo.title = new RegExp(filterBy.title, 'i');
-
-       // console.log('queryToMongo', queryToMongo);
-       // else if (filterBy.cuisineType || filterBy.eventType) {
-       //     queryToMongo = {
-       //         $and: [
-       //             { cuisineType: filterBy.cuisineType },
-       //             { eventType: filterBy.eventType },
-       //         ]
-       //     }
-
-       // }
-       // console.log('fff', queryToMongo);
-       return mongoService.connect()
-           .then(db => db.collection(GROUP_COLLECTION).find(queryToMongo).sort().toArray())
-           .then(groups => {
-               // console.log('groups are', groups)
-               return groups
-           })
-
-
-   }
-
-   else return mongoService.connect()
-       .then(db => db.collection(GROUP_COLLECTION).find({}).toArray())
-}
-
-function getById(groupId) {
-   const _id = new ObjectId(groupId)
-   // console.log('id of group to get', _id)
-   return mongoService.connect()
-       .then(db => db.collection(GROUP_COLLECTION).findOne({ _id }))
-       .then(group => {
-           // console.log('group selected is', group)
-           return group
-       })
-=======
     if (filterBy) {
         var queryToMongo = {}
         if (filterBy.hashtags) {
@@ -120,7 +63,6 @@ function getById(groupId) {
             // console.log('group selected is', group)
             return group
         })
->>>>>>> a131fde3a99283ff4461aba9817ff94df7d70864
 }
 
 function update(group) {
@@ -171,17 +113,10 @@ function remove(groupId) {
             return db.collection(GROUP_COLLECTION)
                 .updateOne({ _id: group._id }, { $push: { pendingUsers: ids.userId } })
         })
-<<<<<<< HEAD
- }
- 
- // leave Group
- function leaveGroup(ids) {
-=======
 }
 
 // user leave group || admin remove user
 function removeUserFromGroup(ids) {
->>>>>>> a131fde3a99283ff4461aba9817ff94df7d70864
     var group = {}
     group._id = new ObjectId(ids.groupId)
     // console.log('asd', group._id);
@@ -253,10 +188,5 @@ function removeUserFromGroup(ids) {
     removePendingUser,
     // addRecipeToGroup,
     removeRecipeFromGroup,
-<<<<<<< HEAD
-    leaveGroup
- }
-=======
     removeUserFromGroup
 }
->>>>>>> a131fde3a99283ff4461aba9817ff94df7d70864

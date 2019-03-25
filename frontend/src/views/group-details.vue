@@ -134,11 +134,6 @@ export default {
       console.log("here");
 
       var group = this.$store.getters.group;
-<<<<<<< HEAD
-      console.log(group);
-
-      var isParticipant = group.pendingUsers.findIndex(participant => {
-=======
       // TODO: CHECK IF EVEN IF THERE ARE NULLS AND A REAL PENDING USER , IF IT WORKS
       var isPending = group.pendingUsers.findIndex(pending => {
         if (pending) {
@@ -146,7 +141,6 @@ export default {
         }
       });
       var isParticipant = group.users.findIndex(participant => {
->>>>>>> a131fde3a99283ff4461aba9817ff94df7d70864
         return participant._id === this.user._id;
       });
 

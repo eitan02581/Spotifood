@@ -95,6 +95,7 @@ section {
     margin-bottom: 50px;
     display: flex;
     justify-content: center;
+    margin-top:0;
   }
   .how-it-works {
     margin-top: 400px;

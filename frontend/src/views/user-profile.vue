@@ -39,7 +39,10 @@ export default {
     var userId = this.$route.params.userId;
     this.$store.dispatch({ type: "getUserById", userId }).then(() => {
       var user = this.$store.getters.user;
+      // console.log(user);
+
       if (user.groups) {
+        // get groups that user takes part and render it
         user.groups.forEach(groupId => {
           this.$store.dispatch({ type: "getGroupById", groupId }).then(() => {
             var group = this.$store.getters.group;

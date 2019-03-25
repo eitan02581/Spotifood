@@ -52,7 +52,8 @@ export default {
   methods: {
     signup() {
       this.$store.dispatch({ type: "signUp", newUser: this.user }).then(() => {
-        eventBus.$emit("USER_LOGGED", this.user);
+        var userWithId = this.$store.getters.user;
+        eventBus.$emit("USER_LOGGED", userWithId);
         this.$router.push("/");
       });
     }

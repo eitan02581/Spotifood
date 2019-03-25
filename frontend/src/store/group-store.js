@@ -57,9 +57,14 @@ const groupStore = {
         getGroupById({ commit, state }, { groupId }) {
             return groupService.getById(groupId)
                 .then(group => {
-                    console.log('group: ',group)
+                    console.log('group: ', group)
                     commit({ type: 'setGroup', group })
                     commit({ type: 'setPendUsers', pendUsers: group.pendingUsers })
+                    console.log('and here?')
+                })
+                .then(res => {
+                    console.log('new then()')
+                    return res
                 })
         },
 

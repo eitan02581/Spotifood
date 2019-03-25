@@ -12,6 +12,7 @@ function query(filterBy) {
         if (filterBy.cuisineType) filterQuery += `cuisineType=${filterBy.cuisineType}&`
         if (filterBy.eventType) filterQuery += `eventType=${filterBy.eventType}&`
         if (filterBy.guests) filterQuery += `guests=${filterBy.guests}&`
+        if (filterBy.title) filterQuery += `title=${filterBy.title}&`
         // if (filterBy.type !== 'All' && filterObj.type) filterQuery += `type=${filterObj.type}&`
         // if (filterBy.inStock !== 'All' && filterObj.inStock) filterQuery += `inStock=${filterObj.inStock}&`
         // filterQuery += `sortBy=${filterObj.sortBy}`
@@ -62,6 +63,8 @@ function askJoinGroup(ids) {
     return axios.put(`${GROUP_ROUTE}/join/${ids.groupId}`, ids).then((res) => res.data)
 }
 function addUserToGroup(ids) {
+    console.log(ids);
+
     return axios.put(`${GROUP_ROUTE}/accept/${ids.groupId}`, ids).then((res) => res.data)
 
 
@@ -74,6 +77,11 @@ function removeRecipeFromGroup(recipeId, groupId) {
     return axios.delete(`${GROUP_ROUTE}/${groupId}/${recipeId}`).then(res => res)
 }
 
+function leaveGroup(ids) {
+    return axios.put(`${GROUP_ROUTE}/leave/${ids.groupId}`, ids).then((res) => res.data)
+
+}
+
 export default {
     query,
     getById,
@@ -83,5 +91,6 @@ export default {
     askJoinGroup,
     addUserToGroup,
     declineUserRequest,
-    removeRecipeFromGroup
+    removeRecipeFromGroup,
+    leaveGroup
 }

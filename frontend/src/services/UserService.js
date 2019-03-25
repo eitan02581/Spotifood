@@ -14,6 +14,10 @@ function _createUsers() {
 }
 
 function getUserById(userId) {
+    // console.log(userId);
+
+    // console.log(`axios ${USER_ROUTE}/${userId}`)
+
     return axios.get(`${USER_ROUTE}/${userId}`).then(user => user.data)
 }
 
@@ -49,10 +53,13 @@ function checkIfLogged() {
 function logOut() {
     storageService.remove(CURR_USER)
 }
+function addGroupToUser(ids) {
+    return axios.put(`${USER_ROUTE}/addGroup/${ids.userId}`, ids)
+}
 export default {
     getUserById,
     logIn,
     signUp,
-    checkIfLogged, 
-    logOut,
+    checkIfLogged, logOut,
+    addGroupToUser
 } 

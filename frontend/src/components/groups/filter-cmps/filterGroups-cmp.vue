@@ -2,6 +2,7 @@
   <section>
     <div class="filter-container">
       <form>
+        <searchTitle @title="onSelectedVals('title' , $event)"></searchTitle>
         <eventSelect @eventType="onSelectedVals('eventType' ,  $event)"></eventSelect>
         <cuisineSelect @cuisine="onSelectedVals('cuisineType' ,  $event)"></cuisineSelect>
         <guestsSelect @guests="onSelectedVals('guests' ,  $event)"></guestsSelect>
@@ -9,7 +10,6 @@
         <selectEl @selectedVals="onSelectedVals('hashtags' ,  $event)"></selectEl>
       </form>
     </div>
-    {{filterBy}}
   </section>
 </template>
 
@@ -19,13 +19,15 @@ import dateSuggestions from "./date-suggestion-filter.cmp.vue";
 import guestsSelect from "./guests-select-cmp";
 import eventSelect from "./event-select-cmp.vue";
 import cuisineSelect from "./cuisine-select-cmp.vue";
+import searchTitle from "./search-input-cmp";
 export default {
   components: {
     selectEl,
     dateSuggestions,
     guestsSelect,
     eventSelect,
-    cuisineSelect
+    cuisineSelect,
+    searchTitle
   },
   data() {
     return {
@@ -33,7 +35,8 @@ export default {
         hashtags: [],
         cuisineType: "",
         eventType: "",
-        guests: null
+        guests: null,
+        title: ""
       }
     };
   },
@@ -43,6 +46,7 @@ export default {
       if (filterBy === "cuisineType") this.filterBy.cuisineType = val;
       if (filterBy === "eventType") this.filterBy.eventType = val;
       if (filterBy === "guests") this.filterBy.guests = val;
+      if (filterBy === "title") this.filterBy.title = val;
     }
   },
   watch: {

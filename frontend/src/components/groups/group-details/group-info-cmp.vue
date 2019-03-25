@@ -22,9 +22,10 @@
     </div>
     <el-tag type="warning" v-for="hashtag in group.hashtags" :key="hashtag">#{{hashtag}}</el-tag>
     <div>
-    <i class="fas fa-users"></i>
-    <h3>participants {{participants}}</h3>
+      <i class="fas fa-users"></i>
+      <h3>participants {{participants}}</h3>
     </div>
+    
     <participants-list :users="group.users"/>
   </section>
 </template>
@@ -47,7 +48,8 @@ export default {
     },
     participants() {
       return `${this.group.users.length}/${this.group.guests}`;
-    }
+    },
+  
   }
 };
 </script>

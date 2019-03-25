@@ -7,25 +7,25 @@ var groups = require('../data/groups.json')
 // _resetDb()
 
 function _resetDb() {
-    _cleanCollection()
-    _addMany()
+   _cleanCollection()
+   _addMany()
 }
 
 function _addMany() {
-    return mongoService.connect()
-        .then(db => db.collection(GROUP_COLLECTION).insert(groups))
-        .then(res => {
-            group._id = res.insertedId
-            return group
-        })
+   return mongoService.connect()
+       .then(db => db.collection(GROUP_COLLECTION).insert(groups))
+       .then(res => {
+           group._id = res.insertedId
+           return group
+       })
 }
 
 function _cleanCollection() {
-    return mongoService.connect()
-        .then(db => db.collection(GROUP_COLLECTION).remove({}))
-        .then(res => {
-            console.log('result after clearing', res)
-        })
+   return mongoService.connect()
+       .then(db => db.collection(GROUP_COLLECTION).remove({}))
+       .then(res => {
+           console.log('result after clearing', res)
+       })
 }
 
 function query(filterBy) {
@@ -66,31 +66,31 @@ function getById(groupId) {
 }
 
 function update(group) {
-    console.log('group to update is', group)
-    group._id = new ObjectId(group._id)
-    return getCollection()
-        .updateOne({ _id: group._id }, { $set: group })
+   console.log('group to update is', group)
+   group._id = new ObjectId(group._id)
+   return getCollection()
+       .updateOne({ _id: group._id }, { $set: group })
 }
 
 function getCollection() {
-    return mongoService.connect()
-        .then(db => db.collection(GROUP_COLLECTION))
+   return mongoService.connect()
+       .then(db => db.collection(GROUP_COLLECTION))
 
 }
 
 function add(group) {
-    group.users = []
-    group.recipes = []
-    group.pendingUsers = []
-    group.admin = new ObjectId(group.admin)
-    return mongoService.connect()
-        .then(db => {
-            return db.collection(GROUP_COLLECTION).insertOne(group)
-                .then(result => {
-                    // console.log('result from database is', result.ops[0])
-                    return result.ops[0]
-                })
-        })
+   group.users = []
+   group.recipes = []
+   group.pendingUsers = []
+   group.admin = new ObjectId(group.admin)
+   return mongoService.connect()
+       .then(db => {
+           return db.collection(GROUP_COLLECTION).insertOne(group)
+               .then(result => {
+                   // console.log('result from database is', result.ops[0])
+                   return result.ops[0]
+               })
+       })
 
 }
 
@@ -99,15 +99,15 @@ function remove(groupId) {
         .then(db => {
             db.collection(GROUP_COLLECTION).remove({ _id: ObjectId(groupId) })
         })
-}
-
-// ask join group
-// TODO: CHECK IF USERSID EXISTS IN PRENDINGUSERS AND ONLY IF NOT PUSH USERID
-function askJoin(ids) {
+ }
+ 
+ // ask join group
+ // TODO: CHECK IF USERSID EXISTS IN PRENDINGUSERS AND ONLY IF NOT PUSH USERID
+ function askJoin(ids) {
     var group = {}
     group._id = new ObjectId(ids.groupId)
     // console.log('asd', group._id);
-
+ 
     return mongoService.connect()
         .then(db => {
             return db.collection(GROUP_COLLECTION)
@@ -120,7 +120,7 @@ function removeUserFromGroup(ids) {
     var group = {}
     group._id = new ObjectId(ids.groupId)
     // console.log('asd', group._id);
-
+ 
     return mongoService.connect()
         .then(db => {
             return db.collection(GROUP_COLLECTION)
@@ -128,44 +128,44 @@ function removeUserFromGroup(ids) {
         }).then(() => {
             removePendingUser(ids)
         })
-}
-
-// add participant to group
-function addParticipant(ids) {
+ }
+ 
+ // add participant to group
+ function addParticipant(ids) {
     var group = {}
     group._id = new ObjectId(ids.groupId)
-
+ 
     return mongoService.connect()
         .then(db => {
             return db.collection(GROUP_COLLECTION)
                 .updateOne({ _id: group._id }, { $push: { users: ids.userId } })
-
+ 
         }).then(removePendingUser(ids))
-}
-
-function removePendingUser(ids) {
+ }
+ 
+ function removePendingUser(ids) {
     var group = {}
     group._id = new ObjectId(ids.groupId)
-
+ 
     return mongoService.connect()
         .then(db => {
             return db.collection(GROUP_COLLECTION)
                 .updateOne({ _id: group._id }, { $pull: { pendingUsers: ids.userId } })
         })
-}
-
-function addRecipeToGroup(recipeId, groupId) {
-    const _id = new ObjectId(groupId)
-    return mongoService.connect()
-        .then(db => {
-            return db.collection(GROUP_COLLECTION).updateOne(
-                { _id },
-                { $push: { recipes: recipeId } }
-            )
-        })
-}
-
-function removeRecipeFromGroup(recipeId, groupId) {
+ }
+ 
+//  function addRecipeToGroup(recipeId, groupId) {
+//     const _id = new ObjectId(groupId)
+//     return mongoService.connect()
+//         .then(db => {
+//             return db.collection(GROUP_COLLECTION).updateOne(
+//                 { _id },
+//                 { $push: { recipes: recipeId } }
+//             )
+//         })
+//  }
+ 
+ function removeRecipeFromGroup(recipeId, groupId) {
     const _id = new ObjectId(groupId)
     const recipe = new ObjectId(recipeId)
     return mongoService.connect()
@@ -175,9 +175,9 @@ function removeRecipeFromGroup(recipeId, groupId) {
                 { $pull: { recipes: recipe } }
             )
         })
-}
-
-module.exports = {
+ }
+ 
+ module.exports = {
     query,
     getById,
     update,
@@ -186,7 +186,7 @@ module.exports = {
     askJoin,
     addParticipant,
     removePendingUser,
-    addRecipeToGroup,
+    // addRecipeToGroup,
     removeRecipeFromGroup,
     removeUserFromGroup
 }

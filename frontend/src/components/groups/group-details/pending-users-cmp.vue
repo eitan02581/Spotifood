@@ -35,6 +35,8 @@ export default {
   },
   created() {
     this.pendUsers.forEach(userId => {
+      console.log("Problem is Here?");
+      console.log("User id : ", userId);
       this.$store.dispatch({ type: "getUserById", userId }).then(user => {
         // var user = this.$store.getters.user;
         this.users.push(user);

@@ -26,7 +26,7 @@ function addRecipeRoutes(app) {
         let payload = req.body
         RecipeService.add(payload)
             .then(updatedrecipe => {
-                // console.log('recipe added and is', res.json(updatedrecipe))
+                console.log('recipe added and is', updatedrecipe)
                 res.json(updatedrecipe)
             })
     })

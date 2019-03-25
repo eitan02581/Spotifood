@@ -10,7 +10,6 @@ const groupStore = {
     state: {
         groups: [],
         group: null,
-        isGroupAdmin: false,
         pendUsers: []
 
     }, getters: {
@@ -67,7 +66,11 @@ const groupStore = {
             groupService.query(filterBy)
                 .then((groups) => { commit({ type: 'setGroups', groups }) })
         },
-
+        // getGroup({ commit }, { groupId }) {
+        //     return groupService.getById(groupId).then((group) => {
+        //         commit({ type: 'setGroup', group })
+        //     })
+        // },    }
         getGroupById({ commit, state }, { groupId }) {
             commit({ type: 'cleanGroup' })
             return groupService.getById(groupId)
@@ -82,12 +85,10 @@ const groupStore = {
             groupService.removeRecipeFromGroup(recipeId, groupId)
                 .then(() => commit({ type: 'removeRecipeFromGroup', recipeId }))
         },
-        addGroup({ dispatch, commit, state }, { group }) {
-            console.log('user to group is', group.admin)
+        addGroup({ commit, state }, { group }) {
             return groupService.add(group)
                 .then(newGroup => {
                     commit({ type: 'setGroup', newGroup })
-                    dispatch({ type: 'addGroupToUser', ids: { userId: group.admin, groupId: group._id } })
                     return newGroup
                 })
         },

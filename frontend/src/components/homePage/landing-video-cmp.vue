@@ -54,6 +54,21 @@ section {
     display: flex;
     justify-content: center;
     align-items: center;
+
+    video {
+      min-width: 100%;
+      min-height: 100%;
+
+      /* Setting width & height to auto prevents the browser from stretching or squishing the video */
+      width: auto;
+      height: auto;
+
+      /* Center the video */
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
   }
   #videoMessage {
     width: 100%;
@@ -73,7 +88,7 @@ section {
     z-index: 99;
   }
   #videoMessage h1 {
-    font-size: 4em;
+    font-size: 7em;
     color: #ffffff;
     text-align: center;
   }

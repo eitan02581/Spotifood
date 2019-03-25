@@ -1,4 +1,5 @@
 const GroupService = require('../services/group-service')
+const UserService = require('../services/user-service')
 
 
 function addGroupRoutes(app) {
@@ -29,7 +30,7 @@ function addGroupRoutes(app) {
         console.log('group to add in route is', group)
         GroupService.add(group)
             .then(updatedGroup => {
-                console.log('group added and is', updatedGroup)
+                // console.log('group added and is', updatedGroup)
                 res.json(updatedGroup)
             })
     })
@@ -60,7 +61,8 @@ function addGroupRoutes(app) {
     })
     app.put('/group/leave/:groupId', (req, res) => {
         const ids = req.body;
-        GroupService.leaveGroup(ids)
+        UserService.removeGroupFromUser(ids)
+        GroupService.removeUserFromGroup(ids)
             .then(() => {
                 console.log('successfuly leaved')
                 return res.json()
@@ -90,7 +92,7 @@ function addGroupRoutes(app) {
     })
     app.put('/group/:groupId', (req, res) => {
         const group = req.body;
-        console.log('request group to update', group)
+        // console.log('request group to update', group)
         GroupService.update(group)
             .then(group => {
                 console.log('successfuly updated group')

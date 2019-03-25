@@ -21,9 +21,21 @@ const groupStore = {
         },
         pendUsers(state) {
             return state.pendUsers
+<<<<<<< HEAD
+=======
+        },
+        groupAdmin(state) {
+            return state.groupAdmin
+        },
+        isGroupAdmin(state) {
+            return state.isGroupAdmin
+>>>>>>> a131fde3a99283ff4461aba9817ff94df7d70864
         }
     },
     mutations: {
+        cleanGroup(state) {
+            state.group = null
+        },
         setGroups(state, { groups }) {
             state.groups = groups
         },
@@ -33,12 +45,23 @@ const groupStore = {
         setPendUsers(state, { pendUsers }) {
             state.pendUsers = pendUsers
         },
+        removeUserFromGroup(state, { userId }) {
+            console.log(userId);
+
+            state.group.users = state.group.users.filter(user => user !== userId)
+        },
         removeRecipeFromGroup(state, { recipeId }) {
             let recipeIdx = state.group.recipes.findIndex(recipe => recipe._id === recipeId)
             state.group.recipes.splice(recipeIdx, 1)
         },
         setAdminObj(state, { admin }) {
             state.group.admin = admin
+<<<<<<< HEAD
+=======
+        },
+        setIsGroupAdmin(state, { bool }) {
+            state.isGroupAdmin = bool
+>>>>>>> a131fde3a99283ff4461aba9817ff94df7d70864
         }
     },
     actions: {
@@ -55,8 +78,10 @@ const groupStore = {
         //     })
         // },    }
         getGroupById({ commit, state }, { groupId }) {
+            commit({ type: 'cleanGroup' })
             return groupService.getById(groupId)
                 .then(group => {
+<<<<<<< HEAD
                     console.log('group: ', group)
                     commit({ type: 'setGroup', group })
                     commit({ type: 'setPendUsers', pendUsers: group.pendingUsers })
@@ -65,6 +90,11 @@ const groupStore = {
                 .then(res => {
                     console.log('new then()')
                     return res
+=======
+                    commit({ type: 'setGroup', group })
+                    commit({ type: 'setPendUsers', pendUsers: group.pendingUsers })
+                    return group
+>>>>>>> a131fde3a99283ff4461aba9817ff94df7d70864
                 })
         },
 
@@ -82,13 +112,27 @@ const groupStore = {
         askJoinGroup({ commit }, { ids }) {
             return groupService.askJoinGroup(ids).then(() => { 'asked successfuly' })
         },
+<<<<<<< HEAD
+=======
+        removeUserFromGroup({ commit }, { ids }) {
+            return groupService.removeUserFromGroup(ids).then(() => {
+                // make it reactive
+                commit({ type: 'removeUserFromGroup', userId: ids.userId })
+            })
+        },
+>>>>>>> a131fde3a99283ff4461aba9817ff94df7d70864
         acceptUserToGroup({ commit }, { ids }) {
             return groupService.addUserToGroup(ids).then((res) => res)
 
         },
         declineUserRequest({ commit }, { ids }) {
             return groupService.declineUserRequest(ids).then((res) => res)
+<<<<<<< HEAD
         }
+=======
+        },
+
+>>>>>>> a131fde3a99283ff4461aba9817ff94df7d70864
     }
 }
 

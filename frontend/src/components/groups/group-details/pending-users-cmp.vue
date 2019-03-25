@@ -13,7 +13,7 @@
         <el-button @click="onDeclineUser(user)" type="danger" icon="el-icon-delete" circle></el-button>
       </div>
     </div>
-    <div class="action-status-container" v-if="pendingRes">{{pendingRes}}</div>
+    <div class="action-status-container" v-if="pendingMsg">{{pendingMsg}}</div>
   </section>
 </template>
 
@@ -30,7 +30,7 @@ export default {
   data() {
     return {
       users: [],
-      pendingRes: null
+      pendingMsg: null
     };
   },
   created() {
@@ -52,6 +52,7 @@ export default {
         })
         .then(res => {
           // update user's group array
+<<<<<<< HEAD
           this.$store
             .dispatch({
               type: "addGroupToUser",
@@ -65,7 +66,17 @@ export default {
           setTimeout(() => {
             this.pendingRes = null;
           }, 1200);
+=======
+          this.$store.dispatch({
+            type: "addGroupToUser",
+            ids: { userId: user._id, groupId: this.groupId }
+          });
+          // show message
+          this.showMsg(true, user);
+
+>>>>>>> a131fde3a99283ff4461aba9817ff94df7d70864
           // remove user from users
+          // TODO: FIX BUG WHEN ACC OR DEC ON ONE , ALL THE PENDING USERS DISAPPEAR
           this.users = this.users.filter(user => user._id !== user._id);
         });
     },
@@ -76,13 +87,17 @@ export default {
           ids: { userId: user._id, groupId: this.groupId }
         })
         .then(res => {
-          // TODO: ALERT THE USER ABOUT THE ACTION
-          this.pendingRes = `${user.nickName} declined!`;
-          setTimeout(() => {
-            this.pendingRes = null;
-          }, 1200);
+          this.showMsg(false, user);
           this.users = this.users.filter(user => user._id !== user._id);
         });
+    },
+    showMsg(state, user) {
+      this.pendingMsg = state
+        ? `${user.nickName} added!`
+        : `${user.nickName} declined!`;
+      setTimeout(() => {
+        this.pendingMsg = null;
+      }, 1200);
     }
   }
 };

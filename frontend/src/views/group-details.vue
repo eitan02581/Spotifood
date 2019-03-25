@@ -7,17 +7,28 @@
         <pandingUser :groupId="group._id" :pendUsers="pendUsers"></pandingUser>
       </template>
       <!-- ONLY FOR USER  join or leave btn-->
-      <template v-if="!isAdmin">
+
+      <div class="full-message" v-if="!isPlaceLeft">
+        <h1>Event is full</h1>
+      </div>
+      <template v-if="!isAdmin && user && isPlaceLeft">
         <div v-if="isAbleToJoin" class="join-btn-container">
           <div class="join-btn-container">
             <el-button @click.native="onStatusActionGroup('join')" type="success">Join +</el-button>
           </div>
         </div>
-        <div v-else class="cancel-btn-container">
+        <div v-else class="cancel- btn-container">
           <div class="cancel-btn-container">
             <el-button @click.native="onStatusActionGroup('leave')" type="danger">leave</el-button>
           </div>
         </div>
+      </template>
+      <template v-if="!isAdmin && !user && isPlaceLeft">
+        <router-link to="/login">
+          <div class="join-btn-container">
+            <el-button @click.native="onStatusActionGroup('join')" type="success">Join +</el-button>
+          </div>
+        </router-link>
       </template>
       <group-main-content :group="group"/>
       <recipes-list :recipes="group.recipes"/>
@@ -34,7 +45,7 @@ export default {
   data() {
     return {
       isAbleToJoin: true,
-      isAdmin: true,
+      // isAdmin: true,
       user: null
     };
   },
@@ -47,7 +58,6 @@ export default {
   created() {
     console.log("group details created!");
     this.$store
-      // <<<<<<< HEAD
       .dispatch({ type: "getGroupById", groupId: this.$route.params.groupId })
       // get group
       .then(() => {
@@ -58,17 +68,7 @@ export default {
       })
       // check if user able to join a group
       .then(() => {
-        // TODO: FIX NAMMING AFTER ALEX PUSH
         this.checkIfUserAbaleToJoin();
-        // =======
-        // .dispatch({type:"getGroupById", groupId: this.$route.params.groupId })
-        // .then(() => {
-        //   this.$store
-        //     .dispatch({type:"getUserById", userId: this.$store.getters.group.admin })
-        //     .then(adminUser => {
-        //       this.$store.commit("setAdminObj", { admin: adminUser });
-        //     });
-        // >>>>>>> 329929b18896f1a128398ae63689f67f94043e3e
       });
   },
   computed: {
@@ -77,6 +77,14 @@ export default {
     },
     pendUsers() {
       return this.$store.getters.pendUsers;
+    },
+    isAdmin() {
+      return this.$store.getters.isGroupAdmin;
+    },
+    isPlaceLeft() {
+      var guests = this.$store.getters.group.guests;
+      var participants = this.$store.getters.group.users;
+      return guests - participants > 0 ? true : false;
     }
   },
   methods: {
@@ -95,7 +103,7 @@ export default {
       } else {
         this.$store
           .dispatch({
-            type: "leaveGroup",
+            type: "removeUserFromGroup",
             ids: { userId: user._id, groupId: group._id }
           })
           .then(() => {
@@ -114,24 +122,35 @@ export default {
           // if user is the group admin => disable to join
           if (this.user._id !== adminUser._id) {
             this.$store.commit({ type: "setIsGroupAdmin", bool: false });
-            this.isAdmin = false;
+            // this.isAdmin = false;
           } else {
             this.$store.commit({ type: "setIsGroupAdmin", bool: true });
-            this.isAdmin = true;
+            // this.isAdmin = true;
           }
           this.$store.commit("setAdminObj", { admin: adminUser });
         });
     },
     checkIfUserAbaleToJoin() {
+      console.log("here");
+
       var group = this.$store.getters.group;
+<<<<<<< HEAD
       console.log(group);
 
       var isParticipant = group.pendingUsers.findIndex(participant => {
+=======
+      // TODO: CHECK IF EVEN IF THERE ARE NULLS AND A REAL PENDING USER , IF IT WORKS
+      var isPending = group.pendingUsers.findIndex(pending => {
+        if (pending) {
+          return pending === this.user._id;
+        }
+      });
+      var isParticipant = group.users.findIndex(participant => {
+>>>>>>> a131fde3a99283ff4461aba9817ff94df7d70864
         return participant._id === this.user._id;
       });
-      console.log(isParticipant);
 
-      if (isParticipant === -1) {
+      if (isPending !== -1 || isParticipant !== -1) {
         this.isAbleToJoin = false;
       }
     }
@@ -144,7 +163,18 @@ export default {
   min-height: calc(100vh - 230px);
   max-height: 100%;
 }
-.join-btn-container {
+.full-message {
+  position: fixed;
+  right: 0;
+  margin-right: 30px;
+  background-color: #f44336;
+  padding: 20px;
+  color: white;
+  border-radius: 50px;
+  cursor: default;
+}
+.join-btn-container,
+.cancel-btn-container {
   text-align: center;
   button {
     position: fixed;

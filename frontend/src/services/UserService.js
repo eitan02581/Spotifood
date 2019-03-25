@@ -26,7 +26,7 @@ function logIn(user) {
             storageService.store(CURR_USER, user)
             return user
         })
-        .catch(() => 'Wrong Username or Password')
+        .catch(() => { throw ('wrong user or pass') })
 }
 function signUp(newUser) {
 

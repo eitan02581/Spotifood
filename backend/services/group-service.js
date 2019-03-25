@@ -32,6 +32,7 @@ function query(filterBy) {
 
 
 
+<<<<<<< HEAD
    if (filterBy) {
        // console.log('a', filterBy);
        var queryToMongo = {}
@@ -87,6 +88,39 @@ function getById(groupId) {
            // console.log('group selected is', group)
            return group
        })
+=======
+    if (filterBy) {
+        var queryToMongo = {}
+        if (filterBy.hashtags) {
+            filterBy.hashtags = filterBy.hashtags.split(',')
+            var hashtags = filterBy.hashtags.map(el => { return { hashtags: new RegExp(el, 'i') } })
+            queryToMongo['$or'] = hashtags
+        }
+        if (filterBy.cuisineType) queryToMongo.cuisineType = filterBy.cuisineType
+        if (filterBy.eventType) queryToMongo.eventType = filterBy.eventType
+        if (filterBy.guests) queryToMongo.guests = +filterBy.guests
+        if (filterBy.title) queryToMongo.title = new RegExp(filterBy.title, 'i');
+
+
+        return mongoService.connect()
+            .then(db => db.collection(GROUP_COLLECTION).find(queryToMongo).sort().toArray())
+            .then(groups => {
+                return groups
+            })
+    }
+    else return mongoService.connect()
+        .then(db => db.collection(GROUP_COLLECTION).find({}).toArray())
+}
+
+function getById(groupId) {
+    const _id = new ObjectId(groupId)
+    return mongoService.connect()
+        .then(db => db.collection(GROUP_COLLECTION).findOne({ _id }))
+        .then(group => {
+            // console.log('group selected is', group)
+            return group
+        })
+>>>>>>> a131fde3a99283ff4461aba9817ff94df7d70864
 }
 
 function update(group) {
@@ -137,10 +171,17 @@ function remove(groupId) {
             return db.collection(GROUP_COLLECTION)
                 .updateOne({ _id: group._id }, { $push: { pendingUsers: ids.userId } })
         })
+<<<<<<< HEAD
  }
  
  // leave Group
  function leaveGroup(ids) {
+=======
+}
+
+// user leave group || admin remove user
+function removeUserFromGroup(ids) {
+>>>>>>> a131fde3a99283ff4461aba9817ff94df7d70864
     var group = {}
     group._id = new ObjectId(ids.groupId)
     // console.log('asd', group._id);
@@ -148,7 +189,9 @@ function remove(groupId) {
     return mongoService.connect()
         .then(db => {
             return db.collection(GROUP_COLLECTION)
-                .updateOne({ _id: group._id }, { $push: { pendingUsers: ids.userId } })
+                .updateOne({ _id: group._id }, { $pull: { users: ids.userId } })
+        }).then(() => {
+            removePendingUser(ids)
         })
  }
  
@@ -210,5 +253,10 @@ function remove(groupId) {
     removePendingUser,
     // addRecipeToGroup,
     removeRecipeFromGroup,
+<<<<<<< HEAD
     leaveGroup
  }
+=======
+    removeUserFromGroup
+}
+>>>>>>> a131fde3a99283ff4461aba9817ff94df7d70864

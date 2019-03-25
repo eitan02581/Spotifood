@@ -21,10 +21,10 @@ export default {
     return {
       options5: [
         {
-          value: "sprint 3"
+          value: "Wedding"
         },
         {
-          value: "test"
+          value: "Bistro"
         }
       ],
       value10: []

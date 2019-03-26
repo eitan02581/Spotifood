@@ -73,6 +73,19 @@ function removeGroupFromUser(ids) {
         })
 }
 
+async function addGroupToCreatedGroups(userId, groupId, db) {
+    return db.collection(USER_COLLECTION)
+        .updateOne({ _id: userId }, { $push: { createdGroups: groupId } })
+}
+
+async function updateUser(user) {
+    user._id = new ObjectId(user._id)
+    var db = await mongoService.connect()
+    console.log('user service in backend', user)
+    return db.collection(USER_COLLECTION)
+        .updateOne({ _id: user._id }, { $set: user })
+}
+
 
 
 module.exports = {
@@ -80,6 +93,8 @@ module.exports = {
     getById,
     login,
     addUser,
+    updateUser,
     addGroupToUser,
-    removeGroupFromUser
+    removeGroupFromUser,
+    addGroupToCreatedGroups
 }

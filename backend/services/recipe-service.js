@@ -36,16 +36,12 @@ function update(recipe) {
 }
 
 async function add(payload) {
-    const _id = new ObjectId(payload.groupId)
     payload.recipe.rating = 0
     payload.recipe.createdAt = new Date().getTime()
     var db = await mongoService.connect()
     db.collection(RECIPE_COLLECTION).insertOne(payload.recipe)
     // if (payload.groupId) {
-    db.collection('groups').updateOne(
-        { _id },
-        { $push: { recipes: payload.recipe._id } }
-    )
+    GroupService.addRecipeToGroup(payload.recipe._id, payload.groupId, db)
     // }
     return payload.recipe._id
 

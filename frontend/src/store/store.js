@@ -8,7 +8,18 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    categories: ['food', 'Yami!', 'Meat']
+    categories: [
+      "Israeli",
+      "French",
+      "Italian",
+      "British",
+      "Vietnamese",
+      "Chinese",
+      "Indian",
+      "American",
+      "Vegan",
+      "Other"
+    ]
   },
   mutations: {
 

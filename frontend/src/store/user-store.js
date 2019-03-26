@@ -54,6 +54,9 @@ const userStore = {
             console.log('hey man ', ids);
 
             return userService.addGroupToUser(ids).then(() => { 'group added' })
+        },
+        updateUser({ commit },{user}){
+            return userService.updateUser(user).then(res => res)
         }
     }
 }

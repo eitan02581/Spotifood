@@ -54,6 +54,16 @@ function addUserRoutes(app) {
                 res.json(user)
             })
     })
+
+    app.post('/user/:userId', (req, res) => {
+        const userId = req.params.userId
+        const updatedUser = req.body
+        console.log('user route')
+        UserService.updateUser(updatedUser)
+            .then(() => {
+                res.json()
+            })
+    })
 }
 
 module.exports = addUserRoutes

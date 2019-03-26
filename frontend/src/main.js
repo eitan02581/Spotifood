@@ -15,10 +15,12 @@ import vueEventCalendar from 'vue-event-calendar'
 import FunctionalCalendar from 'vue-functional-calendar';
 import Vuetify from 'vuetify'
 import VuetifyToast from 'vuetify-toast-snackbar'
-// require('https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons')
+import VueAwesomeSwiper from 'vue-awesome-swiper'
 require('vuetify/dist/vuetify.min.css')
+import 'swiper/dist/css/swiper.css'
 
 Vue.use(Vuetify)
+Vue.use(VueAwesomeSwiper)
 Vue.use(FunctionalCalendar)
 Vue.use(vueEventCalendar, { locale: 'en' })
 

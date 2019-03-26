@@ -1,5 +1,5 @@
 <template>
-  <section class="add-group-form">
+  <section class="add-group-form" v-loading="isLoading">
     <el-form class="form-text-input" ref="group" label-width="120px">
       <!-- Form Label -->
       <el-form-item>
@@ -8,6 +8,15 @@
       <!-- Group Name Input -->
       <el-form-item label="Group Name">
         <el-input v-model="group.title"></el-input>
+      </el-form-item>
+      <!-- Group Description -->
+      <el-form-item label="Description">
+        <el-input
+          type="textarea"
+          autosize
+          placeholder="Enter Instruction"
+          v-model="group.description"
+        ></el-input>
       </el-form-item>
       <!-- Group Time Input -->
       <el-form-item label="Meal time">
@@ -50,7 +59,7 @@
       <el-form-item label="Cuisine Type">
         <el-select multiple v-model="group.cuisineType" filterable placeholder="Select Cuisine">
           <el-option
-            v-for="cuisine in cuisineType"
+            v-for="cuisine in this.$store.getters.categories"
             :key="cuisine"
             :label="cuisine"
             :value="cuisine"
@@ -111,19 +120,21 @@ export default {
         guests: 1,
         eventType: "",
         img: "",
-        hashtags: []
+        hashtags: [],
+        description:''
       },
-      cuisineType: [
-        "Israeli",
-        "French",
-        "Italian",
-        "British",
-        "Vietnamese",
-        "Chinese",
-        "Indian",
-        "Other"
-      ],
-      eventType: ["Breakfast", "Brunch", "Lunch", "Dinner", "Other"]
+      // cuisineType: [
+      //   "Israeli",
+      //   "French",
+      //   "Italian",
+      //   "British",
+      //   "Vietnamese",
+      //   "Chinese",
+      //   "Indian",
+      //   "Other"
+      // ],
+      eventType: ["Breakfast", "Brunch", "Lunch", "Dinner", "Other"],
+      isLoading:false
     };
   },
   created() {
@@ -189,8 +200,10 @@ export default {
       return emptyVal !== -1 || !this.group.cuisineType.length;
     },
     async createGroup() {
+      this.isLoading = true
+
       if (!this.group.img) {
-        this.group.img = "https://picsum.photos/200/300/?random";
+        this.group.img = `https://picsum.photos/200/300/${this.group.title}`;
       }
       if (this.isInValid()) {
         console.log("invalid group");
@@ -204,6 +217,7 @@ export default {
         });
         this.$toast.Success("Group Added Successfully");
         this.$router.push("/groups/" + newGroup._id);
+        this.isLoading = false
       } catch (e) {
         console.log(e);
         this.$toast.Error("Something went wrong");

@@ -1,19 +1,15 @@
 <template>
-  <section>
-    <div v-if="user" class="user-profile-container">
-      <div class="img-container">
-        <img :src="user.img" alt>
-      </div>
-      <profile-info :user="user" v-if="user"/>
-    </div>
-    <div class="group-preview-item">
-      <el-carousel :interval="600000" type="card" height="500px" style="text-align: center;">
-        <el-carousel-item v-for="group in groups" :key="group._id">
-          <groupPreview :group="group"/>
-        </el-carousel-item>
-      </el-carousel>
-      <!-- <groupPreview v-for="group in groups" :key="group._id" :group="group"/> -->
-    </div>
+  <section class="profile-container">
+    <profile-details :isMyUserProfile="isMyUserProfile" :user="user" :groups="groups" v-if="user"/>
+    <!-- <img-carousel :groups="groups"/> -->
+    <!-- <div class="group-preview-item"> -->
+    <el-carousel :interval="600000" type="card" height="550px" style="text-align: center;">
+      <el-carousel-item v-for="group in managedGroups" :key="group._id">
+        <groupPreview :group="group"/>
+      </el-carousel-item>
+    </el-carousel>
+    <!-- <groupPreview v-for="group in groups" :key="group._id" :group="group"/> -->
+    <!-- </div> -->
     <!-- <el-button type="success" @click="$emit('delete' , group._id)">Delete</el-button> -->
     <!-- <router-link :to="'/group/edit/' + group._id">
             <el-button type="danger">Edit</el-button>
@@ -25,20 +21,26 @@
 
 <script>
 import groupPreview from "../components/groups/group-preview-cmp.vue";
-import profileInfo from "../components/users/profile-info-cmp.vue";
+import profileDetails from "../components/users/profile-details-cmp";
+import imgCarousel from "../components/image-carousel-cmp";
+
 export default {
   components: {
     groupPreview,
-    profileInfo
+    profileDetails,
+    imgCarousel
   },
   data() {
     return {
       user: null,
-      groups: []
+      groups: [],
+      managedGroups: [],
+      isMyUserProfile:false
     };
   },
   created() {
     var userId = this.$route.params.userId;
+    this.isMyUserProfile = (this.$store.getters.user && this.$store.getters.user._id === userId) ? true : false
     this.$store.dispatch({ type: "getUserById", userId }).then(user => {
       this.user = user;
       if (user.groups) this.getUserGroups();
@@ -51,16 +53,21 @@ export default {
           this.groups.push(group);
         });
       });
+
+      this.user.createdGroups.forEach(groupId => {
+        this.$store.dispatch({ type: "getGroupById", groupId }).then(group => {
+          this.managedGroups.push(group);
+        });
+      });
     }
   }
 };
 </script>
 
 <style scoped lang="scss">
-.user-profile-container {
-  display: flex;
-  margin-left: 30px;
+.profile-container {
+  // min-width: 100vw;
+  max-width: 1200px;
+  margin: 0 auto;
 }
-
-
 </style>

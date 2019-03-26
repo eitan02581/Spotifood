@@ -13,7 +13,14 @@ function getUsers() {
 function _createUsers() {
 }
 
+function updateUser(user){
+    console.log('user Service',user._id)
+    return axios.post(`${USER_ROUTE}/${user._id}`,user)
+    .then(user => user.data)
+}
+
 function getUserById(userId) {
+    console.log('User id', userId);
     return axios.get(`${USER_ROUTE}/${userId}`)
         .then(user => user.data)
 }
@@ -58,5 +65,6 @@ export default {
     logIn,
     signUp,
     checkIfLogged, logOut,
-    addGroupToUser
+    addGroupToUser,
+    updateUser
 } 

@@ -19,7 +19,6 @@
             <el-button type="danger">Edit</el-button>
     </router-link>-->
 
-
     <!-- <h1>Reviews</h1> -->
   </section>
 </template>
@@ -62,4 +61,6 @@ export default {
   display: flex;
   margin-left: 30px;
 }
+
+
 </style>

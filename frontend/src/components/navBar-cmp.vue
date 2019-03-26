@@ -3,7 +3,9 @@
     <div class="nav-container">
       <div class="logo-wrapper">
         <router-link to="/">
-          <h1>WEat</h1>
+          <h1>
+            <span class="w">W</span>Eat
+          </h1>
         </router-link>
       </div>
       <div class="links-container">
@@ -27,7 +29,6 @@
         <template v-if="user">
           <div class="user-info-container">
             <router-link :to="'/user/' + user._id">
-            
               <img :src="userImg" alt>
             </router-link>
           </div>
@@ -135,6 +136,9 @@ export default {
       padding-left: 10px;
       font-size: 30px;
       h1 {
+        .w {
+          font-size: 47px;
+        }
         color: #f44336;
       }
     }
@@ -212,6 +216,10 @@ export default {
     .logo-wrapper {
       font-size: 30px;
       h1 {
+        .w {
+          color: #f44336;
+          font-size: 47px;
+        }
         color: white;
         padding-left: 10px;
       }
@@ -249,6 +257,7 @@ export default {
           flex-grow: 1;
           width: 100%;
           height: 100%;
+          color: white;
           border: none;
           font-size: 25px;
           background-color: unset;
@@ -257,7 +266,7 @@ export default {
           outline: none 1px solid;
         }
         button:hover {
-          background-color: #9e9e9e87;
+          background-color: #ff000070;
           outline: white 1px solid;
           color: white;
         }

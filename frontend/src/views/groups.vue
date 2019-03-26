@@ -36,6 +36,8 @@ export default {
 
 <style scoped lang="scss">
 section {
+  padding-top: 50px;
+
   display: flex;
   // align-items: baseline;
   flex-direction: column;
@@ -52,7 +54,7 @@ section {
     transition: 0.3s;
   }
   .group-list-container {
-    margin-top: 150px;
+    margin-top: 50px;
   }
 }
 </style>

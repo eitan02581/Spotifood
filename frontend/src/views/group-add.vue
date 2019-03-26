@@ -193,7 +193,7 @@ export default {
         this.group.img = "https://picsum.photos/200/300/?random";
       }
       if (this.isInValid()) {
-        console.log('invalid group')
+        console.log("invalid group");
         return;
       }
       let admin = this.$store.getters.user;
@@ -202,11 +202,11 @@ export default {
         const newGroup = await this.$store.dispatch("addGroup", {
           group: this.group
         });
-        this.$toast.Success('Group Added Successfully')
-        this.$router.push("/groups/" + newGroup._id)
+        this.$toast.Success("Group Added Successfully");
+        this.$router.push("/groups/" + newGroup._id);
       } catch (e) {
         console.log(e);
-        this.$toast.Error('Something went wrong')
+        this.$toast.Error("Something went wrong");
       }
     },
     uploadImg(input) {
@@ -277,6 +277,8 @@ section {
   flex-direction: column;
   flex-wrap: wrap;
   justify-content: space-between;
+  padding-top: 100px;
+
   .form-text-input {
     h1 {
       justify-self: flex-start;
@@ -295,7 +297,7 @@ section {
   }
   .vue-map-container {
     border: 1px solid rgb(219, 219, 219);
-    width: 400px;
+    // width: 400px;
     // max-width: 400px;
     min-height: 400px;
     flex-grow: 1;

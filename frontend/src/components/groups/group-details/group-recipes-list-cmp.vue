@@ -2,8 +2,13 @@
   <section class="accordion">
     <div class="recipes-header">
       <h1>Recipes</h1>
-      <i class="fas fa-plus" @click="addRecipe"></i>
+      <template v-if="isGroupAdmin">
+        <i class="fas fa-plus" @click="addRecipe"></i>
+      </template>
     </div>
+    <template v-if="!recipes.length >= 1">
+      <h1>My Recipes Are A Secret ;)</h1>
+    </template>
     <el-collapse v-model="activeName" accordion v-for="(recipe,idx) in recipes" :key="recipe._id">
       <el-collapse-item :title="recipe.title" :name="idx">
         <div class="collapse-context">
@@ -64,14 +69,20 @@ export default {
       });
     },
     removeRecipe(recipeId) {
-      this.$store.dispatch("removeRecipeFromGroup", {
-        recipeId,
-        groupId: this.$route.params.groupId
-      }).then(()=>this.$toast.Success('Recipe Deleted Successfully'))
+      this.$store
+        .dispatch("removeRecipeFromGroup", {
+          recipeId,
+          groupId: this.$route.params.groupId
+        })
+        .then(() => this.$toast.Success("Recipe Deleted Successfully"));
     },
     uploadRecipe() {}
   },
-  computed: {},
+  computed: {
+    isGroupAdmin() {
+      return this.$store.getters.isGroupAdmin;
+    }
+  },
   created() {}
 };
 </script>
@@ -83,7 +94,7 @@ ol {
   li > .quantity {
     font-size: 1.3em !important;
   }
-  li{
+  li {
     list-style: unset;
   }
 }

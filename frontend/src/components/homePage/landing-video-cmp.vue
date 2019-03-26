@@ -12,7 +12,9 @@
         <div id="videoMessage">
           <h1 class="spacer">
             Join
-            <span style="color:red">WEat</span> Experience
+            <span style="color:red">
+              <span style="font-size:124px ; padding:0">W</span>Eat
+            </span> Experience
           </h1>
         </div>
       </div>
@@ -77,6 +79,13 @@ section {
     top: 0;
     left: 0;
     display: flex;
+    background: linear-gradient(
+      to bottom,
+      #00000082 0%,
+      rgba(26, 26, 26, 0.57) 30%,
+      rgba(0, 0, 0, 0) 84%,
+      rgba(255, 255, 255, 0.02) 100%
+    );
   }
   #videoMessage * {
     padding: 0.4em;

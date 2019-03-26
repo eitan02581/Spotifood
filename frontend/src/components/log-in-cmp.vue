@@ -10,7 +10,7 @@
         </el-input>
         <el-input type="password" placeholder="Password" v-model="user.password">
           <template slot="prepend">
-            <i class="fas fa-lock red"></i>
+            <i class="fas fa-lock"></i>
           </template>
         </el-input>
         <el-button type="primary" @click.enter="login">Log In</el-button>
@@ -56,13 +56,20 @@ export default {
 
 <style lang="scss" scoped>
 section {
+  background-image: url("../assets/group-imgs/table2.jpg");
+  // background-color: lightseagreen;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   height: 100%;
-  margin-top: 150px;
-
+  // margin-top: 150px;
+  padding-top: 100px;
   .form-wrapper {
     width: 400px;
     height: 350px;
-    margin: 50px auto;
+    margin: 0 auto;
+    margin-bottom: 100px;
+    margin-top: 50px;
     box-shadow: rgba(black, 0.4) 0 0 25px;
     border-radius: 5px;
     display: flex;

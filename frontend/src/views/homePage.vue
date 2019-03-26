@@ -77,7 +77,7 @@ export default {
 <style scoped lang="scss">
 section {
   // width: 100%;
-  margin-top: -100px;
+  // margin-top: -100px;
   // min-height: 100vh;
   h1 {
     font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
@@ -103,7 +103,7 @@ section {
   hr {
     border: 0;
     height: 0;
-    width:70%;
+    width: 70%;
     border-top: 1px solid rgba(0, 0, 0, 0.1);
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
   }

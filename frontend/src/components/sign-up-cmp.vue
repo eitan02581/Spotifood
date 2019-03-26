@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section data-aos="fade" data-aos-duration="900">
     <div class="form-wrapper">
       <form>
         <h1>Sign Up</h1>
@@ -15,7 +15,7 @@
         </el-input>
         <el-input type="password" placeholder="Password" v-model="user.password">
           <template slot="prepend">
-            <i class="fas fa-lock red"></i>
+            <i class="fas fa-lock"></i>
           </template>
         </el-input>
         <el-input placeholder="Email" v-model="user.email"></el-input>
@@ -49,12 +49,13 @@ export default {
       }
     };
   },
+  created() {},
   methods: {
     signup() {
       this.$store.dispatch({ type: "signUp", newUser: this.user }).then(() => {
         var userWithId = this.$store.getters.user;
         eventBus.$emit("USER_LOGGED", userWithId);
-        this.$toast.Success('User Sign Up Successfully')
+        this.$toast.Success("User Sign Up Successfully");
         this.$router.push("/");
       });
     }
@@ -65,12 +66,21 @@ export default {
 <style lang="scss" scoped>
 section {
   height: 100%;
-  margin-top: 150px;
-
+  padding-top: 200px;
+  background-image: url("../assets/group-imgs/table4.jpg");
+  // background-color: lightseagreen;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   .form-wrapper {
+    // margin-top: 100px;
+    background-color: #ffffffd4;
+
     width: 400px;
     // height: 350px;
-    margin: 50px auto;
+    margin: 0 auto;
+    margin-top: -50px;
+    margin-bottom: 50px;
     box-shadow: rgba(black, 0.4) 0 0 25px;
     border-radius: 5px;
     display: flex;

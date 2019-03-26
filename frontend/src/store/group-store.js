@@ -10,7 +10,8 @@ const groupStore = {
     state: {
         groups: [],
         group: null,
-        pendUsers: []
+        pendUsers: [],
+        isGroupAdmin:false
 
     }, getters: {
         groups(state) {

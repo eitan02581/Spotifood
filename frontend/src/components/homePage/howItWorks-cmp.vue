@@ -14,7 +14,12 @@
       <div data-aos="fade-left" class="item-container">
         <h1>Enjoy</h1>
         <img src="../../assets/New folder/cheers.svg" alt>
-        <h3>… and experience the magic of <span style="color:red">WEat</span></h3>
+        <h3>
+          … and experience the magic of
+          <span style="color:red">
+            <span style="font-size:28px;">W</span>Eat
+          </span>
+        </h3>
       </div>
     </div>
   </section>

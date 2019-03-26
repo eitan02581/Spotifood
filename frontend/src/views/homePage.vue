@@ -7,19 +7,19 @@
       <HowItWorks></HowItWorks>
     </div>
     <div class="groups-previews">
-      <hr>
+      <!-- <hr> -->
       <h1>Breakfast</h1>
       <div class="group-container">
         <GroupPreview v-for="group in breakfastGroups" :key="group._id" :group="group"></GroupPreview>
         <!-- <GroupList :groups="groups"></GroupList> -->
       </div>
-      <hr>
+      <!-- <hr> -->
       <h1>Lunch</h1>
       <div class="group-container">
         <GroupPreview v-for="group in lunchGroups" :key="group._id" :group="group"></GroupPreview>
         <!-- <GroupList :groups="groups"></GroupList> -->
       </div>
-      <hr>
+      <!-- <hr> -->
       <h1>Dinner</h1>
       <div class="group-container">
         <GroupPreview v-for="group in dinnerGroups" :key="group._id" :group="group"></GroupPreview>
@@ -92,13 +92,13 @@ section {
     overflow-x: scroll;
     overflow-y: hidden;
     white-space: nowrap;
-    margin-bottom: 50px;
+    margin-bottom: 100px;
     display: flex;
     justify-content: center;
   }
   .how-it-works {
-    margin-top: 400px;
-    margin-bottom: 150px;
+    margin-top: 200px;
+    margin-bottom: 200px;
   }
   hr {
     border: 0;

@@ -1,7 +1,8 @@
 
 
 <template>
-  <section>
+  <!-- <section> -->
+  <div>
     <template v-if="users.length >= 1">
       <div class="participant-item" v-for="user in users" :key="user._id">
         <!-- ONLY FOR ADMIN -->
@@ -13,9 +14,8 @@
         </router-link>
       </div>
     </template>
-  </section>
-</template>
-  </section>
+  </div>
+  <!-- </section> -->
 </template>
 
 <script>

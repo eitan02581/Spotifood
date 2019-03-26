@@ -20,7 +20,6 @@ function updateUser(user){
 }
 
 function getUserById(userId) {
-    console.log('User id', userId);
     return axios.get(`${USER_ROUTE}/${userId}`)
         .then(user => user.data)
 }

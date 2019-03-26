@@ -183,7 +183,7 @@ export default {
       return this.$store.getters.group.users;
     },
     eventLocation() {
-      return this.$store.getters.group.place.position;
+      return this.$store.getters.group.location;
     }
   },
   methods: {

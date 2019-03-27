@@ -18,7 +18,18 @@
       </el-carousel>-->
       <!-- <img src="../assets/group-imgs/tabl1.jpg" alt> -->
     </div>
-    <div class="join-btn-holder">
+
+    <div data-aos="fade" data-aos-duration="700" class="join-btn-holder">
+      <router-link :to="'/user/' + admin._id">
+        <div class="hosted-by-container">
+          <div class="hosted">
+            <h1>Hosted By: {{admin.username}}</h1>
+          </div>
+          <div class="image">
+            <img :src="admin.img" alt>
+          </div>
+        </div>
+      </router-link>
       <div class="full-message" v-if="!isPlaceLeft">
         <h1>Event is full</h1>
       </div>
@@ -47,64 +58,57 @@
     </div>
     <div class="main">
       <div class="group-info">
-        <div data-aos="fade-down-right" data-aos-duration="700" class="info-container">
+        <div data-aos="fade-down-right" data-aos-duration="1000" class="info-container">
           <div class="title">
             <h1>{{group.title}}</h1>
-            <h3>At {{group.place.city}} {{group.place.country.longName}}</h3>
           </div>
-          <div class="top">
-            <div class="time">
-              <img src="../assets/icons/clock.svg" alt>
-              <h3>{{group.time | time }}</h3>
+          <div class="main-group-info">
+            <div class="loc">
+              <h3>At {{group.place.city}} {{group.place.country.longName}}</h3>
             </div>
-            <div class="event-type">
-              <img src="../assets/icons/plate.svg" alt>
-              <h3>{{group.eventType}}</h3>
+            <div class="top">
+              <div class="time">
+                <img src="../assets/icons/clock.svg" alt>
+                <h3>{{group.time | time }}</h3>
+              </div>
+              <div class="event-type">
+                <img src="../assets/icons/plate.svg" alt>
+                <h3>{{group.eventType}}</h3>
+              </div>
+              <div class="guests">
+                <img src="../assets/icons/guests.svg" alt>
+                <h3>{{group.guests - group.users.length}} Place left</h3>
+              </div>
             </div>
-            <div class="guests">
-              <img src="../assets/icons/guests.svg" alt>
-              <h3>{{group.guests - group.users.length}} Place left</h3>
+            <div class="cuisine-type">
+              <img src="../assets/icons/shef.svg" alt>
+              <el-tag type="info" v-for="cuisine in group.cuisineType" :key="cuisine">{{cuisine}}</el-tag>
             </div>
-          </div>
-          <div class="cuisine-type">
-            <img src="../assets/icons/shef.svg" alt>
-            <el-tag type="info" v-for="cuisine in group.cuisineType" :key="cuisine">{{cuisine}}</el-tag>
-          </div>
-          <div v-if="group.hashtags.length >=1" class="hashtags">
-            <span class="hash">#</span>
-            <el-tag type="warning" v-for="hashtag in group.hashtags" :key="hashtag">#{{hashtag}}</el-tag>
+            <div v-if="group.hashtags.length >=1" class="hashtags">
+              <span class="hash">#</span>
+              <el-tag type="warning" v-for="hashtag in group.hashtags" :key="hashtag">#{{hashtag}}</el-tag>
+            </div>
           </div>
         </div>
-        <div
-          data-aos="fade-up-right"
-          data-aos-delay="300"
-          data-aos-duration="700"
-          class="desc-container"
-        >
+        <div data-aos="fade-up-right" data-aos-duration="1000" class="desc-container">
           <h1>Description</h1>
           <p>Italian cuisine has a great variety of different ingredients which are commonly used, ranging from fruits, vegetables, sauces, meats, etc. In the North of Italy, fish (such as cod, or baccalà), potatoes, rice, corn (maize), sausages, pork, and different types of cheeses are the most common ingredients. Pasta dishes with use of tomato are spread in all Italy.[33][34] Italians like their ingredients fresh and subtly seasoned and spiced.</p>
         </div>
       </div>
       <div class="users-aside">
-        <div
-          data-aos="fade-down-left"
-          data-aos-delay="750"
-          data-aos-duration="700"
-          class="users-container"
-        >
+        <div data-aos="fade-down-left" data-aos-duration="1000" class="users-container">
           <div class="participants">
             <h1>Participants</h1>
+            <!-- <h2 style="color:#f44336">{{group.users.length + '/' + group.guests }}</h2> -->
+            <h2
+              style="color:#f44336"
+            >{{seatsLeft === 0 ? 'Full' : group.users.length + ' of ' + group.guests }}</h2>
           </div>
           <div class="list">
             <participantList :users="users"></participantList>
           </div>
         </div>
-        <div
-          data-aos="fade-up-left"
-          data-aos-delay="500"
-          data-aos-duration="700"
-          class="chat-container"
-        ></div>
+        <div data-aos="fade-up-left" data-aos-duration="1000" class="chat-container"></div>
       </div>
     </div>
     <div data-aos="fade-right" data-aos-duration="700" class="recpies-container">
@@ -133,7 +137,8 @@ export default {
       // isAdmin: true,
       user: null,
       currLoc: null,
-      imgs: null
+      imgs: null,
+      admin: null
     };
   },
   components: {
@@ -154,6 +159,7 @@ export default {
       // get group
       .then(() => {
         this.imgs = this.getImgs();
+        // this.admin = getAdmin()
         this.user = this.$store.getters.user;
         this.checkIfUserIsAdmin();
       })
@@ -184,6 +190,10 @@ export default {
     },
     eventLocation() {
       return this.$store.getters.group.location;
+    },
+    seatsLeft() {
+      var group = this.$store.getters.group;
+      return group.guests - group.users.length;
     }
   },
   methods: {
@@ -202,6 +212,10 @@ export default {
       imgs.push(groupImg);
       return imgs;
     },
+    getAdmin() {
+      // var
+      //  return  this.$store.dispatch({})
+    },
     // this.imgs = this.$store.getters.group.recipes.((recipe) =>  )
     onStatusActionGroup(status) {
       var user = this.$store.getters.user;
@@ -213,6 +227,7 @@ export default {
             ids: { userId: user._id, groupId: group._id }
           })
           .then(() => {
+            this.$toast.Success("Request Sent");
             this.isAbleToJoin = false;
           });
       } else {
@@ -222,6 +237,8 @@ export default {
             ids: { userId: user._id, groupId: group._id }
           })
           .then(() => {
+            this.$toast.Error("Request Canceled");
+
             this.isAbleToJoin = true;
           });
       }
@@ -234,6 +251,7 @@ export default {
         })
         // check if admin
         .then(adminUser => {
+          this.admin = adminUser;
           // if user is the group admin => disable to join
           if (this.user._id !== adminUser._id) {
             this.$store.commit({ type: "setIsGroupAdmin", bool: false });
@@ -315,9 +333,33 @@ section {
   }
   .join-btn-holder {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     height: 200px;
+    margin-top: -100px;
+    position: relative;
+    .hosted-by-container {
+      margin-top: -40px;
+      position: absolute;
+      left: 0;
+      display: flex;
+      align-items: center;
+      .hosted {
+        h1 {
+          font-size: 35px;
+          color: #607d8b;
+        }
+      }
+      .image {
+        padding-left: 20px;
+        img {
+          width: 76px;
+          border-radius: 51px;
+          border: 5px solid white;
+        }
+      }
+    }
+
     button {
       height: 50px;
       width: 261px;
@@ -328,7 +370,7 @@ section {
     // background-color: lightseagreen;
     width: 100%;
     height: 500px;
-    margin-bottom: 100px;
+    // margin-bottom: 100px;
     .group-info {
       // background-color: lightslategray;
       width: 50%;
@@ -337,13 +379,34 @@ section {
       flex-direction: column;
       .title {
         h1 {
-          color: #3a4348;
-        }
-        h3 {
-          margin-top: 10px;
-          color: #3a4348;
+          // color: #3a4348;
+          // display: inline-block;
+          // background-color: white;
+          margin-bottom: 20px;
+          // border-radius: 8px;
+          color: #f44336;
         }
       }
+      .main-group-info {
+        width: 100%;
+
+        display: inline-block;
+        background-color: white;
+        padding: 12px;
+        border-radius: 8px;
+        color: #f44336;
+        padding-bottom: 30px;
+
+        .loc {
+          h3 {
+            margin-top: 10px;
+            font-size: 20px;
+            color: #3a4348;
+            padding-left: 10px;
+          }
+        }
+      }
+
       .info-container {
         // background-color: lawngreen;
         width: 100%;
@@ -387,10 +450,16 @@ section {
       }
       .desc-container {
         // background-color: lightgrey;
+        margin-top: 40px;
+
         width: 100%;
         height: 100%;
+        background-color: white;
+        padding: 12px;
+        border-radius: 8px;
         h1 {
-          color: #3a4348;
+          color: #607d8b;
+          font-size: 28px;
 
           margin-bottom: 20px;
         }
@@ -412,15 +481,27 @@ section {
         padding: 0 5px 20px 5px;
         .participants {
           text-align: center;
-          margin-bottom: 20px;
+          margin-bottom: 15px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
           h1 {
-            color: #3a4348;
+            color: #607d8b;
             font-size: 28px;
+          }
+          h2 {
+            margin-top: 3px;
+            margin-left: 15px;
           }
         }
         .list {
+          // display: inline-block;
+          background-color: white;
+          padding: 12px;
+          border-radius: 8px;
           display: flex;
-          justify-content: center;
+          justify-content: flex-start;
         }
         // height: 40%;
       }
@@ -432,7 +513,7 @@ section {
     }
   }
   .recpies-container {
-    margin-bottom: 100px;
+    // margin-bottom: 100px;
     // background-color: seagreen;
     width: 100%;
     height: 300px;

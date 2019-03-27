@@ -6,11 +6,15 @@
         <div class="bottom">
           <img :src="groupAdmin.img" alt>
           <div class="info-container">
-            <h2>
-              Hosted by:
-              <span>{{groupAdmin.username}}</span>
-            </h2>
-            <h1>{{group.title}}</h1>
+            <div class="host">
+              <h2>
+                Hosted by:
+                <span>{{groupAdmin.username}}</span>
+              </h2>
+            </div>
+            <div class="title">
+              <h1>{{group.title}}</h1>
+            </div>
             <h2>in {{group.place.city}}, {{group.place.country.shortName}}</h2>
             <h3>
               <div class="meal">{{group.eventType}}</div>
@@ -80,7 +84,7 @@ section {
     cursor: pointer;
     transition: 0.3s;
     .img-container {
-      height: 250px;
+      height: 315px;
       width: 280px;
       // background-image: url("../../assets/preview-demo.jpg");
       background-color: lightseagreen;
@@ -90,7 +94,7 @@ section {
     }
     h1 {
       padding-top: 12px;
-      text-align: center;
+      // text-align: center;
       color: #414a55;
       font-size: 19px;
     }
@@ -100,6 +104,7 @@ section {
       bottom: 0;
       width: 100%;
       height: 80%;
+
       background: linear-gradient(
         to bottom,
         rgba(50, 50, 50, 0) 0%,
@@ -110,12 +115,13 @@ section {
       .bottom {
         width: 100%;
         background-color: white;
-        height: 238px;
+        height: 180px;
         position: absolute;
         bottom: 0;
         display: flex;
         flex-direction: column;
         justify-content: space-around;
+
         img {
           width: 60px;
           height: 60px;
@@ -129,12 +135,19 @@ section {
         }
         .info-container {
           padding-top: 27px;
-
+          padding-left: 5px;
           height: 100%;
           display: flex;
           flex-direction: column;
           justify-content: space-around;
-          text-align: center;
+          text-align: left;
+          .host {
+            text-align: center;
+          }
+          .title {
+            text-align: left;
+            padding-left: 7px;
+          }
         }
         h2 {
           font-size: 14px;
@@ -160,6 +173,7 @@ section {
           // overflow-x: scroll;
           overflow-y: hidden;
           white-space: nowrap;
+          padding-left: 6px;
 
           span {
             padding-left: 7px;

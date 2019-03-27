@@ -44,11 +44,11 @@ section {
 
   .filter-container {
     // margin-top: 37px;
-    margin-top: -63px;
+    margin-top: -70px;
 
     position: fixed;
     z-index: 111;
-    background-color: white;
+    background-color: unset;
     padding: 20px;
     -webkit-transition: 0.3s;
     transition: 0.3s;

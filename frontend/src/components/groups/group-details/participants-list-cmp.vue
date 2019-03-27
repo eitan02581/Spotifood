@@ -4,14 +4,16 @@
   <!-- <section> -->
   <div>
     <template v-if="users.length >= 1">
-      <div class="participant-item" v-for="user in users" :key="user._id">
-        <!-- ONLY FOR ADMIN -->
-        <div v-if="isAdmin && user" class="remove-btn">
-          <button @click="onRemoveParticipant(user._id)">X</button>
+      <div class="list-holder">
+        <div class="participant-item" v-for="user in users" :key="user._id">
+          <!-- ONLY FOR ADMIN -->
+          <div v-if="isAdmin && user" class="remove-btn">
+            <button @click="onRemoveParticipant(user._id)">X</button>
+          </div>
+          <router-link :to="'/user/' + user._id">
+            <participant-preview :user="user"/>
+          </router-link>
         </div>
-        <router-link :to="'/user/' + user._id">
-          <participant-preview :user="user"/>
-        </router-link>
       </div>
     </template>
   </div>
@@ -59,6 +61,9 @@ section {
   .participant-list {
     display: flex;
   }
+  .list-holder {
+    display: flex;
+}
 }
 /* h3 {
   color: gray;

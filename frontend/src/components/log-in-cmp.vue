@@ -64,6 +64,8 @@ section {
   background-repeat: no-repeat;
   background-size: cover;
   height: 100%;
+  background-attachment: fixed;
+
   // margin-top: 150px;
   padding-top: 100px;
   .form-wrapper {

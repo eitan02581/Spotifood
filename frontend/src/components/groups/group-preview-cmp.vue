@@ -73,19 +73,26 @@ export default {
 section {
   margin: 10px;
   display: inline-block;
+  .preview-container:hover {
+    .title {
+      h1 {
+        color: orangered;
+      }
+    }
+  }
   .preview-container {
     display: inline-block;
     position: relative;
-    margin: 20px;
-    width: 280px;
-    height: 488px;
+    // margin: 20px;
+    width: 260px;
+    height: 378px;
 
     // border-radius: 10px;
     cursor: pointer;
     transition: 0.3s;
     .img-container {
       height: 315px;
-      width: 280px;
+      // width: 280px;
       // background-image: url("../../assets/preview-demo.jpg");
       background-color: lightseagreen;
       background-position: center;
@@ -121,6 +128,8 @@ section {
         display: flex;
         flex-direction: column;
         justify-content: space-around;
+        border: 1px solid #b3b3b3ad;
+        border-top: none;
 
         img {
           width: 60px;
@@ -135,7 +144,7 @@ section {
         }
         .info-container {
           padding-top: 27px;
-          padding-left: 5px;
+          padding: 0px 6px;
           height: 100%;
           display: flex;
           flex-direction: column;
@@ -143,10 +152,16 @@ section {
           text-align: left;
           .host {
             text-align: center;
+            h2 {
+              padding-top: 27px;
+            }
           }
           .title {
             text-align: left;
             padding-left: 7px;
+            h1 {
+              transition: 0.3s;
+            }
           }
         }
         h2 {

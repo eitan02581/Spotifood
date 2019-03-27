@@ -4,7 +4,7 @@
     <router-view/>
     <Footer></Footer>
   </div>
-</template>
+</template> 
 
 <script>
 import Header from "@/components/header-cmp";
@@ -31,6 +31,8 @@ export default {
 #app {
   background-color: #f6f6f6;
 
-  // height: 100vh;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 </style>

@@ -94,7 +94,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
 ul,
 ol {
   padding-top: 5vh;
@@ -115,6 +114,9 @@ h1 {
     display: flex;
     align-items: center;
     h1 {
+      color: #607d8b;
+      font-size: 30px;
+
       margin-right: 5px;
     }
   }
@@ -142,7 +144,7 @@ h1 {
   display: flex;
   justify-content: space-between;
 }
-.el-collapse-item__header  {
+.el-collapse-item__header {
 }
 i {
   margin-left: 5px;

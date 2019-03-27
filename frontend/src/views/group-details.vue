@@ -1,9 +1,9 @@
 <template>
   <section v-if="group" class="group-details">
-    <div data-aos="fade" data-aos-duration="700" data class="top-title">
+    <div data class="top-title">
       <h1>{{group.title}}</h1>
     </div>
-    <div data-aos="fade" data-aos-duration="700" v-if="imgs" class="img-carusel">
+    <div v-if="imgs" class="img-carusel">
       <!-- for desktop -->
       <el-carousel :interval="4000" type="card" height="400px">
         <el-carousel-item v-for="img in imgs" :key="img">
@@ -19,7 +19,7 @@
       <!-- <img src="../assets/group-imgs/tabl1.jpg" alt> -->
     </div>
 
-    <div data-aos="fade" data-aos-duration="700" class="join-btn-holder">
+    <div class="join-btn-holder">
       <router-link :to="'/user/' + admin._id">
         <div class="hosted-by-container">
           <div class="hosted">
@@ -33,9 +33,11 @@
       <div class="full-message" v-if="!isPlaceLeft">
         <h1>Event is full</h1>
       </div>
-      <template v-if="isAdmin">
-        <pandingUser :groupId="group._id" :pendUsers="pendUsers"></pandingUser>
-      </template>
+      <div class="pending-holder">
+        <template v-if="isAdmin">
+          <pandingUser :groupId="group._id" :pendUsers="pendUsers"></pandingUser>
+        </template>
+      </div>
       <template v-if="!isAdmin && user && isPlaceLeft">
         <div v-if="isAbleToJoin" class="join-btn-container">
           <div class="join-btn-container">
@@ -58,7 +60,7 @@
     </div>
     <div class="main">
       <div class="group-info">
-        <div data-aos="fade-down-right" data-aos-duration="1000" class="info-container">
+        <div class="info-container">
           <div class="title">
             <h1>{{group.title}}</h1>
           </div>
@@ -90,13 +92,15 @@
             </div>
           </div>
         </div>
-        <h1>Description</h1>
-        <div data-aos="fade-up-right" data-aos-duration="1000" class="desc-container">
+        <div class="description">
+          <h1>Description</h1>
+        </div>
+        <div class="desc-container">
           <p>Italian cuisine has a great variety of different ingredients which are commonly used, ranging from fruits, vegetables, sauces, meats, etc. In the North of Italy, fish (such as cod, or baccalà), potatoes, rice, corn (maize), sausages, pork, and different types of cheeses are the most common ingredients. Pasta dishes with use of tomato are spread in all Italy.[33][34] Italians like their ingredients fresh and subtly seasoned and spiced.</p>
         </div>
       </div>
       <div class="users-aside">
-        <div data-aos="fade-down-left" data-aos-duration="1000" class="users-container">
+        <div class="users-container">
           <div class="participants">
             <h1>Participants</h1>
             <!-- <h2 style="color:#f44336">{{group.users.length + '/' + group.guests }}</h2> -->
@@ -105,16 +109,17 @@
             >{{seatsLeft === 0 ? 'Full' : group.users.length + ' of ' + group.guests }}</h2>
           </div>
           <div class="list">
+            <h1 v-if="group.users.length === 0">You Can Be The First ;)</h1>
             <participantList :users="users"></participantList>
           </div>
         </div>
-        <div data-aos="fade-up-left" data-aos-duration="1000" class="chat-container"></div>
+        <div class="chat-container"></div>
       </div>
     </div>
-    <div data-aos="fade-right" data-aos-duration="700" class="recpies-container">
+    <div class="recpies-container">
       <recipes-list :recipes="group.recipes"/>
     </div>
-    <div data-aos="fade-left" data-aos-duration="700" class="map-container">
+    <div class="map-container">
       <gmap-map :center="eventLocation" :zoom="12">
         <gmap-marker :position="eventLocation"></gmap-marker>
       </gmap-map>
@@ -287,7 +292,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-section {
+.group-details {
   max-width: 1200px;
   margin: 0 auto;
   padding: 90px 30px 0 30px;
@@ -359,6 +364,11 @@ section {
         }
       }
     }
+    .pending-holder {
+      section {
+        padding: 0;
+      }
+    }
 
     button {
       height: 50px;
@@ -384,7 +394,7 @@ section {
           // background-color: white;
           margin-bottom: 20px;
           // border-radius: 8px;
-          color: #f44336;
+          color: #607d8b;
         }
       }
       .main-group-info {
@@ -448,9 +458,14 @@ section {
           }
         }
       }
+      .description {
+        font-size: 20px;
+        margin-top: 30px;
+        color: #607d8b;
+      }
       .desc-container {
         // background-color: lightgrey;
-        margin-top: 40px;
+        margin-top: 20px;
 
         width: 100%;
         height: 100%;
@@ -458,13 +473,12 @@ section {
         padding: 12px;
         border-radius: 8px;
         h1 {
-          color: #607d8b;
           font-size: 28px;
-
           margin-bottom: 20px;
         }
         p {
-          line-height: 20px;
+          color: #3a4348;
+          line-height: 24px;
         }
       }
     }
@@ -502,20 +516,27 @@ section {
           border-radius: 8px;
           display: flex;
           justify-content: flex-start;
+          h1 {
+            margin: 0 auto;
+            color: #3a4348;
+          }
         }
         // height: 40%;
       }
       .chat-container {
-        background-color: lightsalmon;
+        background-color: white;
         width: 100%;
         height: 100%;
+        border-radius: 8px;
       }
     }
   }
   .recpies-container {
-    // margin-bottom: 100px;
+    margin-top: 100px;
+    margin-bottom: 100px;
     // background-color: seagreen;
     width: 100%;
+    margin-left: -50px;
   }
   .map-container {
     margin-bottom: 100px;

@@ -49,6 +49,8 @@ export default {
 
 <style scoped lang="scss">
 section {
+  flex-grow: 1;
+
   padding-top: 50px;
 
   display: flex;
@@ -58,7 +60,7 @@ section {
   .filter-container {
     // margin-top: 37px;
     margin-top: -70px;
-   width: 100%;
+    width: 100%;
     position: fixed;
     z-index: 111;
     background-color: unset;
@@ -68,6 +70,11 @@ section {
   }
   .group-list-container {
     margin-top: 50px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 90px 30px 0 30px;
+    text-align: center;
+    margin-bottom: 50px;
   }
 }
 </style>

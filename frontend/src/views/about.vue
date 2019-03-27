@@ -26,6 +26,9 @@ export default {};
 </script>
 
 <style lang="scss" scoped>
+section {
+  flex-grow: 1;
+}
 .about-page-wrapper {
   width: 90%;
   height: 100%;
@@ -43,14 +46,14 @@ export default {};
     border: 1px solid red;
     margin: 15px;
     padding: 20px;
-    width:300px;
+    width: 300px;
     height: 350px;
     display: flex;
     flex-direction: column;
     // justify-content: space-between;
     align-items: center;
-    img{
-        border-radius: 50%;
+    img {
+      border-radius: 50%;
     }
   }
 }

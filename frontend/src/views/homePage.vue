@@ -94,7 +94,7 @@ section {
     white-space: nowrap;
     margin-bottom: 100px;
     display: flex;
-    justify-content: center;
+    // justify-content: center;
   }
   .how-it-works {
     margin-top: 200px;

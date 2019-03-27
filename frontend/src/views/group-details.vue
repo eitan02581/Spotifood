@@ -516,7 +516,6 @@ section {
     // margin-bottom: 100px;
     // background-color: seagreen;
     width: 100%;
-    height: 300px;
   }
   .map-container {
     margin-bottom: 100px;

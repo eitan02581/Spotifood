@@ -142,6 +142,8 @@ h1 {
   display: flex;
   justify-content: space-between;
 }
+.el-collapse-item__header  {
+}
 i {
   margin-left: 5px;
   font-size: 2em;

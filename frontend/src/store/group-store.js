@@ -61,7 +61,7 @@ const groupStore = {
     },
     actions: {
         getGroups({ commit }) {
-            groupService.query().then(groups => commit({ type: 'setGroups', groups }))
+            return groupService.query().then(groups => commit({ type: 'setGroups', groups }))
         },
         filterGroups({ commit }, { filterBy }) {
             groupService.query(filterBy)

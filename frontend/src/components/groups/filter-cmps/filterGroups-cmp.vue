@@ -6,7 +6,7 @@
         <eventSelect @eventType="onSelectedVals('eventType' ,  $event)"></eventSelect>
         <cuisineSelect @cuisine="onSelectedVals('cuisineType' ,  $event)"></cuisineSelect>
         <guestsSelect @guests="onSelectedVals('guests' ,  $event)"></guestsSelect>
-        <dateSuggestions></dateSuggestions>
+        <!-- <dateSuggestions></dateSuggestions> -->
         <selectEl @selectedVals="onSelectedVals('hashtags' ,  $event)"></selectEl>
       </form>
     </div>
@@ -63,7 +63,8 @@ export default {
 <style scoped lang="scss">
 .filter-container {
   // margin-top: -63px;
-
+  display: flex;
+  justify-content: center;
   form {
     display: flex;
   }

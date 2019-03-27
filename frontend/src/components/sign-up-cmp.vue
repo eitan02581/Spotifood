@@ -55,7 +55,7 @@ export default {
       this.$store.dispatch({ type: "signUp", newUser: this.user }).then(() => {
         var userWithId = this.$store.getters.user;
         eventBus.$emit("USER_LOGGED", userWithId);
-        this.$toast.Success("User Sign Up Successfully");
+        this.$toast.Success(`Welcome ${user.username}`);
         this.$router.push("/");
       });
     }

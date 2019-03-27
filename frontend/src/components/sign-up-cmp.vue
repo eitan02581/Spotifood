@@ -66,28 +66,28 @@ export default {
 <style lang="scss" scoped>
 section {
   height: 100%;
-  padding-top: 200px;
+    padding-top: 90px;
+  @media (min-width: 850px) {
+    padding-top: 110px;
+  }
   background-image: url("../assets/group-imgs/table4.jpg");
-  // background-color: lightseagreen;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   .form-wrapper {
-    // margin-top: 100px;
     background-color: #ffffffd4;
-
-    width: 400px;
-    // height: 350px;
+    width: 90%;
+    @media (min-width: 850px) {
+      width: 400px;
+    }
     margin: 0 auto;
     margin-top: -50px;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
     box-shadow: rgba(black, 0.4) 0 0 25px;
     border-radius: 5px;
     display: flex;
     flex-direction: column;
     form {
-      // height: 350px;
-
       padding: 40px 60px 0 60px;
       *:not(:first-child) {
         margin: 15px 0;

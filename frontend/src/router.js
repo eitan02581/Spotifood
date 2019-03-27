@@ -10,6 +10,7 @@ import GroupDetails from '@/views/group-details'
 import GroupAdd from '@/views/group-add'
 import recipeForm from '@/views/group-recipe-form'
 import userProfile from '@/views/user-profile.vue'
+import Chat from '@/components/chat/chat'
 Vue.use(Router)
 
 export default new Router({
@@ -27,5 +28,6 @@ export default new Router({
     { path: '/login', component: Login },
     { path: '/signup', component: Signup },
     { path: '/user/:userId', component: userProfile },
+    { path: '/chat', component: Chat },
   ]
 })

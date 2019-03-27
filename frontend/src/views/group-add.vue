@@ -1,97 +1,103 @@
 <template>
-  <section class="add-group-form" v-loading="isLoading">
-    <el-form class="form-text-input" ref="group" label-width="120px">
-      <!-- Form Label -->
-      <el-form-item>
-        <h1>Create Group</h1>
-      </el-form-item>
-      <!-- Group Name Input -->
-      <el-form-item label="Group Name">
-        <el-input v-model="group.title"></el-input>
-      </el-form-item>
-      <!-- Group Description -->
-      <el-form-item label="Description">
-        <el-input
-          type="textarea"
-          autosize
-          placeholder="Enter Instruction"
-          v-model="group.description"
-        ></el-input>
-      </el-form-item>
-      <!-- Group Time Input -->
-      <el-form-item label="Meal time">
-        <el-date-picker
-          v-model="group.time"
-          type="datetime"
-          value-format="timestamp"
-          placeholder="Select date and time"
-        ></el-date-picker>
-      </el-form-item>
-      <el-form-item label="Image">
-        <!-- UPLOAD PROFILE IMG -->
-        <el-upload
-          v-if="!isUploading"
-          class="avatar-uploader"
-          action="squeeze rubber duck"
-          :http-request="uploadImg"
-          :show-file-list="false"
-        >
-          <div style="width: 100px;height:100px" v-if="isUploading">
-            <i class="el-icon-loading"></i>
-          </div>
-          <!-- :before-upload="beforeAvatarUpload"
-          :on-success="handleAvatarSuccess"-->
-          <img v-if="group.img" :src="group.img" class="avatar">
-          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-        </el-upload>
-        <div class="loading" v-else>
+  <!-- <section class="add-group-form" v-loading="isLoading"> -->
+  <el-form class="form-text-input" ref="group" label-width="120px">
+    <!-- Form Label -->
+    <el-form-item>
+      <h1>Create Event</h1>
+    </el-form-item>
+    <!-- Group Name Input -->
+    <el-form-item label="Event Name">
+      <el-input v-model="group.title"></el-input>
+    </el-form-item>
+    <!-- Group Time Input -->
+    <el-form-item label="Event time">
+      <el-date-picker
+        v-model="group.time"
+        type="datetime"
+        value-format="timestamp"
+        placeholder="Select date and time"
+      ></el-date-picker>
+    </el-form-item>
+    <!-- Group Description -->
+    <el-form-item label="Description">
+      <el-input
+        type="textarea"
+        :autosize="{ minRows: 3, maxRows: 6 }"
+        placeholder="Enter Description"
+        v-model="group.description"
+      ></el-input>
+    </el-form-item>
+    <!-- GUESTS AMOUNT -->
+    <el-form-item label="Guests">
+      <el-input-number v-model="group.guests" :step="1"></el-input-number>
+    </el-form-item>
+    <!-- EVENT TYPE -->
+    <el-form-item label="Event Type">
+      <el-select v-model="group.eventType" filterable placeholder="Select Event">
+        <el-option v-for="event in eventType" :key="event" :label="event" :value="event"></el-option>
+      </el-select>
+    </el-form-item>
+    <!-- CUISINE TYPE -->
+    <el-form-item label="Cuisine Type">
+      <el-select multiple v-model="group.cuisineType" filterable placeholder="Select Cuisine">
+        <el-option
+          v-for="cuisine in this.$store.getters.categories"
+          :key="cuisine"
+          :label="cuisine"
+          :value="cuisine"
+        ></el-option>
+      </el-select>
+    </el-form-item>
+    <!-- HASHTAGS -->
+    <el-form-item label="Tags">
+      <el-select
+        v-model="group.hashtags"
+        multiple
+        filterable
+        allow-create
+        default-first-option
+        placeholder="Add Tags"
+      ></el-select>
+      <!-- <button v-if="value10.length >=1" @click="clearSelect" class="delete">X</button> -->
+    </el-form-item>
+    <!-- LOCATION -->
+    <el-form-item label="Location">
+      <GmapAutocomplete class="el-input__inner" language="en" @place_changed="setPlace"></GmapAutocomplete>
+    </el-form-item>
+    <!-- UPLOAD PROFILE IMG -->
+    <el-form-item label="Image">
+      <el-upload
+        v-if="!isUploading"
+        class="avatar-uploader"
+        action="squeeze rubber duck"
+        :http-request="uploadImg"
+        :show-file-list="false"
+      >
+        <div style="width: 100px;height:100px" v-if="isUploading">
           <i class="el-icon-loading"></i>
         </div>
-      </el-form-item>
-      <el-form-item label="Guests">
-        <el-input-number v-model="group.guests" :step="1"></el-input-number>
-      </el-form-item>
-      <el-form-item label="Event Type">
-        <el-select v-model="group.eventType" filterable placeholder="Select Event">
-          <el-option v-for="event in eventType" :key="event" :label="event" :value="event"></el-option>
-        </el-select>
-      </el-form-item>
-      <el-form-item label="Cuisine Type">
-        <el-select multiple v-model="group.cuisineType" filterable placeholder="Select Cuisine">
-          <el-option
-            v-for="cuisine in this.$store.getters.categories"
-            :key="cuisine"
-            :label="cuisine"
-            :value="cuisine"
-          ></el-option>
-        </el-select>
-      </el-form-item>
-      <el-form-item label="Tags">
-        <el-select
-          v-model="group.hashtags"
-          multiple
-          filterable
-          allow-create
-          default-first-option
-          placeholder="Add Tags"
-        ></el-select>
-        <!-- <button v-if="value10.length >=1" @click="clearSelect" class="delete">X</button> -->
-      </el-form-item>
-      <el-form-item label="Location">
-        <GmapAutocomplete class="el-input__inner" @place_changed="setPlace"></GmapAutocomplete>
-      </el-form-item>
-      <div class="map-container">
-        <img v-if="!currLoc" src="@/assets/loading_imgs/map.gif" alt="map_loading">
-        <GmapMap v-if="currLoc" :center="currLoc" :zoom="10" ref="groupMap" style="flex-grow: 1">
-          <GmapMarker :position="markerPos" :clickable="true" :draggable="true"/>
-        </GmapMap>
+        <!-- :before-upload="beforeAvatarUpload"
+        :on-success="handleAvatarSuccess"-->
+        <img v-if="group.img" :src="group.img" class="avatar">
+        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+      </el-upload>
+      <div class="loading" v-else>
+        <i class="el-icon-loading"></i>
       </div>
-    </el-form>
+    </el-form-item>
+    <!-- MAP -->
+    <div class="map-container">
+      <img v-if="!currLoc" src="@/assets/loading_imgs/map.gif" alt="map_loading">
+      <GmapMap v-if="currLoc" :center="currLoc" :zoom="10" ref="groupMap" style>
+        <GmapMarker :position="markerPos" :clickable="true" :draggable="true"/>
+      </GmapMap>
+    </div>
     <div class="btns">
       <el-button type="primary" @click="createGroup">Create</el-button>
       <el-button @click="cancelGroup">Cancel</el-button>
     </div>
-  </section>
+  </el-form>
+  <!-- </section> -->
 </template>
 
 <script>
@@ -121,7 +127,7 @@ export default {
         eventType: "",
         img: "",
         hashtags: [],
-        description:''
+        description: ""
       },
       // cuisineType: [
       //   "Israeli",
@@ -134,7 +140,7 @@ export default {
       //   "Other"
       // ],
       eventType: ["Breakfast", "Brunch", "Lunch", "Dinner", "Other"],
-      isLoading:false
+      isLoading: false
     };
   },
   created() {
@@ -200,7 +206,7 @@ export default {
       return emptyVal !== -1 || !this.group.cuisineType.length;
     },
     async createGroup() {
-      this.isLoading = true
+      this.isLoading = true;
 
       if (!this.group.img) {
         this.group.img = `https://picsum.photos/200/300/${this.group.title}`;
@@ -217,7 +223,7 @@ export default {
         });
         this.$toast.Success("Group Added Successfully");
         this.$router.push("/groups/" + newGroup._id);
-        this.isLoading = false
+        this.isLoading = false;
       } catch (e) {
         console.log(e);
         this.$toast.Error("Something went wrong");
@@ -281,47 +287,66 @@ export default {
   height: 178px;
   display: block;
 }
-section {
-  width: 80%;
-  margin: 10px auto;
-  padding: 20px 5px;
+// section {
+//   margin: 80px auto;
+//   padding: 20px 10px;
+//   border-radius: 10px;
+//   width: 80%;
+//   @media (min-width: 850px) {
+//     min-width:850px;
+//   }
+// display: flex;
+// flex-direction: column;
+// justify-content: space-between;
+.form-text-input {
   border: 1px solid rgb(223, 223, 223);
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  padding-top: 100px;
-
-  .form-text-input {
-    h1 {
-      justify-self: flex-start;
-      font-size: 45px;
-      margin: 10px;
-    }
-    min-width: 200px;
-    margin: 5px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  grid-column-gap: 10px;
+  width:100%;
+  min-width: 200px;
+  margin: 80px auto;
+  padding: 15px;
+  display: grid;
+  grid-template-columns: 1fr;
+  @media (min-width: 850px) {
+  width: 1000px;
+    grid-template-columns: 1fr 1fr;
   }
-  .map-container {
-    width: 500px;
-    margin: 5px;
-  }
-  .vue-map-container {
-    border: 1px solid rgb(219, 219, 219);
-    // width: 400px;
-    // max-width: 400px;
-    min-height: 400px;
-    flex-grow: 1;
-  }
-  .btns {
-    margin-left: 50px;
-    align-self: flex-end;
+  h1 {
     justify-self: flex-start;
+    font-size: 45px;
+    margin: 10px;
+  }
+  :first-child {
+    grid-column-start: span 1;
+  }
+  @media (min-width: 850px) {
+    :first-child {
+      grid-column-start: span 2;
+    }
+  }
+  :nth-child(2) {
+    grid-column-start: 1;
+  }
+  @media (min-width: 850px) {
+    :nth-child(2) {
+      grid-column-start: 1;
+    }
   }
 }
+.vue-map-container {
+  border: 1px solid rgb(219, 219, 219);
+  width: 100%;
+  // max-width: 400px;
+  min-height: 300px;
+  grid-column-start: 1;
+  margin:10px 0;
+}
+.btns {
+  margin-left: 50px;
+  align-self: flex-end;
+  justify-self: flex-start;
+}
+// }
 .loading {
   font-size: 28px;
   color: #2196f3;

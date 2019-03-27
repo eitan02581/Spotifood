@@ -44,6 +44,7 @@ function login(userInfo) {
 // TODO: CHECK IF NICKNAME OR EMAIL IS NOT TAKEN 
 function addUser(newUser) {
     var user = newUser
+    user.createdGroups = []
     return mongoService.connect()
         .then(db => db.collection(USER_COLLECTION).insertOne(user))
         .then(res => {

@@ -1,21 +1,12 @@
 <template>
   <section class="profile-container">
-    <profile-details :isMyUserProfile="isMyUserProfile" :user="user" :groups="groups" v-if="user"/>
-    <!-- <img-carousel :groups="groups"/> -->
-    <!-- <div class="group-preview-item"> -->
+    <profile-details :isMyUserProfile="isMyUserProfile" :user="user" :groups="groupsToTimeline" v-if="user"/>
     <el-carousel :interval="600000" type="card" height="550px" style="text-align: center;">
       <el-carousel-item v-for="group in managedGroups" :key="group._id">
         <groupPreview :group="group"/>
       </el-carousel-item>
     </el-carousel>
-    <!-- <groupPreview v-for="group in groups" :key="group._id" :group="group"/> -->
-    <!-- </div> -->
-    <!-- <el-button type="success" @click="$emit('delete' , group._id)">Delete</el-button> -->
-    <!-- <router-link :to="'/group/edit/' + group._id">
-            <el-button type="danger">Edit</el-button>
-    </router-link>-->
 
-    <!-- <h1>Reviews</h1> -->
   </section>
 </template>
 
@@ -35,7 +26,8 @@ export default {
       user: null,
       groups: [],
       managedGroups: [],
-      isMyUserProfile:false
+      isMyUserProfile:false,
+
     };
   },
   created() {
@@ -50,15 +42,22 @@ export default {
     getUserGroups() {
       this.user.groups.forEach(groupId => {
         this.$store.dispatch({ type: "getGroupById", groupId }).then(group => {
+          group.color = '#e4e7ed'
           this.groups.push(group);
         });
       });
 
       this.user.createdGroups.forEach(groupId => {
         this.$store.dispatch({ type: "getGroupById", groupId }).then(group => {
+          group.color = 'black'
           this.managedGroups.push(group);
         });
       });
+    }
+  },
+  computed:{
+    groupsToTimeline(){
+      return this.groups.concat(this.managedGroups)
     }
   }
 };

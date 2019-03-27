@@ -34,21 +34,17 @@ function getById(groupId) {
     return axios.get(`${GROUP_ROUTE}/${groupId}`)
         .then(res => res.data)
         .then(group => {
-            console.log('users length : ',group.users.length)
             var groupUsers = group.users.map(userId => {
                 return userService.getUserById(userId)
             })
             var groupRecipes = group.recipes.map(recipeId => {
                 return recipesService.getRecipeById(recipeId)
             })
-            console.log('after users axios')
             var promiseArray = [Promise.all(groupUsers), Promise.all(groupRecipes)]
             return Promise.all(promiseArray)
                 .then(array => {
-                    console.log('after promise all !')
                     group.users = array[0]
                     group.recipes = array[1]
-                    console.log('after promise all 2!')
                     return group
                 })
         })
@@ -58,8 +54,6 @@ function askJoinGroup(ids) {
     return axios.put(`${GROUP_ROUTE}/join/${ids.groupId}`, ids).then((res) => res.data)
 }
 function addUserToGroup(ids) {
-    console.log(ids);
-
     return axios.put(`${GROUP_ROUTE}/accept/${ids.groupId}`, ids).then((res) => res.data)
 
 
@@ -73,8 +67,6 @@ function removeRecipeFromGroup(recipeId, groupId) {
 }
 
 function removeUserFromGroup(ids) {
-    console.log(ids.groupId);
-
     return axios.put(`${GROUP_ROUTE}/leave/${ids.groupId}`, ids).then((res) => res.data)
 
 }

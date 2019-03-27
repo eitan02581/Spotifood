@@ -5,6 +5,7 @@
         v-for="group in groups"
         :key="group._id"
         :timestamp="group.time | time"
+        :color="group.color"
       >{{group.title}}</el-timeline-item>
     </el-timeline>
     <div class="cuisines">
@@ -32,7 +33,7 @@ export default {
       type: Array,
       required: true
     },
-    isMyUserProfile:{
+    isMyUserProfile: {
       type: Boolean,
       required: true
     }
@@ -63,17 +64,11 @@ export default {
             return;
         }
       });
-      // china
-      // http://res.cloudinary.com/sprint4-weat/image/upload/v1553532383/demo/vs51q9wpjurnjdr3jgtk.png
-      // british
-      // http://res.cloudinary.com/sprint4-weat/image/upload/v1553532475/demo/eebgewy30zwm0nauyift.png
-      // American
-      // http://res.cloudinary.com/sprint4-weat/image/upload/v1553532519/demo/huhedgc4ziopzei1fxed.png
-    },
+    }
   },
-  methods:{
-    editCuisine(){
-      this.$emit('editCuisine')
+  methods: {
+    editCuisine() {
+      this.$emit("editCuisine");
     }
   }
 };
@@ -81,7 +76,7 @@ export default {
 
 <style lang=scss>
 .profile-experience {
-  width: 20%;
+  width: 33%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -107,8 +102,13 @@ export default {
       width: 30px;
       height: 30px;
     }
+    li {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
   }
-  .fa-edit:hover{
+  .fa-edit:hover {
     color: gray;
   }
 }

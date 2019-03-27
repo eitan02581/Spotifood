@@ -11,7 +11,7 @@
       arrow="never"
       style="text-align: center;"
     >
-      <el-carousel-item :name="index" v-for="(group,index) in managedGroups" :key="group._id">
+      <el-carousel-item :name="`${index}`" v-for="(group,index) in managedGroups" :key="group._id">
         <groupPreview :group="group"/>
       </el-carousel-item>
     </el-carousel>
@@ -21,7 +21,11 @@
     <!-- <router-link :to="'/group/edit/' + group._id">
             <el-button type="danger">Edit</el-button>
     </router-link>-->
-    {{location}}
+
+    <div class="loading-map">
+      <img v-if="!location" src="@/assets/loading_imgs/map.gif" alt="map_loading">
+    </div>
+
     <div v-if="location" class="map-container">
       <gmap-map :center="location" :zoom="7">
         <gmap-marker :position="location"></gmap-marker>
@@ -106,6 +110,11 @@ export default {
   // min-width: 100vw;
   max-width: 1200px;
   margin: 0 auto;
+}
+.loading-map {
+  width: 100%;
+  justify-content: center;
+  display: flex;
 }
 .map-container {
   margin-bottom: 100px;

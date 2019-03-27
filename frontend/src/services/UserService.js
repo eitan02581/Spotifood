@@ -14,7 +14,6 @@ function _createUsers() {
 }
 
 function updateUser(user){
-    console.log('user Service',user._id)
     return axios.post(`${USER_ROUTE}/${user._id}`,user)
     .then(user => user.data)
 }
@@ -38,7 +37,7 @@ function signUp(newUser) {
     newUser.groups = []
     newUser.favCategories = []
     newUser.isAdmin = false
-    newUser.img = `https://api.adorable.io/avatars/300/${newUser.username}`
+    newUser.img = ''
 
     return axios.post(`${USER_ROUTE}/signup`, newUser)
         .then(user => {

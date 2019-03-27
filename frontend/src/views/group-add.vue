@@ -39,8 +39,6 @@
           <div style="width: 100px;height:100px" v-if="isUploading">
             <i class="el-icon-loading"></i>
           </div>
-          <!-- :before-upload="beforeAvatarUpload"
-          :on-success="handleAvatarSuccess"-->
           <img v-if="group.img" :src="group.img" class="avatar">
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
@@ -123,16 +121,6 @@ export default {
         hashtags: [],
         description:''
       },
-      // cuisineType: [
-      //   "Israeli",
-      //   "French",
-      //   "Italian",
-      //   "British",
-      //   "Vietnamese",
-      //   "Chinese",
-      //   "Indian",
-      //   "Other"
-      // ],
       eventType: ["Breakfast", "Brunch", "Lunch", "Dinner", "Other"],
       isLoading:false
     };

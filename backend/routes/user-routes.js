@@ -26,8 +26,6 @@ function addUserRoutes(app) {
         const newUserInfo = req.body
         UserService.addUser(newUserInfo)
             .then(user => {
-                console.log('asdas', user);
-
                 return res.json(user)
             })
     })

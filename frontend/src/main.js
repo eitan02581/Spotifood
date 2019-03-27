@@ -55,7 +55,7 @@ Vue.config.productionTip = false
 Vue.use(Element, { locale: 'en' })
 
 Vue.use(VuetifyToast, {
-  x: 'right', // default
+  x: 'center', // default
   y: 'bottom', // default
   color: '#292929', // default
   icon: 'WEat',

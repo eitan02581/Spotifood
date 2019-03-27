@@ -4,7 +4,7 @@
       <i class="fas fa-bars"></i>
     </div>
     <div :class="{'nav-container':true , anim: isHamClicked}">
-      <div class="logo-wrapper">
+      <div @click="isHamClicked = !isHamClicked" class="logo-wrapper">
         <router-link to="/">
           <h1>
             <span class="w">W</span>Eat

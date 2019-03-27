@@ -1,16 +1,21 @@
 <template>
-  <section>
-    <div class="user-container" v-for="user in users" :key="user._id">
-      <div class="info-container">
-        <div class="name">{{user.username}}</div>
-        <div class="country">{{user.country}}</div>
-        <div class="img-container">
-          <img :src="user.img" alt>
+  <section v-if="users.length >= 1">
+    <div class="title">
+      <h1>Pending Users</h1>
+    </div>
+    <div class="pending-container">
+      <div class="user-container" v-for="user in users" :key="user._id">
+        <div class="info-container">
+          <div class="name">{{user.username}}</div>
+          <div class="country">{{user.country}}</div>
+          <div class="img-container">
+            <img :src="user.img" alt>
+          </div>
         </div>
-      </div>
-      <div class="request-container">
-        <el-button @click="onAcceptUser(user)" type="success" icon="el-icon-check" circle></el-button>
-        <el-button @click="onDeclineUser(user)" type="danger" icon="el-icon-delete" circle></el-button>
+        <div class="request-container">
+          <el-button @click="onAcceptUser(user)" type="success" icon="el-icon-check" circle></el-button>
+          <el-button @click="onDeclineUser(user)" type="danger" icon="el-icon-delete" circle></el-button>
+        </div>
       </div>
     </div>
     <div class="action-status-container" v-if="pendingMsg">{{pendingMsg}}</div>
@@ -51,12 +56,14 @@ export default {
         })
         .then(res => {
           // update user's group array
-          this.$store.dispatch({
-            type: "addGroupToUser",
-            ids: { userId: user._id, groupId: this.groupId }
-          });
+          this.$store
+            .dispatch({
+              type: "addGroupToUser",
+              ids: { userId: user._id, groupId: this.groupId }
+            })
+            .then(() => this.$toast.Success(`${user.username} Added`));
           // show message
-          this.showMsg(true, user);
+          // this.showMsg(true, user);
 
           // remove user from users
           // TODO: FIX BUG WHEN ACC OR DEC ON ONE , ALL THE PENDING USERS DISAPPEAR
@@ -87,11 +94,33 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.title {
+  h1 {
+    text-align: center;
+    margin-bottom: 10px;
+    color: #607d8b;
+  }
+}
+.pending-container {
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  padding: 12px;
+  border-radius: 8px;
+  display: flex;
+}
 .user-container {
+  text-align: center;
+  margin-left: 20px;
+  margin-right: 20px;
   .info-container {
+    .name {
+      color: #607d8b;
+    }
     .img-container {
       img {
         width: 50px;
+        border-radius: 50px;
       }
     }
   }

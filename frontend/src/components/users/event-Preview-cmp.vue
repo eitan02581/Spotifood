@@ -33,7 +33,7 @@ export default {
 };
 </script>
 
-<style lang=scss>
+<style lang=scss scoped>
 .event-preview {
   cursor: pointer;
   height: 100px;

@@ -29,7 +29,7 @@ export default {
 };
 </script>
 
-<style lang=scss>
+<style lang=scss scoped>
 .events-list {
   display: flex;
   height: 120px;

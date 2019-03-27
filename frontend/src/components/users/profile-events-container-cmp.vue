@@ -50,7 +50,7 @@ export default {
 };
 </script>
 
-<style lang=scss>
+<style scoped lang=scss>
 .profile-events-container {
   width: 90%;
   margin: 50px auto;

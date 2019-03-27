@@ -2,23 +2,33 @@
   <section>
     <div class="input-container">
       <input @keyup="onTitle" placeholder="Type Title" v-model="title">
+      <button v-if="title.length >=1" @click="clearSelect" class="clear-btn">X</button>
     </div>
   </section>
 </template>
 
 <script>
+import { eventBus, CLEAR_FILEDS } from "../../../services/EventBusService.js";
+
 export default {
   data() {
     return {
       title: ""
     };
+  },created() {
+    eventBus.$on("CLEAR_FILEDS", () => {
+      this.title = '';
+    });
   },
   methods: {
     onTitle() {
-      //   setTimeout(() => {
-
-      this.$emit("title", this.title);
-      //   }, 500);
+      setTimeout(() => {
+        this.$emit("title", this.title);
+      }, 500);
+    },
+    clearSelect() {
+      this.title = "";
+      this.onTitle();
     }
   }
 };
@@ -47,5 +57,12 @@ input {
   font-size: 14px;
   display: inline-block;
   width: 100%;
+  display: flex;
+}
+
+.el-range-editor.is-active,
+.el-range-editor.is-active:hover,
+.el-select .el-input.is-focus .el-input__inner {
+  height: 40px;
 }
 </style>

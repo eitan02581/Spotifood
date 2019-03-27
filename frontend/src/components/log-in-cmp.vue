@@ -40,11 +40,13 @@ export default {
   methods: {
     login() {
       if (!this.user.username || !this.user.password) {
+        this.$toast.Error(`Invalid Username or Password`);
         return;
       } else {
         console.log("user to login is", this.user);
         this.$store.dispatch({ type: "logIn", user: this.user }).then(() => {
           var user = this.$store.getters.user;
+          this.$toast.Success(`Welcome ${this.user.username}`);
           eventBus.$emit("USER_LOGGED", user);
           this.$router.push("/");
         });
@@ -56,19 +58,23 @@ export default {
 
 <style lang="scss" scoped>
 section {
-  background-image: url("../assets/group-imgs/table2.jpg");
+  background-image: url("../assets/group-imgs/beer.jpg");
   // background-color: lightseagreen;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   height: 100%;
+  background-attachment: fixed;
+
   // margin-top: 150px;
   padding-top: 100px;
   .form-wrapper {
+    background-color: #ffffffd4;
+    // background-color: rgba(238, 238, 238, 0.637);
     width: 400px;
     height: 350px;
     margin: 0 auto;
-    margin-bottom: 100px;
+    margin-bottom: 300px;
     margin-top: 50px;
     box-shadow: rgba(black, 0.4) 0 0 25px;
     border-radius: 5px;

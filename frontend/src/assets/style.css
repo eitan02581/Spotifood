@@ -56,15 +56,34 @@ li{
 ::-webkit-scrollbar-track {
     border-radius: 10px;
     background-color: #F5F5F5;
+    z-index: -1;
+    display: none;
 }
 
 ::-webkit-scrollbar {
-    width: 12px;
+    width: 8px;
     background-color: #F5F5F5;
+    z-index: -1;
+    display: none;
 }
 
 ::-webkit-scrollbar-thumb {
     border-radius: 10px;
-    background-color: #F44336;
+    display: none;
+    z-index: -1;
+    background-color: rgba(244, 67, 54, 0.644);
 }
 
+
+
+.clear-btn{
+padding: 0 3px 0 3px;
+background-color: #dcdfe6;
+color: white;
+transition: 0.3s;
+cursor: pointer;
+height: 40px;
+}
+.clear-btn:hover{
+    background-color: #74819e;
+    }

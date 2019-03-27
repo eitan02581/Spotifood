@@ -39,7 +39,7 @@ export default {
 };
 </script>
 
-<style lang=scss>
+<style scoped lang=scss>
 .main-container {
   margin: auto;
   min-height: 50vh;

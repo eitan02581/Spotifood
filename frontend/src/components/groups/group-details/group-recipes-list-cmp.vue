@@ -9,7 +9,13 @@
     <template v-if="!recipes.length >= 1">
       <h1>My Recipes Are A Secret ;)</h1>
     </template>
-    <el-collapse v-model="activeName" accordion v-for="(recipe,idx) in recipes" :key="recipe._id">
+    <el-collapse
+      id="rec"
+      v-model="activeName"
+      accordion
+      v-for="(recipe,idx) in recipes"
+      :key="recipe._id"
+    >
       <el-collapse-item :title="recipe.title" :name="idx">
         <div class="collapse-context">
           <div>
@@ -108,6 +114,9 @@ h1 {
     display: flex;
     align-items: center;
     h1 {
+      color: #607d8b;
+      font-size: 30px;
+
       margin-right: 5px;
     }
   }
@@ -134,6 +143,8 @@ h1 {
   padding: 15px;
   display: flex;
   justify-content: space-between;
+}
+.el-collapse-item__header {
 }
 i {
   margin-left: 5px;

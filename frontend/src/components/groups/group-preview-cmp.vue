@@ -6,24 +6,28 @@
         <div class="bottom">
           <img :src="groupAdmin.img" alt>
           <div class="info-container">
-            <h2>
-              Hosted by:
-              <span>{{groupAdmin.username}}</span>
-            </h2>
+            <div class="host">
+              <h2>
+                Hosted by:
+                <span>{{groupAdmin.username}}</span>
+              </h2>
+            </div>
+            <div class="title">
+              <h1>{{group.title}}</h1>
+            </div>
             <h2>in {{group.place.city}}, {{group.place.country.shortName}}</h2>
             <h3>
               <div class="meal">{{group.eventType}}</div>
             </h3>
-            <h1>{{group.title}}</h1>
-            <h2 style="color:#f44336">{{seatsLeft === 0 ? 'Full' : seatsLeft + ' seats left'}}</h2>
+            <!-- <h2 style="color:#f44336">{{seatsLeft === 0 ? 'Full' : seatsLeft + ' seats left'}}</h2> -->
             <!-- {{group.hashtags}} -->
-            <h3>
+            <!-- <h3>
               <i style="color:orange" class="fas fa-star"></i>
               <i style="color:orange" class="fas fa-star"></i>
               <i style="color:orange" class="fas fa-star"></i>
               <i style="color:orange" class="fas fa-star"></i>
               <i style="color:orange" class="fas fa-star"></i> (37)
-            </h3>
+            </h3>-->
             <div class="has-container">
               <el-tag type="warning" v-for="hashtag in group.hashtags" :key="hashtag">#{{hashtag}}</el-tag>
               <!-- <span v-for="hash in group.hashtags" :key="hash">#{{hash}}</span> -->
@@ -69,19 +73,26 @@ export default {
 section {
   margin: 10px;
   display: inline-block;
+  .preview-container:hover {
+    .title {
+      h1 {
+        color: orangered;
+      }
+    }
+  }
   .preview-container {
     display: inline-block;
     position: relative;
-    margin: 20px;
-    width: 280px;
-    height: 488px;
+    // margin: 20px;
+    width: 260px;
+    height: 378px;
 
     // border-radius: 10px;
     cursor: pointer;
     transition: 0.3s;
     .img-container {
-      height: 250px;
-      width: 280px;
+      height: 315px;
+      // width: 280px;
       // background-image: url("../../assets/preview-demo.jpg");
       background-color: lightseagreen;
       background-position: center;
@@ -90,7 +101,7 @@ section {
     }
     h1 {
       padding-top: 12px;
-      text-align: center;
+      // text-align: center;
       color: #414a55;
       font-size: 19px;
     }
@@ -100,6 +111,7 @@ section {
       bottom: 0;
       width: 100%;
       height: 80%;
+
       background: linear-gradient(
         to bottom,
         rgba(50, 50, 50, 0) 0%,
@@ -110,12 +122,15 @@ section {
       .bottom {
         width: 100%;
         background-color: white;
-        height: 238px;
+        height: 180px;
         position: absolute;
         bottom: 0;
         display: flex;
         flex-direction: column;
         justify-content: space-around;
+        border: 1px solid #b3b3b3ad;
+        border-top: none;
+
         img {
           width: 60px;
           height: 60px;
@@ -129,12 +144,25 @@ section {
         }
         .info-container {
           padding-top: 27px;
-
+          padding: 0px 6px;
           height: 100%;
           display: flex;
           flex-direction: column;
           justify-content: space-around;
-          text-align: center;
+          text-align: left;
+          .host {
+            text-align: center;
+            h2 {
+              padding-top: 27px;
+            }
+          }
+          .title {
+            text-align: left;
+            padding-left: 7px;
+            h1 {
+              transition: 0.3s;
+            }
+          }
         }
         h2 {
           font-size: 14px;
@@ -160,6 +188,7 @@ section {
           // overflow-x: scroll;
           overflow-y: hidden;
           white-space: nowrap;
+          padding-left: 6px;
 
           span {
             padding-left: 7px;

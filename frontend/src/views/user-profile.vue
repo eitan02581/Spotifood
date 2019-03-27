@@ -62,7 +62,6 @@ export default {
 .profile-container {
   padding-top: calc(50px + 25%);
   max-width: 1200px;
-  margin: 0 auto;
   min-height: calc(100vh - 200px);
 }
 </style>

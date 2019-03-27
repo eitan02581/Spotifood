@@ -68,3 +68,16 @@ li{
     background-color: #F44336;
 }
 
+
+
+.clear-btn{
+padding: 0 3px 0 3px;
+background-color: #dcdfe6;
+color: white;
+transition: 0.3s;
+cursor: pointer;
+height: 40px;
+}
+.clear-btn:hover{
+    background-color: #74819e;
+    }

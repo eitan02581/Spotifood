@@ -9,7 +9,13 @@
     <template v-if="!recipes.length >= 1">
       <h1>My Recipes Are A Secret ;)</h1>
     </template>
-    <el-collapse v-model="activeName" accordion v-for="(recipe,idx) in recipes" :key="recipe._id">
+    <el-collapse
+      id="rec"
+      v-model="activeName"
+      accordion
+      v-for="(recipe,idx) in recipes"
+      :key="recipe._id"
+    >
       <el-collapse-item :title="recipe.title" :name="idx">
         <div class="collapse-context">
           <div>
@@ -88,6 +94,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+
 ul,
 ol {
   padding-top: 5vh;

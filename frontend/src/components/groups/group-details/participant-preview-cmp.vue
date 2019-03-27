@@ -21,10 +21,16 @@ export default {
 
 <style scoped>
 img {
-  height: 5vh;
-  border-radius: 3vh;
   width: auto;
-  margin-right: 5px;
+  text-align: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 51px;
+  border: 5px solid #9e9e9e47;
+  transition: 0.3s;
+}
+img:hover {
+  border: 5px solid #607d8b;
 }
 .participant-preview {
   display: flex;

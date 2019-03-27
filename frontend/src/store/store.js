@@ -4,7 +4,6 @@ import Vuex from 'vuex'
 import groupStore from './group-store.js'
 import userStore from './user-store.js'
 
-import uploadService from '../services/UploadService.js'
 
 Vue.use(Vuex)
 
@@ -32,9 +31,6 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    uploadImg({commit},{img}){
-      return uploadService.uploadImg(img).then(res => res)
-    }
   },
   modules: {
     groupStore,

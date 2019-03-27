@@ -3,7 +3,8 @@
     <div data-aos="fade-down" data-aos-duration="900" class="filter-container">
       <FilterGroup @filter="filter"></FilterGroup>
     </div>
-    <div class="group-list-container">
+    <LoadingCmp v-if="!loadedGroups"></LoadingCmp>
+    <div v-if="loadedGroups" class="group-list-container">
       <GroupList :groups="groups"></GroupList>
     </div>
   </section>
@@ -13,13 +14,25 @@
 import GroupList from "../components/groups/group-list-cmp";
 import groupStore from "../store/group-store.js";
 import FilterGroup from "../components/groups/filter-cmps/filterGroups-cmp.vue";
+import LoadingCmp from "../components/loading-cmp.vue";
+
 export default {
   components: {
+    LoadingCmp,
     GroupList,
     FilterGroup
   },
+  data() {
+    return {
+      loadedGroups: false
+    };
+  },
   created() {
-    this.$store.dispatch({ type: "getGroups" });
+    this.$store.dispatch({ type: "getGroups" }).then(() => {
+      setTimeout(() => {
+        this.loadedGroups = true;
+      }, 1000);
+    });
   },
   computed: {
     groups() {

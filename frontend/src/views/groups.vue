@@ -45,7 +45,7 @@ section {
   .filter-container {
     // margin-top: 37px;
     margin-top: -70px;
-
+   width: 100%;
     position: fixed;
     z-index: 111;
     background-color: unset;

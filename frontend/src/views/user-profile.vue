@@ -23,7 +23,7 @@
     </router-link>-->
     {{location}}
     <div v-if="location" class="map-container">
-      <gmap-map :center="location" :zoom="5">
+      <gmap-map :center="location" :zoom="7">
         <gmap-marker :position="location"></gmap-marker>
       </gmap-map>
     </div>

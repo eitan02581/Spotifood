@@ -75,6 +75,7 @@ section {
       transform: translate(-50%, -50%);
     }
   }
+
   #videoMessage {
     width: 100%;
     height: 100%;
@@ -99,8 +100,18 @@ section {
     color: white;
     z-index: 99;
   }
+  @media only screen and (min-width: 600px) {
+    #videoMessage h1 {
+      font-size: 7em;
+      color: #ffffff;
+      text-align: center;
+    }
+  }
+}
+
+@media only screen and (max-width: 600px) {
   #videoMessage h1 {
-    font-size: 7em;
+    font-size: 60px;
     color: #ffffff;
     text-align: center;
   }

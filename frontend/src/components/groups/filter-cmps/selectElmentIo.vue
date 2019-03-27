@@ -23,6 +23,8 @@
 </template>
 
 <script>
+import { eventBus, CLEAR_FILEDS } from "../../../services/EventBusService.js";
+
 export default {
   data() {
     return {
@@ -45,6 +47,11 @@ export default {
       this.value10 = [];
       this.onSave();
     }
+  },
+  created() {
+    eventBus.$on("CLEAR_FILEDS", () => {
+      this.value10 = "";
+    });
   }
 };
 </script>

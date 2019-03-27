@@ -44,6 +44,7 @@ function login(userInfo) {
 // TODO: CHECK IF NICKNAME OR EMAIL IS NOT TAKEN 
 function addUser(newUser) {
     var user = newUser
+    user.createdGroups = []
     return mongoService.connect()
         .then(db => db.collection(USER_COLLECTION).insertOne(user))
         .then(res => {
@@ -86,6 +87,13 @@ async function updateUser(user) {
         .updateOne({ _id: user._id }, { $set: user })
 }
 
+async function updateUserImg(userId,img){
+    const _id = new ObjectId(userId)
+    var db = await mongoService.connect()
+    return db.collection(USER_COLLECTION)
+        .updateOne({ _id }, { $set: {img} })
+}
+
 
 
 module.exports = {
@@ -94,6 +102,7 @@ module.exports = {
     login,
     addUser,
     updateUser,
+    updateUserImg,
     addGroupToUser,
     removeGroupFromUser,
     addGroupToCreatedGroups

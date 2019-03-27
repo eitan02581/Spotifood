@@ -2,6 +2,7 @@
 const multer = require("multer");
 const cloudinary = require('cloudinary');
 const cloudinaryStorage = require("multer-storage-cloudinary");
+const UserService = require('../services/user-service')
 
 
 cloudinary.config({
@@ -31,6 +32,14 @@ function addUploadRoutes(app) {
         image.url = req.file.url;
         image.id = req.file.public_id;
         res.json(image.url)
+    })
+    app.put('/upload-img/:userId', parser.single('file'), (req, res) => {
+        const userId = req.params.userId
+        const image = {};
+        image.url = req.file.url;
+        image.id = req.file.public_id;
+        UserService.updateUserImg(userId, image.url).then(() => res.json(image.url))
+
     })
 
 }

@@ -18,7 +18,7 @@
             <i class="fas fa-lock"></i>
           </template>
         </el-input>
-        <el-input placeholder="Email" v-model="user.email"></el-input>
+        <!-- <el-input placeholder="Email" v-model="user.email"></el-input> -->
         <el-input placeholder="Your Country" v-model="user.country"></el-input>
         <el-input placeholder="Your City" v-model="user.city"></el-input>
 
@@ -43,7 +43,6 @@ export default {
         username: null,
         nickName: null,
         password: null,
-        email: null,
         country: null,
         city: null
       }

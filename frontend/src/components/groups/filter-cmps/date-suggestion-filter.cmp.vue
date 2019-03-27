@@ -1,14 +1,13 @@
 <template>
   <section>
-    <el-autocomplete 
+    <el-autocomplete
       class="inline-input"
       v-model="state1"
       :fetch-suggestions="querySearch"
       placeholder="When?"
       @select="handleSelect"
     ></el-autocomplete>
-        <button v-if="state1.length >=1" @click="clearSelect" class="delete">X</button>
-
+    <button v-if="state1.length >=1" @click="clearSelect" class="delete">X</button>
   </section>
 </template>
 
@@ -19,6 +18,11 @@ export default {
       links: [],
       state1: ""
     };
+  },
+  created() {
+    eventBus.$on("CLEAR_FILEDS", () => {
+      this.state1 = "";
+    });
   },
   methods: {
     querySearch(queryString, cb) {

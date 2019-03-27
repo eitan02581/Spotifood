@@ -140,12 +140,10 @@ export default {
       formData.append("file", input.file);
       uploadService.uploadImg(formData).then(url => {
         this.uploadedImgs[input.file.uid] = url;
-        console.log("uploaded img", this.uploadedImgs); //// TODO: show success popup
       });
     },
     onUpload(url, file, fileList) {
       this.uploadedImgs[file.uid] = url;
-      console.log("uploaded img", this.uploadedImgs);
     }
   },
   computed: {

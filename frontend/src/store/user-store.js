@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import userService from '../services/UserService.js';
+import uploadService from '../services/UploadService.js'
 
 
 Vue.use(Vuex)
@@ -57,7 +58,11 @@ const userStore = {
         },
         updateUser({ commit },{user}){
             return userService.updateUser(user).then(res => res)
-        }
+        },
+        uploadImg({commit},{userId, img}){
+            console.log("userId",userId)
+            return uploadService.uploadUserImg(img,userId).then(res => res)
+          }
     }
 }
 

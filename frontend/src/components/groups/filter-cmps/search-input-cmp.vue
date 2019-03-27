@@ -8,11 +8,17 @@
 </template>
 
 <script>
+import { eventBus, CLEAR_FILEDS } from "../../../services/EventBusService.js";
+
 export default {
   data() {
     return {
       title: ""
     };
+  },created() {
+    eventBus.$on("CLEAR_FILEDS", () => {
+      this.title = '';
+    });
   },
   methods: {
     onTitle() {

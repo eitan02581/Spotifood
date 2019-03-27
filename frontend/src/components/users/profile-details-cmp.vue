@@ -1,16 +1,13 @@
 <template>
   <section class="main-container">
-    <div class="img-container">
-      <img :src="user.img" alt>
-    </div>
-    <profile-Info :user="user" :showInput="showInput"/>
-    <profile-experience :user="user" :groups="sortedGroups" :isMyUserProfile="isMyUserProfile" @editCuisine="editCuisine"/>
+    <profile-card :user="user" :isMyUserProfile="isMyUserProfile"/>
+    <events-container :groups="sortedGroups"/>
   </section>
 </template>
 
 <script>
-import profileInfo from "./profile-info-cmp";
-import profileExperience from "./profile-experience-cmp";
+import profileCard from "./profile-card-cmp";
+import eventsContainer from "./profile-events-container-cmp";
 export default {
   props: {
     user: {
@@ -21,48 +18,40 @@ export default {
       type: Array,
       required: true
     },
-    isMyUserProfile:{
-      type:Boolean,
-      required:true
+    isMyUserProfile: {
+      type: Boolean,
+      required: true
     }
   },
   components: {
-    profileInfo,
-    profileExperience
+    profileCard,
+    eventsContainer
   },
-  data(){
-    return{
-      showInput:false
-    }
+  data() {
+    return {};
   },
   computed: {
     sortedGroups() {
-      console.log('time:')
       return this.groups.sort((a, b) => a.time - b.time);
     }
   },
-  methods:{
-    editCuisine(){
-      this.showInput = true
-    }
-  }
+  methods: {}
 };
 </script>
 
-<style lang=scss>
+<style scoped lang=scss>
 .main-container {
-  display: flex;
-  width: 100%;
-  margin-bottom: 50px;
-  & > * {
-    padding: 10px;
+  margin: auto;
+  min-height: 50vh;
+}
+@media (min-width: 650px) {
+  .main-container {
+    max-width: 80%;
   }
-  .img-container {
-    width: 40%;
-    img {
-      width: 100%;
-      height: auto;
-    }
+}
+@media (min-width: 350px){
+  .main-container{
+    border: 1px solid black;
   }
 }
 </style>

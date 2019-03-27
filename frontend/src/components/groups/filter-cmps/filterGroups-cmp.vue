@@ -8,6 +8,7 @@
         <guestsSelect @guests="onSelectedVals('guests' ,  $event)"></guestsSelect>
         <!-- <dateSuggestions></dateSuggestions> -->
         <selectEl @selectedVals="onSelectedVals('hashtags' ,  $event)"></selectEl>
+        <button @click="clearAll" class="clear-btn">Clear All</button>
       </form>
     </div>
   </section>
@@ -20,6 +21,9 @@ import guestsSelect from "./guests-select-cmp";
 import eventSelect from "./event-select-cmp.vue";
 import cuisineSelect from "./cuisine-select-cmp.vue";
 import searchTitle from "./search-input-cmp";
+
+import { eventBus, CLEAR_FILEDS } from "../../../services/EventBusService.js";
+
 export default {
   components: {
     selectEl,
@@ -47,6 +51,16 @@ export default {
       if (filterBy === "eventType") this.filterBy.eventType = val;
       if (filterBy === "guests") this.filterBy.guests = val;
       if (filterBy === "title") this.filterBy.title = val;
+    },
+    clearAll() {
+      eventBus.$emit("CLEAR_FILEDS");
+      this.filterBy = {
+        hashtags: [],
+        cuisineType: "",
+        eventType: "",
+        guests: null,
+        title: ""
+      };
     }
   },
   watch: {

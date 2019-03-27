@@ -2,7 +2,8 @@
   <section>
     <div class="left-side">
       <router-link to>
-        <h1>Join
+        <h1>
+          Join
           <router-link to="/login">
             <span>WEat</span>
           </router-link>
@@ -45,6 +46,7 @@ export default {};
 
 <style lang="scss" scoped>
 section {
+  position: relative;
   padding-top: 30px;
   height: 200px;
   width: 100%;

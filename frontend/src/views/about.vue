@@ -1,16 +1,20 @@
 <template>
   <section class="about-page-wrapper">
     <div class="about-item">
-      <img src="https://api.adorable.io/avatars/100/Alex" alt="Alex Yeruhin">
+      <img src alt="Alex Yeruhin">
       <h1>Alex Yeruhin</h1>
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit facilis, illo nisi cum repudiandae quam soluta a consectetur dolore nostrum repellendus hic ea aut sed. Nobis, asperiores. Architecto, necessitatibus tenetur?</p>
       <i class="fas fa-briefcase"></i>
     </div>
     <div class="about-item">
-      <img src="https://api.adorable.io/avatars/100/Eitan" alt="Alex Yeruhin">
+      <a href="https://eitan02581.github.io/portofolio/">
+        <img src="../assets/about/Picture1.png" alt="Alex Yeruhin">
+      </a>
       <h1>Eitan Elnekave</h1>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit facilis, illo nisi cum repudiandae quam soluta a consectetur dolore nostrum repellendus hic ea aut sed. Nobis, asperiores. Architecto, necessitatibus tenetur?</p>
-      <i class="fas fa-briefcase"></i>
+      <p>Hey I'm Eitan 22 years old , love surfing and programming , passionate about css and Vue js checkout my portofolio</p>
+      <a href="https://eitan02581.github.io/portofolio/">
+        <el-button type="primary">Portofolio</el-button>
+      </a>
     </div>
     <div class="about-item">
       <img src="https://api.adorable.io/avatars/100/Yovel" alt="Alex Yeruhin">
@@ -26,31 +30,43 @@ export default {};
 </script>
 
 <style lang="scss" scoped>
+section {
+  flex-grow: 1;
+}
 .about-page-wrapper {
   width: 90%;
-  height: 100%;
+  padding-top: 100px;
+  margin-bottom: 100px;
+
+  height: 100vh;
   margin: 0 auto;
-  border-right: 1px solid black;
-  border-left: 1px solid black;
+  // border-right: 1px solid black;
+  // border-left: 1px solid black;
   h1 {
+    color: #f44336;
     margin: 0;
   }
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
+  p {
+    color: gray;
+  }
   // align-items: center;
   .about-item {
-    border: 1px solid red;
+    // border: 1px solid red;
     margin: 15px;
     padding: 20px;
-    width:300px;
-    height: 350px;
+    width: 300px;
+    height: 450px;
     display: flex;
     flex-direction: column;
     // justify-content: space-between;
     align-items: center;
-    img{
-        border-radius: 50%;
+    img {
+      margin-bottom: 30px;
+      width: 200px;
+      border-radius: 50%;
     }
   }
 }

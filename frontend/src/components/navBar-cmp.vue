@@ -96,6 +96,7 @@ export default {
   },
   computed: {
     userImg() {
+
       return this.user.img
         ? this.user.img
         : "https://api.adorable.io/avatars/300/";

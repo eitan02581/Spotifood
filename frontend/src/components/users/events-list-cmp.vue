@@ -1,6 +1,15 @@
 <template>
   <section class="events-list">
-    <event-preview v-for="group in groups" :key="group._id" :group="group" @SetOnMap="SetOnMap"/>
+    <template v-if="groups.length">
+      <event-preview v-for="group in groups" :key="group._id" :group="group" @SetOnMap="SetOnMap"/>
+    </template>
+    <template v-else>
+      <h2>No Groups Yet...</h2>
+      <router-link to="/groups">
+        Find Groups!
+        <i class="fas fa-arrow-circle-right"></i>
+      </router-link>
+    </template>
   </section>
 </template>
 
@@ -13,7 +22,7 @@ export default {
   props: {
     groups: {
       type: Array,
-      required: true
+      required: false
     }
   },
   data() {
@@ -21,8 +30,8 @@ export default {
   },
   computed: {},
   methods: {
-    SetOnMap(loc){
-      this.$emit('SetOnMap',loc)
+    SetOnMap(loc) {
+      this.$emit("SetOnMap", loc);
     }
   },
   created() {}
@@ -36,12 +45,18 @@ export default {
   max-height: 600px;
   width: 100%;
   overflow: scroll;
+  h2,
+  a {
+    margin: 10px;
+    color: #424242;
+    font-size: 1.5em;
+  }
 }
-@media(min-width: 600px){
-.events-list{
-  display: block;
-  width: 250px;
-  height: 70vh;
-}
+@media (min-width: 600px) {
+  .events-list {
+    display: block;
+    width: 250px;
+    height: 70vh;
+  }
 }
 </style>

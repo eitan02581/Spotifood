@@ -2,8 +2,7 @@
   <section class="profile-info">
     <!-- IMAGE OR UPLOAD IMAGE -->
     <div class="profile-img">
-      <img v-if="user.img || !isMyUserProfile" :src="imgSrc" alt>
-      <div v-else-if="isMyUserProfile" class="upload-container">
+      <div v-if="user.img === noImgUrl && isMyUserProfile"  class="upload-container">
         <el-upload
           v-if="!isUploading"
           class="avatar-uploader"
@@ -17,6 +16,7 @@
           <i class="el-icon-loading"></i>
         </div>
       </div>
+      <img v-else :src="user.img" alt>
     </div>
     <!-- SOCIAL ICONS -->
     <div class="social-icons">
@@ -54,14 +54,15 @@ export default {
   },
   data() {
     return {
-      isUploading: false
+      isUploading: false,
+      noImgUrl:'http://res.cloudinary.com/sprint4-weat/image/upload/v1553679542/demo/hueavks6ncdlxxp22fnn.jpg'
     };
   },
   computed: {
     imgSrc() {
-      return this.user.img
+      return this.user.img !== this.noImgUrl
         ? this.user.img
-        : "http://res.cloudinary.com/sprint4-weat/image/upload/v1553679542/demo/hueavks6ncdlxxp22fnn.jpg";
+        : noImgUrl
     },
     countriesFlags() {
       return this.user.favCategories.map(category => {
@@ -74,7 +75,7 @@ export default {
             return "http://res.cloudinary.com/sprint4-weat/image/upload/v1553532383/demo/vs51q9wpjurnjdr3jgtk.png";
           case "Vegan":
             return "http://res.cloudinary.com/sprint4-weat/image/upload/v1553604325/demo/yiqc4rpj6amsdb4sxfm1.png";
-          case "France":
+          case "French":
             return "http://res.cloudinary.com/sprint4-weat/image/upload/v1553604377/demo/iuqym1xcmag0qivg76qk.png";
           case "Indian":
             return "http://res.cloudinary.com/sprint4-weat/image/upload/v1553604410/demo/hh4m1bjiyt95wg1nrwj0.png";

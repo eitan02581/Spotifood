@@ -76,6 +76,8 @@
         <div style="width: 100px;height:100px" v-if="isUploading">
           <i class="el-icon-loading"></i>
         </div>
+        <!-- :before-upload="beforeAvatarUpload"
+        :on-success="handleAvatarSuccess"-->
         <img v-if="group.img" :src="group.img" class="avatar">
         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
       </el-upload>
@@ -83,18 +85,19 @@
         <i class="el-icon-loading"></i>
       </div>
     </el-form-item>
-      <!-- MAP -->
-      <div class="map-container">
-        <img v-if="!currLoc" src="@/assets/loading_imgs/map.gif" alt="map_loading">
-        <GmapMap v-if="currLoc" :center="currLoc" :zoom="10" ref="groupMap" style>
-          <GmapMarker :position="markerPos" :clickable="true" :draggable="true"/>
-        </GmapMap>
-      </div>
-      <div class="btns">
-        <el-button type="primary" @click="createGroup">Create</el-button>
-        <el-button @click="cancelGroup">Cancel</el-button>
-      </div>
-    </el-form>
+    <!-- MAP -->
+    <div class="map-container">
+      <img v-if="!currLoc" src="@/assets/loading_imgs/map.gif" alt="map_loading">
+      <GmapMap v-if="currLoc" :center="currLoc" :zoom="10" ref="groupMap" style>
+        <GmapMarker :position="markerPos" :clickable="true" :draggable="true"/>
+      </GmapMap>
+    </div>
+    <div class="btns">
+      <el-button type="primary" @click="createGroup">Create</el-button>
+      <el-button @click="cancelGroup">Cancel</el-button>
+    </div>
+  </el-form>
+  <!-- </section> -->
 </template>
 
 <script>
@@ -124,10 +127,10 @@ export default {
         eventType: "",
         img: "",
         hashtags: [],
-        description:''
+        description: ""
       },
       eventType: ["Breakfast", "Brunch", "Lunch", "Dinner", "Other"],
-      isLoading:false
+      isLoading: false
     };
   },
   created() {
@@ -193,7 +196,7 @@ export default {
       return emptyVal !== -1 || !this.group.cuisineType.length;
     },
     async createGroup() {
-      this.isLoading = true
+      this.isLoading = true;
 
       if (!this.group.img) {
         this.group.img = `https://picsum.photos/200/300/${this.group.title}`;
@@ -210,7 +213,7 @@ export default {
         });
         this.$toast.Success("Group Added Successfully");
         this.$router.push("/groups/" + newGroup._id);
-        this.isLoading = false
+        this.isLoading = false;
       } catch (e) {
         console.log(e);
         this.$toast.Error("Something went wrong");
@@ -274,20 +277,28 @@ export default {
   height: 178px;
   display: block;
 }
-section {
-  width: 80%;
-  margin: 10px auto;
-  padding: 20px 5px;
+// section {
+//   margin: 80px auto;
+//   padding: 20px 10px;
+//   border-radius: 10px;
+//   width: 80%;
+//   @media (min-width: 850px) {
+//     min-width:850px;
+//   }
+// display: flex;
+// flex-direction: column;
+// justify-content: space-between;
+.form-text-input {
   border: 1px solid rgb(223, 223, 223);
   grid-column-gap: 10px;
-  width: 100%;
+  width:100%;
   min-width: 200px;
   margin: 80px auto;
   padding: 15px;
   display: grid;
   grid-template-columns: 1fr;
   @media (min-width: 850px) {
-    width: 1000px;
+  width: 1000px;
     grid-template-columns: 1fr 1fr;
   }
   h1 {
@@ -302,27 +313,14 @@ section {
     :first-child {
       grid-column-start: span 2;
     }
-    min-width: 200px;
-    margin: 5px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
   }
-  .map-container {
-    width: 500px;
-    margin: 5px;
+  :nth-child(2) {
+    grid-column-start: 1;
   }
-  .vue-map-container {
-    border: 1px solid rgb(219, 219, 219);
-    // width: 400px;
-    // max-width: 400px;
-    min-height: 400px;
-    flex-grow: 1;
-  }
-  .btns {
-    margin-left: 50px;
-    align-self: flex-end;
-    justify-self: flex-start;
+  @media (min-width: 850px) {
+    :nth-child(2) {
+      grid-column-start: 1;
+    }
   }
 }
 .vue-map-container {
@@ -331,7 +329,7 @@ section {
   // max-width: 400px;
   min-height: 300px;
   grid-column-start: 1;
-  margin: 10px 0;
+  margin:10px 0;
 }
 .btns {
   margin-left: 50px;

@@ -66,7 +66,7 @@ function getById(groupId) {
 }
 
 function update(group) {
-    console.log('group to update is', group)
+    // console.log('group to update is', group)
     group._id = new ObjectId(group._id)
     return getCollection()
         .updateOne({ _id: group._id }, { $set: group })

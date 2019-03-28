@@ -83,7 +83,7 @@ export default {
       this.isNavNerrow = state;
     },
     onLogOut() {
-      console.log("dd");
+      // console.log("dd");
 
       this.$store.dispatch({ type: "logOut" });
       this.user = null;
@@ -96,7 +96,6 @@ export default {
   },
   computed: {
     userImg() {
-
       return this.user.img
         ? this.user.img
         : "https://api.adorable.io/avatars/300/";
@@ -259,7 +258,9 @@ export default {
             }
             img {
               width: 44px;
-              border-radius: 73px;
+              height: 44px;
+              object-fit: cover;
+              border-radius: 100%;
               transition: 0.3s;
             }
           }
@@ -375,6 +376,8 @@ export default {
       }
       img {
         width: 44px;
+        height: 44px;
+        object-fit: cover;
         border-radius: 73px;
         transition: 0.3s;
       }

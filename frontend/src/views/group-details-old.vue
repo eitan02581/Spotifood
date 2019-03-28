@@ -55,14 +55,14 @@ export default {
     pandingUser
   },
   created() {
-    console.log("group details created!");
+    // console.log("group details created!");
     this.$store
       .dispatch({ type: "getGroupById", groupId: this.$route.params.groupId })
       // get group
       .then(() => {
-        console.log("maybe here?");
+        // console.log("maybe here?");
         this.user = this.$store.getters.user;
-        console.log("group details func runs");
+        // console.log("group details func runs");
         this.checkIfUserIsAdmin();
       })
       // check if user able to join a group

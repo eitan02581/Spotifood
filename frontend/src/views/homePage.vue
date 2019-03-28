@@ -50,12 +50,12 @@ export default {
     return {
       breakfastGroups: null,
       lunchGroups: null,
-      dinnerGroups: null,
+      dinnerGroups: null
     };
   },
   async created() {
     this.$store.dispatch({ type: "getGroups" }).then(() => {
-      console.log("all groups are", this.$store.getters.groups);
+      // console.log("all groups are", this.$store.getters.groups);
       this.breakfastGroups = this.$store.getters.groups.filter(
         group => group.eventType === "Breakfast"
       );

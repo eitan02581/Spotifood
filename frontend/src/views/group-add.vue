@@ -135,7 +135,7 @@ export default {
   },
   created() {
     if (navigator.geolocation) {
-      console.log("created");
+      // console.log("created");
       setTimeout(() => {
         navigator.geolocation.getCurrentPosition(this.setUserLocation);
       }, 1500);
@@ -149,7 +149,7 @@ export default {
       this.$router.push("/");
     },
     setUserLocation(position) {
-      console.log("user location is", position);
+      // console.log("user location is", position);
       this.currLoc = {
         lat: position.coords.latitude,
         lng: position.coords.longitude
@@ -164,10 +164,10 @@ export default {
     },
     setPlace(place) {
       if (Object.keys(place).length < 2) {
-        console.log(Object.keys(place).length);
+        // console.log(Object.keys(place).length);
         return;
       }
-      console.log(place);
+      // console.log(place);
       this.group.location = {
         lat: place.geometry.location.lat(),
         lng: place.geometry.location.lng()
@@ -202,7 +202,7 @@ export default {
         this.group.img = `https://picsum.photos/200/300/${this.group.title}`;
       }
       if (this.isInValid()) {
-        console.log("invalid group");
+        // console.log("invalid group");
         return;
       }
       let admin = this.$store.getters.user;
@@ -215,19 +215,19 @@ export default {
         this.$router.push("/groups/" + newGroup._id);
         this.isLoading = false;
       } catch (e) {
-        console.log(e);
+        // console.log(e);
         this.$toast.Error("Something went wrong");
       }
     },
     uploadImg(input) {
       this.isUploading = true;
-      console.log(input.file);
+      // console.log(input.file);
       const formData = new FormData();
       formData.append("file", input.file);
       uploadService.uploadImg(formData).then(url => {
-        console.log(url);
+        // console.log(url);
         this.group.img = url;
-        console.log(this.group.img); //// TODO: show success popup
+        // console.log(this.group.img); 
         this.isUploading = false;
       });
     }

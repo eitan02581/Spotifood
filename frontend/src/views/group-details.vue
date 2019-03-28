@@ -125,6 +125,7 @@
     <div class="recpies-container">
       <recipes-list :recipes="group.recipes"/>
     </div>
+    <!-- TODO: will be uncommented when chat will exsit -->
     <!-- <div class="map-container">
       <gmap-map :center="eventLocation" :zoom="12">
         <gmap-marker :position="eventLocation"></gmap-marker>
@@ -164,7 +165,7 @@ export default {
       lat: 35,
       lng: 35
     };
-    console.log("group details created!");
+    // console.log("group details created!");
     this.$store
       .dispatch({ type: "getGroupById", groupId: this.$route.params.groupId })
       // get group
@@ -210,7 +211,7 @@ export default {
   methods: {
     getImgs() {
       var imgs = [];
-      console.log(this.$store.getters.group.recipes);
+      // console.log(this.$store.getters.group.recipes);
 
       this.$store.getters.group.recipes.forEach(recipe => {
         if (recipe.imgs.length >= 1) {

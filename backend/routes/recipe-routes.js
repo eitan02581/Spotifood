@@ -7,17 +7,17 @@ function addRecipeRoutes(app) {
     app.get('/recipe', (req, res) => {
         RecipeService.query()
             .then(recipes => {
-                console.log('answer from query', recipes)
+                // console.log('answer from query', recipes)
                 return res.json(recipes)
             })
     })
 
     app.get('/recipe/:recipeId', (req,res) => {
         let recipeId = req.params.recipeId
-        console.log('recipe id to get is', recipeId)
+        // console.log('recipe id to get is', recipeId)
         RecipeService.getById(recipeId)
             .then(recipe => {
-                console.log('recipe retrieved is', recipe)
+                // console.log('recipe retrieved is', recipe)
                 res.json(recipe)
             })
     })
@@ -26,7 +26,7 @@ function addRecipeRoutes(app) {
         let payload = req.body
         RecipeService.add(payload)
             .then(updatedrecipe => {
-                console.log('recipe added and is', updatedrecipe)
+                // console.log('recipe added and is', updatedrecipe)
                 res.json(updatedrecipe)
             })
     })
@@ -39,10 +39,10 @@ function addRecipeRoutes(app) {
 
     app.put('/recipe/:recipeId', (req, res) => {
         const recipe = req.body.recipe
-        console.log('request recipe to update', recipe)
+        // console.log('request recipe to update', recipe)
         RecipeService.update(recipe)
             .then(recipe => {
-                console.log('successfuly updated recipe',recipe)
+                // console.log('successfuly updated recipe',recipe)
                 return res.json(recipe)
             })
     })

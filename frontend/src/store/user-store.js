@@ -60,7 +60,7 @@ const userStore = {
             return userService.updateUser(user).then(res => res)
         },
         uploadImg({commit},{userId, img}){
-            console.log("userId",userId)
+            // console.log("userId",userId)
             return uploadService.uploadUserImg(img,userId).then(res => res)
           }
     }

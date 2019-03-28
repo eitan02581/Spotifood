@@ -97,6 +97,7 @@
         </div>
         <div class="desc-container">
           <p>{{group.description}}</p>
+          <h3>{{group.time | fullTime}}</h3>
         </div>
       </div>
       <div class="users-aside">
@@ -484,10 +485,11 @@ export default {
           color: #607d8b;
         }
         .desc-container {
-          // background-color: lightgrey;
           margin-top: 20px;
           overflow: scroll;
-
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
           width: 100%;
           height: 100%;
           background-color: white;

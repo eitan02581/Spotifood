@@ -17,6 +17,7 @@
       :key="recipe._id"
     >
       <el-collapse-item :title="recipe.title" :name="idx">
+        <h1 style="color:#f33636;font-size:3rem;margin:0 30px;">{{recipe.title}}</h1>
         <div class="collapse-context">
           <div>
             <el-carousel height="200px">
@@ -141,7 +142,7 @@ export default {
     background-color: #d3dce6;
   }
   .collapse-context {
-    padding: 15px;
+    padding: 30px;
     display: flex;
     justify-content: space-between;
   }

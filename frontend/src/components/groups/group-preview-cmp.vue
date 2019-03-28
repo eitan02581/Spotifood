@@ -161,6 +161,7 @@ section {
           .title {
             text-align: left;
             padding-left: 7px;
+            overflow: scroll;
             h1 {
               transition: 0.3s;
             }

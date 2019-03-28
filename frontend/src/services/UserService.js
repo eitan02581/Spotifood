@@ -36,7 +36,7 @@ function signUp(newUser) {
 
     newUser.groups = []
     newUser.isAdmin = false
-    newUser.img = ''
+    newUser.img = 'http://res.cloudinary.com/sprint4-weat/image/upload/v1553679542/demo/hueavks6ncdlxxp22fnn.jpg'
 
     return axios.post(`${USER_ROUTE}/signup`, newUser)
         .then(user => {

@@ -40,6 +40,7 @@ export default {
   width: 300px;
   border: 1px solid #e4e7ed;
   display: flex;
+  background-color: #fff;
   img {
     height: 100%;
     width: 100px;
@@ -48,8 +49,12 @@ export default {
   .content {
     width: 150px;
     padding: 5px;
+    background-color: white;
     h4 {
       color: gray;
+    }
+    h3{
+      color: #424242;
     }
   }
   i {

@@ -35,8 +35,8 @@ function getById(groupId) {
         .then(res => res.data)
         .then(group => {
             var groupUsers = group.users.map(userId => {
-                return userService.getUserById(userId)
-            })
+                    return userService.getUserById(userId)
+                })
             var groupRecipes = group.recipes.map(recipeId => {
                 return recipesService.getRecipeById(recipeId)
             })

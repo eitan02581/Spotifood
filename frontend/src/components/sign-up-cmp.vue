@@ -1,6 +1,6 @@
 <template>
   <section data-aos="fade" data-aos-duration="900">
-    <div class="form-wrapper">
+    <div class="first-screen form-wrapper" v-if="!isCompleteFirstStep">
       <form>
         <h1>Sign Up</h1>
         <el-input placeholder="Username" v-model="user.username">
@@ -22,13 +22,32 @@
         <el-input placeholder="Your Country" v-model="user.country"></el-input>
         <el-input placeholder="Your City" v-model="user.city"></el-input>
 
-        <el-button type="primary" @click="signup">Sign Up</el-button>
+        <el-button type="primary" @click="nextStep">Continue</el-button>
       </form>
       <div class="login-container">
         <h4>
           Already Signed?
           <router-link to="/login">Log In</router-link>
         </h4>
+      </div>
+    </div>
+    <div class="second-screen form-wrapper" v-else>
+      <h1>Favoriete Cuisines</h1>
+      <div class="cuisine-container">
+        <div
+          class="cuisine-option"
+          :class="{selected:cuisine.isSelected}"
+          v-for="(cuisine,idx) in cuisines"
+          :key="idx"
+          @click="selectCuisine(Object.keys(cuisine)[0],idx)"
+        >
+          <input type="radio" :value="Object.keys(cuisine)[0]" :ref="Object.keys(cuisine)[0]">
+          <img :src="Object.values(cuisine)[0]">
+        </div>
+      </div>
+      <div class="bts">
+        <el-button type="info" @click="goBack">Back</el-button>
+        <el-button type="primary" @click="signup">Sign Up</el-button>
       </div>
     </div>
   </section>
@@ -45,18 +64,44 @@ export default {
         password: null,
         country: null,
         city: null
-      }
+      },
+      isCompleteFirstStep: false,
+      cuisines: []
     };
   },
-  created() {},
+  created() {
+    var categories = this.$store.getters.categories;
+    var categoriesImgs = this.$store.getters.categoriesImgs;
+    this.cuisines = categories.map((category, idx) => {
+      var obj = {};
+      obj[category] = categoriesImgs[idx];
+      obj.isSelected = false;
+      return obj;
+    });
+  },
   methods: {
+    nextStep() {
+      this.isCompleteFirstStep = true;
+    },
+    selectCuisine(ref, idx) {
+      var checkedToggle = this.$refs[ref][0];
+      checkedToggle.checked = !checkedToggle.checked;
+      this.cuisines[idx].isSelected = !this.cuisines[idx].isSelected;
+    },
     signup() {
+      var categories = this.$store.getters.categories;
+      this.user.favCategories = categories.filter(
+        (img, idx) => this.cuisines[idx].isSelected
+      );
       this.$store.dispatch({ type: "signUp", newUser: this.user }).then(() => {
         var userWithId = this.$store.getters.user;
         eventBus.$emit("USER_LOGGED", userWithId);
-        this.$toast.Success(`Welcome ${user.username}`);
-        this.$router.push("/");
+        this.$toast.Success(`Welcome ${this.user.username}`);
+        this.$router.push(`/user/${userWithId._id}`);
       });
+    },
+    goBack() {
+      this.isCompleteFirstStep = false;
     }
   }
 };
@@ -64,6 +109,12 @@ export default {
 
 <style lang="scss" scoped>
 section {
+  .second-screen {
+    margin: 0 auto;
+  }
+  .first-screen {
+    margin: 0 auto;
+  }
   height: 100%;
   padding-top: 200px;
   background-image: url("../assets/group-imgs/table4.jpg");
@@ -74,6 +125,7 @@ section {
   .form-wrapper {
     // margin-top: 100px;
     background-color: #ffffffd4;
+<<<<<<< HEAD
 
     width: 400px;
     // height: 350px;
@@ -81,6 +133,11 @@ section {
     margin-top: -50px;
     margin-bottom: 50px;
     box-shadow: rgba(black, 0.4) 0 0 25px;
+=======
+    max-width: 400px;
+    margin-top: -50px;
+    box-shadow: unset;
+>>>>>>> b35e988b4fb96c7faf9297159274da5f9892e318
     border-radius: 5px;
     display: flex;
     flex-direction: column;
@@ -105,6 +162,59 @@ section {
       justify-content: center;
       align-items: center;
       color: rgb(119, 119, 119);
+    }
+
+    h1 {
+      font-size: 2em;
+      margin: 20px;
+      color: #424242;
+    }
+
+    .cuisine-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      .cuisine-option {
+        cursor: pointer;
+        position: relative;
+        margin: 10px;
+        border-radius: 15px;
+        padding: 5px;
+        input {
+          display: none;
+        }
+        img {
+          width: 100px;
+          height: 100px;
+        }
+      }
+    }
+    .bts {
+      display: flex;
+      justify-content: space-evenly;
+    }
+    button {
+      margin: 10px;
+    }
+  }
+  .selected {
+    background-color: green;
+  }
+  @media (min-width: 550px) {
+    .second-screen {
+      margin: 0 auto 120px auto;
+    }
+    .first-screen {
+      margin: 0 auto 50px auto;
+    }
+  }
+  @media (min-width: 450px) {
+    .form-wrapper {
+      box-shadow: rgba(black, 0.4) 0 0 25px;
+    }
+    .second-screen {
+      margin: 0 auto 70px auto;
     }
   }
 }

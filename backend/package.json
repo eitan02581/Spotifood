@@ -4,8 +4,12 @@
   "description": "backend for groups",
   "main": "server.js",
   "scripts": {
+<<<<<<< HEAD
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server"
+=======
+    "test": "echo \"Error: no test specified\" && exit 1"
+>>>>>>> b35e988b4fb96c7faf9297159274da5f9892e318
   },
   "keywords": [
     "/Users/yovel/Desktop/Sprint\\",

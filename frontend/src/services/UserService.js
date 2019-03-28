@@ -35,7 +35,6 @@ function logIn(user) {
 function signUp(newUser) {
 
     newUser.groups = []
-    newUser.favCategories = []
     newUser.isAdmin = false
     newUser.img = ''
 

@@ -15,28 +15,12 @@ import vueEventCalendar from 'vue-event-calendar'
 import FunctionalCalendar from 'vue-functional-calendar';
 import Vuetify from 'vuetify'
 import VuetifyToast from 'vuetify-toast-snackbar'
-import VueAwesomeSwiper from 'vue-awesome-swiper'
+// import VueAwesomeSwiper from 'vue-awesome-swiper'
 require('vuetify/dist/vuetify.min.css')
-import 'swiper/dist/css/swiper.css'
-
-var VueScrollTo = require('vue-scrollto');
-Vue.use(VueScrollTo)
-Vue.use(VueScrollTo, {
-     container: "body",
-     duration: 500,
-     easing: "ease",
-     offset: 0,
-     force: true,
-     cancelable: true,
-     onStart: false,
-     onDone: false,
-     onCancel: false,
-     x: false,
-     y: true
- })
+// import 'swiper/dist/css/swiper.css'
 
 Vue.use(Vuetify)
-Vue.use(VueAwesomeSwiper)
+// Vue.use(VueAwesomeSwiper)
 Vue.use(FunctionalCalendar)
 Vue.use(vueEventCalendar, { locale: 'en' })
 

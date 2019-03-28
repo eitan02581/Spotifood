@@ -17,9 +17,6 @@
             </span> Experience
           </h1>
         </div>
-        <a class="ct-btn-scroll ct-js-btn-scroll" v-scroll-to="'#howItWorksId'" href="#">
-          <img alt="Arrow Down Icon" src="../../assets/arrow-down.png">
-        </a>
       </div>
     </div>
   </section>
@@ -114,24 +111,6 @@ section {
     font-size: 60px;
     color: #ffffff;
     text-align: center;
-  }
-  .ct-btn-scroll {
-    width: 49px;
-    height: 49px;
-    position: absolute;
-    bottom: 30px;
-    left: 0;
-    right: 0;
-    margin: 120px auto;
-    padding-top: 500px;
-    z-index: 9999;
-    border-radius: 50%;
-    -webkit-transition: background-color 0.25s ease-in-out;
-    transition: background-color 0.25s ease-in-out;
-    :hover{
-      background-color: rgba(128, 128, 128, 0.486);
-    border-radius: 50%;
-    }
   }
 }
 </style>

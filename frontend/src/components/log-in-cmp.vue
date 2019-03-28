@@ -59,23 +59,19 @@ export default {
 <style lang="scss" scoped>
 section {
   background-image: url("../assets/group-imgs/beer.jpg");
+  // background-color: lightseagreen;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   height: 100%;
-<<<<<<< HEAD
-=======
   background-attachment: fixed;
 
   // margin-top: 150px;
->>>>>>> e4abb1fc84218791befa13d9f76d4bc94eca2d58
   padding-top: 100px;
   .form-wrapper {
-    background-color: #ffffffda;
-    width:90%;
-    @media (min-width: 500px) {
+    background-color: #ffffffd4;
+    // background-color: rgba(238, 238, 238, 0.637);
     width: 400px;
-    }
     height: 350px;
     margin: 0 auto;
     margin-bottom: 300px;

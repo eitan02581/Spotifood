@@ -48,7 +48,6 @@ function addUserRoutes(app) {
         console.log('userId in backend', userId)
         UserService.getById(userId)
             .then(user => {
-                console.log('user by id got', user)
                 res.json(user)
             })
     })

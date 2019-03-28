@@ -8,7 +8,9 @@
         <div class="participant-item" v-for="user in users" :key="user._id">
           <!-- ONLY FOR ADMIN -->
           <div v-if="isAdmin && user" class="remove-btn">
-            <button @click="onRemoveParticipant(user._id)">X</button>
+            <button @click="onRemoveParticipant(user._id)">
+              <i style="font-size:20px; color:#f44336" class="fas fa-user-slash"></i>
+            </button>
           </div>
           <router-link :to="'/user/' + user._id">
             <participant-preview :user="user"/>
@@ -49,7 +51,10 @@ export default {
       var groupId = this.$store.getters.group._id;
       var ids = { userId, groupId };
 
-      this.$store.dispatch({ type: "removeUserFromGroup", ids });
+      this.$store.dispatch({ type: "removeUserFromGroup", ids }).then(() => {
+        this.users = this.users.fitler(user => user._id !== userId);
+        this.$toast.Error(`Removed!`);
+      });
     }
   }
 };
@@ -63,7 +68,12 @@ section {
   }
   .list-holder {
     display: flex;
-}
+  }
+  .remove-btn {
+    text-align: center;
+    margin-right: 15px;
+    margin-bottom: 5px;
+  }
 }
 /* h3 {
   color: gray;

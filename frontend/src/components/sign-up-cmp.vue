@@ -116,7 +116,10 @@ section {
     margin: 0 auto;
   }
   height: 100%;
-  padding-top: 200px;
+    padding-top: 90px;
+  @media (min-width: 850px) {
+    padding-top: 110px;
+  }
   background-image: url("../assets/group-imgs/table4.jpg");
   background-position: center;
   background-repeat: no-repeat;

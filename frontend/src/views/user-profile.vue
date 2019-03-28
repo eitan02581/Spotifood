@@ -61,7 +61,7 @@ export default {
 <style scoped lang="scss">
 .profile-container {
   padding-top: calc(50px + 25%);
-  max-width: 1200px;
+  // max-width: 1200px;
   min-height: calc(100vh - 200px);
   width: 100%;
   margin: 0 auto;

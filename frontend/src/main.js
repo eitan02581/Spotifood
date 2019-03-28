@@ -19,6 +19,22 @@ import VueAwesomeSwiper from 'vue-awesome-swiper'
 require('vuetify/dist/vuetify.min.css')
 import 'swiper/dist/css/swiper.css'
 
+var VueScrollTo = require('vue-scrollto');
+Vue.use(VueScrollTo)
+Vue.use(VueScrollTo, {
+     container: "body",
+     duration: 500,
+     easing: "ease",
+     offset: 0,
+     force: true,
+     cancelable: true,
+     onStart: false,
+     onDone: false,
+     onCancel: false,
+     x: false,
+     y: true
+ })
+
 Vue.use(Vuetify)
 Vue.use(VueAwesomeSwiper)
 Vue.use(FunctionalCalendar)
@@ -55,7 +71,7 @@ Vue.config.productionTip = false
 Vue.use(Element, { locale: 'en' })
 
 Vue.use(VuetifyToast, {
-  x: 'right', // default
+  x: 'center', // default
   y: 'bottom', // default
   color: '#292929', // default
   icon: 'WEat',

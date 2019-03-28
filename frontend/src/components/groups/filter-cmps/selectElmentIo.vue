@@ -7,7 +7,7 @@
         filterable
         allow-create
         default-first-option
-        placeholder="Search Groups"
+        placeholder="Search By Hashtags"
         @change="onSave"
       >
         <el-option

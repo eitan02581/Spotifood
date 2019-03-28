@@ -108,12 +108,16 @@ export default {
   padding: 12px;
   border-radius: 8px;
   display: flex;
+  overflow: scroll;
 }
 .user-container {
   text-align: center;
   margin-left: 20px;
   margin-right: 20px;
   .info-container {
+    .country {
+      color: #f44336;
+    }
     .name {
       color: #607d8b;
     }
@@ -123,6 +127,12 @@ export default {
         border-radius: 50px;
       }
     }
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  section {
+    margin-top: 76px;
   }
 }
 </style>

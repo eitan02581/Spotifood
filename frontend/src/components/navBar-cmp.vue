@@ -116,6 +116,7 @@ export default {
 };
 </script>
 
+// TODO: REFACTOR STYLE
 <style scpoed lang="scss">
 @media only screen and (min-width: 600px) {
   .ham-container {

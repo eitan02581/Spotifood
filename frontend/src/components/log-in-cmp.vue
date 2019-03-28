@@ -69,17 +69,11 @@ section {
   // margin-top: 150px;
   padding-top: 100px;
   .form-wrapper {
-<<<<<<< HEAD
-    background-color: #ffffffd4;
-    // background-color: rgba(238, 238, 238, 0.637);
-    width: 400px;
-=======
     background-color: #ffffffda;
     width: 90%;
     @media (min-width: 500px) {
       width: 400px;
     }
->>>>>>> b35e988b4fb96c7faf9297159274da5f9892e318
     height: 350px;
     margin: 0 auto;
     margin-bottom: 300px;

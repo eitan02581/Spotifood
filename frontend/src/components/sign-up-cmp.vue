@@ -125,19 +125,9 @@ section {
   .form-wrapper {
     // margin-top: 100px;
     background-color: #ffffffd4;
-<<<<<<< HEAD
-
-    width: 400px;
-    // height: 350px;
-    margin: 0 auto;
-    margin-top: -50px;
-    margin-bottom: 50px;
-    box-shadow: rgba(black, 0.4) 0 0 25px;
-=======
     max-width: 400px;
     margin-top: -50px;
     box-shadow: unset;
->>>>>>> b35e988b4fb96c7faf9297159274da5f9892e318
     border-radius: 5px;
     display: flex;
     flex-direction: column;

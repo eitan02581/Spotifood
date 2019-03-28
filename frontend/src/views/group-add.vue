@@ -291,14 +291,14 @@ export default {
 .form-text-input {
   border: 1px solid rgb(223, 223, 223);
   grid-column-gap: 10px;
-  width:100%;
+  width: 100%;
   min-width: 200px;
   margin: 80px auto;
   padding: 15px;
   display: grid;
   grid-template-columns: 1fr;
   @media (min-width: 850px) {
-  width: 1000px;
+    width: 1000px;
     grid-template-columns: 1fr 1fr;
   }
   h1 {
@@ -329,7 +329,7 @@ export default {
   // max-width: 400px;
   min-height: 300px;
   grid-column-start: 1;
-  margin:10px 0;
+  margin: 10px 0;
 }
 .btns {
   margin-left: 50px;

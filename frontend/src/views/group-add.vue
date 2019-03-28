@@ -1,4 +1,5 @@
 <template>
+  <!-- <section class="add-group-form" v-loading="isLoading"> -->
   <el-form class="form-text-input" ref="group" label-width="120px">
     <!-- Form Label -->
     <el-form-item>
@@ -75,7 +76,13 @@
         <div style="width: 100px;height:100px" v-if="isUploading">
           <i class="el-icon-loading"></i>
         </div>
-      </el-form-item>
+        <img v-if="group.img" :src="group.img" class="avatar">
+        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+      </el-upload>
+      <div class="loading" v-else>
+        <i class="el-icon-loading"></i>
+      </div>
+    </el-form-item>
       <!-- MAP -->
       <div class="map-container">
         <img v-if="!currLoc" src="@/assets/loading_imgs/map.gif" alt="map_loading">

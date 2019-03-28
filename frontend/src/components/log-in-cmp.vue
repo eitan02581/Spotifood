@@ -69,9 +69,9 @@ section {
   padding-top: 100px;
   .form-wrapper {
     background-color: #ffffffda;
-    width:90%;
+    width: 90%;
     @media (min-width: 500px) {
-    width: 400px;
+      width: 400px;
     }
     height: 350px;
     margin: 0 auto;

@@ -4,7 +4,7 @@
     <div class="map-container">
       <img v-if="!mapLoaded" src="@/assets/loading_imgs/map.gif" alt="map_loading">
       <gmap-map v-if="mapLoaded" :center="mapCenter" :zoom="7">
-        <template v-if="groups[0]">
+        <template v-if="groups.length">
           <gmap-marker v-for="group in groups" :key="group._id" :position="group.location"></gmap-marker>
         </template>
       </gmap-map>
@@ -33,7 +33,7 @@ export default {
   },
   computed: {
     mapCenter() {
-      return this.groups[0] ? this.selectedEventLoc : { lat: 31, lng: 31 };
+      return this.groups.length ? this.selectedEventLoc : { lat: 31, lng: 31 };
     }
   },
   methods: {
@@ -44,7 +44,9 @@ export default {
   created() {
     setTimeout(() => {
       this.mapLoaded = true;
-      this.selectedEventLoc = this.groups[0].location;
+      if (this.groups.length) {
+        this.selectedEventLoc = this.groups[0].location;
+      }
     }, 1500);
   }
 };
@@ -71,13 +73,12 @@ export default {
     width: 90%;
     margin: 100px auto;
     flex-direction: row;
-    
   }
   .map-container {
     width: calc(100% - 250px);
   }
 }
-@media (max-width: 350px){
+@media (max-width: 350px) {
   .profile-events-container {
     margin: 15px auto;
     width: 100%;

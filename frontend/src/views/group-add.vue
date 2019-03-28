@@ -1,5 +1,4 @@
 <template>
-<<<<<<< HEAD
   <!-- <section class="add-group-form" v-loading="isLoading"> -->
   <el-form class="form-text-input" ref="group" label-width="120px">
     <!-- Form Label -->
@@ -75,52 +74,6 @@
         :show-file-list="false"
       >
         <div style="width: 100px;height:100px" v-if="isUploading">
-=======
-  <section class="add-group-form" v-loading="isLoading">
-    <el-form class="form-text-input" ref="group" label-width="120px">
-      <!-- Form Label -->
-      <el-form-item>
-        <h1>Create Group</h1>
-      </el-form-item>
-      <!-- Group Name Input -->
-      <el-form-item label="Group Name">
-        <el-input v-model="group.title"></el-input>
-      </el-form-item>
-      <!-- Group Description -->
-      <el-form-item label="Description">
-        <el-input
-          type="textarea"
-          autosize
-          placeholder="Enter Instruction"
-          v-model="group.description"
-        ></el-input>
-      </el-form-item>
-      <!-- Group Time Input -->
-      <el-form-item label="Meal time">
-        <el-date-picker
-          v-model="group.time"
-          type="datetime"
-          value-format="timestamp"
-          placeholder="Select date and time"
-        ></el-date-picker>
-      </el-form-item>
-      <el-form-item label="Image">
-        <!-- UPLOAD PROFILE IMG -->
-        <el-upload
-          v-if="!isUploading"
-          class="avatar-uploader"
-          action="squeeze rubber duck"
-          :http-request="uploadImg"
-          :show-file-list="false"
-        >
-          <div style="width: 100px;height:100px" v-if="isUploading">
-            <i class="el-icon-loading"></i>
-          </div>
-          <img v-if="group.img" :src="group.img" class="avatar">
-          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-        </el-upload>
-        <div class="loading" v-else>
->>>>>>> e4abb1fc84218791befa13d9f76d4bc94eca2d58
           <i class="el-icon-loading"></i>
         </div>
         <!-- :before-upload="beforeAvatarUpload"

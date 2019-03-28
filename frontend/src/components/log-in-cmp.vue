@@ -63,12 +63,9 @@ section {
   background-repeat: no-repeat;
   background-size: cover;
   height: 100%;
-<<<<<<< HEAD
-=======
   background-attachment: fixed;
 
   // margin-top: 150px;
->>>>>>> e4abb1fc84218791befa13d9f76d4bc94eca2d58
   padding-top: 100px;
   .form-wrapper {
     background-color: #ffffffda;

@@ -5,7 +5,7 @@ const GROUP_COLLECTION = 'groups'
 
 var UtilService = require('./util-service.js');
 var groups = require('../data/groups.json')
-// _resetDb()
+_resetDb()
 
 function _resetDb() {
     _cleanCollection()
@@ -14,7 +14,7 @@ function _resetDb() {
 
 function _addMany() {
     return mongoService.connect()
-        .then(db => db.collection(GROUP_COLLECTION).insert(groups))
+        .then(db => db.collection(GROUP_COLLECTION).insertOne(groups))
         .then(res => {
             group._id = res.insertedId
             return group

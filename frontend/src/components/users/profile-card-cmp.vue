@@ -129,6 +129,7 @@ export default {
       border-radius: 50%;
       width: 175px;
       height: 175px;
+      object-fit: cover;
     }
     .upload-container {
       border: 1px dotted;

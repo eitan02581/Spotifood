@@ -76,6 +76,8 @@
         <div style="width: 100px;height:100px" v-if="isUploading">
           <i class="el-icon-loading"></i>
         </div>
+        <!-- :before-upload="beforeAvatarUpload"
+        :on-success="handleAvatarSuccess"-->
         <img v-if="group.img" :src="group.img" class="avatar">
         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
       </el-upload>
@@ -83,18 +85,19 @@
         <i class="el-icon-loading"></i>
       </div>
     </el-form-item>
-      <!-- MAP -->
-      <div class="map-container">
-        <img v-if="!currLoc" src="@/assets/loading_imgs/map.gif" alt="map_loading">
-        <GmapMap v-if="currLoc" :center="currLoc" :zoom="10" ref="groupMap" style>
-          <GmapMarker :position="markerPos" :clickable="true" :draggable="true"/>
-        </GmapMap>
-      </div>
-      <div class="btns">
-        <el-button type="primary" @click="createGroup">Create</el-button>
-        <el-button @click="cancelGroup">Cancel</el-button>
-      </div>
-    </el-form>
+    <!-- MAP -->
+    <div class="map-container">
+      <img v-if="!currLoc" src="@/assets/loading_imgs/map.gif" alt="map_loading">
+      <GmapMap v-if="currLoc" :center="currLoc" :zoom="10" ref="groupMap" style>
+        <GmapMarker :position="markerPos" :clickable="true" :draggable="true"/>
+      </GmapMap>
+    </div>
+    <div class="btns">
+      <el-button type="primary" @click="createGroup">Create</el-button>
+      <el-button @click="cancelGroup">Cancel</el-button>
+    </div>
+  </el-form>
+  <!-- </section> -->
 </template>
 
 <script>
@@ -288,14 +291,14 @@ export default {
 .form-text-input {
   border: 1px solid rgb(223, 223, 223);
   grid-column-gap: 10px;
-  width: 100%;
+  width:100%;
   min-width: 200px;
   margin: 80px auto;
   padding: 15px;
   display: grid;
   grid-template-columns: 1fr;
   @media (min-width: 850px) {
-    width: 1000px;
+  width: 1000px;
     grid-template-columns: 1fr 1fr;
   }
   h1 {
@@ -326,7 +329,7 @@ export default {
   // max-width: 400px;
   min-height: 300px;
   grid-column-start: 1;
-  margin: 10px 0;
+  margin:10px 0;
 }
 .btns {
   margin-left: 50px;

@@ -59,6 +59,7 @@ export default {
 <style lang="scss" scoped>
 section {
   background-image: url("../assets/group-imgs/beer.jpg");
+  // background-color: lightseagreen;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;

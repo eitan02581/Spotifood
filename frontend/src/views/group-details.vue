@@ -96,7 +96,7 @@
           <h1>Description</h1>
         </div>
         <div class="desc-container">
-          <p>Italian cuisine has a great variety of different ingredients which are commonly used, ranging from fruits, vegetables, sauces, meats, etc. In the North of Italy, fish (such as cod, or baccalà), potatoes, rice, corn (maize), sausages, pork, and different types of cheeses are the most common ingredients. Pasta dishes with use of tomato are spread in all Italy.[33][34] Italians like their ingredients fresh and subtly seasoned and spiced.</p>
+          <p>{{group.description}}</p>
         </div>
       </div>
       <div class="users-aside">
@@ -113,17 +113,23 @@
             <participantList :users="users"></participantList>
           </div>
         </div>
-        <div class="chat-container"></div>
+        <div class="chat-container">
+          <div class="map-container">
+            <gmap-map :center="eventLocation" :zoom="12">
+              <gmap-marker :position="eventLocation"></gmap-marker>
+            </gmap-map>
+          </div>
+        </div>
       </div>
     </div>
     <div class="recpies-container">
       <recipes-list :recipes="group.recipes"/>
     </div>
-    <div class="map-container">
+    <!-- <div class="map-container">
       <gmap-map :center="eventLocation" :zoom="12">
         <gmap-marker :position="eventLocation"></gmap-marker>
       </gmap-map>
-    </div>
+    </div>-->
   </section>
 </template>
 
@@ -291,6 +297,8 @@ export default {
 };
 </script>
 
+
+//TODO: REFACTOR STYLE
 <style scoped lang="scss">
 @media only screen and (min-width: 600px) {
   .group-details {
@@ -310,6 +318,8 @@ export default {
       // background-color: lightgreen;
       width: 100%;
       height: 500px;
+      min-width: 762px;
+
       // margin-bottom: 100px;
       text-align: center;
       img {
@@ -437,6 +447,8 @@ export default {
             align-items: center;
             padding: 4px;
             height: 42px;
+            overflow: scroll;
+
             h3 {
               color: #f44336;
             }
@@ -449,9 +461,13 @@ export default {
             }
           }
           .cuisine-type {
+            overflow: scroll;
+
             margin-bottom: 15px;
           }
           .hashtags {
+            overflow: scroll;
+
             display: flex;
             align-items: center;
             span.hash {
@@ -470,6 +486,7 @@ export default {
         .desc-container {
           // background-color: lightgrey;
           margin-top: 20px;
+          overflow: scroll;
 
           width: 100%;
           height: 100%;
@@ -528,7 +545,7 @@ export default {
           // height: 40%;
         }
         .chat-container {
-          background-color: white;
+          // background-color: white;
           width: 100%;
           height: 100%;
           border-radius: 8px;
@@ -543,12 +560,16 @@ export default {
       margin-left: -50px;
     }
     .map-container {
-      margin-bottom: 100px;
+      // margin-bottom: 100px;
+
       // background-color: lightsteelblue;
+      height: 383px;
+      border-radius: 5px;
       width: 100%;
-      height: 300px;
+      // height: 100%;
       .vue-map-container {
         height: 100%;
+        // height: 500px;
       }
     }
   }
@@ -692,6 +713,8 @@ export default {
           .cuisine-type {
             display: flex;
             align-items: center;
+            overflow: scroll;
+
             padding: 4px;
             height: 42px;
             h3 {
@@ -711,6 +734,8 @@ export default {
           .hashtags {
             display: flex;
             align-items: center;
+            overflow: scroll;
+
             span.hash {
               font-size: 21px;
               color: coral;
@@ -727,6 +752,7 @@ export default {
         .desc-container {
           // background-color: lightgrey;
           margin-top: 20px;
+          overflow: scroll;
 
           width: 100%;
           height: 100%;
@@ -786,7 +812,7 @@ export default {
           // height: 40%;
         }
         .chat-container {
-          background-color: white;
+          // background-color: white;
           width: 100%;
           height: 100%;
           border-radius: 8px;

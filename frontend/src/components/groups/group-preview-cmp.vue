@@ -132,6 +132,8 @@ section {
         border-top: none;
 
         img {
+          cursor: pointer;
+
           width: 60px;
           height: 60px;
           border: 3px white solid;

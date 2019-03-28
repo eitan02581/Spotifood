@@ -116,15 +116,14 @@ section {
     margin: 0 auto;
   }
   height: 100%;
-    padding-top: 90px;
-  @media (min-width: 850px) {
-    padding-top: 110px;
-  }
+  padding-top: 150px;
   background-image: url("../assets/group-imgs/table4.jpg");
+  // background-color: lightseagreen;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   .form-wrapper {
+    // margin-top: 100px;
     background-color: #ffffffd4;
     max-width: 400px;
     margin-top: -50px;
@@ -133,6 +132,8 @@ section {
     display: flex;
     flex-direction: column;
     form {
+      // height: 350px;
+
       padding: 40px 60px 0 60px;
       *:not(:first-child) {
         margin: 15px 0;

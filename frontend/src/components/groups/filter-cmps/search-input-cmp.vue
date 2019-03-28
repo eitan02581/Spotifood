@@ -15,9 +15,10 @@ export default {
     return {
       title: ""
     };
-  },created() {
+  },
+  created() {
     eventBus.$on("CLEAR_FILEDS", () => {
-      this.title = '';
+      this.title = "";
     });
   },
   methods: {
@@ -35,6 +36,8 @@ export default {
 </script>
 <style lang="scss" scoped>
 input {
+  width: 212px;
+
   -webkit-appearance: none;
   background-color: #fff;
   border-radius: 4px;
@@ -50,7 +53,7 @@ input {
   padding: 0 15px;
   -webkit-transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
   transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
-  width: 100%;
+  // width: 100%;
 }
 .input-container {
   position: relative;

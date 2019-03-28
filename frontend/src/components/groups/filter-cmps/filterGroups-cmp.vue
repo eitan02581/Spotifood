@@ -1,6 +1,6 @@
 <template>
   <section>
-    <div class="filter-container">
+    <div :class="{'filter-container':true , anim: isOpen }">
       <form>
         <searchTitle @title="onSelectedVals('title' , $event)"></searchTitle>
         <eventSelect @eventType="onSelectedVals('eventType' ,  $event)"></eventSelect>
@@ -8,7 +8,9 @@
         <guestsSelect @guests="onSelectedVals('guests' ,  $event)"></guestsSelect>
         <!-- <dateSuggestions></dateSuggestions> -->
         <selectEl @selectedVals="onSelectedVals('hashtags' ,  $event)"></selectEl>
-        <button @click="clearAll" class="clear-btn">Clear All</button>
+        <div class="clear-container">
+          <button @click="clearAll" class="clear-btn">Clear All</button>
+        </div>
       </form>
     </div>
   </section>
@@ -41,7 +43,8 @@ export default {
         eventType: "",
         guests: null,
         title: ""
-      }
+      },
+      isOpen: false
     };
   },
   methods: {
@@ -61,6 +64,9 @@ export default {
         guests: null,
         title: ""
       };
+    },
+    onFilter() {
+      this.isOpen = !this.isOpen;
     }
   },
   watch: {
@@ -75,13 +81,80 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.filter-container {
-  // margin-top: -63px;
-  display: flex;
-  justify-content: center;
-  form {
+@media only screen and (min-width: 600px) {
+  section {
     display: flex;
   }
-  min-width: 210px;
+  .filter-ham {
+    display: none;
+  }
+  .filter-container {
+    // margin-top: -63px;
+    display: flex;
+    justify-content: center;
+    form {
+      display: flex;
+    }
+    min-width: 210px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  section {
+    display: inline-block;
+  }
+  .filter-ham {
+    display: inline-block;
+    font-size: 40px;
+    color: blue;
+    cursor: pointer;
+    z-index: 121212;
+    padding: 10px 20px 0 0;
+  }
+  .filter-container {
+    // margin-top: -63px;
+    // position: fixed;
+    min-height: 200px;
+    z-index: 123;
+    left: 0;
+    position: unset;
+    // display: flex;
+    // justify-content: center;
+    min-width: 210px;
+    left: 0;
+    overflow: hidden;
+    transition: 0.3s;
+    z-index: 112221111;
+    width: 100%;
+    form {
+      margin: 0 auto;
+      width: 230px;
+      display: flex;
+      z-index: 112221111;
+      justify-content: center;
+      flex-wrap: wrap;
+      section {
+        margin-top: 20px;
+      }
+    }
+  }
+  // .filter-container {
+  //   min-height: 100vh;
+  //   position: fixed;
+  //   z-index: 123;
+  //   width: 200px;
+  //   background-color: white;
+  //   left: -200px;
+  //   overflow: hidden;
+  //   transition: 0.3s;
+  // }
+  .anim {
+    left: 0px;
+    position: unset;
+  }
+  .clear-btn {
+    width: 200px;
+    margin-top: 23px;
+  }
 }
 </style>

@@ -3,7 +3,10 @@
     <div class="about-item">
       <img src alt="Alex Yeruhin">
       <h1>Alex Yeruhin</h1>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit facilis, illo nisi cum repudiandae quam soluta a consectetur dolore nostrum repellendus hic ea aut sed. Nobis, asperiores. Architecto, necessitatibus tenetur?</p>
+      <p>
+        Alex Yeruhin, 21 from Netanya , full stack developer web application.
+        specialize in javascript ,css ,html ,vue ,vuex ,nodeJS and MongoDB and also have knowladge at Basic linux scripting.
+      </p>
       <i class="fas fa-briefcase"></i>
     </div>
     <div class="about-item">

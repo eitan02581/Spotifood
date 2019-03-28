@@ -48,26 +48,29 @@ export default {
 </script>
 
 <style scoped lang="scss">
-section {
-  flex-grow: 1;
+@media only screen and (min-width: 600px) {
+  section {
+    flex-grow: 1;
 
-  padding-top: 50px;
+    padding-top: 50px;
 
-  display: flex;
-  // align-items: baseline;
-  flex-direction: column;
-
-  .filter-container {
-    // margin-top: 37px;
-    margin-top: -70px;
-    width: 100%;
-    position: fixed;
-    z-index: 111;
-    background-color: unset;
-    padding: 20px;
-    -webkit-transition: 0.3s;
-    transition: 0.3s;
+    display: flex;
+    // align-items: baseline;
+    flex-direction: column;
+    .filter-container {
+      // margin-top: 37px;
+      margin-top: -70px;
+      width: 100%;
+      position: fixed;
+      z-index: 111;
+      background-color: unset;
+      padding: 20px;
+      -webkit-transition: 0.3s;
+      transition: 0.3s;
+    }
   }
+}
+section {
   .group-list-container {
     margin-top: 50px;
     max-width: 1200px;
@@ -75,6 +78,12 @@ section {
     padding: 90px 30px 0 30px;
     text-align: center;
     margin-bottom: 50px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  section {
+    width: 100%;
   }
 }
 </style>

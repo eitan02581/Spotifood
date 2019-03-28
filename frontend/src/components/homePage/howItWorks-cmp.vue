@@ -1,5 +1,5 @@
 <template>
-  <section id="howItWorksId">
+  <section>
     <div class="how-it-works-wrapper">
       <div class="item-container">
         <!-- <div data-aos="fade-right" data-aos-duration="900" class="item-container"> -->

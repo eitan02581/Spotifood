@@ -116,7 +116,7 @@ section {
     margin: 0 auto;
   }
   height: 100%;
-  padding-top: 200px;
+  padding-top: 150px;
   background-image: url("../assets/group-imgs/table4.jpg");
   // background-color: lightseagreen;
   background-position: center;

@@ -196,7 +196,7 @@ export default {
             background-color: unset;
             cursor: pointer;
             transition: 0.3s;
-            outline: none 1px solid;
+            // outline: none 1px solid;
           }
           button:hover {
             background-color: #f44336;
@@ -279,7 +279,7 @@ export default {
             background-color: unset;
             cursor: pointer;
             transition: 0.3s;
-            outline: none 1px solid;
+            // outline: none 1px solid;
           }
           button:hover {
             // background-color: #ff000070;
@@ -349,7 +349,7 @@ export default {
         background-color: unset;
         cursor: pointer;
         transition: 0.3s;
-        outline: none 1px solid;
+        // outline: none 1px solid;
       }
       button:hover {
         background-color: #f44336;

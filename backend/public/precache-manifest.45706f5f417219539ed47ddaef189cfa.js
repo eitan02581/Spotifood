@@ -36,6 +36,10 @@ self.__precacheManifest = [
     "url": "/img/cheers.ef48c55a.svg"
   },
   {
+    "revision": "6e13f51ad23f477b52eda0c26e6e13ca",
+    "url": "/img/beer.6e13f51a.jpg"
+  },
+  {
     "revision": "3b265d437ec1c3b3bce81affda06605c",
     "url": "/img/table.3b265d43.jpg"
   },
@@ -44,16 +48,12 @@ self.__precacheManifest = [
     "url": "/img/yovel-prof (1).07043cfe.png"
   },
   {
-    "revision": "6e13f51ad23f477b52eda0c26e6e13ca",
-    "url": "/img/beer.6e13f51a.jpg"
-  },
-  {
     "revision": "28042793f45c99d2ae5316211fa25e30",
     "url": "/img/calender.28042793.svg"
   },
   {
-    "revision": "82f9a77b482ac92ee548",
-    "url": "/js/app.01677879.js"
+    "revision": "262e1babfb523d0efae8",
+    "url": "/js/app.2c2fac32.js"
   },
   {
     "revision": "7d385ca794d6bcff2a53",
@@ -96,7 +96,7 @@ self.__precacheManifest = [
     "url": "/img/table4.fe35890a.jpg"
   },
   {
-    "revision": "888add9e7202787343094b11db2cd2be",
+    "revision": "bbe5d8d314b93304cccd16ace66924a9",
     "url": "/index.html"
   },
   {
@@ -104,7 +104,7 @@ self.__precacheManifest = [
     "url": "/robots.txt"
   },
   {
-    "revision": "82f9a77b482ac92ee548",
-    "url": "/css/app.c1a360b9.css"
+    "revision": "262e1babfb523d0efae8",
+    "url": "/css/app.27401387.css"
   }
 ];

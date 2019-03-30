@@ -6,8 +6,6 @@ function addGroupRoutes(app) {
 
     app.get('/group', (req, res) => {
         const filterBy = req.query
-        console.log('hettt', filterBy);
-
         GroupService.query(filterBy)
             .then(groups => {
                 // console.log('answer from query', groups)

@@ -10,13 +10,15 @@
       <h1>My Recipes Are A Secret ;)</h1>
     </template>
     <el-collapse
-      id="rec"
+      class="rec-item"
       v-model="activeName"
       accordion
       v-for="(recipe,idx) in recipes"
       :key="recipe._id"
     >
-      <el-collapse-item :title="recipe.title" :name="idx">
+      <div class="space"></div>
+      <el-collapse-item id="rec" :title="recipe.title" :name="idx">
+        <h1 style="color:#f33636;font-size:3rem;margin:0 30px;">{{recipe.title}}</h1>
         <div class="collapse-context">
           <div>
             <el-carousel height="200px">
@@ -24,6 +26,7 @@
                 <img :src="img" alt="Recipe Img">
               </el-carousel-item>
             </el-carousel>
+            <h1>Ingredient</h1>
             <ul>
               <li v-for="ingredient in Object.keys(recipe.ingredients)" :key="ingredient">
                 <span class="quantity">{{recipe.ingredients[ingredient]}}</span>
@@ -31,6 +34,8 @@
               </li>
             </ul>
           </div>
+          <h1>Instructions</h1>
+
           <ol>
             <li v-for="(instruction,idx) in recipe.instructions" :key="idx">{{instruction}}</li>
           </ol>
@@ -94,6 +99,17 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.rec-item {
+  display: flex;
+  .space {
+    width: 20px;
+    display: inline-block;
+    background-color: white;
+  }
+  .el-collapse-item {
+    flex-grow: 1;
+  }
+}
 @media only screen and (min-width: 600px) {
   ul,
   ol {
@@ -141,7 +157,7 @@ export default {
     background-color: #d3dce6;
   }
   .collapse-context {
-    padding: 15px;
+    padding: 30px;
     display: flex;
     justify-content: space-between;
   }
@@ -160,7 +176,7 @@ export default {
 @media only screen and (max-width: 600px) {
   ul,
   ol {
-    padding-top: 5vh;
+    // padding-top: 5vh;
     li > .quantity {
       font-size: 1.3em !important;
     }
@@ -173,7 +189,7 @@ export default {
     font-size: 1.75em;
   }
   .accordion {
-    margin: 0 50px;
+    // margin-left: 26px;
     .recipes-header {
       display: flex;
       align-items: center;
@@ -206,6 +222,7 @@ export default {
   .collapse-context {
     padding: 15px;
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
   }
   .el-collapse-item__header {

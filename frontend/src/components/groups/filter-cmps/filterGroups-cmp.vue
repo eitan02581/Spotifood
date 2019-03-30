@@ -9,9 +9,10 @@
         <!-- <dateSuggestions></dateSuggestions> -->
         <selectEl @selectedVals="onSelectedVals('hashtags' ,  $event)"></selectEl>
         <div class="clear-container">
-          <button @click="clearAll" class="clear-btn">Clear All</button>
+          <button @click.prevent="clearAll" class="clear-btn">Clear All</button>
         </div>
       </form>
+      <h1></h1>
     </div>
   </section>
 </template>
@@ -24,9 +25,14 @@ import eventSelect from "./event-select-cmp.vue";
 import cuisineSelect from "./cuisine-select-cmp.vue";
 import searchTitle from "./search-input-cmp";
 
-import { eventBus, CLEAR_FILEDS } from "../../../services/EventBusService.js";
+import {
+  eventBus,
+  CLEAR_FILEDS,
+  FILTER_BY
+} from "../../../services/EventBusService.js";
 
 export default {
+  name: "filterGroup",
   components: {
     selectEl,
     dateSuggestions,
@@ -46,6 +52,12 @@ export default {
       },
       isOpen: false
     };
+  },
+  created() {
+    var homeFilter = this.$store.getters.getHomePageFitler;
+    console.log(homeFilter);
+
+    if (homeFilter) this.onSelectedVals(homeFilter.filterBy, homeFilter.val);
   },
   methods: {
     onSelectedVals(filterBy, val) {
@@ -76,6 +88,9 @@ export default {
         this.$emit("filter", this.filterBy);
       }
     }
+  },
+  destroyed() {
+    this.$store.dispatch({ type: "cleanData" });
   }
 };
 </script>

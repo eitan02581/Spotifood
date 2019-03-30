@@ -16,7 +16,7 @@
           <button>Explore</button>
         </router-link>
         <router-link v-if="user" class="nav-link-classic" to="/groups/add">
-          <button>Create Group</button>
+          <button>Create Event</button>
         </router-link>
         <router-link class="nav-link-classic" to="/about">
           <button>About</button>
@@ -83,7 +83,7 @@ export default {
       this.isNavNerrow = state;
     },
     onLogOut() {
-      console.log("dd");
+      // console.log("dd");
 
       this.$store.dispatch({ type: "logOut" });
       this.user = null;
@@ -196,7 +196,7 @@ export default {
             background-color: unset;
             cursor: pointer;
             transition: 0.3s;
-            outline: none 1px solid;
+            // outline: none 1px solid;
           }
           button:hover {
             background-color: #f44336;
@@ -258,7 +258,9 @@ export default {
             }
             img {
               width: 44px;
-              border-radius: 73px;
+              height: 44px;
+              object-fit: cover;
+              border-radius: 100%;
               transition: 0.3s;
             }
           }
@@ -277,7 +279,7 @@ export default {
             background-color: unset;
             cursor: pointer;
             transition: 0.3s;
-            outline: none 1px solid;
+            // outline: none 1px solid;
           }
           button:hover {
             // background-color: #ff000070;
@@ -347,7 +349,7 @@ export default {
         background-color: unset;
         cursor: pointer;
         transition: 0.3s;
-        outline: none 1px solid;
+        // outline: none 1px solid;
       }
       button:hover {
         background-color: #f44336;
@@ -374,6 +376,8 @@ export default {
       }
       img {
         width: 44px;
+        height: 44px;
+        object-fit: cover;
         border-radius: 73px;
         transition: 0.3s;
       }

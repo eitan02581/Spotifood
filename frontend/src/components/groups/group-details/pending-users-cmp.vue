@@ -8,9 +8,11 @@
         <div class="info-container">
           <div class="name">{{user.username}}</div>
           <div class="country">{{user.country}}</div>
-          <div class="img-container">
-            <img :src="user.img" alt>
-          </div>
+          <router-link :to="'/user/' + user._id">
+            <div class="img-container">
+              <img :src="user.img" alt>
+            </div>
+          </router-link>
         </div>
         <div class="request-container">
           <el-button @click="onAcceptUser(user)" type="success" icon="el-icon-check" circle></el-button>
@@ -42,7 +44,6 @@ export default {
     this.pendUsers.forEach(userId => {
       console.log("Problem is Here?");
       this.$store.dispatch({ type: "getUserById", userId }).then(user => {
-        // var user = this.$store.getters.user;
         this.users.push(user);
       });
     });
@@ -55,19 +56,15 @@ export default {
           ids: { userId: user._id, groupId: this.groupId }
         })
         .then(res => {
-          // update user's group array
           this.$store
             .dispatch({
               type: "addGroupToUser",
               ids: { userId: user._id, groupId: this.groupId }
             })
             .then(() => this.$toast.Success(`${user.username} Added`));
-          // show message
-          // this.showMsg(true, user);
-
-          // remove user from users
-          // TODO: FIX BUG WHEN ACC OR DEC ON ONE , ALL THE PENDING USERS DISAPPEAR
-          this.users = this.users.filter(user => user._id !== user._id);
+          var idx = this.users.findIndex(pend => pend._id === user._id);
+          this.users.splice(idx, 1);
+          console.log("delted");
         });
     },
     onDeclineUser(user) {
@@ -77,17 +74,10 @@ export default {
           ids: { userId: user._id, groupId: this.groupId }
         })
         .then(res => {
-          this.showMsg(false, user);
-          this.users = this.users.filter(user => user._id !== user._id);
-        });
-    },
-    showMsg(state, user) {
-      this.pendingMsg = state
-        ? `${user.nickName} added!`
-        : `${user.nickName} declined!`;
-      setTimeout(() => {
-        this.pendingMsg = null;
-      }, 1200);
+          var idx = this.users.findIndex(pend => pend._id === user._id);
+          this.users.splice(idx, 1);
+        })
+        .then(() => this.$toast.Error(`${user.username} declined`));
     }
   }
 };
@@ -108,9 +98,8 @@ export default {
   border-radius: 8px;
   display: flex;
   overflow: scroll;
-      max-width: 365px;
-    justify-content: center;
-    height: 155px;
+  max-width: 365px;
+  height: 155px;
 }
 .user-container {
   text-align: center;
@@ -127,16 +116,23 @@ export default {
     .img-container {
       img {
         height: 50px;
+        object-fit: cover;
         width: 50px;
         border-radius: 50px;
       }
     }
+  }
+  .request-container {
+    display: flex;
   }
 }
 
 @media only screen and (max-width: 600px) {
   section {
     margin-top: 76px;
+  }
+  .pending-container {
+    max-width: 275px;
   }
 }
 </style>

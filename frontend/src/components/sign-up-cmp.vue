@@ -125,6 +125,8 @@ section {
     background-color: #ffffffd4;
     max-width: 400px;
     margin-top: -50px;
+    margin: 0 20px;
+    margin-bottom: 50px;
     box-shadow: unset;
     border-radius: 5px;
     display: flex;
@@ -207,6 +209,7 @@ section {
   @media (min-width: 450px) {
     .form-wrapper {
       box-shadow: rgba(black, 0.4) 0 0 25px;
+      // margin: 0 18px;
     }
     .second-screen {
       margin: 0 auto 70px auto;

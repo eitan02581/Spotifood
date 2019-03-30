@@ -6,11 +6,11 @@ function addUserRoutes(app) {
     // login
     app.post('/user/login', (req, res) => {
         const userInfo = req.body
-        console.log('first', userInfo);
+        // console.log('first', userInfo);
 
         UserService.login(userInfo)
             .then(user => {
-                console.log('after ', user);
+                // console.log('after ', user);
                 req.session.user = user
                 if (user) {
                     var userToReturn = { ...user }
@@ -38,17 +38,17 @@ function addUserRoutes(app) {
         const ids = req.body;
         UserService.addGroupToUser(ids)
             .then(() => {
-                console.log('successfuly added group to user')
+                // console.log('successfuly added group to user')
                 return res.json()
             })
     })
 
     app.get('/user/:userId', (req, res) => {
         const userId = req.params.userId
-        console.log('userId in backend', userId)
+        // console.log('userId in backend', userId)
         UserService.getById(userId)
             .then(user => {
-                console.log('user by id got', user)
+                // console.log('user by id got', user)
                 res.json(user)
             })
     })
@@ -56,7 +56,7 @@ function addUserRoutes(app) {
     app.post('/user/:userId', (req, res) => {
         const userId = req.params.userId
         const updatedUser = req.body
-        console.log('user route')
+        // console.log('user route')
         UserService.updateUser(updatedUser)
             .then(() => {
                 res.json()

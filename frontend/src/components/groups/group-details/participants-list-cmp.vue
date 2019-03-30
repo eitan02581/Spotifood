@@ -1,7 +1,6 @@
 
 
 <template>
-  <!-- <section> -->
   <div>
     <template v-if="users.length >= 1">
       <div class="list-holder">
@@ -19,11 +18,10 @@
       </div>
     </template>
   </div>
-  <!-- </section> -->
 </template>
 
 <script>
-import participantPreview from "./participant-preview-cmp";
+import participantPreview from "../group-details/participant-preview-cmp";
 export default {
   // TODO: ADD FUNC TO REMOVE  USER
   props: {
@@ -50,15 +48,19 @@ export default {
     onRemoveParticipant(userId) {
       var groupId = this.$store.getters.group._id;
       var ids = { userId, groupId };
-
       this.$store.dispatch({ type: "removeUserFromGroup", ids }).then(() => {
-        this.users = this.users.fitler(user => user._id !== userId);
+        this.users = this.users.filter(user => user._id !== userId);
         this.$toast.Error(`Removed!`);
       });
     }
   }
 };
 </script>
+
+
+
+
+
 
 <style scoped lang="scss">
 section {

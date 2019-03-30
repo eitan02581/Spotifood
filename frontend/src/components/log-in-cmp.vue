@@ -43,13 +43,18 @@ export default {
         this.$toast.Error(`Invalid Username or Password`);
         return;
       } else {
-        console.log("user to login is", this.user);
-        this.$store.dispatch({ type: "logIn", user: this.user }).then(() => {
-          var user = this.$store.getters.user;
-          this.$toast.Success(`Welcome ${this.user.username}`);
-          eventBus.$emit("USER_LOGGED", user);
-          this.$router.push("/");
-        });
+        // console.log("user to login is", this.user);
+        this.$store
+          .dispatch({ type: "logIn", user: this.user })
+          .then(() => {
+            var user = this.$store.getters.user;
+            this.$toast.Success(`Welcome ${this.user.username}`);
+            eventBus.$emit("USER_LOGGED", user);
+            this.$router.push("/");
+          })
+          .catch(() => {
+            this.$toast.Error(` Invalid Username or Password`);
+          });
       }
     }
   }

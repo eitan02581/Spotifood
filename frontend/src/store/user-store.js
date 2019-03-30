@@ -19,6 +19,7 @@ const userStore = {
         },
         cleanUser(state) {
             state.user = null
+            // state.is
         }
     },
     actions: {
@@ -32,7 +33,7 @@ const userStore = {
             return userService.logIn(user).then(user => {
                 commit({ type: 'setUser', user })
                 // TODO: RETURN A LOG FIX IT 
-            }).catch((res) => console.log(res))
+            }).catch((res) => {throw('login err')})
 
         },
         signUp({ commit }, { newUser }) {
@@ -43,8 +44,9 @@ const userStore = {
                     // TODO: RETURN A LOG FIX IT 
                 }).catch((res) => console.log(res))
         },
-        logOut({ commit }) {
+        logOut({ dispatch, commit }) {
             commit({ type: 'cleanUser' })
+            // dispatch({type:''})
             userService.logOut()
         },
         getUserById({ commit }, { userId }) {
@@ -56,13 +58,13 @@ const userStore = {
 
             return userService.addGroupToUser(ids).then(() => { 'group added' })
         },
-        updateUser({ commit },{user}){
+        updateUser({ commit }, { user }) {
             return userService.updateUser(user).then(res => res)
         },
-        uploadImg({commit},{userId, img}){
-            console.log("userId",userId)
-            return uploadService.uploadUserImg(img,userId).then(res => res)
-          }
+        uploadImg({ commit }, { userId, img }) {
+            // console.log("userId",userId)
+            return uploadService.uploadUserImg(img, userId).then(res => res)
+        }
     }
 }
 

@@ -16,6 +16,7 @@
               <h1>{{group.title}}</h1>
             </div>
             <h2>in {{group.place.city}}, {{group.place.country.shortName}}</h2>
+            <h2><slot name="comming-up"></slot></h2>
             <h3>
               <div class="meal">{{group.eventType}}</div>
             </h3>
@@ -32,6 +33,9 @@
               <el-tag type="warning" v-for="hashtag in group.hashtags" :key="hashtag">#{{hashtag}}</el-tag>
               <!-- <span v-for="hash in group.hashtags" :key="hash">#{{hash}}</span> -->
             </div>
+            <div class="participants-container">
+              <!-- <participants :users=""></participants> -->
+            </div>
           </div>
         </div>
       </div>
@@ -40,6 +44,7 @@
 </template>
 
 <script>
+import participants from "./card-participants/card-participants-cmp";
 export default {
   props: {
     group: {
@@ -142,7 +147,7 @@ section {
           position: absolute;
           top: -30px;
           left: 110px;
-          object-fit: contain;
+          object-fit: cover;
         }
         .info-container {
           padding-top: 27px;
@@ -161,6 +166,7 @@ section {
           .title {
             text-align: left;
             padding-left: 7px;
+            overflow: scroll;
             h1 {
               transition: 0.3s;
             }

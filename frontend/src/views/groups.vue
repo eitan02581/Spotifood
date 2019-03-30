@@ -1,9 +1,9 @@
 <template>
   <section>
-    <div data-aos="fade-down" data-aos-duration="900" class="filter-container">
+    <LoadingCmp v-if="!loadedGroups"></LoadingCmp>
+    <div v-if="loadedGroups" data-aos="fade-down" data-aos-duration="900" class="filter-container">
       <FilterGroup @filter="filter"></FilterGroup>
     </div>
-    <LoadingCmp v-if="!loadedGroups"></LoadingCmp>
     <div v-if="loadedGroups" class="group-list-container">
       <GroupList :groups="groups"></GroupList>
     </div>
@@ -84,6 +84,7 @@ section {
 @media only screen and (max-width: 600px) {
   section {
     width: 100%;
+    flex-grow: 1;
   }
 }
 </style>

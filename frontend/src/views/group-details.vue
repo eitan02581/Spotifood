@@ -1,137 +1,142 @@
 <template>
-  <section v-if="group" class="group-details">
-    <div data class="top-title">
-      <h1>{{group.title}}</h1>
-    </div>
-    <div v-if="imgs" class="img-carusel">
-      <!-- for desktop -->
-      <el-carousel id="desk-car" :interval="4000" type="card" height="400px">
-        <el-carousel-item v-for="img in imgs" :key="img">
-          <img :src="img" alt>
-        </el-carousel-item>
-      </el-carousel>
-      <!-- for phone -->
-      <el-carousel id="mob-car" :interval="5000" arrow="always">
-        <el-carousel-item v-for="img in imgs" :key="img">
-          <img :src="img" alt>
-        </el-carousel-item>
-      </el-carousel>
-      <!-- <img src="../assets/group-imgs/tabl1.jpg" alt> -->
-    </div>
+  <section data-aos="fade" v-if="group" class="group-details">
+    <div class="details-conta">
+      <div data class="top-title">
+        <h1>{{group.title}}</h1>
+      </div>
+      <div v-if="imgs" class="img-carusel">
+        <!-- for desktop -->
+        <el-carousel id="desk-car" :interval="4000" type="card" height="400px">
+          <el-carousel-item v-for="img in imgs" :key="img">
+            <img :src="img" alt>
+          </el-carousel-item>
+        </el-carousel>
+        <!-- for phone -->
+        <el-carousel id="mob-car" :interval="5000" arrow="always">
+          <el-carousel-item v-for="img in imgs" :key="img">
+            <img :src="img" alt>
+          </el-carousel-item>
+        </el-carousel>
+      </div>
 
-    <div class="join-btn-holder">
-      <router-link :to="'/user/' + admin._id">
-        <div class="hosted-by-container">
-          <div class="hosted">
-            <h1>Hosted By: {{admin.username}}</h1>
-          </div>
-          <div class="image">
-            <img :src="admin.img" alt>
-          </div>
-        </div>
-      </router-link>
-      <div class="full-message" v-if="!isPlaceLeft">
-        <h1>Event is full</h1>
-      </div>
-      <div class="pending-holder">
-        <template v-if="isAdmin">
-          <pandingUser :groupId="group._id" :pendUsers="pendUsers"></pandingUser>
-        </template>
-      </div>
-      <template v-if="!isAdmin && user && isPlaceLeft">
-        <div v-if="isAbleToJoin" class="join-btn-container">
-          <div class="join-btn-container">
-            <el-button @click.native="onStatusActionGroup('join')" type="success">Join +</el-button>
-          </div>
-        </div>
-        <div v-else class="cancel- btn-container">
-          <div class="cancel-btn-container">
-            <el-button @click.native="onStatusActionGroup('leave')" type="danger">leave</el-button>
-          </div>
-        </div>
-      </template>
-      <template v-if="!isAdmin && !user && isPlaceLeft">
-        <router-link to="/login">
-          <div class="join-btn-container">
-            <el-button @click.native="onStatusActionGroup('join')" type="success">Join +</el-button>
-          </div>
-        </router-link>
-      </template>
-    </div>
-    <div class="main">
-      <div class="group-info">
-        <div class="info-container">
-          <div class="title">
-            <h1>{{group.title}}</h1>
-          </div>
-          <div class="main-group-info">
-            <div class="loc">
-              <h3>At {{group.place.city}} {{group.place.country.longName}}</h3>
-            </div>
-            <div class="top">
-              <div class="time">
-                <img src="../assets/icons/clock.svg" alt>
-                <h3>{{group.time | time }}</h3>
+      <div class="join-btn-holder">
+        <div class="left-box">
+          <router-link :to="'/user/' + admin._id">
+            <div class="hosted-by-container">
+              <div class="hosted">
+                <h1>Hosted By: {{admin.username}}</h1>
               </div>
-              <div class="event-type">
-                <img src="../assets/icons/plate.svg" alt>
-                <h3>{{group.eventType}}</h3>
-              </div>
-              <div class="guests">
-                <img src="../assets/icons/guests.svg" alt>
-                <h3>{{group.guests - group.users.length}} Place left</h3>
+              <div class="image">
+                <img :src="admin.img" alt>
               </div>
             </div>
-            <div class="cuisine-type">
-              <img src="../assets/icons/shef.svg" alt>
-              <el-tag type="info" v-for="cuisine in group.cuisineType" :key="cuisine">{{cuisine}}</el-tag>
-            </div>
-            <div v-if="group.hashtags.length >=1" class="hashtags">
-              <span class="hash">#</span>
-              <el-tag type="warning" v-for="hashtag in group.hashtags" :key="hashtag">#{{hashtag}}</el-tag>
-            </div>
+          </router-link>
+        </div>
+        <div class="rigth-box">
+          <div class="full-message" v-if="!isPlaceLeft">
+            <h1>Event is full</h1>
           </div>
-        </div>
-        <div class="description">
-          <h1>Description</h1>
-        </div>
-        <div class="desc-container">
-          <p>{{group.description}}</p>
-          <h3>{{group.time | fullTime}}</h3>
+          <div class="pending-holder">
+            <template v-if="isAdmin && isPlaceLeft">
+              <pandingUser :groupId="group._id" :pendUsers="pendUsers"></pandingUser>
+            </template>
+          </div>
+          <template v-if="!isAdmin && user && isPlaceLeft">
+            <div v-if="isAbleToJoin" class="join-btn-container">
+              <div class="join-btn-container">
+                <el-button @click.native="onStatusActionGroup('join')" type="success">Join +</el-button>
+              </div>
+            </div>
+            <div v-else class="cancel- btn-container">
+              <div class="cancel-btn-container">
+                <el-button @click.native="onStatusActionGroup('leave')" type="danger">leave</el-button>
+              </div>
+            </div>
+          </template>
+          <template v-if="!isAdmin && !user && isPlaceLeft">
+            <router-link to="/login">
+              <div class="join-btn-container">
+                <el-button @click.native="onStatusActionGroup('join')" type="success">Join +</el-button>
+              </div>
+            </router-link>
+          </template>
         </div>
       </div>
-      <div class="users-aside">
-        <div class="users-container">
-          <div class="participants">
-            <h1>Participants</h1>
-            <!-- <h2 style="color:#f44336">{{group.users.length + '/' + group.guests }}</h2> -->
-            <h2
-              style="color:#f44336"
-            >{{seatsLeft === 0 ? 'Full' : group.users.length + ' of ' + group.guests }}</h2>
+      <div class="main">
+        <div class="group-info">
+          <div class="info-container">
+            <div class="title">
+              <h1>{{group.title}}</h1>
+            </div>
+            <div class="main-group-info">
+              <div class="loc">
+                <h3>At {{group.place.city}} {{group.place.country.longName}}</h3>
+                <h3 class="time">{{group.time | fullTime}}</h3>
+              </div>
+              <div class="top">
+                <div class="time">
+                  <img src="../assets/icons/clock.svg" alt>
+                  <h3>{{group.time | time }}</h3>
+                </div>
+                <div class="event-type">
+                  <img src="../assets/icons/plate.svg" alt>
+                  <h3>{{group.eventType}}</h3>
+                </div>
+                <div class="guests">
+                  <img src="../assets/icons/guests.svg" alt>
+                  <h3>{{group.guests - group.users.length}} Place left</h3>
+                </div>
+              </div>
+              <div class="cuisine-type">
+                <img src="../assets/icons/shef.svg" alt>
+                <el-tag type="info" v-for="cuisine in group.cuisineType" :key="cuisine">{{cuisine}}</el-tag>
+              </div>
+              <div v-if="group.hashtags.length >=1" class="hashtags">
+                <span class="hash">#</span>
+                <el-tag type="warning" v-for="hashtag in group.hashtags" :key="hashtag">#{{hashtag}}</el-tag>
+              </div>
+            </div>
           </div>
-          <div class="list">
-            <h1 v-if="group.users.length === 0">You Can Be The First ;)</h1>
-            <participantList :users="users"></participantList>
+          <div class="description">
+            <h1>Description</h1>
+          </div>
+          <div class="desc-container">
+            <p>{{group.description}}</p>
           </div>
         </div>
-        <div class="chat-container">
-          <div class="map-container">
-            <gmap-map :center="eventLocation" :zoom="12">
-              <gmap-marker :position="eventLocation"></gmap-marker>
-            </gmap-map>
+        <div class="users-aside">
+          <div class="users-container">
+            <div class="participants">
+              <h1>Participants</h1>
+              <!-- <h2 style="color:#f44336">{{group.users.length + '/' + group.guests }}</h2> -->
+              <h2
+                style="color:#f44336"
+              >{{seatsLeft === 0 ? 'Full' : group.users.length + ' of ' + group.guests }}</h2>
+            </div>
+            <div class="list">
+              <h1 v-if="group.users.length === 0">You Can Be The First ;)</h1>
+              <participantList :users="users"></participantList>
+            </div>
+          </div>
+          <div class="chat-container">
+            <div class="map-container">
+              <gmap-map :center="eventLocation" :zoom="12">
+                <gmap-marker :position="eventLocation"></gmap-marker>
+              </gmap-map>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="recpies-container">
-      <recipes-list :recipes="group.recipes"/>
-    </div>
-    <!-- TODO: will be uncommented when chat will exsit -->
-    <!-- <div class="map-container">
+      <div class="recpies-container">
+        <recipes-list :recipes="group.recipes"/>
+      </div>
+      <!-- TODO: will be uncommented when chat will exsit -->
+      <!-- <div class="map-container">
       <gmap-map :center="eventLocation" :zoom="12">
         <gmap-marker :position="eventLocation"></gmap-marker>
       </gmap-map>
-    </div>-->
+      </div>-->
+    </div>
   </section>
 </template>
 
@@ -295,6 +300,9 @@ export default {
         this.isAbleToJoin = false;
       }
     }
+  },
+  destroyed() {
+    this.$store.dispatch({ type: "cleanData" });
   }
 };
 </script>
@@ -303,11 +311,18 @@ export default {
 //TODO: REFACTOR STYLE
 <style scoped lang="scss">
 @media only screen and (min-width: 600px) {
+  .group-details > div {
+    flex-grow: 1;
+  }
   .group-details {
     max-width: 1200px;
     margin: 0 auto;
     padding: 90px 30px 0 30px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
     // background-color: lightcoral;
+
     .top-title {
       h1 {
         text-align: center;
@@ -359,48 +374,68 @@ export default {
       height: 200px;
       margin-top: -100px;
       position: relative;
-      .hosted-by-container {
-        margin-top: -40px;
-        position: absolute;
-        left: 0;
+      // display: flex;
+      // justify-content: center;
+      // align-items: center;
+      .left-box {
         display: flex;
+        justify-content: center;
         align-items: center;
-        .hosted {
-          h1 {
-            font-size: 35px;
-            color: #607d8b;
+        height: 100%;
+        width: 100%;
+        .hosted-by-container {
+          margin-top: -40px;
+          position: absolute;
+          left: 0;
+          display: flex;
+          align-items: center;
+          .hosted {
+            h1 {
+              font-size: 35px;
+              color: #607d8b;
+            }
           }
-        }
-        .image {
-          padding-left: 20px;
-          img {
-            width: 76px;
-            border-radius: 51px;
-            border: 5px solid white;
+          .image {
+            padding-left: 20px;
+            img {
+              width: 76px;
+              object-fit: cover;
+              height: 76px;
+              border-radius: 51px;
+              border: 5px solid white;
+            }
           }
         }
       }
-      .pending-holder {
-        section {
-          padding: 0;
+      .rigth-box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        width: 100%;
+        .pending-holder {
+          section {
+            padding: 0;
+          }
         }
-      }
 
-      button {
-        height: 50px;
-        width: 261px;
+        button {
+          height: 50px;
+          width: 261px;
+        }
       }
     }
     .main {
       display: flex;
       // background-color: lightseagreen;
       width: 100%;
-      height: 500px;
+      height: 100%;
+      // height: 500px;
       // margin-bottom: 100px;
       .group-info {
         // background-color: lightslategray;
         width: 50%;
-        height: 100%;
+        // height: 100%;
         display: flex;
         flex-direction: column;
         .title {
@@ -424,6 +459,12 @@ export default {
           padding-bottom: 30px;
 
           .loc {
+            display: flex;
+            flex-direction: column;
+            .time {
+              font-size: 14px;
+              margin-top: 0px;
+            }
             h3 {
               margin-top: 10px;
               font-size: 20px;
@@ -439,7 +480,7 @@ export default {
           height: 100%;
           .top {
             display: flex;
-            margin-top: 20px;
+            // margin-top: 20px;
           }
           .time,
           .event-type,
@@ -488,6 +529,8 @@ export default {
         .desc-container {
           margin-top: 20px;
           overflow: scroll;
+          max-height: 135px;
+
           display: flex;
           flex-direction: column;
           justify-content: space-between;
@@ -535,6 +578,7 @@ export default {
           }
           .list {
             // display: inline-block;
+            overflow: scroll;
             background-color: white;
             padding: 12px;
             border-radius: 8px;
@@ -566,10 +610,11 @@ export default {
       // margin-bottom: 100px;
 
       // background-color: lightsteelblue;
-      height: 383px;
+      height: 400px;
       border-radius: 5px;
       width: 100%;
       // height: 100%;
+      margin-left: 5px;
       .vue-map-container {
         height: 100%;
         // height: 500px;
@@ -640,6 +685,8 @@ export default {
         .image {
           padding-left: 20px;
           img {
+            height: 76px;
+            object-fit: cover;
             width: 76px;
             border-radius: 51px;
             border: 5px solid white;
@@ -802,6 +849,7 @@ export default {
           }
           .list {
             // display: inline-block;
+            overflow: scroll;
             background-color: white;
             padding: 12px;
             border-radius: 8px;
@@ -824,10 +872,10 @@ export default {
     }
     .recpies-container {
       // margin-top: 100px;
-      display: none;
+      // display: none;
       margin-bottom: 50px;
       // background-color: seagreen;
-      margin-left: -50px;
+      // margin-left: -50px;
     }
     .map-container {
       margin-bottom: 100px;
@@ -840,16 +888,16 @@ export default {
     }
   }
 }
-// .full-message {
-//   position: fixed;
-//   right: 0;
-//   margin-right: 30px;
-//   background-color: #f44336;
-//   padding: 20px;
-//   color: white;
-//   border-radius: 50px;
-//   cursor: default;
-// }
+.full-message {
+  // position: fixed;
+  // right: 0;
+  margin-right: 30px;
+  background-color: #f44336;
+  padding: 20px;
+  color: white;
+  border-radius: 50px;
+  cursor: default;
+}
 // .join-btn-container,
 // .cancel-btn-container {
 //   text-align: center;

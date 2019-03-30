@@ -5,27 +5,60 @@
     </div>
     <div class="back">
       <div class="main-content">
-        <div class="how-it-works">
+        <!-- <div class="how-it-works">
           <HowItWorks></HowItWorks>
+        </div>-->
+        <div data-aos="fade" data-aos-once="true" class="explain-one">
+          <div data-aos="fade" class="title">
+            <h1>
+              Cook
+              <span style="color:#f44336;">&</span> Eat Together
+            </h1>
+          </div>
+          <transition name="scale-in-ver-bottom">
+            <img
+              src="https://www.galloportugal.com/wp-content/uploads/2019/01/Gallo-sobre-nos-1300x420-2.jpg"
+              alt="Table white food "
+            >
+          </transition>
         </div>
+        <div data-aos="fade" data-aos-once="true" class="explain-one">
+          <div data-aos="fade" class="title">
+            <h1>Discovering</h1>
+            <h1>new flavours</h1>
+          </div>
+          <img
+            src="https://www.galloportugal.com/wp-content/uploads/2018/11/shutterstock_476812717.jpg"
+            alt="Table white food "
+          >
+        </div>
+        <div class="cusine-previews">
+          <cuisineTypes @filterBy="onFilter"></cuisineTypes>
+        </div>
+
         <div class="groups-previews">
-          <!-- <hr> -->
-          <h1>Breakfast</h1>
-          <div class="group-container">
-            <GroupPreview v-for="group in breakfastGroups" :key="group._id" :group="group"></GroupPreview>
-            <!-- <GroupList :groups="groups"></GroupList> -->
+          <div class="br-wrap">
+            <h1 @click="onFilter( 'eventType', 'Breakfast')">Breakfast</h1>
+            <div class="group-container br-con">
+              <GroupPreview v-for="group in breakfastGroups" :key="group._id" :group="group"></GroupPreview>
+              <!-- <GroupList :groups="groups"></GroupList> -->
+            </div>
           </div>
           <!-- <hr> -->
-          <h1>Lunch</h1>
-          <div class="group-container">
-            <GroupPreview v-for="group in lunchGroups" :key="group._id" :group="group"></GroupPreview>
-            <!-- <GroupList :groups="groups"></GroupList> -->
+          <div class="ln-wrap">
+            <h1 @click="onFilter( 'eventType', 'Lunch')">Lunch</h1>
+            <div class="group-container">
+              <GroupPreview v-for="group in lunchGroups" :key="group._id" :group="group"></GroupPreview>
+              <!-- <GroupList :groups="groups"></GroupList> -->
+            </div>
           </div>
           <!-- <hr> -->
-          <h1>Dinner</h1>
-          <div class="group-container">
-            <GroupPreview v-for="group in dinnerGroups" :key="group._id" :group="group"></GroupPreview>
-            <!-- <GroupList :groups="groups"></GroupList> -->
+          <div class="din-wrap">
+            <h1 @click="onFilter( 'eventType', 'Dinner')">Dinner</h1>
+            <div class="group-container">
+              <GroupPreview v-for="group in dinnerGroups" :key="group._id" :group="group"></GroupPreview>
+              <!-- <GroupList :groups="groups"></GroupList> -->
+            </div>
           </div>
         </div>
       </div>
@@ -38,13 +71,16 @@ import LandingVideo from "../components/homePage/landing-video-cmp";
 import GroupPreview from "../components/groups/group-preview-cmp";
 import HowItWorks from "../components/homePage/howItWorks-cmp";
 import GroupList from "../components/groups/group-list-cmp";
+import cuisineTypes from "../components/homePage/cuisine-cards-cmp";
+import { eventBus, FILTER_BY } from "../services/EventBusService.js";
 
 export default {
   components: {
     LandingVideo,
     GroupPreview,
     HowItWorks,
-    GroupList
+    GroupList,
+    cuisineTypes
   },
   data() {
     return {
@@ -74,7 +110,15 @@ export default {
     groups() {
       return this.$store.getters.groups;
     }
-  }
+  },
+  methods: {
+    onFilter(filterBy, val) {
+      var filterObj = { filterBy, val };
+      this.$store.dispatch({ type: "setFilterFromHome", filterObj });
+      this.$router.push("/groups");
+    }
+  },
+  destroyed() {}
 };
 </script>
 
@@ -82,9 +126,6 @@ export default {
 section {
   flex-grow: 1;
 
-  // width: 100%;
-  // margin-top: -100px;
-  // min-height: 100vh;
   .video-container {
     position: fixed;
     width: 100%;
@@ -104,7 +145,44 @@ section {
     margin-top: 100vh;
     position: relative;
     background: #f6f6f6;
+    .explain-one {
+      margin-bottom: 50px;
+      position: relative;
+      .title {
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        h1 {
+          opacity: 1;
+          text-align: center;
+          font-size: 30px;
+          color: white;
+          cursor: default;
+          letter-spacing: 4px;
+        }
+      }
+      img {
+        height: 300px;
+        opacity: 1;
+        width: 100%;
+        object-fit: cover;
+      }
+      width: 100%;
+    }
   }
+  .br-wrap:hover,
+  .ln-wrap:hover,
+  .din-wrap:hover {
+    h1 {
+      color: orangered;
+    }
+  }
+
   .group-container {
     overflow-x: scroll;
     overflow-y: hidden;
@@ -134,11 +212,12 @@ section {
       margin-bottom: 3%;
       padding-left: 6px;
       position: relative;
+      cursor: pointer;
       left: 0;
+      transition: 0.3s;
     }
   }
   .how-it-works {
-    // margin-top: 50px;
     margin-bottom: 50px;
   }
   hr {
@@ -147,6 +226,17 @@ section {
     width: 70%;
     border-top: 1px solid rgba(0, 0, 0, 0.1);
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  }
+  .cusine-previews {
+    margin-bottom: 50px;
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  .title {
+    h1 {
+      font-size: 45px !important ;
+    }
   }
 }
 </style>

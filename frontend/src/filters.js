@@ -6,6 +6,6 @@ Vue.filter('time', (timestamp) => {
 })
 
 Vue.filter('fullTime', timestamp => {
-    return moment(timestamp).format('MMMM Do YYYY, h:mm:ss a');
+    return moment(timestamp).format('LLL');
 })
 

@@ -16,6 +16,7 @@
               <h1>{{group.title}}</h1>
             </div>
             <h2>in {{group.place.city}}, {{group.place.country.shortName}}</h2>
+            <h2><slot name="comming-up"></slot></h2>
             <h3>
               <div class="meal">{{group.eventType}}</div>
             </h3>

@@ -109,21 +109,24 @@ export default {
 };
 </script>
 
-<style lang=scss scoped>
+<style lang="scss" scoped>
 .profile-info {
   background-color: #f6f6f6;
   margin: -25% auto 0 auto;
   position: relative;
   width: 100%;
-  border: 2px solid gray;
-
-  & > * {
-    padding: 10px 15px;
-  }
-
+  height:370px;
+  border: 1px solid #c9c9c9;
+  border-radius: 5px;
+  display:flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
   .profile-img {
     width: 200px;
     margin: 0 auto;
+    text-align: center;
     img,
     .upload-container {
       border-radius: 50%;
@@ -156,6 +159,7 @@ h3 {
   font-size: 1.5em;
   display: flex;
   justify-content: space-around;
+  width:80%;
   & > i:hover {
     color: cyan;
   }
@@ -177,6 +181,11 @@ h3 {
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
+      margin:0 10px;
+      img {
+        border: 1px solid rgba(65, 65, 65, 0.575);
+        border-radius: 50%;
+      }
     }
   }
   .fa-edit:hover {

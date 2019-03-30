@@ -52,10 +52,9 @@ export default {
 };
 </script>
 
-<style scoped lang=scss>
+<style scoped lang="scss">
 .profile-events-container {
   width: 90%;
-  margin: 50px auto;
   display: flex;
   flex-direction: column-reverse;
 }
@@ -71,7 +70,7 @@ export default {
 @media (min-width: 600px) {
   .profile-events-container {
     width: 90%;
-    margin: 100px auto;
+    margin: 0 auto 50px;
     flex-direction: row;
   }
   .map-container {

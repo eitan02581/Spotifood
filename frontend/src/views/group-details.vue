@@ -264,6 +264,7 @@ export default {
         })
         // check if admin
         .then(adminUser => {
+          if (!adminUser) return;
           this.admin = adminUser;
           // if user is the group admin => disable to join
           if (this.user._id !== adminUser._id) {

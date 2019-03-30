@@ -36,13 +36,13 @@
       <div class="cuisine-container">
         <div
           class="cuisine-option"
-          :class="{selected:cuisine.isSelected}"
           v-for="(cuisine,idx) in cuisines"
           :key="idx"
           @click="selectCuisine(Object.keys(cuisine)[0],idx)"
         >
           <input type="radio" :value="Object.keys(cuisine)[0]" :ref="Object.keys(cuisine)[0]">
           <img :src="Object.values(cuisine)[0]">
+          <i class="far fa-check-circle" :class="{selected:cuisine.isSelected , notSelected:!cuisine.isSelected}"></i>
         </div>
       </div>
       <div class="bts">
@@ -118,12 +118,10 @@ section {
   height: 100%;
   padding-top: 150px;
   background-image: url("../assets/group-imgs/table4.jpg");
-  // background-color: lightseagreen;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   .form-wrapper {
-    // margin-top: 100px;
     background-color: #ffffffd4;
     max-width: 400px;
     margin-top: -50px;
@@ -132,8 +130,6 @@ section {
     display: flex;
     flex-direction: column;
     form {
-      // height: 350px;
-
       padding: 40px 60px 0 60px;
       *:not(:first-child) {
         margin: 15px 0;
@@ -166,6 +162,9 @@ section {
       justify-content: center;
       align-items: center;
       .cuisine-option {
+        display: flex;
+        justify-content: center;
+        align-items: center;
         cursor: pointer;
         position: relative;
         margin: 10px;
@@ -189,7 +188,13 @@ section {
     }
   }
   .selected {
-    background-color: green;
+    position: absolute;
+    font-size: 4em;
+    color: #3ed402d4;
+    display: block;
+  }
+  .notSelected{
+    display: none;
   }
   @media (min-width: 550px) {
     .second-screen {

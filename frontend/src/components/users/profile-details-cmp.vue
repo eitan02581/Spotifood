@@ -51,7 +51,7 @@ export default {
 }
 @media (min-width: 350px){
   .main-container{
-    border: 1px solid black;
+    border: 1px solid  #bababa;
   }
 }
 </style>

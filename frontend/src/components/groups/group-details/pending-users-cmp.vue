@@ -103,17 +103,20 @@ export default {
 }
 .pending-container {
   width: 100%;
-  height: 100%;
   background-color: white;
   padding: 12px;
   border-radius: 8px;
   display: flex;
   overflow: scroll;
+      max-width: 365px;
+    justify-content: center;
+    height: 155px;
 }
 .user-container {
   text-align: center;
   margin-left: 20px;
   margin-right: 20px;
+  min-width: 90px;
   .info-container {
     .country {
       color: #f44336;
@@ -123,6 +126,7 @@ export default {
     }
     .img-container {
       img {
+        height: 50px;
         width: 50px;
         border-radius: 50px;
       }

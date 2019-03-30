@@ -100,7 +100,6 @@ export default {
       this.$store
         .dispatch({ type: "uploadImg", img: formData, userId: this.user._id })
         .then(url => {
-          debugger;
           this.user.img = url;
           this.isUploading = false;
         });

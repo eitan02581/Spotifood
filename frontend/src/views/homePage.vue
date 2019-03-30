@@ -59,15 +59,12 @@ export default {
       this.breakfastGroups = this.$store.getters.groups.filter(
         group => group.eventType === "Breakfast"
       );
-      // console.log("lunch groups are:", this.breakfastGroups);
       this.lunchGroups = this.$store.getters.groups.filter(
         group => group.eventType === "Lunch"
       );
-      // console.log("lunch groups are:", this.lunchGroups);
       this.dinnerGroups = this.$store.getters.groups.filter(
         group => group.eventType === "Dinner"
       );
-      // console.log("lunch groups are:", this.dinnerGroups);
     });
   },
   computed: {

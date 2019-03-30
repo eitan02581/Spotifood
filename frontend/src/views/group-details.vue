@@ -532,6 +532,7 @@ export default {
           }
           .list {
             // display: inline-block;
+            overflow: scroll;
             background-color: white;
             padding: 12px;
             border-radius: 8px;

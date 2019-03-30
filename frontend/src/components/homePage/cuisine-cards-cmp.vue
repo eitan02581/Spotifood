@@ -78,6 +78,7 @@ export default {
         height: 100%;
         width: 100%;
         object-fit: cover;
+        transition: 0.3s;
       }
     }
     .title {
@@ -101,7 +102,6 @@ export default {
   }
   .card:hover {
     .image {
-      opacity: 0.7;
     }
     h1 {
       font-size: 50px;

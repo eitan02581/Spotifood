@@ -18,8 +18,11 @@ import VuetifyToast from 'vuetify-toast-snackbar'
 // import VueAwesomeSwiper from 'vue-awesome-swiper'
 require('vuetify/dist/vuetify.min.css')
 // import 'swiper/dist/css/swiper.css'
+import VueCarousel from 'vue-carousel';
+
 
 Vue.use(Vuetify)
+Vue.use(VueCarousel);
 // Vue.use(VueAwesomeSwiper)
 Vue.use(FunctionalCalendar)
 Vue.use(vueEventCalendar, { locale: 'en' })

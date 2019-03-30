@@ -113,10 +113,13 @@ export default {
       dinnerGroups: null,
       userGroups: null,
       soonGroups: null,
-      timeDiff: 36000000
+      timeDiff: 2674800000
     };
   },
   async created() {
+    let a = 1552243874000
+    let b = 1554918674000
+    console.log(b-a)
     await this.$store.dispatch({ type: "getGroups" });
     this.breakfastGroups = this.$store.getters.groups.filter(
       group => group.eventType === "Breakfast"

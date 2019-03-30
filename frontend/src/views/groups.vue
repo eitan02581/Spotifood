@@ -64,6 +64,7 @@ export default {
             group.dist = Math.round(dist)
             return dist < 80;
           });
+          nearby.sort((a, b) => a.dist - b.dist);
           this.nearbyGroups = nearby;
         });
       }

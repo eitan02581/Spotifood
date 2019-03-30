@@ -27,8 +27,8 @@
           <div v-if="user" class="group-container">
             <GroupPreview v-for="group in userGroups" :key="group._id" :group="group"></GroupPreview>
           </div>
-          <h1>Comming Up</h1>
-          <div class="group-container">
+          <h1 v-if="soonGroups && soonGroups.length">Comming Up</h1>
+          <div v-if="soonGroups && soonGroups.length" class="group-container">
             <GroupPreview v-for="group in soonGroups" :key="group._id" :group="group">
               <template v-slot:comming-up>{{group.time | time }}</template>
             </GroupPreview>

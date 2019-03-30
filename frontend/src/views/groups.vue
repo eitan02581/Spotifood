@@ -4,16 +4,16 @@
     <div v-if="loadedGroups" data-aos="fade-down" data-aos-duration="900" class="filter-container">
       <FilterGroup @filter="filter"></FilterGroup>
     </div>
-    <div v-if="nearbyGroups && nearbyGroups.length" class="groups-previews">
-      <h1>Come by!</h1>
-      <h3>Events Near You</h3>
-      <div class="group-container">
-        <GroupPreview v-for="group in nearbyGroups" :key="group._id" :group="group"></GroupPreview>
-      </div>
-      <hr>
-    </div>
     <LoadingCmp v-if="!loadedGroups || !nearbyGroups && !nearbyGroups.length"></LoadingCmp>
     <div v-if="loadedGroups" class="group-list-container">
+      <div v-if="nearbyGroups && nearbyGroups.length" class="groups-previews">
+        <h1>Come by!</h1>
+        <h3>Events Near You</h3>
+        <div class="group-container">
+          <GroupPreview v-for="group in nearbyGroups" :key="group._id" :group="group"></GroupPreview>
+        </div>
+        <hr>
+      </div>
       <h1>Try Something New</h1>
       <GroupList :groups="groups"></GroupList>
     </div>

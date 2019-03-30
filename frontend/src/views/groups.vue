@@ -10,7 +10,9 @@
         <h1>Come by!</h1>
         <h3>Events Near You</h3>
         <div class="group-container">
-          <GroupPreview v-for="group in nearbyGroups" :key="group._id" :group="group"></GroupPreview>
+          <GroupPreview v-for="group in nearbyGroups" :key="group._id" :group="group">
+              <template v-slot:comming-up>{{group.dist}} km Away</template>
+          </GroupPreview>
         </div>
         <hr>
       </div>
@@ -52,8 +54,6 @@ export default {
             lat: coords.latitude,
             lng: coords.longitude
           };
-          console.log("currLoc", this.currLoc);
-          console.log(this.$store.getters.groups);
           let nearby = this.$store.getters.groups.filter(group => {
             let dist = this.getDistanceFromLatLonInKm(
               this.currLoc.lat,
@@ -61,10 +61,9 @@ export default {
               group.location.lat,
               group.location.lng
             );
-            console.log("distance:", dist);
+            group.dist = Math.round(dist)
             return dist < 80;
           });
-          console.log("nearby groups are", nearby);
           this.nearbyGroups = nearby;
         });
       }

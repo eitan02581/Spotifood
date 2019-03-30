@@ -105,24 +105,23 @@ export default {
     };
   },
   async created() {
-    let a = 1552243874000;
-    let b = 1554918674000;
-    console.log(b - a);
     await this.$store.dispatch({ type: "getGroups" });
-    this.breakfastGroups = this.$store.getters.groups.filter(
-      group => group.eventType === "Breakfast"
-    ).slice(0, 7);
-    this.lunchGroups = this.$store.getters.groups.filter(
-      group => group.eventType === "Lunch"
-    ).slice(0, 7);
-    this.dinnerGroups = this.$store.getters.groups.filter(
-      group => group.eventType === "Dinner"
-    ).slice(0, 7);
-    this.soonGroups = this.$store.getters.groups.filter(
-      group =>
-        group.time - new Date().getTime() < this.timeDiff &&
-        group.time - new Date().getTime() > 0
-    );
+    this.breakfastGroups = this.$store.getters.groups
+      .filter(group => group.eventType === "Breakfast")
+      .slice(0, 7);
+    this.lunchGroups = this.$store.getters.groups
+      .filter(group => group.eventType === "Lunch")
+      .slice(0, 7);
+    this.dinnerGroups = this.$store.getters.groups
+      .filter(group => group.eventType === "Dinner")
+      .slice(0, 7);
+    this.soonGroups = this.$store.getters.groups
+      .filter(
+        group =>
+          group.time - new Date().getTime() < this.timeDiff &&
+          group.time - new Date().getTime() > 0
+      )
+      .sort((a, b) => a.time - b.time);
     if (this.user) {
       this.userGroups = this.$store.getters.groups.filter(
         group => group.admin === this.user._id

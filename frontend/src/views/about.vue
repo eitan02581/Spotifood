@@ -46,10 +46,7 @@ section {
   padding-top: 100px;
   margin-bottom: 100px;
 
-  height: 100vh;
   margin: 0 auto;
-  // border-right: 1px solid black;
-  // border-left: 1px solid black;
   h1 {
     color: #f44336;
     margin: 0;
@@ -60,16 +57,13 @@ section {
   p {
     color: gray;
   }
-  // align-items: center;
   .about-item {
-    // border: 1px solid red;
     margin: 15px;
     padding: 20px;
     width: 300px;
     height: 450px;
     display: flex;
     flex-direction: column;
-    // justify-content: space-between;
     align-items: center;
     img {
       margin-bottom: 30px;
@@ -78,4 +72,7 @@ section {
     }
   }
 }
+// @media (min-width: 500px) {
+//   height: 100vh;
+// }
 </style>

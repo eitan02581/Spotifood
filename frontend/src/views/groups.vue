@@ -1,6 +1,7 @@
 <template>
   <section>
-    <div data-aos="fade-down" data-aos-duration="900" class="filter-container">
+    <LoadingCmp v-if="!loadedGroups"></LoadingCmp>
+    <div v-if="loadedGroups" data-aos="fade-down" data-aos-duration="900" class="filter-container">
       <FilterGroup @filter="filter"></FilterGroup>
     </div>
     <div v-if="nearbyGroups && nearbyGroups.length" class="groups-previews">
@@ -170,6 +171,7 @@ h3 {
 @media only screen and (max-width: 600px) {
   section {
     width: 100%;
+    flex-grow: 1;
   }
 }
 </style>

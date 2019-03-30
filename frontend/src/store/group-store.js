@@ -11,7 +11,8 @@ const groupStore = {
         groups: [],
         group: null,
         pendUsers: [],
-        isGroupAdmin:false
+        homePageFitler: null,
+        isGroupAdmin: false
 
     }, getters: {
         groups(state) {
@@ -28,11 +29,16 @@ const groupStore = {
         },
         isGroupAdmin(state) {
             return state.isGroupAdmin
+        },
+        getHomePageFitler(state) {
+            return state.homePageFitler
         }
     },
     mutations: {
         cleanGroup(state) {
             state.group = null
+            state.isGroupAdmin = false
+            state.homePageFitler = null
         },
         setGroups(state, { groups }) {
             state.groups = groups
@@ -57,11 +63,20 @@ const groupStore = {
         },
         setIsGroupAdmin(state, { bool }) {
             state.isGroupAdmin = bool
+        },
+        setFilterFromHome(state, { filterObj }) {
+            state.homePageFitler = filterObj
         }
     },
     actions: {
+        cleanData({ commit }) {
+            commit({ type: 'cleanGroup' })
+        },
         getGroups({ commit }) {
             return groupService.query().then(groups => commit({ type: 'setGroups', groups }))
+        },
+        setFilterFromHome({ commit }, { filterObj }) {
+            commit({ type: 'setFilterFromHome', filterObj })
         },
         filterGroups({ commit }, { filterBy }) {
             groupService.query(filterBy)

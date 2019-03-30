@@ -16,7 +16,7 @@
           <button>Explore</button>
         </router-link>
         <router-link v-if="user" class="nav-link-classic" to="/groups/add">
-          <button>Create Group</button>
+          <button>Create Event</button>
         </router-link>
         <router-link class="nav-link-classic" to="/about">
           <button>About</button>

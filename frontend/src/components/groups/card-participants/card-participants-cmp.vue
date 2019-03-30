@@ -1,6 +1,8 @@
 
+// TODO: SEE WHITE YOVEL AND ALEX - CONTINUE FROM AGGREGATING USR.IMG AND GROUP IMG
 
 <template>
+  <!-- <section> -->
   <div>
     <template v-if="users.length >= 1">
       <div class="list-holder">
@@ -18,10 +20,11 @@
       </div>
     </template>
   </div>
+  <!-- </section> -->
 </template>
 
 <script>
-import participantPreview from "../group-details/participant-preview-cmp";
+import participantPreview from "../group-preview-cmp";
 export default {
   // TODO: ADD FUNC TO REMOVE  USER
   props: {
@@ -48,6 +51,7 @@ export default {
     onRemoveParticipant(userId) {
       var groupId = this.$store.getters.group._id;
       var ids = { userId, groupId };
+
       this.$store.dispatch({ type: "removeUserFromGroup", ids }).then(() => {
         this.users = this.users.filter(user => user._id !== userId);
         this.$toast.Error(`Removed!`);
@@ -56,11 +60,6 @@ export default {
   }
 };
 </script>
-
-
-
-
-
 
 <style scoped lang="scss">
 section {

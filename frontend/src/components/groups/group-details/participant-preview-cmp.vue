@@ -25,6 +25,7 @@ img {
   text-align: center;
   width: 60px;
   height: 60px;
+  object-fit: cover;
   border-radius: 51px;
   border: 5px solid #9e9e9e47;
   transition: 0.3s;

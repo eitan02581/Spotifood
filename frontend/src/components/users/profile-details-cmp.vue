@@ -1,6 +1,7 @@
 <template>
   <section class="main-container">
     <profile-card :user="user" :isMyUserProfile="isMyUserProfile"/>
+    <h1>My Events</h1>
     <events-container :groups="sortedGroups"/>
   </section>
 </template>
@@ -44,14 +45,23 @@ export default {
   margin: auto;
   min-height: 50vh;
 }
+h1 {
+  text-align: center;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  color: rgb(99, 99, 99);
+  font-size: 3rem;
+  text-transform: uppercase;
+  margin: 50px 0 20px;
+}
+
 @media (min-width: 650px) {
   .main-container {
     max-width: 80%;
   }
 }
-@media (min-width: 350px){
-  .main-container{
-    border: 1px solid black;
+@media (min-width: 350px) {
+  .main-container {
+    border: 1px solid rgb(199, 199, 199);
   }
 }
 </style>

@@ -22,6 +22,19 @@
             >
           </transition>
         </div>
+        <div class="groups-previews">
+          <h1 v-if="user">My Events</h1>
+          <div v-if="user" class="group-container">
+            <GroupPreview v-for="group in userGroups" :key="group._id" :group="group"></GroupPreview>
+          </div>
+          <h1>Comming Up</h1>
+          <div class="group-container">
+            <GroupPreview v-for="group in soonGroups" :key="group._id" :group="group">
+              <template v-slot:comming-up>{{group.time | time }}</template>
+            </GroupPreview>
+          </div>
+        </div>
+
         <div data-aos="fade" data-aos-once="true" class="explain-one">
           <div data-aos="fade" class="title">
             <h1>Discovering</h1>
@@ -35,29 +48,40 @@
         <div class="cusine-previews">
           <cuisineTypes @filterBy="onFilter"></cuisineTypes>
         </div>
-
         <div class="groups-previews">
-          <div class="br-wrap">
-            <h1 @click="onFilter( 'eventType', 'Breakfast')">Breakfast</h1>
-            <div class="group-container br-con">
-              <GroupPreview v-for="group in breakfastGroups" :key="group._id" :group="group"></GroupPreview>
-              <!-- <GroupList :groups="groups"></GroupList> -->
-            </div>
+          <h1>Breakfast</h1>
+          <div class="group-container">
+            <GroupPreview v-for="group in breakfastGroups" :key="group._id" :group="group"></GroupPreview>
           </div>
-          <!-- <hr> -->
-          <div class="ln-wrap">
-            <h1 @click="onFilter( 'eventType', 'Lunch')">Lunch</h1>
-            <div class="group-container">
-              <GroupPreview v-for="group in lunchGroups" :key="group._id" :group="group"></GroupPreview>
-              <!-- <GroupList :groups="groups"></GroupList> -->
-            </div>
+          <h1>Lunch</h1>
+          <div class="group-container">
+            <GroupPreview v-for="group in lunchGroups" :key="group._id" :group="group"></GroupPreview>
           </div>
-          <!-- <hr> -->
-          <div class="din-wrap">
-            <h1 @click="onFilter( 'eventType', 'Dinner')">Dinner</h1>
-            <div class="group-container">
-              <GroupPreview v-for="group in dinnerGroups" :key="group._id" :group="group"></GroupPreview>
-              <!-- <GroupList :groups="groups"></GroupList> -->
+          <h1>Dinner</h1>
+          <div class="group-container">
+            <GroupPreview v-for="group in dinnerGroups" :key="group._id" :group="group"></GroupPreview>
+            <div class="br-wrap">
+              <h1 @click="onFilter( 'eventType', 'Breakfast')">Breakfast</h1>
+              <div class="group-container br-con">
+                <GroupPreview v-for="group in breakfastGroups" :key="group._id" :group="group"></GroupPreview>
+                <!-- <GroupList :groups="groups"></GroupList> -->
+              </div>
+            </div>
+            <!-- <hr> -->
+            <div class="ln-wrap">
+              <h1 @click="onFilter( 'eventType', 'Lunch')">Lunch</h1>
+              <div class="group-container">
+                <GroupPreview v-for="group in lunchGroups" :key="group._id" :group="group"></GroupPreview>
+                <!-- <GroupList :groups="groups"></GroupList> -->
+              </div>
+            </div>
+            <!-- <hr> -->
+            <div class="din-wrap">
+              <h1 @click="onFilter( 'eventType', 'Dinner')">Dinner</h1>
+              <div class="group-container">
+                <GroupPreview v-for="group in dinnerGroups" :key="group._id" :group="group"></GroupPreview>
+                <!-- <GroupList :groups="groups"></GroupList> -->
+              </div>
             </div>
           </div>
         </div>
@@ -86,29 +110,40 @@ export default {
     return {
       breakfastGroups: null,
       lunchGroups: null,
-      dinnerGroups: null
+      dinnerGroups: null,
+      userGroups: null,
+      soonGroups: null,
+      timeDiff: 36000000
     };
   },
   async created() {
-    this.$store.dispatch({ type: "getGroups" }).then(() => {
-      // console.log("all groups are", this.$store.getters.groups);
-      this.breakfastGroups = this.$store.getters.groups.filter(
-        group => group.eventType === "Breakfast"
+    await this.$store.dispatch({ type: "getGroups" });
+    this.breakfastGroups = this.$store.getters.groups.filter(
+      group => group.eventType === "Breakfast"
+    );
+    this.lunchGroups = this.$store.getters.groups.filter(
+      group => group.eventType === "Lunch"
+    );
+    this.dinnerGroups = this.$store.getters.groups.filter(
+      group => group.eventType === "Dinner"
+    );
+    this.soonGroups = this.$store.getters.groups.filter(
+      group =>
+        group.time - new Date().getTime() < this.timeDiff &&
+        group.time - new Date().getTime() > 0
+    );
+    if (this.user) {
+      this.userGroups = this.$store.getters.groups.filter(
+        group => group.admin === this.user._id
       );
-      // console.log("lunch groups are:", this.breakfastGroups);
-      this.lunchGroups = this.$store.getters.groups.filter(
-        group => group.eventType === "Lunch"
-      );
-      // console.log("lunch groups are:", this.lunchGroups);
-      this.dinnerGroups = this.$store.getters.groups.filter(
-        group => group.eventType === "Dinner"
-      );
-      // console.log("lunch groups are:", this.dinnerGroups);
-    });
+    }
   },
   computed: {
     groups() {
       return this.$store.getters.groups;
+    },
+    user() {
+      return this.$store.getters.user;
     }
   },
   methods: {
@@ -124,8 +159,6 @@ export default {
 
 <style scoped lang="scss">
 section {
-  flex-grow: 1;
-
   .video-container {
     position: fixed;
     width: 100%;

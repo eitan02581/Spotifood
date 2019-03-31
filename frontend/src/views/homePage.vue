@@ -1,7 +1,7 @@
 <template>
   <section>
-    <div class="video-container">
-      <Landing-video></Landing-video>
+    <div class="background-container">
+      <Landing-imgs></Landing-imgs>
     </div>
     <div class="back">
       <div class="main-content">
@@ -99,7 +99,7 @@
 </template>
 
 <script>
-import LandingVideo from "../components/homePage/landing-video-cmp";
+import LandingImgs from "../components/homePage/landing-images-cmp";
 import GroupPreview from "../components/groups/group-preview-cmp";
 import HowItWorks from "../components/homePage/howItWorks-cmp";
 import GroupList from "../components/groups/group-list-cmp";
@@ -109,7 +109,7 @@ import { eventBus, FILTER_BY } from "../services/EventBusService.js";
 
 export default {
   components: {
-    LandingVideo,
+    LandingImgs,
     GroupPreview,
     HowItWorks,
     GroupList,
@@ -123,13 +123,10 @@ export default {
       dinnerGroups: null,
       userGroups: null,
       soonGroups: null,
-      timeDiff: 2674800000
+      timeDiff: 2674800000,
     };
   },
   async created() {
-    let a = 1552243874000;
-    let b = 1554918674000;
-    console.log(b - a);
     await this.$store.dispatch({ type: "getGroups" });
     this.breakfastGroups = this.$store.getters.groups
       .filter(group => group.eventType === "Breakfast")
@@ -140,11 +137,21 @@ export default {
     this.dinnerGroups = this.$store.getters.groups
       .filter(group => group.eventType === "Dinner")
       .slice(0, 7);
+<<<<<<< HEAD
     this.soonGroups = this.$store.getters.groups.filter(
       group =>
         group.time - new Date().getTime() < this.timeDiff &&
         group.time - new Date().getTime() > 0
     );
+=======
+    this.soonGroups = this.$store.getters.groups
+      .filter(
+        group =>
+          group.time - new Date().getTime() < this.timeDiff &&
+          group.time - new Date().getTime() > 0
+      )
+      .sort((a, b) => a.time - b.time);
+>>>>>>> 3fd6cdda43bb92e4a31b2853311085ecbdb441f8
     if (this.user) {
       this.userGroups = this.$store.getters.groups.filter(
         group => group.admin === this.user._id
@@ -177,7 +184,7 @@ export default {
 
 <style scoped lang="scss">
 section {
-  .video-container {
+  .background-container {
     position: fixed;
     width: 100%;
   }

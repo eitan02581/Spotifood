@@ -8,19 +8,17 @@
         <!-- <div class="how-it-works">
           <HowItWorks></HowItWorks>
         </div>-->
-        <div data-aos="fade" data-aos-once="true" class="explain-one">
+        <div data-aos="fade" data-aos-once="true" data-aos-duration="1000" class="explain-one">
           <div data-aos="fade" class="title">
             <h1>
               Cook
               <span style="color:#f44336;">&</span> Eat Together
             </h1>
           </div>
-          <transition name="scale-in-ver-bottom">
-            <img
-              src="https://www.galloportugal.com/wp-content/uploads/2019/01/Gallo-sobre-nos-1300x420-2.jpg"
-              alt="Table white food "
-            >
-          </transition>
+          <img
+            src="https://www.galloportugal.com/wp-content/uploads/2019/01/Gallo-sobre-nos-1300x420-2.jpg"
+            alt="Table white food "
+          >
         </div>
         <div class="groups-previews">
           <h1 v-if="user">My Events</h1>
@@ -35,7 +33,7 @@
           </div>
         </div>
 
-        <div data-aos="fade" data-aos-once="true" class="explain-one">
+        <div data-aos="fade" data-aos-once="true" data-aos-duration="1000" class="explain-one">
           <div data-aos="fade" class="title">
             <h1>Discovering</h1>
             <h1>new flavours</h1>
@@ -47,6 +45,28 @@
         </div>
         <div class="cusine-previews">
           <cuisineTypes @filterBy="onFilter"></cuisineTypes>
+        </div>
+
+        <!-- <div data-aos="fade" data-aos-once="true" data-aos-duration="1000" class="explain-one">
+          <div data-aos="fade" class="title">
+            <h1>Discovering</h1>
+            <h1>new flavours</h1>
+          </div>
+          <img
+            src="https://www.galloportugal.com/wp-content/uploads/2018/11/shutterstock_476812717.jpg"
+            alt="Table white food "
+          >
+        </div>-->
+        <!-- <countriesCards v-if="groups" ></countriesCards> -->
+        <div data-aos="fade" data-aos-once="true" data-aos-duration="1000" class="explain-one">
+          <div data-aos="fade" class="title">
+            <h1>
+              Sharing Moments
+              <span style="color:#f44336; font-size:68px">w</span>ith New Ones
+              <!-- <span style="color:#f44336;">&</span> Eat Together -->
+            </h1>
+          </div>
+          <img src="../assets/about/morning.jpg" alt="Table white food ">
         </div>
         <div class="groups-previews">
           <div class="br-wrap">
@@ -84,6 +104,7 @@ import GroupPreview from "../components/groups/group-preview-cmp";
 import HowItWorks from "../components/homePage/howItWorks-cmp";
 import GroupList from "../components/groups/group-list-cmp";
 import cuisineTypes from "../components/homePage/cuisine-cards-cmp";
+import countriesCards from "../components/homePage/countries-cards-cmp";
 import { eventBus, FILTER_BY } from "../services/EventBusService.js";
 
 export default {
@@ -92,7 +113,8 @@ export default {
     GroupPreview,
     HowItWorks,
     GroupList,
-    cuisineTypes
+    cuisineTypes,
+    countriesCards
   },
   data() {
     return {
@@ -109,15 +131,15 @@ export default {
     let b = 1554918674000;
     console.log(b - a);
     await this.$store.dispatch({ type: "getGroups" });
-    this.breakfastGroups = this.$store.getters.groups.filter(
-      group => group.eventType === "Breakfast"
-    ).slice(0, 7);
-    this.lunchGroups = this.$store.getters.groups.filter(
-      group => group.eventType === "Lunch"
-    ).slice(0, 7);
-    this.dinnerGroups = this.$store.getters.groups.filter(
-      group => group.eventType === "Dinner"
-    ).slice(0, 7);
+    this.breakfastGroups = this.$store.getters.groups
+      .filter(group => group.eventType === "Breakfast")
+      .slice(0, 7);
+    this.lunchGroups = this.$store.getters.groups
+      .filter(group => group.eventType === "Lunch")
+      .slice(0, 7);
+    this.dinnerGroups = this.$store.getters.groups
+      .filter(group => group.eventType === "Dinner")
+      .slice(0, 7);
     this.soonGroups = this.$store.getters.groups.filter(
       group =>
         group.time - new Date().getTime() < this.timeDiff &&
@@ -138,10 +160,15 @@ export default {
     }
   },
   methods: {
-    onFilter(filterBy, val) {
-      var filterObj = { filterBy, val };
+    onFilter(filterBy, val, color) {
+      console.log(color);
+
+      var filterObj = { filterBy, val, color };
       this.$store.dispatch({ type: "setFilterFromHome", filterObj });
       this.$router.push("/groups");
+      setTimeout(() => {
+        window.scrollTo(0, 400);
+      }, 200);
     }
   },
   destroyed() {}

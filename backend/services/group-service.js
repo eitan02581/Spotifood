@@ -43,10 +43,11 @@ function query(filterBy) {
         if (filterBy.eventType) queryToMongo.eventType = filterBy.eventType
         if (filterBy.guests) queryToMongo.guests = +filterBy.guests
         if (filterBy.title) queryToMongo.title = new RegExp(filterBy.title, 'i');
+        if (filterBy.country) queryToMongo['place.country.longName'] = new RegExp(filterBy.country, 'i');
 
-
+        console.log(queryToMongo);
         return mongoService.connect()
-            .then(db => db.collection(GROUP_COLLECTION).find(queryToMongo).sort().toArray())
+            .then(db => db.collection(GROUP_COLLECTION).find(queryToMongo).toArray())
             .then(groups => {
                 return groups
             })

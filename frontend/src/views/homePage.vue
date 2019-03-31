@@ -17,6 +17,7 @@
           </div>
           <transition name="scale-in-ver-bottom">
             <img
+             id="element"
               src="https://www.galloportugal.com/wp-content/uploads/2019/01/Gallo-sobre-nos-1300x420-2.jpg"
               alt="Table white food "
             >

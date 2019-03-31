@@ -16,6 +16,7 @@
               <span style="font-size:124px ; padding:0">W</span>Eat
             </span> Experience
           </h1>
+          <a href="#" v-scroll-to="'#element'"><i class="fas fa-chevron-circle-down"></i></a>
         </div>
       </div>
     </div>
@@ -87,6 +88,17 @@ section {
       rgba(0, 0, 0, 0) 84%,
       rgba(255, 255, 255, 0.02) 100%
     );
+    a{
+      text-decoration:none;
+      color: #fff;
+      font-size: 3rem;
+      margin: 0 auto;
+      display:flex;
+      flex-direction:column;
+        justify-content: flex-end;
+      // position: relative;
+      // bottom:0;
+    }
   }
   #videoMessage * {
     padding: 0.4em;

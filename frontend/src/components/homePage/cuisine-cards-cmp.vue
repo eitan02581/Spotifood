@@ -82,7 +82,7 @@ export default {
       transition: 0.3s;
       img {
         height: 100%;
-        width: 100%;
+        width: 250px;
         object-fit: cover;
         transition: 0.3s;
       }

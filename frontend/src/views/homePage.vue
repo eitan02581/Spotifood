@@ -59,7 +59,7 @@
         </div>-->
         <!-- <countriesCards v-if="groups" ></countriesCards> -->
         <div data-aos="fade" data-aos-once="true" data-aos-duration="1000" class="explain-one">
-          <div data-aos="fade" class="title">
+          <div data-aos="fade" class="title opac">
             <h1>
               Sharing Moments
               <span style="color:#f44336; font-size:68px">w</span>ith New Ones
@@ -123,7 +123,7 @@ export default {
       dinnerGroups: null,
       userGroups: null,
       soonGroups: null,
-      timeDiff: 2674800000,
+      timeDiff: 2674800000
     };
   },
   async created() {
@@ -199,6 +199,7 @@ section {
       margin-bottom: 50px;
       position: relative;
       .title {
+        background-color: #0000003d;
         height: 100%;
         width: 100%;
         position: absolute;

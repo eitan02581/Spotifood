@@ -3,7 +3,7 @@
     <div :class="{'filter-container':true , anim: isOpen }">
       <form>
         <searchTitle @title="onSelectedVals('title' , $event)"></searchTitle>
-        <countrySearch @country="onSelectedVals('country' , $event)" ></countrySearch>
+        <countrySearch @country="onSelectedVals('country' , $event)"></countrySearch>
         <eventSelect @eventType="onSelectedVals('eventType' ,  $event)"></eventSelect>
         <cuisineSelect @cuisine="onSelectedVals('cuisineType' ,  $event)"></cuisineSelect>
         <guestsSelect @guests="onSelectedVals('guests' ,  $event)"></guestsSelect>
@@ -41,7 +41,8 @@ export default {
     guestsSelect,
     eventSelect,
     cuisineSelect,
-    searchTitle,countrySearch
+    searchTitle,
+    countrySearch
   },
   data() {
     return {
@@ -51,20 +52,16 @@ export default {
         eventType: "",
         guests: null,
         title: "",
-        country:""
+        country: ""
       },
       isOpen: false
     };
   },
   created() {
     var homeFilter = this.$store.getters.getHomePageFitler;
-<<<<<<< HEAD
     if (homeFilter) {
       this.onSelectedVals(homeFilter.filterBy, homeFilter.val, true);
     }
-=======
-    if (homeFilter) this.onSelectedVals(homeFilter.filterBy, homeFilter.val);
->>>>>>> 3fd6cdda43bb92e4a31b2853311085ecbdb441f8
   },
   methods: {
     onSelectedVals(filterBy, val, homepage) {
@@ -86,7 +83,7 @@ export default {
         eventType: "",
         guests: null,
         title: "",
-        country:""
+        country: ""
       };
     },
     onFilter() {

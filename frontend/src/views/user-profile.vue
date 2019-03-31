@@ -52,7 +52,6 @@ export default {
           this.groups.push(group);
         });
       });
-      console.log(this.user, "user");
       this.user.createdGroups.forEach(groupId => {
         this.$store.dispatch({ type: "getGroupById", groupId }).then(group => {
           this.managedGroups.push(group);

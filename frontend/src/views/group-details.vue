@@ -21,7 +21,7 @@
 
       <div class="join-btn-holder">
         <div class="left-box">
-          <router-link :to="'/user/' + admin._id">
+          <router-link v-if="admin" :to="'/user/' + admin._id">
             <div class="hosted-by-container">
               <div class="hosted">
                 <h1>Hosted By: {{admin.username}}</h1>
@@ -272,7 +272,7 @@ export default {
           if (!adminUser) return;
           this.admin = adminUser;
           // if user is the group admin => disable to join
-          if (this.user._id !== adminUser._id) {
+          if (this.user && this.user._id !== adminUser._id) {
             this.$store.commit({ type: "setIsGroupAdmin", bool: false });
             // this.isAdmin = false;
           } else {
@@ -290,12 +290,12 @@ export default {
       // TODO: CHANGE FINDINDEX TO INCLUDES
       var isPending = group.pendingUsers.findIndex(pending => {
         if (pending) {
-          return pending === this.user._id;
+          return this.user && pending === this.user._id;
         }
       });
       var isParticipant = group.users.findIndex(participant => {
-        return participant._id === this.user._id;
-      });
+        return this.user && participant._id === this.user._id;
+      })
 
       if (isPending !== -1 || isParticipant !== -1) {
         this.isAbleToJoin = false;
@@ -672,7 +672,7 @@ export default {
       margin-bottom: 50px;
 
       .hosted-by-container {
-        margin-top: -40px;
+        margin-top: -25px;
         position: absolute;
         left: 0;
         display: flex;

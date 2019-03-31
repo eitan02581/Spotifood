@@ -2,7 +2,7 @@
   <section>
     <div id="backgroundDiv">
       <div id="backgroundBlock">
-        <carousel :per-page="1" :autoplay="true" :autoplayTimeout="1000000" :loop="true">
+        <carousel :per-page="1" :autoplay="true" :autoplayTimeout="4000" :loop="true">
           <slide v-for="backGround in backGrounds" :key="backGround">
             <img :src="backGround">
           </slide>

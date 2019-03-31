@@ -6,7 +6,7 @@
       <FilterGroup @filter="filter"></FilterGroup>
     </div>
     <div v-if="loadedGroups" class="group-list-container">
-      <div v-if="nearbyGroups && nearbyGroups.length && !filterTitleToDisp" class="groups-previews">
+      <!-- <div v-if="nearbyGroups && nearbyGroups.length && !filterTitleToDisp" class="groups-previews">
         <h1>Come by!</h1>
         <h3>Events Near You</h3>
         <div class="group-container">
@@ -15,7 +15,7 @@
           </GroupPreview>
         </div>
         <hr>
-      </div>
+      </div>-->
       <h1 v-if="filterTitleToDisp">
         Check Out
         <span :style="{color: '#' + filterTitleToDisp.color}">{{homeFilterTitle}}</span>
@@ -67,7 +67,7 @@ export default {
               group.location.lat,
               group.location.lng
             );
-            group.dist = Math.round(dist)
+            group.dist = Math.round(dist);
             return dist < 80;
           });
           nearby.sort((a, b) => a.dist - b.dist);

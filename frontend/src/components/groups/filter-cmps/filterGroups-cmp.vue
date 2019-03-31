@@ -3,6 +3,7 @@
     <div :class="{'filter-container':true , anim: isOpen }">
       <form>
         <searchTitle @title="onSelectedVals('title' , $event)"></searchTitle>
+        <countrySearch @country="onSelectedVals('country' , $event)"></countrySearch>
         <eventSelect @eventType="onSelectedVals('eventType' ,  $event)"></eventSelect>
         <cuisineSelect @cuisine="onSelectedVals('cuisineType' ,  $event)"></cuisineSelect>
         <guestsSelect @guests="onSelectedVals('guests' ,  $event)"></guestsSelect>
@@ -24,6 +25,7 @@ import guestsSelect from "./guests-select-cmp";
 import eventSelect from "./event-select-cmp.vue";
 import cuisineSelect from "./cuisine-select-cmp.vue";
 import searchTitle from "./search-input-cmp";
+import countrySearch from "./country-search-input-cmp";
 
 import {
   eventBus,
@@ -39,7 +41,8 @@ export default {
     guestsSelect,
     eventSelect,
     cuisineSelect,
-    searchTitle
+    searchTitle,
+    countrySearch
   },
   data() {
     return {
@@ -48,22 +51,29 @@ export default {
         cuisineType: "",
         eventType: "",
         guests: null,
-        title: ""
+        title: "",
+        country: ""
       },
       isOpen: false
     };
   },
   created() {
     var homeFilter = this.$store.getters.getHomePageFitler;
-    if (homeFilter) this.onSelectedVals(homeFilter.filterBy, homeFilter.val);
+    if (homeFilter) {
+      this.onSelectedVals(homeFilter.filterBy, homeFilter.val, true);
+    }
   },
   methods: {
-    onSelectedVals(filterBy, val) {
+    onSelectedVals(filterBy, val, homepage) {
       if (filterBy === "hashtags") this.filterBy.hashtags = val;
       if (filterBy === "cuisineType") this.filterBy.cuisineType = val;
       if (filterBy === "eventType") this.filterBy.eventType = val;
       if (filterBy === "guests") this.filterBy.guests = val;
       if (filterBy === "title") this.filterBy.title = val;
+      if (filterBy === "country") this.filterBy.country = val;
+      if (!homepage) {
+        this.$store.dispatch({ type: "cleanData" });
+      }
     },
     clearAll() {
       eventBus.$emit("CLEAR_FILEDS");
@@ -72,7 +82,8 @@ export default {
         cuisineType: "",
         eventType: "",
         guests: null,
-        title: ""
+        title: "",
+        country: ""
       };
     },
     onFilter() {

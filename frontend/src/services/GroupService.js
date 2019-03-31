@@ -12,6 +12,7 @@ function query(filterBy) {
         if (filterBy.eventType) filterQuery += `eventType=${filterBy.eventType}&`
         if (filterBy.guests) filterQuery += `guests=${filterBy.guests}&`
         if (filterBy.title) filterQuery += `title=${filterBy.title}&`
+        if (filterBy.country) filterQuery += `country=${filterBy.country}&`
         return axios.get(`${GROUP_ROUTE}/${filterQuery}`).then(filterdGroups => filterdGroups.data)
     }
     else return axios.get(`${GROUP_ROUTE}`).then(groups => groups.data)

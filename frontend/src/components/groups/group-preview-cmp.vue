@@ -16,7 +16,9 @@
               <h1>{{group.title}}</h1>
             </div>
             <h2>in {{group.place.city}}, {{group.place.country.shortName}}</h2>
-            <h2><slot name="comming-up"></slot></h2>
+            <h2>
+              <slot name="comming-up"></slot>
+            </h2>
             <h3>
               <div class="meal">{{group.eventType}}</div>
             </h3>
@@ -105,7 +107,8 @@ section {
       background-size: cover;
     }
     h1 {
-      padding-top: 12px;
+      padding-top: 8px;
+      line-height: 22px;
       // text-align: center;
       color: #414a55;
       font-size: 19px;

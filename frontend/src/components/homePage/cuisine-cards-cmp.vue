@@ -2,16 +2,16 @@
   <section>
     <div class="cuisine-cards-cotnainer">
       <div
-        @click="onFilter( 'cuisineType', cusine.name)"
+        @click="onFilter( 'cuisineType', cuisine.name , cuisine.color)"
         class="card"
-        v-for="cusine in cusines"
-        :key="cusine.name"
+        v-for="cuisine in cusines"
+        :key="cuisine.name"
       >
         <div class="image">
-          <img :src="cusine.img" alt>
+          <img :src="cuisine.img" alt>
         </div>
         <div class="title">
-          <h1 :class="cusine.name">{{cusine.name}}</h1>
+          <h1 :class="cuisine.name">{{cuisine.name}}</h1>
         </div>
       </div>
     </div>
@@ -26,29 +26,35 @@ export default {
         {
           name: "French",
           img:
-            "http://res.cloudinary.com/sprint4-weat/image/upload/v1553940296/demo/ok4mseurarbch6dq8n8o.jpg"
+            "http://res.cloudinary.com/sprint4-weat/image/upload/v1553940296/demo/ok4mseurarbch6dq8n8o.jpg",
+          color: "03a9f4"
         },
         {
           name: "Italian",
           img:
-            "http://res.cloudinary.com/sprint4-weat/image/upload/v1553939032/demo/liromqabvewg9dlbtfuf.jpg"
+            "http://res.cloudinary.com/sprint4-weat/image/upload/v1553939032/demo/liromqabvewg9dlbtfuf.jpg",
+          color: "4caf50"
         },
         {
           name: "Israeli",
           img:
-            "http://res.cloudinary.com/sprint4-weat/image/upload/v1553940382/demo/sejxmsyjksn8nz94fwbu.jpg"
+            "http://res.cloudinary.com/sprint4-weat/image/upload/v1553940382/demo/sejxmsyjksn8nz94fwbu.jpg",
+          color: "03a9f4"
         },
         {
           name: "Chinese",
           img:
-            "http://res.cloudinary.com/sprint4-weat/image/upload/v1553938638/demo/blzyqdxjdcifkxtqt6da.jpg"
+            "http://res.cloudinary.com/sprint4-weat/image/upload/v1553938638/demo/blzyqdxjdcifkxtqt6da.jpg",
+          color: "f44336"
         }
       ]
     };
   },
   methods: {
-    onFilter(filterBy, val) {
-      this.$emit("filterBy", filterBy, val);
+    onFilter(filterBy, val, color) {
+      console.log(color);
+
+      this.$emit("filterBy", filterBy, val, color);
     }
   }
 };
@@ -76,7 +82,7 @@ export default {
       transition: 0.3s;
       img {
         height: 100%;
-        width: 100%;
+        width: 250px;
         object-fit: cover;
         transition: 0.3s;
       }

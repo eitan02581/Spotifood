@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Header></Header>
-    <router-view data-aos="fade"/>
+    <router-view />
     <Footer></Footer>
   </div>
 </template> 

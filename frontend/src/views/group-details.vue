@@ -283,8 +283,6 @@ export default {
         });
     },
     checkIfUserAbaleToJoin() {
-      // console.log("here");
-
       var group = this.$store.getters.group;
       // TODO: CHECK IF EVEN IF THERE ARE NULLS AND A REAL PENDING USER , IF IT WORKS
       // TODO: CHANGE FINDINDEX TO INCLUDES
@@ -322,8 +320,6 @@ export default {
     display: flex;
     flex-direction: column;
     width: 100%;
-    // background-color: lightcoral;
-
     .top-title {
       h1 {
         text-align: center;
@@ -333,12 +329,9 @@ export default {
       }
     }
     .img-carusel {
-      // background-color: lightgreen;
       width: 100%;
       height: 500px;
       min-width: 762px;
-
-      // margin-bottom: 100px;
       text-align: center;
       img {
         width: 100%;
@@ -348,7 +341,6 @@ export default {
       #mob-car {
         display: none;
       }
-      // width: 100%;
       .el-carousel__item h3 {
         color: #475669;
         font-size: 18px;
@@ -375,9 +367,6 @@ export default {
       height: 200px;
       margin-top: -100px;
       position: relative;
-      // display: flex;
-      // justify-content: center;
-      // align-items: center;
       .left-box {
         display: flex;
         justify-content: center;
@@ -428,24 +417,15 @@ export default {
     }
     .main {
       display: flex;
-      // background-color: lightseagreen;
       width: 100%;
       height: 100%;
-      // height: 500px;
-      // margin-bottom: 100px;
       .group-info {
-        // background-color: lightslategray;
         width: 50%;
-        // height: 100%;
         display: flex;
         flex-direction: column;
         .title {
           h1 {
-            // color: #3a4348;
-            // display: inline-block;
-            // background-color: white;
             margin-bottom: 20px;
-            // border-radius: 8px;
             color: #607d8b;
           }
         }
@@ -476,12 +456,10 @@ export default {
         }
 
         .info-container {
-          // background-color: lawngreen;
           width: 100%;
           height: 100%;
           .top {
             display: flex;
-            // margin-top: 20px;
           }
           .time,
           .event-type,
@@ -551,14 +529,12 @@ export default {
         }
       }
       .users-aside {
-        // background-color: lightgoldenrodyellow;
         width: 50%;
         height: 100%;
         display: flex;
         flex-direction: column;
         margin-left: 30px;
         .users-container {
-          // background-color: azure;
           width: 100%;
           padding: 0 5px 20px 5px;
           .participants {
@@ -578,7 +554,6 @@ export default {
             }
           }
           .list {
-            // display: inline-block;
             overflow: scroll;
             background-color: white;
             padding: 12px;
@@ -590,10 +565,8 @@ export default {
               color: #3a4348;
             }
           }
-          // height: 40%;
         }
         .chat-container {
-          // background-color: white;
           width: 100%;
           height: 100%;
           border-radius: 8px;
@@ -603,22 +576,16 @@ export default {
     .recpies-container {
       margin-top: 100px;
       margin-bottom: 100px;
-      // background-color: seagreen;
       width: 100%;
       margin-left: -50px;
     }
     .map-container {
-      // margin-bottom: 100px;
-
-      // background-color: lightsteelblue;
       height: 400px;
       border-radius: 5px;
       width: 100%;
-      // height: 100%;
       margin-left: 5px;
       .vue-map-container {
         height: 100%;
-        // height: 500px;
       }
     }
   }
@@ -627,36 +594,28 @@ export default {
   .recpies-container {
     margin-top: 170px !important;
     margin-bottom: 50px;
-    // background-color: seagreen;
     margin-left: -50px;
   }
 }
 @media only screen and (max-width: 600px) {
   .group-details {
-    // max-width: 1200px;
-    // margin: 0 auto;
     padding: 50px 30px 0 30px;
-    // background-color: lightcoral;
     .top-title {
       h1 {
         text-align: center;
         font-size: 35px;
         color: #f44336;
-        // margin-bottom: 50px;
       }
     }
     .img-carusel {
-      // background-color: lightgreen;
       width: 100%;
       height: 500px;
-      // margin-bottom: 100px;
       text-align: center;
       img {
         width: 100%;
         height: 100%;
         object-fit: contain;
       }
-      // width: 100%;
       #desk-car {
         display: none;
       }
@@ -707,25 +666,15 @@ export default {
     }
     .main {
       display: flex;
-      // background-color: lightseagreen;
       width: 100%;
-      // height: 500px;
       flex-direction: column;
-
-      // margin-bottom: 100px;
       .group-info {
-        // background-color: lightslategray;
-        // width: 50%;
         height: 100%;
         display: flex;
         flex-direction: column;
         .title {
           h1 {
-            // color: #3a4348;
-            // display: inline-block;
-            // background-color: white;
             margin-bottom: 20px;
-            // border-radius: 8px;
             color: #607d8b;
           }
         }
@@ -750,7 +699,6 @@ export default {
         }
 
         .info-container {
-          // background-color: lawngreen;
           width: 100%;
           height: 100%;
           .top {
@@ -801,7 +749,6 @@ export default {
           color: #607d8b;
         }
         .desc-container {
-          // background-color: lightgrey;
           margin-top: 20px;
           overflow: scroll;
 
@@ -821,22 +768,17 @@ export default {
         }
       }
       .users-aside {
-        // background-color: lightgoldenrodyellow;
-        // width: 50%;
         margin-top: 30px;
         height: 100%;
         display: flex;
         flex-direction: column;
-        // margin-left: 30px;
         .users-container {
-          // background-color: azure;
           width: 100%;
           padding: 0 5px 20px 5px;
           .participants {
             text-align: center;
             margin-bottom: 15px;
             display: flex;
-            // justify-content: center;
             align-items: center;
 
             h1 {
@@ -849,7 +791,6 @@ export default {
             }
           }
           .list {
-            // display: inline-block;
             overflow: scroll;
             background-color: white;
             padding: 12px;
@@ -861,10 +802,8 @@ export default {
               color: #3a4348;
             }
           }
-          // height: 40%;
         }
         .chat-container {
-          // background-color: white;
           width: 100%;
           height: 100%;
           border-radius: 8px;
@@ -872,15 +811,10 @@ export default {
       }
     }
     .recpies-container {
-      // margin-top: 100px;
-      // display: none;
       margin-bottom: 50px;
-      // background-color: seagreen;
-      // margin-left: -50px;
     }
     .map-container {
       margin-bottom: 100px;
-      // background-color: lightsteelblue;
       width: 100%;
       height: 300px;
       .vue-map-container {
@@ -890,8 +824,6 @@ export default {
   }
 }
 .full-message {
-  // position: fixed;
-  // right: 0;
   margin-right: 30px;
   background-color: #f44336;
   padding: 20px;
@@ -899,13 +831,4 @@ export default {
   border-radius: 50px;
   cursor: default;
 }
-// .join-btn-container,
-// .cancel-btn-container {
-//   text-align: center;
-//   button {
-//     position: fixed;
-//     right: 0;
-//     margin-right: 50px;
-//   }
-// }
 </style>

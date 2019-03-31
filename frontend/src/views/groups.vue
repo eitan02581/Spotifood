@@ -1,22 +1,33 @@
 <template>
   <section>
-    <LoadingCmp v-if="!loadedGroups"></LoadingCmp>
+    <!-- data-aos="fade-down" data-aos-duration="900" -->
+    <!-- <LoadingCmp v-if="!loadedGroups"></LoadingCmp> -->
+    <LoadingCmp v-if="!loadedGroups || !nearbyGroups && !nearbyGroups.length"></LoadingCmp>
     <div v-if="loadedGroups" data-aos="fade-down" data-aos-duration="900" class="filter-container">
       <FilterGroup @filter="filter"></FilterGroup>
     </div>
+<<<<<<< HEAD
     <LoadingCmp v-if="!loadedGroups || !nearbyGroups.length"></LoadingCmp>
     <div v-if="loadedGroups" class="group-list-container">
       <div v-if="nearbyGroups.length" class="groups-previews">
+=======
+    <div v-if="loadedGroups" class="group-list-container">
+      <div v-if="nearbyGroups && nearbyGroups.length && !filterTitleToDisp" class="groups-previews">
+>>>>>>> 091a2e0ce23798b38d3e9e86bf9908849030f67b
         <h1>Come by!</h1>
         <h3>Events Near You</h3>
         <div class="group-container">
           <GroupPreview v-for="group in nearbyGroups" :key="group._id" :group="group">
-              <template v-slot:comming-up>{{group.dist}} km Away</template>
+            <template v-slot:comming-up>{{group.dist}} km Away</template>
           </GroupPreview>
         </div>
         <hr>
       </div>
-      <h1>Try Something New</h1>
+      <h1 v-if="filterTitleToDisp">
+        Check Out
+        <span :style="{color: '#' + filterTitleToDisp.color}">{{homeFilterTitle}}</span>
+      </h1>
+      <h1 v-else>Try Something New</h1>
       <GroupList :groups="groups"></GroupList>
     </div>
   </section>
@@ -40,10 +51,16 @@ export default {
     return {
       loadedGroups: false,
       currLoc: null,
+<<<<<<< HEAD
       nearbyGroups: []
+=======
+      nearbyGroups: null,
+      filterTitleToDisp: null
+>>>>>>> 091a2e0ce23798b38d3e9e86bf9908849030f67b
     };
   },
   created() {
+    this.filterTitleToDisp = this.$store.getters.getHomePageFitler;
     this.$store.dispatch({ type: "getGroups" }).then(() => {
       setTimeout(() => {
         this.loadedGroups = true;
@@ -61,7 +78,7 @@ export default {
               group.location.lat,
               group.location.lng
             );
-            group.dist = Math.round(dist)
+            group.dist = Math.round(dist);
             return dist < 80;
           });
           nearby.sort((a, b) => a.dist - b.dist);
@@ -73,12 +90,20 @@ export default {
   computed: {
     groups() {
       return this.$store.getters.groups;
+    },
+    homeFilterTitle() {
+      return this.filterTitleToDisp.filterBy === "eventType"
+        ? " some Cool " + this.filterTitleToDisp.val
+        : this.filterTitleToDisp.val + " style";
     }
   },
   methods: {
     filter(filterBy) {
+      // check if it is from homepage
+      this.filterTitleToDisp = this.$store.getters.getHomePageFitler;
       this.$store.dispatch({ type: "filterGroups", filterBy });
     },
+
     getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
       var R = 6371; // Radius of the earth in km
       var dLat = this.deg2rad(lat2 - lat1); // deg2rad below
@@ -110,9 +135,11 @@ export default {
     flex-direction: column;
     .filter-container {
       // margin-top: 37px;
+      position: fixed;
+
       margin-top: -70px;
       width: 100%;
-      position: fixed;
+      // position: fixed;
       z-index: 111;
       background-color: unset;
       padding: 20px;
@@ -146,7 +173,7 @@ section {
   // justify-content: center;
 }
 .groups-previews {
-  margin: 100px auto 0;
+  margin: 50px auto 0 ;
 }
 hr {
   border: 0;

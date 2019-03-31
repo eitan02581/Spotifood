@@ -118,6 +118,10 @@ export default {
 
 // TODO: REFACTOR STYLE
 <style scpoed lang="scss">
+.nav-container {
+  max-width: 1500px;
+  margin: 0 auto;
+}
 @media only screen and (min-width: 600px) {
   .ham-container {
     display: none;

@@ -1,6 +1,6 @@
 <template>
   <section class="profile-container">
-    <carousel :per-page="1" :autoplay="true" :autoplayTimeout="70000" :loop="true">
+    <carousel :per-page="1" :autoplay="true" :autoplayTimeout="3000" :loop="true">
       <slide v-for="(backGround,idx) in userBackgrounds" :key="idx">
         <img :src="backGround">
       </slide>

@@ -16,7 +16,7 @@
         <img src="../assets/about/eitan.jpg" alt>
       </a>
       <h1>Eitan Elnekave</h1>
-      <p>Hey I'm Eitan 22 years old , love surfing and programming , passionate about css and Vue js checkout my portofolio</p>
+      <p>Hey I'm Eitan 22 years old , love surfing and programming . full stack web developer passionate about css and Vue js checkout my portofolio</p>
       <a href="https://eitan02581.github.io/portofolio/">
         <el-button type="primary">Portofolio</el-button>
       </a>
@@ -65,9 +65,12 @@ section {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-between;
     img {
       margin-bottom: 30px;
       width: 200px;
+      height: 200px;
+      object-fit: cover;
       border-radius: 50%;
     }
   }

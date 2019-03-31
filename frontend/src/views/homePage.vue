@@ -137,13 +137,6 @@ export default {
     this.dinnerGroups = this.$store.getters.groups
       .filter(group => group.eventType === "Dinner")
       .slice(0, 7);
-<<<<<<< HEAD
-    this.soonGroups = this.$store.getters.groups.filter(
-      group =>
-        group.time - new Date().getTime() < this.timeDiff &&
-        group.time - new Date().getTime() > 0
-    );
-=======
     this.soonGroups = this.$store.getters.groups
       .filter(
         group =>
@@ -151,7 +144,6 @@ export default {
           group.time - new Date().getTime() > 0
       )
       .sort((a, b) => a.time - b.time);
->>>>>>> 3fd6cdda43bb92e4a31b2853311085ecbdb441f8
     if (this.user) {
       this.userGroups = this.$store.getters.groups.filter(
         group => group.admin === this.user._id

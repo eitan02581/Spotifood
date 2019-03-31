@@ -67,17 +67,10 @@ export default {
               group.location.lat,
               group.location.lng
             );
-<<<<<<< HEAD
-            // console.log("distance:", dist);
-            return dist < 80;
-          });
-          // console.log("nearby groups are", nearby);
-=======
             group.dist = Math.round(dist)
             return dist < 80;
           });
           nearby.sort((a, b) => a.dist - b.dist);
->>>>>>> 3fd6cdda43bb92e4a31b2853311085ecbdb441f8
           this.nearbyGroups = nearby;
         });
       }

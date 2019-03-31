@@ -58,13 +58,9 @@ export default {
   },
   created() {
     var homeFilter = this.$store.getters.getHomePageFitler;
-<<<<<<< HEAD
     if (homeFilter) {
       this.onSelectedVals(homeFilter.filterBy, homeFilter.val, true);
     }
-=======
-    if (homeFilter) this.onSelectedVals(homeFilter.filterBy, homeFilter.val);
->>>>>>> 3fd6cdda43bb92e4a31b2853311085ecbdb441f8
   },
   methods: {
     onSelectedVals(filterBy, val, homepage) {

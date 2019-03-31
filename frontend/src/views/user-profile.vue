@@ -1,8 +1,8 @@
 <template>
   <section class="profile-container">
-    <carousel :per-page="1" :autoplay="true" :autoplayTimeout="10000000" :loop="true">
-      <slide v-for="recipe in groups[0].recipes" :key="recipe._id">
-        <img :src="recipe.imgs[0]">
+    <carousel :per-page="1" :autoplay="true" :autoplayTimeout="70000" :loop="true">
+      <slide v-for="(backGround,idx) in userBackgrounds" :key="idx">
+        <img :src="backGround">
       </slide>
     </carousel>
 
@@ -52,7 +52,7 @@ export default {
           this.groups.push(group);
         });
       });
-
+      console.log(this.user, "user");
       this.user.createdGroups.forEach(groupId => {
         this.$store.dispatch({ type: "getGroupById", groupId }).then(group => {
           this.managedGroups.push(group);
@@ -63,11 +63,20 @@ export default {
   computed: {
     userGroups() {
       return this.groups.concat(this.managedGroups);
+    },
+    userBackgrounds() {
+      if (!this.user || !this.user.favCategories.length) {
+        return [
+          "http://res.cloudinary.com/sprint4-weat/image/upload/v1554012913/demo/cz0ngdfqpqxmyv2xpo3p.jpg"
+        ];
+      }
+      var categories = this.$store.getters.categories;
+      var covers = this.$store.getters.categoriesBcgImgs;
+      return this.user.favCategories.map(category => {
+        let idx = categories.findIndex(res => category === res);
+        return covers[idx];
+      });
     }
-    // userRecipes(){
-    //   if (!this.user) return
-    //   return this.
-    // }
   }
 };
 </script>
@@ -81,8 +90,8 @@ export default {
 }
 
 .VueCarousel {
-  width: 80vw;
-  height: 500px;
+  width: 100%;
+  height: 400px;
   margin: 0 auto;
 }
 
@@ -96,7 +105,17 @@ export default {
 }
 
 img {
-  width: 80vw;
+  width: 100vw;
   object-fit: cover;
+  height: 500px;
+}
+
+@media (min-width: 650px) {
+  img {
+    width: 80vw;
+  }
+  .VueCarousel {
+    width: 80vw;
+  }
 }
 </style>

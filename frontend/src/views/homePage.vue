@@ -1,7 +1,7 @@
 <template>
   <section>
-    <div class="video-container">
-      <Landing-video></Landing-video>
+    <div class="background-container">
+      <Landing-imgs></Landing-imgs>
     </div>
     <div class="back">
       <div class="main-content">
@@ -79,7 +79,7 @@
 </template>
 
 <script>
-import LandingVideo from "../components/homePage/landing-video-cmp";
+import LandingImgs from "../components/homePage/landing-images-cmp";
 import GroupPreview from "../components/groups/group-preview-cmp";
 import HowItWorks from "../components/homePage/howItWorks-cmp";
 import GroupList from "../components/groups/group-list-cmp";
@@ -88,7 +88,7 @@ import { eventBus, FILTER_BY } from "../services/EventBusService.js";
 
 export default {
   components: {
-    LandingVideo,
+    LandingImgs,
     GroupPreview,
     HowItWorks,
     GroupList,
@@ -101,7 +101,7 @@ export default {
       dinnerGroups: null,
       userGroups: null,
       soonGroups: null,
-      timeDiff: 2674800000
+      timeDiff: 2674800000,
     };
   },
   async created() {
@@ -109,15 +109,15 @@ export default {
     let b = 1554918674000;
     console.log(b - a);
     await this.$store.dispatch({ type: "getGroups" });
-    this.breakfastGroups = this.$store.getters.groups.filter(
-      group => group.eventType === "Breakfast"
-    ).slice(0, 7);
-    this.lunchGroups = this.$store.getters.groups.filter(
-      group => group.eventType === "Lunch"
-    ).slice(0, 7);
-    this.dinnerGroups = this.$store.getters.groups.filter(
-      group => group.eventType === "Dinner"
-    ).slice(0, 7);
+    this.breakfastGroups = this.$store.getters.groups
+      .filter(group => group.eventType === "Breakfast")
+      .slice(0, 7);
+    this.lunchGroups = this.$store.getters.groups
+      .filter(group => group.eventType === "Lunch")
+      .slice(0, 7);
+    this.dinnerGroups = this.$store.getters.groups
+      .filter(group => group.eventType === "Dinner")
+      .slice(0, 7);
     this.soonGroups = this.$store.getters.groups.filter(
       group =>
         group.time - new Date().getTime() < this.timeDiff &&
@@ -150,7 +150,7 @@ export default {
 
 <style scoped lang="scss">
 section {
-  .video-container {
+  .background-container {
     position: fixed;
     width: 100%;
   }

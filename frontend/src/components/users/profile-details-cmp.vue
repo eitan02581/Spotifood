@@ -44,6 +44,7 @@ export default {
 .main-container {
   margin: auto;
   min-height: 50vh;
+  margin-top: -70px;
 }
 h1 {
   text-align: center;

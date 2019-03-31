@@ -2,7 +2,7 @@
   <section class="profile-info">
     <!-- IMAGE OR UPLOAD IMAGE -->
     <div class="profile-img">
-      <div v-if="user.img === noImgUrl && isMyUserProfile"  class="upload-container">
+      <div v-if="user.img === noImgUrl && isMyUserProfile" class="upload-container">
         <el-upload
           v-if="!isUploading"
           class="avatar-uploader"
@@ -55,14 +55,13 @@ export default {
   data() {
     return {
       isUploading: false,
-      noImgUrl:'http://res.cloudinary.com/sprint4-weat/image/upload/v1553679542/demo/hueavks6ncdlxxp22fnn.jpg'
+      noImgUrl:
+        "http://res.cloudinary.com/sprint4-weat/image/upload/v1553679542/demo/hueavks6ncdlxxp22fnn.jpg"
     };
   },
   computed: {
     imgSrc() {
-      return this.user.img !== this.noImgUrl
-        ? this.user.img
-        : noImgUrl
+      return this.user.img !== this.noImgUrl ? this.user.img : noImgUrl;
     },
     countriesFlags() {
       return this.user.favCategories.map(category => {
@@ -111,13 +110,13 @@ export default {
 <style lang="scss" scoped>
 .profile-info {
   background-color: #f6f6f6;
-  margin: -25% auto 0 auto;
+  margin: -80% auto 0 auto;
   position: relative;
   width: 100%;
-  height:370px;
+  height: 370px;
   border: 1px solid #c9c9c9;
   border-radius: 5px;
-  display:flex;
+  display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
@@ -158,7 +157,7 @@ h3 {
   font-size: 1.5em;
   display: flex;
   justify-content: space-around;
-  width:80%;
+  width: 80%;
   & > i:hover {
     color: cyan;
   }
@@ -180,7 +179,7 @@ h3 {
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
-      margin:0 10px;
+      margin: 0 10px;
       img {
         border: 1px solid rgba(65, 65, 65, 0.575);
         border-radius: 50%;
@@ -191,9 +190,15 @@ h3 {
     color: gray;
   }
 }
-@media(min-width: 350px){
-  .profile-info{
+@media (min-width: 350px) {
+  .profile-info {
     width: 250px;
+     margin: -35% auto 0 auto;
+  }
+}
+@media (min-width: 650px) {
+  .profile-info {
+    margin: -15% auto 0 auto;
   }
 }
 </style>

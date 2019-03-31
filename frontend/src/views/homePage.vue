@@ -1,14 +1,14 @@
 <template>
   <section>
-    <div class="video-container">
-      <Landing-video></Landing-video>
+    <div class="background-container">
+      <Landing-imgs></Landing-imgs>
     </div>
     <div class="back">
       <div class="main-content">
         <!-- <div class="how-it-works">
           <HowItWorks></HowItWorks>
         </div>-->
-        <div data-aos="fade" data-aos-once="true" class="explain-one">
+        <div data-aos="fade" data-aos-once="true" data-aos-duration="1000" class="explain-one">
           <div data-aos="fade" class="title">
             <h1>
               Cook
@@ -19,7 +19,7 @@
             <img
              id="element"
               src="https://www.galloportugal.com/wp-content/uploads/2019/01/Gallo-sobre-nos-1300x420-2.jpg"
-              alt="Table white food "
+              alt="Table with food "
             >
           </transition>
         </div>
@@ -36,7 +36,7 @@
           </div>
         </div>
 
-        <div data-aos="fade" data-aos-once="true" class="explain-one">
+        <div data-aos="fade" data-aos-once="true" data-aos-duration="1000" class="explain-one">
           <div data-aos="fade" class="title">
             <h1>Discovering</h1>
             <h1>new flavours</h1>
@@ -48,6 +48,28 @@
         </div>
         <div class="cusine-previews">
           <cuisineTypes @filterBy="onFilter"></cuisineTypes>
+        </div>
+
+        <!-- <div data-aos="fade" data-aos-once="true" data-aos-duration="1000" class="explain-one">
+          <div data-aos="fade" class="title">
+            <h1>Discovering</h1>
+            <h1>new flavours</h1>
+          </div>
+          <img
+            src="https://www.galloportugal.com/wp-content/uploads/2018/11/shutterstock_476812717.jpg"
+            alt="Table white food "
+          >
+        </div>-->
+        <!-- <countriesCards v-if="groups" ></countriesCards> -->
+        <div data-aos="fade" data-aos-once="true" data-aos-duration="1000" class="explain-one">
+          <div data-aos="fade" class="title">
+            <h1>
+              Sharing Moments
+              <span style="color:#f44336; font-size:68px">w</span>ith New Ones
+              <!-- <span style="color:#f44336;">&</span> Eat Together -->
+            </h1>
+          </div>
+          <img src="../assets/about/morning.jpg" alt="Table white food ">
         </div>
         <div class="groups-previews">
           <div class="br-wrap">
@@ -80,20 +102,22 @@
 </template>
 
 <script>
-import LandingVideo from "../components/homePage/landing-video-cmp";
+import LandingImgs from "../components/homePage/landing-images-cmp";
 import GroupPreview from "../components/groups/group-preview-cmp";
 import HowItWorks from "../components/homePage/howItWorks-cmp";
 import GroupList from "../components/groups/group-list-cmp";
 import cuisineTypes from "../components/homePage/cuisine-cards-cmp";
+import countriesCards from "../components/homePage/countries-cards-cmp";
 import { eventBus, FILTER_BY } from "../services/EventBusService.js";
 
 export default {
   components: {
-    LandingVideo,
+    LandingImgs,
     GroupPreview,
     HowItWorks,
     GroupList,
-    cuisineTypes
+    cuisineTypes,
+    countriesCards
   },
   data() {
     return {
@@ -102,7 +126,7 @@ export default {
       dinnerGroups: null,
       userGroups: null,
       soonGroups: null,
-      timeDiff: 2674800000
+      timeDiff: 2674800000,
     };
   },
   async created() {
@@ -138,10 +162,15 @@ export default {
     }
   },
   methods: {
-    onFilter(filterBy, val) {
-      var filterObj = { filterBy, val };
+    onFilter(filterBy, val, color) {
+      console.log(color);
+
+      var filterObj = { filterBy, val, color };
       this.$store.dispatch({ type: "setFilterFromHome", filterObj });
       this.$router.push("/groups");
+      setTimeout(() => {
+        window.scrollTo(0, 400);
+      }, 200);
     }
   },
   destroyed() {}
@@ -150,7 +179,7 @@ export default {
 
 <style scoped lang="scss">
 section {
-  .video-container {
+  .background-container {
     position: fixed;
     width: 100%;
   }
@@ -164,7 +193,7 @@ section {
 
     max-width: 1200px;
     margin: 0 auto;
-    padding: 90px 30px 0 30px;
+    padding: 0 30px;
 
     margin-top: 100vh;
     position: relative;

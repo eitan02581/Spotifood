@@ -36,8 +36,11 @@ Vue.use(VueScrollTo, {
      x: false,
      y: true
  })
+import VueCarousel from 'vue-carousel';
+
 
 Vue.use(Vuetify)
+Vue.use(VueCarousel);
 // Vue.use(VueAwesomeSwiper)
 Vue.use(FunctionalCalendar)
 Vue.use(vueEventCalendar, { locale: 'en' })

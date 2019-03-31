@@ -1,12 +1,12 @@
 <template>
   <section>
-    <LoadingCmp v-if="!loadedGroups"></LoadingCmp>
+    <!-- <LoadingCmp v-if="!loadedGroups"></LoadingCmp> -->
+    <LoadingCmp v-if="!loadedGroups || !nearbyGroups && !nearbyGroups.length"></LoadingCmp>
     <div v-if="loadedGroups" data-aos="fade-down" data-aos-duration="900" class="filter-container">
       <FilterGroup @filter="filter"></FilterGroup>
     </div>
-    <LoadingCmp v-if="!loadedGroups || !nearbyGroups && !nearbyGroups.length"></LoadingCmp>
     <div v-if="loadedGroups" class="group-list-container">
-      <div v-if="nearbyGroups && nearbyGroups.length" class="groups-previews">
+      <div v-if="nearbyGroups && nearbyGroups.length && !filterTitleToDisp" class="groups-previews">
         <h1>Come by!</h1>
         <h3>Events Near You</h3>
         <div class="group-container">
@@ -16,7 +16,11 @@
         </div>
         <hr>
       </div>
-      <h1>Try Something New</h1>
+      <h1 v-if="filterTitleToDisp">
+        Check Out
+        <span :style="{color: '#' + filterTitleToDisp.color}">{{homeFilterTitle}}</span>
+      </h1>
+      <h1 v-else>Try Something New</h1>
       <GroupList :groups="groups"></GroupList>
     </div>
   </section>
@@ -40,10 +44,12 @@ export default {
     return {
       loadedGroups: false,
       currLoc: null,
-      nearbyGroups: null
+      nearbyGroups: null,
+      filterTitleToDisp: null
     };
   },
   created() {
+    this.filterTitleToDisp = this.$store.getters.getHomePageFitler;
     this.$store.dispatch({ type: "getGroups" }).then(() => {
       setTimeout(() => {
         this.loadedGroups = true;
@@ -73,12 +79,20 @@ export default {
   computed: {
     groups() {
       return this.$store.getters.groups;
+    },
+    homeFilterTitle() {
+      return this.filterTitleToDisp.filterBy === "eventType"
+        ? " some Cool " + this.filterTitleToDisp.val
+        : this.filterTitleToDisp.val + " style";
     }
   },
   methods: {
     filter(filterBy) {
+      // check if it is from homepage
+      this.filterTitleToDisp = this.$store.getters.getHomePageFitler;
       this.$store.dispatch({ type: "filterGroups", filterBy });
     },
+
     getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
       var R = 6371; // Radius of the earth in km
       var dLat = this.deg2rad(lat2 - lat1); // deg2rad below

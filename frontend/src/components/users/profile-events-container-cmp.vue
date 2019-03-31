@@ -54,7 +54,7 @@ export default {
 
 <style scoped lang="scss">
 .profile-events-container {
-  width: 90%;
+  width: 100%;
   display: flex;
   flex-direction: column-reverse;
 }

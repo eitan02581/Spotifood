@@ -44,6 +44,7 @@ export default {
 .main-container {
   margin: auto;
   min-height: 50vh;
+  margin-top: -70px;
 }
 h1 {
   text-align: center;
@@ -57,6 +58,7 @@ h1 {
 @media (min-width: 650px) {
   .main-container {
     max-width: 80%;
+    margin-top: -70px;
   }
 }
 @media (min-width: 350px) {

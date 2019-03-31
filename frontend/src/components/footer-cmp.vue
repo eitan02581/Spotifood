@@ -1,40 +1,42 @@
 <template>
   <section>
-    <div class="left-side">
-      <router-link to>
-        <h1>
-          Join
-          <router-link to="/login">
-            <span>WEat</span>
-          </router-link>
-        </h1>
-      </router-link>
-    </div>
-    <div class="right-side">
-      <div class="follow">
-        <h1>Follow</h1>
-        <ul>
-          <router-link to>
-            <li>Face</li>
-          </router-link>
-          <router-link to>
-            <li>Inst</li>
-          </router-link>
-          <router-link to>
-            <li>Twit</li>
-          </router-link>
-        </ul>
+    <div class="footer-wrapper">
+      <div class="left-side">
+        <router-link to>
+          <h1>
+            Join
+            <router-link to="/login">
+              <span>WEat</span>
+            </router-link>
+          </h1>
+        </router-link>
       </div>
-      <div class="navigate">
-        <h1>Navigate</h1>
-        <ul>
-          <router-link to="/groups">
-            <li>Explore</li>
-          </router-link>
-          <router-link to="/about">
-            <li>About</li>
-          </router-link>
-        </ul>
+      <div class="right-side">
+        <div class="follow">
+          <h1>Follow</h1>
+          <ul>
+            <router-link to>
+              <li>Face</li>
+            </router-link>
+            <router-link to>
+              <li>Inst</li>
+            </router-link>
+            <router-link to>
+              <li>Twit</li>
+            </router-link>
+          </ul>
+        </div>
+        <div class="navigate">
+          <h1>Navigate</h1>
+          <ul>
+            <router-link to="/groups">
+              <li>Explore</li>
+            </router-link>
+            <router-link to="/about">
+              <li>About</li>
+            </router-link>
+          </ul>
+        </div>
       </div>
     </div>
   </section>
@@ -46,6 +48,13 @@ export default {};
 
 <style lang="scss" scoped>
 section {
+  .footer-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
   position: relative;
   padding-top: 30px;
   height: 200px;

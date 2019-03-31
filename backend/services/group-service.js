@@ -28,7 +28,54 @@ function _cleanCollection() {
         })
 }
 
-function query(filterBy) {
+//  async function query(filterBy) {
+
+
+
+//     if (filterBy) {
+//         var queryToMongo = {}
+//         if (filterBy.hashtags) {
+//             filterBy.hashtags = filterBy.hashtags.split(',')
+//             var hashtags = filterBy.hashtags.map(el => { return { hashtags: new RegExp(el, 'i') } })
+//             queryToMongo['$or'] = hashtags
+//         }
+//         if (filterBy.cuisineType) queryToMongo.cuisineType = filterBy.cuisineType
+//         if (filterBy.eventType) queryToMongo.eventType = filterBy.eventType
+//         if (filterBy.guests) queryToMongo.guests = +filterBy.guests
+//         if (filterBy.title) queryToMongo.title = new RegExp(filterBy.title, 'i');
+
+
+//         var db = await mongoService.connect()
+//         var groups = await db.collection(GROUP_COLLECTION).find(queryToMongo).sort().toArray()
+//         return groups.forEach(group => {
+
+//             db.collection(GROUP_COLLECTION).aggregate([
+//                 {
+//                     $match: { _id: group._id }
+//                 },
+//                 {
+//                     $lookup:
+//                     {
+//                         from: 'users',
+//                         localField: 'users',
+//                         foreignField: '_id',
+//                         as: 'pertisipents'
+//                     }
+//                 },
+//                 {
+//                     $unwind: '$users'
+//                 }
+//             ])
+//             console.log('group', group)
+//         })
+//         console.log('groups', groups)
+//     }
+//     else {
+//      var db = await mongoService.connect()
+//      return db.collection(GROUP_COLLECTION).find({}).toArray())
+// }
+// }
+ function query(filterBy) {
 
 
 
@@ -43,10 +90,11 @@ function query(filterBy) {
         if (filterBy.eventType) queryToMongo.eventType = filterBy.eventType
         if (filterBy.guests) queryToMongo.guests = +filterBy.guests
         if (filterBy.title) queryToMongo.title = new RegExp(filterBy.title, 'i');
+        if (filterBy.country) queryToMongo['place.country.longName'] = new RegExp(filterBy.country, 'i');
 
-
+        console.log(queryToMongo);
         return mongoService.connect()
-            .then(db => db.collection(GROUP_COLLECTION).find(queryToMongo).sort().toArray())
+            .then(db => db.collection(GROUP_COLLECTION).find(queryToMongo).toArray())
             .then(groups => {
                 return groups
             })

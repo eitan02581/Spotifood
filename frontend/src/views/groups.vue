@@ -1,5 +1,6 @@
 <template>
   <section>
+    <!-- data-aos="fade-down" data-aos-duration="900" -->
     <!-- <LoadingCmp v-if="!loadedGroups"></LoadingCmp> -->
     <LoadingCmp v-if="!loadedGroups || !nearbyGroups && !nearbyGroups.length"></LoadingCmp>
     <div v-if="loadedGroups" data-aos="fade-down" data-aos-duration="900" class="filter-container">
@@ -11,7 +12,7 @@
         <h3>Events Near You</h3>
         <div class="group-container">
           <GroupPreview v-for="group in nearbyGroups" :key="group._id" :group="group">
-              <template v-slot:comming-up>{{group.dist}} km Away</template>
+            <template v-slot:comming-up>{{group.dist}} km Away</template>
           </GroupPreview>
         </div>
         <hr>
@@ -67,7 +68,7 @@ export default {
               group.location.lat,
               group.location.lng
             );
-            group.dist = Math.round(dist)
+            group.dist = Math.round(dist);
             return dist < 80;
           });
           nearby.sort((a, b) => a.dist - b.dist);
@@ -124,9 +125,11 @@ export default {
     flex-direction: column;
     .filter-container {
       // margin-top: 37px;
+      position: fixed;
+
       margin-top: -70px;
       width: 100%;
-      position: fixed;
+      // position: fixed;
       z-index: 111;
       background-color: unset;
       padding: 20px;
@@ -160,7 +163,7 @@ section {
   // justify-content: center;
 }
 .groups-previews {
-  margin: 100px auto 0;
+  margin: 50px auto 0 ;
 }
 hr {
   border: 0;

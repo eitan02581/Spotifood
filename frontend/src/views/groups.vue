@@ -6,8 +6,9 @@
     <div v-if="loadedGroups" data-aos="fade-down" data-aos-duration="900" class="filter-container">
       <FilterGroup @filter="filter"></FilterGroup>
     </div>
+    <LoadingCmp v-if="!loadedGroups || !nearbyGroups.length"></LoadingCmp>
     <div v-if="loadedGroups" class="group-list-container">
-      <div v-if="nearbyGroups && nearbyGroups.length && !filterTitleToDisp" class="groups-previews">
+      <!-- <div v-if="nearbyGroups.length" class="groups-previews">
         <h1>Come by!</h1>
         <h3>Events Near You</h3>
         <div class="group-container">
@@ -16,7 +17,7 @@
           </GroupPreview>
         </div>
         <hr>
-      </div>
+      </div> -->
       <h1 v-if="filterTitleToDisp">
         Check Out
         <span :style="{color: '#' + filterTitleToDisp.color}">{{homeFilterTitle}}</span>
@@ -45,8 +46,7 @@ export default {
     return {
       loadedGroups: false,
       currLoc: null,
-      nearbyGroups: null,
-      filterTitleToDisp: null
+      nearbyGroups: []
     };
   },
   created() {

@@ -11,14 +11,17 @@
         <div data-aos="fade" data-aos-once="true" data-aos-duration="1000" class="explain-one">
           <div data-aos="fade" class="title">
             <h1>
-              Cook
-              <span style="color:#f44336;">&</span> Eat Together
+              Join
+              <span style="color:red">WEat</span> Experience
             </h1>
           </div>
-          <img
-            src="https://www.galloportugal.com/wp-content/uploads/2019/01/Gallo-sobre-nos-1300x420-2.jpg"
-            alt="Table white food "
-          >
+          <transition name="scale-in-ver-bottom">
+            <img
+              id="element"
+              src="https://www.galloportugal.com/wp-content/uploads/2019/01/Gallo-sobre-nos-1300x420-2.jpg"
+              alt="Table with food "
+            >
+          </transition>
         </div>
         <div class="groups-previews">
           <h1 v-if="user">My Events</h1>
@@ -31,8 +34,19 @@
               <template v-slot:comming-up>{{group.time | time }}</template>
             </GroupPreview>
           </div>
+          <div
+            v-if="nearbyGroups && nearbyGroups.length && !filterTitleToDisp"
+            class="groups-previews"
+          >
+            <h1>Come by!</h1>
+            <h3>Events Near You</h3>
+            <div class="group-container">
+              <GroupPreview v-for="group in nearbyGroups" :key="group._id" :group="group">
+                <template v-slot:comming-up>{{group.dist}} km Away</template>
+              </GroupPreview>
+            </div>
+          </div>
         </div>
-
         <div data-aos="fade" data-aos-once="true" data-aos-duration="1000" class="explain-one">
           <div data-aos="fade" class="title">
             <h1>Discovering</h1>
@@ -46,18 +60,6 @@
         <div class="cusine-previews">
           <cuisineTypes @filterBy="onFilter"></cuisineTypes>
         </div>
-
-        <!-- <div data-aos="fade" data-aos-once="true" data-aos-duration="1000" class="explain-one">
-          <div data-aos="fade" class="title">
-            <h1>Discovering</h1>
-            <h1>new flavours</h1>
-          </div>
-          <img
-            src="https://www.galloportugal.com/wp-content/uploads/2018/11/shutterstock_476812717.jpg"
-            alt="Table white food "
-          >
-        </div>-->
-        <!-- <countriesCards v-if="groups" ></countriesCards> -->
         <div data-aos="fade" data-aos-once="true" data-aos-duration="1000" class="explain-one">
           <div data-aos="fade" class="title opac">
             <h1>
@@ -123,6 +125,9 @@ export default {
       dinnerGroups: null,
       userGroups: null,
       soonGroups: null,
+      currLoc: null,
+      nearbyGroups: null,
+      filterTitleToDisp: null,
       timeDiff: 2674800000
     };
   },
@@ -144,6 +149,27 @@ export default {
           group.time - new Date().getTime() > 0
       )
       .sort((a, b) => a.time - b.time);
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(({ coords }) => {
+        this.currLoc = {
+          lat: coords.latitude,
+          lng: coords.longitude
+        };
+        let nearby = this.$store.getters.groups.filter(group => {
+          let dist = this.getDistanceFromLatLonInKm(
+            this.currLoc.lat,
+            this.currLoc.lng,
+            group.location.lat,
+            group.location.lng
+          );
+          group.dist = Math.round(dist);
+          return dist < 80;
+        });
+        nearby.sort((a, b) => a.dist - b.dist);
+        this.nearbyGroups = nearby;
+      });
+    }
+
     if (this.user) {
       this.userGroups = this.$store.getters.groups.filter(
         group => group.admin === this.user._id
@@ -168,6 +194,23 @@ export default {
       setTimeout(() => {
         window.scrollTo(0, 400);
       }, 200);
+    },
+    getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
+      var R = 6371; // Radius of the earth in km
+      var dLat = this.deg2rad(lat2 - lat1); // deg2rad below
+      var dLon = this.deg2rad(lon2 - lon1);
+      var a =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(this.deg2rad(lat1)) *
+          Math.cos(this.deg2rad(lat2)) *
+          Math.sin(dLon / 2) *
+          Math.sin(dLon / 2);
+      var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      var d = R * c; // Distance in km
+      return d;
+    },
+    deg2rad(deg) {
+      return deg * (Math.PI / 180);
     }
   },
   destroyed() {}
@@ -190,7 +233,7 @@ section {
 
     max-width: 1200px;
     margin: 0 auto;
-    padding: 90px 30px 0 30px;
+    padding: 0 30px;
 
     margin-top: 100vh;
     position: relative;
@@ -200,7 +243,7 @@ section {
       position: relative;
       .title {
         background-color: #0000003d;
-        height: 100%;
+        height: 99%;
         width: 100%;
         position: absolute;
         display: flex;
@@ -278,6 +321,12 @@ section {
     border-top: 1px solid rgba(0, 0, 0, 0.1);
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
   }
+  h3 {
+    margin-left: 20px;
+    font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+    color: rgb(99, 99, 99);
+  }
+
   .cusine-previews {
     margin-bottom: 50px;
   }

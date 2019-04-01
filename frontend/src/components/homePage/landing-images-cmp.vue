@@ -2,19 +2,25 @@
   <section>
     <div id="backgroundDiv">
       <div id="backgroundBlock">
-        <carousel :per-page="1" :autoplay="true" :autoplayTimeout="1000000" :loop="true">
+        <carousel :per-page="1" :autoplay="true" :autoplayTimeout="3500" :loop="true">
           <slide v-for="backGround in backGrounds" :key="backGround">
             <img :src="backGround">
           </slide>
         </carousel>
         <div class="blank"></div>
         <div id="backgroundMessage">
-          <h1 class="spacer">
-            Join
-            <span style="color:red">
-              <span style="font-size:124px ; padding:0">W</span>Eat
-            </span> Experience
-          </h1>
+          <div class="home-page-titles">
+            <h1>
+              <span style="color:#f44336">W</span>Eat
+            </h1>
+            <h1 class="slogan">
+              Cook
+              <span style="color:#f44336;">&</span> Eat Together
+            </h1>
+          </div>
+          <a href="#" v-scroll-to="'#element'">
+            <i class="fas fa-chevron-circle-down"></i>
+          </a>
         </div>
       </div>
     </div>
@@ -38,50 +44,39 @@ export default {
 <style scoped lang="scss" >
 section {
   h1 {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 90px;
     color: white;
     text-align: center;
+    text-shadow: 1px 1px rgba(0, 0, 0, 0.356);
   }
-  // .main-img {
-  //   width: 100%;
-  //   height: 100vh;
-  //   background-image: url("../../assets/table.jpg");
-  //   background-position: center;
-  //   background-repeat: no-repeat;
-  //   background-size: cover;
-  // }
+  .home-page-titles {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    h1{
+      font-size:90px;
+    }
+    h1.slogan{
+      font-size: 70px;
+      margin: 10px auto;
+    }
+  }
+  a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 3rem;
+    justify-self: flex-end;
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+  }
   #backgroundDiv {
     width: 100%;
     height: 100vh;
     position: relative;
   }
-  // #backgroundBlock {
-  //   width: 100%;
-  //   height: 100%;
-  //   display: flex;
-  //   justify-content: center;
-  //   align-items: center;
-  // }
-  // video {
-  //   min-width: 100%;
-  //   min-height: 100%;
-
-  //   /* Setting width & height to auto prevents the browser from stretching or squishing the video */
-  //   width: auto;
-  //   height: auto;
-
-  //   /* Center the video */
-  //   position: absolute;
-  //   top: 50%;
-  //   left: 50%;
-  //   transform: translate(-50%, -50%);
-  // }
-  // }
-
   #backgroundMessage {
     width: 100%;
     height: 90vh;
@@ -97,12 +92,7 @@ section {
       rgba(255, 255, 255, 0.02) 100%
     );
   }
-  #backgroundMessage * {
-    padding: 0.4em;
-    margin: 0;
-  }
   #backgroundMessage {
-    // text-shadow: 2px 2px 2px #000000;
     color: white;
     z-index: 99;
   }
@@ -120,12 +110,10 @@ section {
   }
   @media only screen and (min-width: 600px) {
     #backgroundMessage h1 {
-      font-size: 7em;
       color: #ffffff;
       text-align: center;
     }
   }
-
   @media only screen and (max-width: 600px) {
     #backgroundMessage h1 {
       font-size: 60px;

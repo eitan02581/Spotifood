@@ -40,8 +40,10 @@
             <li v-for="(instruction,idx) in recipe.instructions" :key="idx">{{instruction}}</li>
           </ol>
         </div>
-        <i class="far fa-edit" @click="updateRecipe(recipe._id,recipe.createdBy)"></i>
-        <i class="far fa-trash-alt" @click="removeRecipe(recipe._id)"></i>
+        <template v-if="isGroupAdmin">
+          <i class="far fa-edit" @click="updateRecipe(recipe._id,recipe.createdBy)"></i>
+          <i class="far fa-trash-alt" @click="removeRecipe(recipe._id)"></i>
+        </template>
       </el-collapse-item>
     </el-collapse>
   </section>

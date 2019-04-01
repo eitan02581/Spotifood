@@ -149,7 +149,6 @@ export default {
       this.$router.push("/");
     },
     setUserLocation(position) {
-      // console.log("user location is", position);
       this.currLoc = {
         lat: position.coords.latitude,
         lng: position.coords.longitude
@@ -164,10 +163,8 @@ export default {
     },
     setPlace(place) {
       if (Object.keys(place).length < 2) {
-        // console.log(Object.keys(place).length);
         return;
       }
-      // console.log(place);
       this.group.location = {
         lat: place.geometry.location.lat(),
         lng: place.geometry.location.lng()
@@ -202,7 +199,6 @@ export default {
         this.group.img = `https://picsum.photos/200/300/${this.group.title}`;
       }
       if (this.isInValid()) {
-        // console.log("invalid group");
         return;
       }
       let admin = this.$store.getters.user;

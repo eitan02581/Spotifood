@@ -217,8 +217,6 @@ export default {
   methods: {
     getImgs() {
       var imgs = [];
-      // console.log(this.$store.getters.group.recipes);
-
       this.$store.getters.group.recipes.forEach(recipe => {
         if (recipe.imgs.length >= 1) {
           var [img] = recipe.imgs;
@@ -230,11 +228,6 @@ export default {
       imgs.push(groupImg);
       return imgs;
     },
-    getAdmin() {
-      // var
-      //  return  this.$store.dispatch({})
-    },
-    // this.imgs = this.$store.getters.group.recipes.((recipe) =>  )
     onStatusActionGroup(status) {
       var user = this.$store.getters.user;
       var group = this.$store.getters.group;
@@ -284,7 +277,6 @@ export default {
     },
     checkIfUserAbaleToJoin() {
       var group = this.$store.getters.group;
-      // TODO: CHECK IF EVEN IF THERE ARE NULLS AND A REAL PENDING USER , IF IT WORKS
       // TODO: CHANGE FINDINDEX TO INCLUDES
       var isPending = group.pendingUsers.findIndex(pending => {
         if (pending) {

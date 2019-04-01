@@ -160,7 +160,6 @@ section {
 
   border-top: 1px solid transparent;
   border-bottom: 1px solid transparent;
-  // justify-content: center;
 }
 .groups-previews {
   margin: 50px auto 0 ;

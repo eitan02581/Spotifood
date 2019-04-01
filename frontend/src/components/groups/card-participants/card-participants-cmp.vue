@@ -76,8 +76,4 @@ section {
     margin-bottom: 5px;
   }
 }
-/* h3 {
-  color: gray;
-  margin-bottom: 10px;
-} */
 </style>

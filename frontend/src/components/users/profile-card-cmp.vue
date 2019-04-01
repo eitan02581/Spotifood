@@ -110,7 +110,7 @@ export default {
 <style lang="scss" scoped>
 .profile-info {
   background-color: #f6f6f6;
-  margin: -80% auto 0 auto;
+  margin: -200px auto 0 auto;
   position: relative;
   width: 100%;
   height: 370px;
@@ -193,7 +193,6 @@ h3 {
 @media (min-width: 350px) {
   .profile-info {
     width: 250px;
-     margin: -35% auto 0 auto;
   }
 }
 @media (min-width: 650px) {

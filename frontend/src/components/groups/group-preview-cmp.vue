@@ -8,8 +8,9 @@
           <div class="info-container">
             <div class="host">
               <h2>
-                Hosted by:
+                Cook With:
                 <span>{{groupAdmin.username}}</span>
+                and {{group.users.length}} others
               </h2>
             </div>
             <div class="title">
@@ -31,10 +32,10 @@
               <i style="color:orange" class="fas fa-star"></i>
               <i style="color:orange" class="fas fa-star"></i> (37)
             </h3>-->
-            <div class="has-container">
-              <el-tag type="warning" v-for="hashtag in group.hashtags" :key="hashtag">#{{hashtag}}</el-tag>
+            <!-- <div class="has-container">
+              <el-tag type="warning" v-for="hashtag in group.hashtags" :key="hashtag">#{{hashtag}}</el-tag> -->
               <!-- <span v-for="hash in group.hashtags" :key="hash">#{{hash}}</span> -->
-            </div>
+            <!-- </div> -->
             <div class="participants-container">
               <!-- <participants :users=""></participants> -->
             </div>

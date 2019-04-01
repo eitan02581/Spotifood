@@ -1,6 +1,6 @@
 <template>
   <section class="profile-container">
-    <carousel :per-page="1" :autoplay="true" :autoplayTimeout="70000" :loop="true">
+    <carousel :per-page="1" :autoplay="true" :autoplayTimeout="3000" :loop="true">
       <slide v-for="(backGround,idx) in userBackgrounds" :key="idx">
         <img :src="backGround">
       </slide>
@@ -52,7 +52,6 @@ export default {
           this.groups.push(group);
         });
       });
-      console.log(this.user, "user");
       this.user.createdGroups.forEach(groupId => {
         this.$store.dispatch({ type: "getGroupById", groupId }).then(group => {
           this.managedGroups.push(group);

@@ -292,8 +292,8 @@ export default {
         }
       });
       var isParticipant = group.users.findIndex(participant => {
-        return participant._id === this.user._id;
-      });
+        return  participant._id === this.user._id;
+      })
 
       if (isPending !== -1 || isParticipant !== -1) {
         this.isAbleToJoin = false;
@@ -631,7 +631,7 @@ export default {
       margin-bottom: 50px;
 
       .hosted-by-container {
-        margin-top: -40px;
+        margin-top: -25px;
         position: absolute;
         left: 0;
         display: flex;

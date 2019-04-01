@@ -9,14 +9,18 @@
         </carousel>
         <div class="blank"></div>
         <div id="backgroundMessage">
-          <h1 class="spacer">
-            Join
-            <span style="color:red">
-              <span style="font-size:124px ; padding:0">W</span>Eat
-            </span> Experience
-          </h1>
-                    <a href="#" v-scroll-to="'#element'"><i class="fas fa-chevron-circle-down"></i></a>
-
+          <div class="home-page-titles">
+            <h1>
+              <span style="color:#f44336">W</span>Eat
+            </h1>
+            <h1 class="slogan">
+              Cook
+              <span style="color:#f44336;">&</span> Eat Together
+            </h1>
+          </div>
+          <a href="#" v-scroll-to="'#element'">
+            <i class="fas fa-chevron-circle-down"></i>
+          </a>
         </div>
       </div>
     </div>
@@ -40,14 +44,34 @@ export default {
 <style scoped lang="scss" >
 section {
   h1 {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    // position: absolute;
+    // top: 60%;
+    // left: 50%;
+    // transform: translate(-50%, -50%);
     font-size: 90px;
     color: white;
     text-align: center;
+    // width: 100%;
+    text-shadow: 1px 1px rgba(0, 0, 0, 0.356);
   }
+  .home-page-titles {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }
+  a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 3rem;
+    justify-self: flex-end;
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+  }
+
   // .main-img {
   //   width: 100%;
   //   height: 100vh;
@@ -83,7 +107,6 @@ section {
   //   transform: translate(-50%, -50%);
   // }
   // }
-
   #backgroundMessage {
     width: 100%;
     height: 90vh;
@@ -99,23 +122,14 @@ section {
       rgba(255, 255, 255, 0.02) 100%
     );
   }
-  #backgroundMessage * {
-    padding: 0.4em;
-    margin: 0;
-  }
+  // #backgroundMessage * {
+  //   padding: 0.4em;
+  //   margin: 0;
+  // }
   #backgroundMessage {
     // text-shadow: 2px 2px 2px #000000;
     color: white;
     z-index: 99;
-        a{
-      text-decoration:none;
-      color: #fff;
-      font-size: 3rem;
-      margin: 0 auto;
-      display:flex;
-      flex-direction:column;
-        justify-content: flex-end;
-        }
   }
   img {
     width: 100vw;

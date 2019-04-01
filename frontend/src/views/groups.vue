@@ -1,21 +1,23 @@
 <template>
   <section>
+    <!-- data-aos="fade-down" data-aos-duration="900" -->
     <!-- <LoadingCmp v-if="!loadedGroups"></LoadingCmp> -->
     <LoadingCmp v-if="!loadedGroups || !nearbyGroups && !nearbyGroups.length"></LoadingCmp>
     <div v-if="loadedGroups" data-aos="fade-down" data-aos-duration="900" class="filter-container">
       <FilterGroup @filter="filter"></FilterGroup>
     </div>
+    <LoadingCmp v-if="!loadedGroups || !nearbyGroups.length"></LoadingCmp>
     <div v-if="loadedGroups" class="group-list-container">
-      <!-- <div v-if="nearbyGroups && nearbyGroups.length && !filterTitleToDisp" class="groups-previews">
+      <!-- <div v-if="nearbyGroups.length" class="groups-previews">
         <h1>Come by!</h1>
         <h3>Events Near You</h3>
         <div class="group-container">
           <GroupPreview v-for="group in nearbyGroups" :key="group._id" :group="group">
-              <template v-slot:comming-up>{{group.dist}} km Away</template>
+            <template v-slot:comming-up>{{group.dist}} km Away</template>
           </GroupPreview>
         </div>
         <hr>
-      </div>-->
+      </div> -->
       <h1 v-if="filterTitleToDisp">
         Check Out
         <span :style="{color: '#' + filterTitleToDisp.color}">{{homeFilterTitle}}</span>
@@ -44,8 +46,7 @@ export default {
     return {
       loadedGroups: false,
       currLoc: null,
-      nearbyGroups: null,
-      filterTitleToDisp: null
+      nearbyGroups: []
     };
   },
   created() {
@@ -124,9 +125,11 @@ export default {
     flex-direction: column;
     .filter-container {
       // margin-top: 37px;
+      position: fixed;
+
       margin-top: -70px;
       width: 100%;
-      position: fixed;
+      // position: fixed;
       z-index: 111;
       background-color: unset;
       padding: 20px;
@@ -160,7 +163,7 @@ section {
   // justify-content: center;
 }
 .groups-previews {
-  margin: 100px auto 0;
+  margin: 50px auto 0 ;
 }
 hr {
   border: 0;

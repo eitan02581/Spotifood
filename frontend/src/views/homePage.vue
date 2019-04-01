@@ -11,8 +11,8 @@
         <div data-aos="fade" data-aos-once="true" data-aos-duration="1000" class="explain-one">
           <div data-aos="fade" class="title">
             <h1>
-              Cook
-              <span style="color:#f44336;">&</span> Eat Together
+              Join
+              <span style="color:red">WEat</span> Experience
             </h1>
           </div>
           <transition name="scale-in-ver-bottom">
@@ -257,7 +257,7 @@ section {
       position: relative;
       .title {
         background-color: #0000003d;
-        height: 100%;
+        height: 99%;
         width: 100%;
         position: absolute;
         display: flex;
@@ -336,7 +336,7 @@ section {
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
   }
   h3 {
-    margin-left:20px;
+    margin-left: 20px;
     font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
     color: rgb(99, 99, 99);
   }

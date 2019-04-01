@@ -13,7 +13,7 @@
           <h1 class="spacer">
             Join
             <span style="color:red">
-              <span style="font-size:124px ; padding:0">W</span>Eat
+              <span style="font-size:70px ; padding:0">W</span>Eat
             </span> Experience
           </h1>
           <a href="#" v-scroll-to="'#element'"><i class="fas fa-chevron-circle-down"></i></a>

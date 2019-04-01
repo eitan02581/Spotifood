@@ -6,7 +6,6 @@
     <a :class="{show:scrollable}" id="button" v-scroll-to="'#top'">
       <i class="fas fa-arrow-up"></i>
     </a>
-    asdasd{{scrollable}}
     <Footer></Footer>
   </div>
 </template> 

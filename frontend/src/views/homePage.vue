@@ -45,10 +45,8 @@
                 <template v-slot:comming-up>{{group.dist}} km Away</template>
               </GroupPreview>
             </div>
-            <hr>
           </div>
         </div>
-
         <div data-aos="fade" data-aos-once="true" data-aos-duration="1000" class="explain-one">
           <div data-aos="fade" class="title">
             <h1>Discovering</h1>
@@ -62,18 +60,6 @@
         <div class="cusine-previews">
           <cuisineTypes @filterBy="onFilter"></cuisineTypes>
         </div>
-
-        <!-- <div data-aos="fade" data-aos-once="true" data-aos-duration="1000" class="explain-one">
-          <div data-aos="fade" class="title">
-            <h1>Discovering</h1>
-            <h1>new flavours</h1>
-          </div>
-          <img
-            src="https://www.galloportugal.com/wp-content/uploads/2018/11/shutterstock_476812717.jpg"
-            alt="Table white food "
-          >
-        </div>-->
-        <!-- <countriesCards v-if="groups" ></countriesCards> -->
         <div data-aos="fade" data-aos-once="true" data-aos-duration="1000" class="explain-one">
           <div data-aos="fade" class="title opac">
             <h1>

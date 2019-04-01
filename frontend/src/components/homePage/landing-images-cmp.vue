@@ -44,14 +44,8 @@ export default {
 <style scoped lang="scss" >
 section {
   h1 {
-    // position: absolute;
-    // top: 60%;
-    // left: 50%;
-    // transform: translate(-50%, -50%);
-    font-size: 90px;
     color: white;
     text-align: center;
-    // width: 100%;
     text-shadow: 1px 1px rgba(0, 0, 0, 0.356);
   }
   .home-page-titles {
@@ -61,6 +55,13 @@ section {
     align-items: center;
     width: 100%;
     height: 100%;
+    h1{
+      font-size:90px;
+    }
+    h1.slogan{
+      font-size: 70px;
+      margin: 10px auto;
+    }
   }
   a {
     text-decoration: none;
@@ -71,42 +72,11 @@ section {
     bottom: 20px;
     left: 50%;
   }
-
-  // .main-img {
-  //   width: 100%;
-  //   height: 100vh;
-  //   background-image: url("../../assets/table.jpg");
-  //   background-position: center;
-  //   background-repeat: no-repeat;
-  //   background-size: cover;
-  // }
   #backgroundDiv {
     width: 100%;
     height: 100vh;
     position: relative;
   }
-  // #backgroundBlock {
-  //   width: 100%;
-  //   height: 100%;
-  //   display: flex;
-  //   justify-content: center;
-  //   align-items: center;
-  // }
-  // video {
-  //   min-width: 100%;
-  //   min-height: 100%;
-
-  //   /* Setting width & height to auto prevents the browser from stretching or squishing the video */
-  //   width: auto;
-  //   height: auto;
-
-  //   /* Center the video */
-  //   position: absolute;
-  //   top: 50%;
-  //   left: 50%;
-  //   transform: translate(-50%, -50%);
-  // }
-  // }
   #backgroundMessage {
     width: 100%;
     height: 90vh;
@@ -122,12 +92,7 @@ section {
       rgba(255, 255, 255, 0.02) 100%
     );
   }
-  // #backgroundMessage * {
-  //   padding: 0.4em;
-  //   margin: 0;
-  // }
   #backgroundMessage {
-    // text-shadow: 2px 2px 2px #000000;
     color: white;
     z-index: 99;
   }
@@ -145,12 +110,10 @@ section {
   }
   @media only screen and (min-width: 600px) {
     #backgroundMessage h1 {
-      font-size: 7em;
       color: #ffffff;
       text-align: center;
     }
   }
-
   @media only screen and (max-width: 600px) {
     #backgroundMessage h1 {
       font-size: 60px;

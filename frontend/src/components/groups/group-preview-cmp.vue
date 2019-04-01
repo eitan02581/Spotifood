@@ -150,7 +150,7 @@ section {
           border-radius: 73px;
           position: absolute;
           top: -30px;
-          left: 110px;
+    left: 95px;
           object-fit: cover;
         }
         .info-container {

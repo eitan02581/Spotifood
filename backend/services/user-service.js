@@ -2,6 +2,7 @@ const mongoService = require('./mongo-service')
 const ObjectId = require('mongodb').ObjectId;
 const USER_COLLECTION = 'users'
 var users = require('../data/users.json')
+const socket = require ('../routes/socket-routes')
 
 // _addMany()
 
@@ -35,7 +36,10 @@ function login(userInfo) {
     return mongoService.connect()
         .then(db => db.collection(USER_COLLECTION).findOne(user)).then(user => {
             if (!user) throw ('wrong Cradentials')
-            else return user
+            else {
+
+                return user
+            }
         })
     // .catch()
     // TODO: RETURN ERR IF NOT MATCHED
@@ -87,11 +91,11 @@ async function updateUser(user) {
         .updateOne({ _id: user._id }, { $set: user })
 }
 
-async function updateUserImg(userId,img){
+async function updateUserImg(userId, img) {
     const _id = new ObjectId(userId)
     var db = await mongoService.connect()
     return db.collection(USER_COLLECTION)
-        .updateOne({ _id }, { $set: {img} })
+        .updateOne({ _id }, { $set: { img } })
 }
 
 

@@ -183,6 +183,7 @@ export default {
               height: 29px;
               border-radius: 73px;
               transition: 0.3s;
+              object-fit: cover;
             }
           }
         }

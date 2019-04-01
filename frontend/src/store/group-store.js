@@ -50,8 +50,6 @@ const groupStore = {
             state.pendUsers = pendUsers
         },
         removeUserFromGroup(state, { userId }) {
-            console.log(userId);
-
             state.group.users = state.group.users.filter(user => user !== userId)
         },
         removeRecipeFromGroup(state, { recipeId }) {
@@ -82,11 +80,6 @@ const groupStore = {
             groupService.query(filterBy)
                 .then((groups) => { commit({ type: 'setGroups', groups }) })
         },
-        // getGroup({ commit }, { groupId }) {
-        //     return groupService.getById(groupId).then((group) => {
-        //         commit({ type: 'setGroup', group })
-        //     })
-        // },    }
         getGroupById({ commit, state }, { groupId }) {
             commit({ type: 'cleanGroup' })
             return groupService.getById(groupId)

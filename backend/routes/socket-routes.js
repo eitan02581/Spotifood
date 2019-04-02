@@ -8,22 +8,23 @@ function addSocketRoutes(io) {
 
         let { userId } = socket.handshake.query
         socket.userId = userId
+        console.log('connectedSockets', connectedSockets.length);
         if (userId) {
             let isExist = connectedSockets.find(s => s.userId === userId)
             if (!isExist) {
                 connectedSockets.push(socket)
 
-                console.log('connectedSockets', connectedSockets.length);
+                console.log('connectedSockets', connectedSockets[0].userId);
             }
         }
 
-        socket.on('disconnect', () => {
-            let isExist = connectedSockets.find(s => s.userId === userId);
-            if (isExist) {
-                connectedSockets = connectedSockets.filter(s => s.userId !== s.userId)
-                console.log(`${socket.userId} disconnected!`);
-            }
-        })
+        // socket.on('disconnect', () => {
+        //     let isExist = connectedSockets.find(s => s.userId === userId);
+        //     if (isExist) {
+        //         connectedSockets = connectedSockets.filter(s => s.userId !== s.userId)
+        //         console.log(`${socket.userId} disconnected!`);
+        //     }
+        // })
 
         socket.on('disconnectUser', userId => {
             let isExist = connectedSockets.find(s => s.userId === userId);

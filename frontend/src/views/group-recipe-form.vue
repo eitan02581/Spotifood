@@ -46,7 +46,7 @@
           <img :src="img">
         </div>
         <el-upload
-          action="http://localhost:3007/upload-img"
+          action="/upload-img"
           list-type="picture-card"
           :on-preview="handlePictureCardPreview"
           :on-remove="handleRemove"

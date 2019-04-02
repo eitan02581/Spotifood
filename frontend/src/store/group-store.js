@@ -65,6 +65,9 @@ const groupStore = {
         },
         setFilterFromHome(state, { filterObj }) {
             state.homePageFitler = filterObj
+        },
+        clearFilter(state){
+            state.homePageFitler = null
         }
     },
     actions: {

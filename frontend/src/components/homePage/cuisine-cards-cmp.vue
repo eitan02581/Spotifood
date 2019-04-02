@@ -66,19 +66,23 @@ export default {
   overflow-x: scroll;
   overflow-y: hidden;
   .card:last-child {
-    margin: 0;
+    margin-right: 0;
+  }
+  .card:first-child {
+    margin-left: 0;
   }
   .card {
+    margin: 0 23.3px;
     flex-grow: 1;
+    max-width: 250px;
     cursor: pointer;
     width: 250px;
     height: 300px;
     position: relative;
     display: inline-block;
-    margin-right: 10px;
     .image {
       height: 100%;
-      width: 100%;
+      width: 250px;
       transition: 0.3s;
       img {
         height: 100%;
@@ -88,7 +92,7 @@ export default {
       }
     }
     .title {
-      width: 100%;
+      width: 250px;
       height: 100%;
       position: absolute;
       top: 0;
@@ -107,8 +111,6 @@ export default {
     }
   }
   .card:hover {
-    .image {
-    }
     h1 {
       font-size: 50px;
     }
@@ -123,6 +125,13 @@ export default {
     }
     .Chinese {
       color: #f44336;
+    }
+  }
+}
+@media (max-width: 1200px) {
+  .cuisine-cards-cotnainer {
+    .card {
+      margin: 0 1.95vw;
     }
   }
 }

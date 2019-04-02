@@ -186,8 +186,6 @@ export default {
   },
   methods: {
     onFilter(filterBy, val, color) {
-      console.log(color);
-
       var filterObj = { filterBy, val, color };
       this.$store.dispatch({ type: "setFilterFromHome", filterObj });
       this.$router.push("/groups");

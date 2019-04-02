@@ -76,6 +76,7 @@ export default {
       }
     },
     clearAll() {
+      this.$store.commit('clearFilter')
       eventBus.$emit("CLEAR_FILEDS");
       this.filterBy = {
         hashtags: [],

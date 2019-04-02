@@ -11,10 +11,11 @@ function addSocketRoutes(io) {
         console.log('connectedSockets', connectedSockets.length);
         if (userId) {
             let isExist = connectedSockets.find(s => s.userId === userId)
+            // socket.emit('userOnline' , connectedSockets.length)
             if (!isExist) {
                 connectedSockets.push(socket)
-
-                console.log('connectedSockets', connectedSockets[0].userId);
+                socket.emit('userOnline' , connectedSockets.length)
+                console.log('connectedSockets', connectedSockets.length);
             }
         }
 

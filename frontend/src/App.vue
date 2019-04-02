@@ -13,7 +13,7 @@
 <script>
 import Header from "@/components/header-cmp";
 import Footer from "@/components/footer-cmp";
-
+import socketService from './services/SocketService.js'
 import { eventBus, USER_LOGGED } from "./services/EventBusService.js";
 export default {
   components: {
@@ -26,6 +26,10 @@ export default {
     };
   },
   created() {
+    socketService.on('userOnline' , (userOnline) =>{
+      console.log('sockkkk');
+      
+    })
     this.$store.dispatch({ type: "checkIfLogged" }).then(user => {
       eventBus.$emit("USER_LOGGED", user);
     });

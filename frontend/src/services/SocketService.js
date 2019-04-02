@@ -9,6 +9,7 @@ connectSocket();
 
 function connectSocket() {
     socket = ioClient(URl);
+    
 }
 
 

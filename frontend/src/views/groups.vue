@@ -17,10 +17,11 @@
           </GroupPreview>
         </div>
         <hr>
-      </div> -->
+      </div>-->
       <h1 v-if="filterTitleToDisp">
         Check Out
         <span :style="{color: '#' + filterTitleToDisp.color}">{{homeFilterTitle}}</span>
+        <a @click="clearFilter">Clear</a>
       </h1>
       <h1 v-else>Try Something New</h1>
       <GroupList :groups="groups"></GroupList>
@@ -46,7 +47,8 @@ export default {
     return {
       loadedGroups: false,
       currLoc: null,
-      nearbyGroups: []
+      nearbyGroups: [],
+      filterTitleToDisp: null
     };
   },
   created() {
@@ -93,7 +95,11 @@ export default {
       this.filterTitleToDisp = this.$store.getters.getHomePageFitler;
       this.$store.dispatch({ type: "filterGroups", filterBy });
     },
-
+    clearFilter() {
+      this.$store.commit("clearFilter");
+      this.$store.dispatch({ type: "filterGroups", filterBy: null });
+      this.filterTitleToDisp = this.$store.getters.getHomePageFitler;
+    },
     getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
       var R = 6371; // Radius of the earth in km
       var dLat = this.deg2rad(lat2 - lat1); // deg2rad below
@@ -121,15 +127,11 @@ export default {
     flex-grow: 1;
     margin-top: 50px;
     display: flex;
-    // align-items: baseline;
     flex-direction: column;
     .filter-container {
-      // margin-top: 37px;
       position: fixed;
-
       margin-top: -70px;
       width: 100%;
-      // position: fixed;
       z-index: 111;
       background-color: unset;
       padding: 20px;
@@ -162,7 +164,7 @@ section {
   border-bottom: 1px solid transparent;
 }
 .groups-previews {
-  margin: 50px auto 0 ;
+  margin: 50px auto 0;
 }
 hr {
   border: 0;
@@ -177,6 +179,15 @@ h1 {
   color: rgb(99, 99, 99);
   font-size: 3rem;
   text-transform: uppercase;
+  a {
+    margin-left: 10px;
+    font-size: 0.4em;
+    color: #cc1616;
+    cursor: pointer;
+    &:hover {
+      color: red;
+    }
+  }
 }
 h3 {
   text-align: center;

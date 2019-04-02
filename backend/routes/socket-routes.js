@@ -39,22 +39,38 @@ function addSocketRoutes(io) {
             let targetSocket = findSocketByUserId(targetId);
 
             if (targetSocket) {
-                console.log('target');
-                targetSocket.emit('sendRequest', { user, group });
+                console.log('admin user id:', targetSocket.userId)
+                targetSocket.emit('sendRequest', 'hi there')
+                // console.log('server: socket sent request', targetSocket.id);
+                // console.log(connectedSockets.length)
+                // var socketArr = Object.keys(io.sockets.connected)
+                // console.log(socketArr)
+                // socketArr.forEach((socketId) => {
+                //     console.log('userId: ', io.sockets.connected[socketId].userId)
+                //     console.log('targetsocket id: ', targetSocket.id)
+                //     console.log('socketId: ', socketId)
+                //     // if (socketId === targetSocket.id) {
+                //     //     io.sockets.connected[socketId].emit('sendRequest')
+                //     // }
+                //     // console.log('are they equal?', socketId === targetSocket.id)
+                // })
+                // io.to(socketArr[socketArr.length - 1].id).emit('sendRequest');
+                // io.sockets.connected[socketArr[3]].emit('sendRequest', { user, group });
+                // io.sockets.connected[targetSocket.id].emit('sendRequest', { user, group });
             }
         })
-// TODO: CONTINUE FROM HERE , SEND REQUEST TO ADMIN's SOCKET
-        socket.on('sendRequest', ({ user, group }) => {
-            console.log('admin kibel', user);
+        // TODO: CONTINUE FROM HERE , SEND REQUEST TO ADMIN's SOCKET
+        // targetSocket.on('sendRequest', ({ user, group }) => {
+        //     console.log('admin kibel', user);
 
-            // console.log(user._id, group._id);
+        // console.log(user._id, group._id);
 
-            // let targetId = request.recipient.id;
-            // let targetSocket = findSocketByUserId(targetId);
-            // if (targetSocket) {
-            //     targetSocket.emit('sendRequest', request);
-            // }
-        });
+        // let targetId = request.recipient.id;
+        // let targetSocket = findSocketByUserId(targetId);
+        // if (targetSocket) {
+        //     targetSocket.emit('sendRequest', request);
+        // }
+        // });
 
 
         // socket.on('userConnected',  => {
@@ -73,9 +89,6 @@ function addSocketRoutes(io) {
 
     function findSocketByUserId(userId) {
         return connectedSockets.find(s => {
-
-            // console.log(s.userId);
-
             return s.userId === userId
         });
     }

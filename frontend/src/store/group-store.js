@@ -13,7 +13,8 @@ const groupStore = {
         group: null,
         pendUsers: [],
         homePageFitler: null,
-        isGroupAdmin: false
+        isGroupAdmin: false,
+
 
     }, getters: {
         groups(state) {
@@ -47,6 +48,15 @@ const groupStore = {
         setGroup(state, { group }) {
             state.group = group
         },
+        // socket
+        addPendUser(state, { pendUserId }) {
+            console.log('pend socket!', state.pendUsers);
+            state.pendUsers.push(pendUserId)
+            console.log('pend socket!', state.pendUsers);
+
+
+        }
+        ,
         setPendUsers(state, { pendUsers }) {
             state.pendUsers = pendUsers
         },

@@ -13,8 +13,9 @@
 <script>
 import Header from "@/components/header-cmp";
 import Footer from "@/components/footer-cmp";
-
+import socketService from "./services/SocketService.js";
 import { eventBus, USER_LOGGED } from "./services/EventBusService.js";
+import SocketService from "./services/SocketService.js";
 export default {
   components: {
     Header,
@@ -26,7 +27,15 @@ export default {
     };
   },
   created() {
+    // socketService.on("sendRequest", ({ user, group }) => {
+    //   console.log("hey is sent new pend from app vue");
+
+    //   this.$store.commit({ type: "addPendUser", pendUserId: user._id });
+    // });
+
     this.$store.dispatch({ type: "checkIfLogged" }).then(user => {
+      console.log("logged");
+
       eventBus.$emit("USER_LOGGED", user);
     });
     var vm = this;
@@ -38,7 +47,7 @@ export default {
         vm.scrollable = false;
       }
     });
-  },
+  }
 };
 </script>
 

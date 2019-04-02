@@ -8,12 +8,10 @@ const addUserRoutes = require('./routes/user-routes')
 const addGroupRoutes = require('./routes/group-routes')
 const addRecipeRoutes = require('./routes/recipe-routes')
 const addUploadRoutes = require('./routes/upload-routes')
-const addSocketRoutes = require('./routes/socket-routes')
 
 
 // socket
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
+// var http = require('http').Server(app);
 
 app.use(express.static('public'))
 app.use(cors({
@@ -38,11 +36,10 @@ addUserRoutes(app)
 addGroupRoutes(app)
 addRecipeRoutes(app)
 addUploadRoutes(app)
-addSocketRoutes(io)
 
 
 const PORT = process.env.PORT || 3007;
-http.listen(PORT, () => console.log(`Example app listening on port ${PORT}`))
+app.listen(PORT, () => console.log(`Example app listening on port ${PORT}`))
 
 
 // ////////////////////////////////////////////////

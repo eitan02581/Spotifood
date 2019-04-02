@@ -2,7 +2,6 @@ const mongoService = require('./mongo-service')
 const ObjectId = require('mongodb').ObjectId;
 const USER_COLLECTION = 'users'
 var users = require('../data/users.json')
-const socket = require ('../routes/socket-routes')
 
 // _addMany()
 

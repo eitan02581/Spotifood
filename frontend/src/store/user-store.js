@@ -2,15 +2,12 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import userService from '../services/UserService.js';
 import uploadService from '../services/UploadService.js'
-import socketService from '../services/SocketService.js'
-
-
 
 Vue.use(Vuex)
 
 const userStore = {
     state: {
-        user: null
+        user: null,
     },
     getters: {
         user: (state) => state.user
@@ -22,7 +19,7 @@ const userStore = {
         cleanUser(state) {
             state.user = null
             // state.is
-        }
+        },
     },
     actions: {
         checkIfLogged({ commit }) {
@@ -34,7 +31,6 @@ const userStore = {
         logIn({ commit }, { user }) {
             return userService.logIn(user).then(user => {
                 commit({ type: 'setUser', user })
-                socketService.connect(user._id)
                 // TODO: RETURN A LOG FIX IT 
             }).catch((res) => { throw ('login err') })
 
@@ -48,10 +44,7 @@ const userStore = {
                 }).catch((res) => console.log(res))
         },
         logOut({ state, dispatch, commit }) {
-            socketService.disconnect(state.user._id)
             commit({ type: 'cleanUser' })
-
-            // dispatch({type:''})
             userService.logOut()
         },
         getUserById({ commit }, { userId }) {

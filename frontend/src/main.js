@@ -15,8 +15,6 @@ import vueEventCalendar from 'vue-event-calendar'
 import FunctionalCalendar from 'vue-functional-calendar';
 import Vuetify from 'vuetify'
 import VuetifyToast from 'vuetify-toast-snackbar'
-// socket
-import socketService from './services/SocketService'
 
 // import VueAwesomeSwiper from 'vue-awesome-swiper'
 require('vuetify/dist/vuetify.min.css')

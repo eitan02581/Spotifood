@@ -3,7 +3,6 @@ import Vuex from 'vuex'
 
 import groupService from '../services/GroupService.js'
 import RecipeService from '../services/RecipeService.js';
-import socketService from '../services/SocketService.js';
 
 Vue.use(Vuex)
 
@@ -13,7 +12,8 @@ const groupStore = {
         group: null,
         pendUsers: [],
         homePageFitler: null,
-        isGroupAdmin: false
+        isGroupAdmin: false,
+
 
     }, getters: {
         groups(state) {
@@ -93,7 +93,6 @@ const groupStore = {
                     return group
                 })
         },
-
         removeRecipeFromGroup({ commit }, { recipeId, groupId }) {
             groupService.removeRecipeFromGroup(recipeId, groupId)
                 .then(() => commit({ type: 'removeRecipeFromGroup', recipeId }))
@@ -109,7 +108,6 @@ const groupStore = {
             return groupService.askJoinGroup(ids).then(() => {
                 var user = context.getters.user
                 var group = context.getters.group
-                socketService.emit('joinGroup', { user, group })
                 return 'asked successfuly'
             })
         },

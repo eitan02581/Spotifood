@@ -1,6 +1,7 @@
 
 import axios from 'axios'
 import storageService from './StorageService.js'
+// import 
 var users = null
 const USER_ROUTE = (process.env.NODE_ENV !== 'development') ? '/user' : 'http://localhost:3007/user'
 
@@ -13,9 +14,9 @@ function getUsers() {
 function _createUsers() {
 }
 
-function updateUser(user){
-    return axios.post(`${USER_ROUTE}/${user._id}`,user)
-    .then(user => user.data)
+function updateUser(user) {
+    return axios.post(`${USER_ROUTE}/${user._id}`, user)
+        .then(user => user.data)
 }
 
 function getUserById(userId) {
@@ -48,7 +49,11 @@ function signUp(newUser) {
 }
 
 function checkIfLogged() {
-    return storageService.load(CURR_USER)
+    var loggedUser = storageService.load(CURR_USER)
+    if (loggedUser) {
+        return loggedUser
+    }
+    return Promise.reject()
 }
 
 function logOut() {

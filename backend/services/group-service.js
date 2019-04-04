@@ -142,12 +142,15 @@ function addParticipant(ids) {
 
 function removePendingUser(ids) {
     var group = {}
+    var userId = new ObjectId(ids.userId)
     group._id = new ObjectId(ids.groupId)
+
+    console.log('try to remove', ids);
 
     return mongoService.connect()
         .then(db => {
             return db.collection(GROUP_COLLECTION)
-                .updateOne({ _id: group._id }, { $pull: { pendingUsers: ids.userId } })
+                .updateOne({ _id: group._id }, { $pull: { pendingUsers: userId } })
         })
 }
 

@@ -1,6 +1,9 @@
 <template>
   <section v-if="groupAdmin">
     <router-link tag="div" :to="'/groups/' + group._id" class="preview-container">
+      <div v-if="isFull" class="full-status">
+        <h2>Full</h2>
+      </div>
       <div class="img-container" :style="{ backgroundImage: 'url(' + group.img + ')' }"></div>
       <div class="main">
         <div class="bottom">
@@ -23,22 +26,6 @@
             <h3>
               <div class="meal">{{group.eventType}}</div>
             </h3>
-            <!-- <h2 style="color:#f44336">{{seatsLeft === 0 ? 'Full' : seatsLeft + ' seats left'}}</h2> -->
-            <!-- {{group.hashtags}} -->
-            <!-- <h3>
-              <i style="color:orange" class="fas fa-star"></i>
-              <i style="color:orange" class="fas fa-star"></i>
-              <i style="color:orange" class="fas fa-star"></i>
-              <i style="color:orange" class="fas fa-star"></i>
-              <i style="color:orange" class="fas fa-star"></i> (37)
-            </h3>-->
-            <!-- <div class="has-container">
-              <el-tag type="warning" v-for="hashtag in group.hashtags" :key="hashtag">#{{hashtag}}</el-tag> -->
-              <!-- <span v-for="hash in group.hashtags" :key="hash">#{{hash}}</span> -->
-            <!-- </div> -->
-            <div class="participants-container">
-              <!-- <participants :users=""></participants> -->
-            </div>
           </div>
         </div>
       </div>
@@ -66,6 +53,9 @@ export default {
   computed: {
     seatsLeft() {
       return this.group.guests - this.group.users.length;
+    },
+    isFull() {
+      return this.group.guests === this.group.users.length ? "Full" : "";
     }
   },
   async created() {
@@ -98,6 +88,18 @@ section {
     // border-radius: 10px;
     cursor: pointer;
     transition: 0.3s;
+    .full-status {
+      position: absolute;
+      right: 0;
+      h2 {
+        background-color: #f44336;
+        text-align: center;
+        color: white;
+        letter-spacing: 1px;
+        padding: 10px;
+        width: 65px;
+      }
+    }
     .img-container {
       height: 315px;
       // width: 280px;
@@ -150,7 +152,7 @@ section {
           border-radius: 73px;
           position: absolute;
           top: -30px;
-    left: 95px;
+          left: 95px;
           object-fit: cover;
         }
         .info-container {

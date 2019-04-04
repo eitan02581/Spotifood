@@ -55,6 +55,7 @@ function checkIfLogged() {
         SocketService.connect(loggedUser._id)
         return loggedUser
     }
+
     return Promise.reject()
 }
 

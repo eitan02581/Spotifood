@@ -81,7 +81,6 @@ function addGroupRoutes(app) {
     // remove user from pending request
     app.put('/group/decline/:groupId', (req, res) => {
         const ids = req.body;
-        console.log('requesשדגate', ids)
         GroupService.removePendingUser(ids)
             .then(() => {
                 console.log('successfuly added participant')

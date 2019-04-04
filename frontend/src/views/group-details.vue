@@ -6,13 +6,13 @@
       </div>
       <div v-if="imgs" class="img-carusel">
         <!-- for desktop -->
-        <el-carousel id="desk-car" :interval="4000" type="card" height="400px">
+        <el-carousel id="desk-car" :interval="8000" type="card" height="400px">
           <el-carousel-item v-for="img in imgs" :key="img">
             <img :src="img" alt>
           </el-carousel-item>
         </el-carousel>
         <!-- for phone -->
-        <el-carousel id="mob-car" :interval="5000" arrow="always">
+        <el-carousel id="mob-car" :interval="7000" arrow="always">
           <el-carousel-item v-for="img in imgs" :key="img">
             <img :src="img" alt>
           </el-carousel-item>
@@ -301,6 +301,9 @@ export default {
 
 //TODO: REFACTOR STYLE
 <style scoped lang="scss">
+section {
+  // min-height: 100vh;
+}
 @media only screen and (min-width: 600px) {
   .group-details > div {
     flex-grow: 1;
@@ -401,10 +404,10 @@ export default {
             padding: 0;
           }
         }
-    
+
         button {
           font-size: 38px;
-            letter-spacing: 2px;
+          letter-spacing: 2px;
           width: 261px;
         }
       }

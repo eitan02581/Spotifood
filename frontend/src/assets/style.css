@@ -9,6 +9,7 @@
 }
 
 * {
+    outline: unset;
     box-sizing: border-box;
     font-family: roboto;
 }
@@ -19,6 +20,9 @@ html, body {
     font-family: roboto;
     margin: 0;
     padding: 0;
+    height: 100%;
+    margin: 0;
+
     /* height: 100vh; */
     /* width: 100vw; */
 }

@@ -2,7 +2,7 @@
   <div id="app">
     <Header></Header>
     <div id="top"></div>
-    <router-view data-aos="fade"/>
+    <router-view class="content" data-aos="fade"/>
     <a :class="{show:scrollable}" id="button" v-scroll-to="'#top'">
       <i class="fas fa-arrow-up"></i>
     </a>
@@ -52,11 +52,15 @@ export default {
 </script>
 
 <style lang="scss">
+.content {
+  // min-height: 100%;
+}
 #app {
   background-color: #f6f6f6;
 
   display: flex;
   flex-direction: column;
+
   min-height: 100vh;
 }
 #button {

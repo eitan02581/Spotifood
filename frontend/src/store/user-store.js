@@ -26,20 +26,13 @@ const userStore = {
             // state.is
         },
         initCurrSocket(state, { user }) {
+            console.log(this)
             if (user) {
                 let { _id } = user;
                 state.currSocket = socketService.connect(_id);
-
-
-                state.currSocket.on('user joined', group => {
-                    console.log('to specific socket')
+                state.currSocket.on('hey', userId => {
+                    this.commit({ type: 'addPendUser', userId })
                 })
-                state.currSocket.on('hey', txt => console.log(txt))
-                state.currSocket.on('a user logged in', txt => console.log(txt))
-                state.currSocket.on("sendRequest", request => {
-                    console.log('sendin request', request)
-                    // this.commit({ type: "addPendingRequest", request });
-                });
             }
         }
     },

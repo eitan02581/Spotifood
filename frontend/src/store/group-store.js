@@ -48,6 +48,12 @@ const groupStore = {
         },
         setPendUsers(state, { pendUsers }) {
             state.pendUsers = pendUsers
+            console.log(state.pendUsers)
+        },
+        addPendUser(state, { userId }) {
+            console.log('state.pendUSers', state.pendUsers)
+            state.pendUsers.push(userId)
+            console.log('state.pendUSers', state.pendUsers)
         },
         // for reactive adding
         addUserToGroup(state, { user }) {

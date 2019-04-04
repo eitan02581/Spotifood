@@ -62,7 +62,7 @@ function addGroupRoutes(app, io) {
                         return socket.userId === groupAdminId
                     })
                     console.log('target socket id:', targetSocket.id)
-                    io.to(`${targetSocket.id}`).emit('hey', 'I just met you');
+                    io.to(`${targetSocket.id}`).emit('hey', ids.userId);
 
                 })
                 return res.json()

@@ -13,7 +13,8 @@ const groupStore = {
         group: null,
         pendUsers: [],
         homePageFitler: null,
-        isGroupAdmin: false
+        isGroupAdmin: false,
+
 
     }, getters: {
         groups(state) {
@@ -47,8 +48,32 @@ const groupStore = {
         setGroup(state, { group }) {
             state.group = group
         },
+<<<<<<< HEAD
         removeUserFromGroup(state, { userId }) {
             state.group.users = state.group.users.filter(user => user._id !== userId)
+=======
+        // socket
+        addPendUser(state, { pendUserId }) {
+            console.log('pend socket!', state.pendUsers);
+            state.pendUsers.push(pendUserId)
+            console.log('pend socket!', state.pendUsers);
+
+
+        }
+        ,
+        setPendUsers(state, { pendUsers }) {
+            state.pendUsers = pendUsers
+        },
+        // for reactive adding
+        addUserToGroup(state, { user }) {
+            state.group.users.push(user)
+        },
+        removeUserFromGroup(state, { userId }) {
+            console.log(userId);
+            state.group.users = state.group.users.filter(user => user._id !== userId)
+            console.log(state.group.users);
+
+>>>>>>> cdb5789cb5add8e579190297839979fb41448708
         },
         removeRecipeFromGroup(state, { recipeId }) {
             let recipeIdx = state.group.recipes.findIndex(recipe => recipe._id === recipeId)
@@ -119,13 +144,23 @@ const groupStore = {
         removeUserFromGroup({ commit }, { ids }) {
             return groupService.removeUserFromGroup(ids).then(() => {
                 // make it reactive
+                console.log('broo');
+
                 commit({ type: 'removeUserFromGroup', userId: ids.userId })
             })
         },
+<<<<<<< HEAD
         acceptUserToGroup({ commit }, { ids }) {
             return groupService.addUserToGroup(ids).then(user => {
                 commit({ type: 'addUserToGroup', user: user })
                 commit({ type: 'removeUserFromPend', userId: ids.userId })
+=======
+        acceptUserToGroup({ commit }, { ids, user }) {
+            return groupService.addUserToGroup(ids).then((res) => {
+                console.log('after adding ', user);
+
+                commit({ type: 'addUserToGroup', user })
+>>>>>>> cdb5789cb5add8e579190297839979fb41448708
             })
 
         },

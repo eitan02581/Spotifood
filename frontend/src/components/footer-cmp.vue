@@ -60,7 +60,6 @@ section {
   height: 200px;
   width: 100%;
   background-color: rgb(66, 66, 66);
-  // position: absolute;
   bottom: 0;
   display: flex;
   flex-wrap: wrap;

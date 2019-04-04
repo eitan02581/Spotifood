@@ -15,6 +15,5 @@ export default {
 
 <style scoped lang="scss">
 section {
-  // margin-bottom: 100px;
 }
 </style>

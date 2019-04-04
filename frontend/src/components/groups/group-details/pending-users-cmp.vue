@@ -53,7 +53,8 @@ export default {
       this.$store
         .dispatch({
           type: "acceptUserToGroup",
-          ids: { userId: user._id, groupId: this.groupId }
+          ids: { userId: user._id, groupId: this.groupId },
+          user
         })
         .then(res => {
           this.$store

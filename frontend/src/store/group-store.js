@@ -49,8 +49,15 @@ const groupStore = {
         setPendUsers(state, { pendUsers }) {
             state.pendUsers = pendUsers
         },
+        // for reactive adding
+        addUserToGroup(state, { user }) {
+            state.group.users.push(user)
+        },
         removeUserFromGroup(state, { userId }) {
-            state.group.users = state.group.users.filter(user => user !== userId)
+            console.log(userId);
+            state.group.users = state.group.users.filter(user => user._id !== userId)
+            console.log(state.group.users);
+
         },
         removeRecipeFromGroup(state, { recipeId }) {
             let recipeIdx = state.group.recipes.findIndex(recipe => recipe._id === recipeId)
@@ -112,11 +119,17 @@ const groupStore = {
         removeUserFromGroup({ commit }, { ids }) {
             return groupService.removeUserFromGroup(ids).then(() => {
                 // make it reactive
+                console.log('broo');
+
                 commit({ type: 'removeUserFromGroup', userId: ids.userId })
             })
         },
-        acceptUserToGroup({ commit }, { ids }) {
-            return groupService.addUserToGroup(ids).then((res) => res)
+        acceptUserToGroup({ commit }, { ids, user }) {
+            return groupService.addUserToGroup(ids).then((res) => {
+                console.log('after adding ', user);
+
+                commit({ type: 'addUserToGroup', user })
+            })
 
         },
         declineUserRequest({ commit }, { ids }) {

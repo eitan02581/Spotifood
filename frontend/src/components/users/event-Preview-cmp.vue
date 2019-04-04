@@ -53,7 +53,7 @@ export default {
     h4 {
       color: gray;
     }
-    h3{
+    h3 {
       color: #424242;
     }
   }
@@ -69,11 +69,11 @@ export default {
   .event-preview {
     height: 70px;
     width: 100%;
-    img{
+    img {
       width: 70px;
     }
     .content {
-    width: calc(100% - 100px);
+      width: calc(100% - 100px);
     }
   }
 }

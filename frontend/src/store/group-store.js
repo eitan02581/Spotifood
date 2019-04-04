@@ -14,7 +14,6 @@ const groupStore = {
         homePageFitler: null,
         isGroupAdmin: false,
 
-
     }, getters: {
         groups(state) {
             return state.groups
@@ -66,7 +65,7 @@ const groupStore = {
         setFilterFromHome(state, { filterObj }) {
             state.homePageFitler = filterObj
         },
-        clearFilter(state){
+        clearFilter(state) {
             state.homePageFitler = null
         }
     },
@@ -75,6 +74,7 @@ const groupStore = {
             commit({ type: 'cleanGroup' })
         },
         getGroups({ commit }) {
+
             return groupService.query().then(groups => commit({ type: 'setGroups', groups }))
         },
         setFilterFromHome({ commit }, { filterObj }) {
@@ -106,8 +106,6 @@ const groupStore = {
         },
         askJoinGroup(context, { ids }) {
             return groupService.askJoinGroup(ids).then(() => {
-                var user = context.getters.user
-                var group = context.getters.group
                 return 'asked successfuly'
             })
         },

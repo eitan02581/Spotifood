@@ -14,6 +14,7 @@
 import Header from "@/components/header-cmp";
 import Footer from "@/components/footer-cmp";
 import { eventBus, USER_LOGGED } from "./services/EventBusService.js";
+
 export default {
   components: {
     Header,
@@ -28,7 +29,8 @@ export default {
     this.$store.dispatch({ type: "checkIfLogged" }).then(user => {
       console.log("logged");
       eventBus.$emit("USER_LOGGED", user);
-    });
+    })
+    .catch(()=>console.log('sorry user not connected'));
     var vm = this;
     window.addEventListener("scroll", function(e) {
       var scrollPos = window.scrollY;

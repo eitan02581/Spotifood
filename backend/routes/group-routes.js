@@ -1,9 +1,8 @@
 const GroupService = require('../services/group-service')
 const UserService = require('../services/user-service')
+const ObjectId = require('mongodb').ObjectId;
 
-
-function addGroupRoutes(app) {
-
+function addGroupRoutes(app, io) {
     app.get('/group', (req, res) => {
         const filterBy = req.query
         GroupService.query(filterBy)
@@ -52,8 +51,20 @@ function addGroupRoutes(app) {
     app.put('/group/join/:groupId', (req, res) => {
         const ids = req.body;
         GroupService.askJoin(ids)
-            .then(() => {
+            .then(result => {
                 console.log('successfuly updated pending request')
+                GroupService.getById(ids.groupId).then(group => {
+                    console.log('group admin is', group.admin)
+                    console.log('these are sockets:',Object.values(io.sockets.connected))
+                    let sockets = Object.values(io.sockets.connected)
+                    let targetSocket = sockets.find(socket => { 
+                        let groupAdminId = ObjectId(group.admin).toString()
+                        return socket.userId === groupAdminId
+                    })
+                    console.log('target socket id:', targetSocket.id)
+                    io.to(`${targetSocket.id}`).emit('hey', 'I just met you');
+
+                })
                 return res.json()
             })
     })

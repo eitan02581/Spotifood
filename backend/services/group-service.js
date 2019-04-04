@@ -103,7 +103,6 @@ function remove(groupId) {
 function askJoin(ids) {
     var group = {}
     group._id = new ObjectId(ids.groupId)
-    // console.log('asd', group._id);
 
     return mongoService.connect()
         .then(db => {

@@ -49,11 +49,11 @@ function signUp(newUser) {
 }
 
 function checkIfLogged() {
-    var loggedUser = storageService.load(CURR_USER)
-    if (loggedUser) {
-        return loggedUser
-    }
-    return Promise.reject()
+    return storageService.load(CURR_USER)
+    // if (loggedUser) {
+    //     return loggedUser)
+    // }
+    // return Promise.reject()
 }
 
 function logOut() {

@@ -47,19 +47,37 @@ function query() {
     return users
 }
 
-function login(userInfo) {
-    var user = {
+async function login(userInfo) {
+    var userDetails = {
         $and: [{ username: userInfo.username }, { password: userInfo.password }]
     }
-    return mongoService.connect()
-        .then(db => db.collection(USER_COLLECTION).findOne(user)).then(user => {
-            if (!user) throw ('wrong Cradentials')
-            else {
+    var db = await mongoService.connect()
 
-                return user
-            }
-        })
-    // .catch()
+    // var user = await db.collection(USER_COLLECTION).findOne(userDetails)
+    var fullUser = await db.collection(USER_COLLECTION).aggregate(
+        [
+            {
+                $match: userDetails
+            },
+            {
+                $lookup: {
+                    from: "groups",
+                    localField: "groups",
+                    foreignField: "_id",
+                    as: "groups"
+                }
+            },
+            {
+                $lookup: {
+                    from: "groups",
+                    localField: "createdGroups",
+                    foreignField: "_id",
+                    as: "createdGroups"
+                }
+            },
+        ]).toArray()
+    delete fullUser[0].password
+    return fullUser[0]
     // TODO: RETURN ERR IF NOT MATCHED
 }
 

@@ -171,9 +171,11 @@ export default {
     }
 
     if (this.user) {
-      this.userGroups = this.$store.getters.groups.filter(
-        group => group.admin === this.user._id
-      );
+      this.userGroups = this.user.createdGroups
+      console.log(this.user)
+      // .filter(
+      //   group => group.admin === this.user._id
+      // );
     }
   },
   computed: {

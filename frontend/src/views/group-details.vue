@@ -235,7 +235,7 @@ export default {
         this.$store
           .dispatch({
             type: "askJoinGroup",
-            ids: { userId: user._id, groupId: group._id }
+            ids: { user, groupId: group._id }
           })
           .then(() => {
             this.$toast.Success("Request Sent");
@@ -359,7 +359,6 @@ export default {
       height: 200px;
       margin-top: -100px;
       position: relative;
-
       .left-box {
         display: flex;
         justify-content: center;
@@ -401,10 +400,9 @@ export default {
             padding: 0;
           }
         }
-    
+
         button {
-          font-size: 38px;
-            letter-spacing: 2px;
+          height: 50px;
           width: 261px;
         }
       }
@@ -628,8 +626,6 @@ export default {
         margin-top: -25px;
         position: absolute;
         left: 0;
-        font-size: 70px;
-
         display: flex;
         align-items: center;
         .hosted {

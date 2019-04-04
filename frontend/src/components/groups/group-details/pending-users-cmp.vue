@@ -1,10 +1,10 @@
 <template>
-  <section v-if="users.length >= 1">
+  <section v-if="pendUsers.length >= 1">
     <div class="title">
       <h1>Pending Users</h1>
     </div>
     <div class="pending-container">
-      <div class="user-container" v-for="user in users" :key="user._id">
+      <div class="user-container" v-for="user in pendUsers" :key="user._id">
         <div class="info-container">
           <div class="name">{{user.username}}</div>
           <div class="country">{{user.country}}</div>
@@ -41,12 +41,6 @@ export default {
     };
   },
   created() {
-    this.pendUsers.forEach(userId => {
-      console.log("Problem is Here?");
-      this.$store.dispatch({ type: "getUserById", userId }).then(user => {
-        this.users.push(user);
-      });
-    });
   },
   methods: {
     onAcceptUser(user) {
@@ -56,15 +50,7 @@ export default {
           ids: { userId: user._id, groupId: this.groupId }
         })
         .then(res => {
-          this.$store
-            .dispatch({
-              type: "addGroupToUser",
-              ids: { userId: user._id, groupId: this.groupId }
-            })
-            .then(() => this.$toast.Success(`${user.username} Added`));
-          var idx = this.users.findIndex(pend => pend._id === user._id);
-          this.users.splice(idx, 1);
-          console.log("delted");
+          this.$toast.Success(`${user.username} Added`);
         });
     },
     onDeclineUser(user) {
@@ -72,10 +58,6 @@ export default {
         .dispatch({
           type: "declineUserRequest",
           ids: { userId: user._id, groupId: this.groupId }
-        })
-        .then(res => {
-          var idx = this.users.findIndex(pend => pend._id === user._id);
-          this.users.splice(idx, 1);
         })
         .then(() => this.$toast.Error(`${user.username} declined`));
     }

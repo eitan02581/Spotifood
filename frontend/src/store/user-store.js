@@ -21,7 +21,6 @@ const userStore = {
         },
         cleanUser(state) {
             state.user = null
-            // state.is
         }
     },
     actions: {
@@ -50,24 +49,16 @@ const userStore = {
         logOut({ state, dispatch, commit }) {
             socketService.disconnect(state.user._id)
             commit({ type: 'cleanUser' })
-
-            // dispatch({type:''})
             userService.logOut()
         },
         getUserById({ commit }, { userId }) {
             return userService.getUserById(userId)
                 .then((user) => user)
         },
-        addGroupToUser({ dispatch, commit }, { ids }) {
-            console.log('hey man ', ids);
-
-            return userService.addGroupToUser(ids).then(() => { 'group added' })
-        },
         updateUser({ commit }, { user }) {
             return userService.updateUser(user).then(res => res)
         },
         uploadImg({ commit }, { userId, img }) {
-            // console.log("userId",userId)
             return uploadService.uploadUserImg(img, userId).then(res => res)
         }
     }

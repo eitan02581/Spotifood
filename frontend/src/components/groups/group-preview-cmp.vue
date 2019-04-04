@@ -1,15 +1,15 @@
 <template>
-  <section v-if="groupAdmin">
+  <section v-if="group.admin">
     <router-link tag="div" :to="'/groups/' + group._id" class="preview-container">
       <div class="img-container" :style="{ backgroundImage: 'url(' + group.img + ')' }"></div>
       <div class="main">
         <div class="bottom">
-          <img :src="groupAdmin.img" alt>
+          <img :src="group.admin.img" alt>
           <div class="info-container">
             <div class="host">
               <h2>
                 Cook With:
-                <span>{{groupAdmin.username}}</span>
+                <span>{{group.admin.username}}</span>
                 and {{group.users.length}} others
               </h2>
             </div>
@@ -60,7 +60,6 @@ export default {
   },
   data() {
     return {
-      groupAdmin: null
     };
   },
   computed: {
@@ -68,12 +67,7 @@ export default {
       return this.group.guests - this.group.users.length;
     }
   },
-  async created() {
-    this.groupAdmin = await this.$store.dispatch({
-      type: "getUserById",
-      userId: this.group.admin
-    });
-  }
+
 };
 </script>
 

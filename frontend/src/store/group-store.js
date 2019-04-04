@@ -23,7 +23,7 @@ const groupStore = {
             return state.group
         },
         pendUsers(state) {
-            return state.pendUsers
+            return state.group.pendingUsers
         },
         groupAdmin(state) {
             return state.groupAdmin
@@ -47,11 +47,8 @@ const groupStore = {
         setGroup(state, { group }) {
             state.group = group
         },
-        setPendUsers(state, { pendUsers }) {
-            state.pendUsers = pendUsers
-        },
         removeUserFromGroup(state, { userId }) {
-            state.group.users = state.group.users.filter(user => user !== userId)
+            state.group.users = state.group.users.filter(user => user._id !== userId)
         },
         removeRecipeFromGroup(state, { recipeId }) {
             let recipeIdx = state.group.recipes.findIndex(recipe => recipe._id === recipeId)
@@ -66,8 +63,15 @@ const groupStore = {
         setFilterFromHome(state, { filterObj }) {
             state.homePageFitler = filterObj
         },
-        clearFilter(state){
+        clearFilter(state) {
             state.homePageFitler = null
+        },
+        addUserToGroup(state, { user }) {
+            state.group.users.push(user)
+        },
+        removeUserFromPend(state, { userId }) {
+            let idx = state.group.pendingUsers.findIndex(user => user._id === userId)
+            state.group.pendingUsers.splice(idx, 1)
         }
     },
     actions: {
@@ -89,7 +93,6 @@ const groupStore = {
             return groupService.getById(groupId)
                 .then(group => {
                     commit({ type: 'setGroup', group })
-                    commit({ type: 'setPendUsers', pendUsers: group.pendingUsers })
                     return group
                 })
         },
@@ -120,11 +123,16 @@ const groupStore = {
             })
         },
         acceptUserToGroup({ commit }, { ids }) {
-            return groupService.addUserToGroup(ids).then((res) => res)
+            return groupService.addUserToGroup(ids).then(user => {
+                commit({ type: 'addUserToGroup', user: user })
+                commit({ type: 'removeUserFromPend', userId: ids.userId })
+            })
 
         },
         declineUserRequest({ commit }, { ids }) {
-            return groupService.declineUserRequest(ids).then((res) => res)
+            return groupService.declineUserRequest(ids).then(() => {
+                commit({ type: 'removeUserFromPend', userId: ids.userId })
+            })
         },
 
     }

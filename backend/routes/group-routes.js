@@ -1,24 +1,18 @@
 const GroupService = require('../services/group-service')
 const UserService = require('../services/user-service')
 
-
 function addGroupRoutes(app) {
 
     app.get('/group', (req, res) => {
         const filterBy = req.query
         GroupService.query(filterBy)
-            .then(groups => {
-                // console.log('answer from query', groups)
-                return res.json(groups)
-            })
+            .then(groups => res.json(groups))
     })
 
     app.get('/group/:groupId', (req, res) => {
         let groupId = req.params.groupId
-        console.log('group id to get is', groupId)
         GroupService.getById(groupId)
             .then(group => {
-                // console.log('group retrieved is', group.admin)
                 res.json(group)
             })
     })
@@ -28,7 +22,6 @@ function addGroupRoutes(app) {
         console.log('group to add in route is', group)
         GroupService.add(group)
             .then(updatedGroup => {
-                // console.log('group added and is', updatedGroup)
                 res.json(updatedGroup)
             })
     })
@@ -59,7 +52,6 @@ function addGroupRoutes(app) {
     })
     app.put('/group/leave/:groupId', (req, res) => {
         const ids = req.body;
-        UserService.removeGroupFromUser(ids)
         GroupService.removeUserFromGroup(ids)
             .then(() => {
                 console.log('successfuly leaved')
@@ -72,28 +64,21 @@ function addGroupRoutes(app) {
     app.put('/group/accept/:groupId', (req, res) => {
         const ids = req.body;
         GroupService.addParticipant(ids)
-            .then(() => {
-                console.log('successfuly added participant')
-                return res.json('added!!')
-            })
+            .then(user => res.json(user))
     })
 
     // remove user from pending request
     app.put('/group/decline/:groupId', (req, res) => {
         const ids = req.body;
-        console.log('requesשדגate', ids)
         GroupService.removePendingUser(ids)
             .then(() => {
-                console.log('successfuly added participant')
                 return res.json('added!!')
             })
     })
     app.put('/group/:groupId', (req, res) => {
         const group = req.body;
-        // console.log('request group to update', group)
         GroupService.update(group)
             .then(group => {
-                console.log('successfuly updated group')
                 return res.json(group)
             })
     })

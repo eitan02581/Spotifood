@@ -1,6 +1,7 @@
 
 import axios from 'axios'
 import storageService from './StorageService.js'
+
 var users = null
 const USER_ROUTE = (process.env.NODE_ENV !== 'development') ? '/user' : 'http://localhost:3007/user'
 
@@ -54,14 +55,11 @@ function checkIfLogged() {
 function logOut() {
     storageService.remove(CURR_USER)
 }
-function addGroupToUser(ids) {
-    return axios.put(`${USER_ROUTE}/addGroup/${ids.userId}`, ids)
-}
+
 export default {
     getUserById,
     logIn,
     signUp,
     checkIfLogged, logOut,
-    addGroupToUser,
     updateUser
 } 

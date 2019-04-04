@@ -2,9 +2,7 @@ const mongoService = require('./mongo-service')
 const ObjectId = require('mongodb').ObjectId;
 const USER_COLLECTION = 'users'
 var users = require('../data/users.json')
-const socket = require ('../routes/socket-routes')
-
-// _addMany()
+const socket = require('../routes/socket-routes')
 
 function _addMany() {
     return mongoService.connect()
@@ -17,12 +15,32 @@ function _addMany() {
 
 
 async function getById(userId) {
-    // if (userId) return {}
     const _id = new ObjectId(userId)
     var db = await mongoService.connect()
-    var user = db.collection(USER_COLLECTION).findOne({ _id })
-    delete user.password
-    return user
+    var user = await db.collection(USER_COLLECTION).aggregate(
+        [
+            {
+                $match: { _id }
+            },
+            {
+                $lookup: {
+                    from: "groups",
+                    localField: "groups",
+                    foreignField: "_id",
+                    as: "groups"
+                }
+            },
+            {
+                $lookup: {
+                    from: "groups",
+                    localField: "createdGroups",
+                    foreignField: "_id",
+                    as: "createdGroups"
+                }
+            },
+        ]).toArray()
+    delete user[0].password
+    return user[0]
 }
 
 function query() {
@@ -57,25 +75,19 @@ function addUser(newUser) {
         })
 }
 
-function addGroupToUser(ids) {
-    var user = {}
-    user._id = new ObjectId(ids.userId)
-    return mongoService.connect()
-        .then(db => {
-            return db.collection(USER_COLLECTION)
-                .updateOne({ _id: user._id }, { $push: { groups: ids.groupId } })
-        })
+async function addGroupToUser(db, userId, groupId) {
+    db.collection(USER_COLLECTION)
+        .updateOne({ _id: userId }, { $push: { groups: groupId } })
+
+    var user = db.collection(USER_COLLECTION)
+        .findOne({ _id: userId })
+
+    delete user.password
+    return user
 }
 
-function removeGroupFromUser(ids) {
-    var user = {}
-    user._id = new ObjectId(ids.userId)
-
-    return mongoService.connect()
-        .then(db => {
-            return db.collection(USER_COLLECTION)
-                .updateOne({ _id: user._id }, { $pull: { groups: ids.groupId } })
-        })
+async function removeGroupFromUser(db, userId, groupId) {
+    return db.collection(USER_COLLECTION).updateOne({ _id: userId }, { $pull: { groups: groupId } })
 }
 
 async function addGroupToCreatedGroups(userId, groupId, db) {
@@ -86,7 +98,6 @@ async function addGroupToCreatedGroups(userId, groupId, db) {
 async function updateUser(user) {
     user._id = new ObjectId(user._id)
     var db = await mongoService.connect()
-    // console.log('user service in backend', user)
     return db.collection(USER_COLLECTION)
         .updateOne({ _id: user._id }, { $set: user })
 }

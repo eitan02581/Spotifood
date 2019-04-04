@@ -9,9 +9,9 @@
     <profile-details
       :isMyUserProfile="isMyUserProfile"
       :user="user"
-      :groups="userGroups"
       v-if="user"
     />
+      <!-- :groups="userGroups" -->
   </section>
 </template>
 
@@ -28,10 +28,7 @@ export default {
   data() {
     return {
       user: null,
-      groups: [],
-      managedGroups: [],
       isMyUserProfile: false,
-      userRecipes: []
     };
   },
   created() {
@@ -42,27 +39,11 @@ export default {
         : false;
     this.$store.dispatch({ type: "getUserById", userId }).then(user => {
       this.user = user;
-      if (user.groups) this.getUserGroups();
     });
   },
   methods: {
-    getUserGroups() {
-      this.user.groups.forEach(groupId => {
-        this.$store.dispatch({ type: "getGroupById", groupId }).then(group => {
-          this.groups.push(group);
-        });
-      });
-      this.user.createdGroups.forEach(groupId => {
-        this.$store.dispatch({ type: "getGroupById", groupId }).then(group => {
-          this.managedGroups.push(group);
-        });
-      });
-    }
   },
   computed: {
-    userGroups() {
-      return this.groups.concat(this.managedGroups);
-    },
     userBackgrounds() {
       if (!this.user || !this.user.favCategories.length) {
         return [

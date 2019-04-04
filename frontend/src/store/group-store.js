@@ -48,10 +48,6 @@ const groupStore = {
         setGroup(state, { group }) {
             state.group = group
         },
-<<<<<<< HEAD
-        removeUserFromGroup(state, { userId }) {
-            state.group.users = state.group.users.filter(user => user._id !== userId)
-=======
         // socket
         addPendUser(state, { pendUserId }) {
             console.log('pend socket!', state.pendUsers);
@@ -73,7 +69,6 @@ const groupStore = {
             state.group.users = state.group.users.filter(user => user._id !== userId)
             console.log(state.group.users);
 
->>>>>>> cdb5789cb5add8e579190297839979fb41448708
         },
         removeRecipeFromGroup(state, { recipeId }) {
             let recipeIdx = state.group.recipes.findIndex(recipe => recipe._id === recipeId)
@@ -149,18 +144,10 @@ const groupStore = {
                 commit({ type: 'removeUserFromGroup', userId: ids.userId })
             })
         },
-<<<<<<< HEAD
         acceptUserToGroup({ commit }, { ids }) {
             return groupService.addUserToGroup(ids).then(user => {
                 commit({ type: 'addUserToGroup', user: user })
                 commit({ type: 'removeUserFromPend', userId: ids.userId })
-=======
-        acceptUserToGroup({ commit }, { ids, user }) {
-            return groupService.addUserToGroup(ids).then((res) => {
-                console.log('after adding ', user);
-
-                commit({ type: 'addUserToGroup', user })
->>>>>>> cdb5789cb5add8e579190297839979fb41448708
             })
 
         },

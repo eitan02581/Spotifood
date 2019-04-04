@@ -1,12 +1,8 @@
 
 import axios from 'axios'
 import storageService from './StorageService.js'
-<<<<<<< HEAD
-
-=======
 import SocketService from './SocketService.js';
 // import 
->>>>>>> cdb5789cb5add8e579190297839979fb41448708
 var users = null
 const USER_ROUTE = (process.env.NODE_ENV !== 'development') ? '/user' : 'http://localhost:3007/user'
 

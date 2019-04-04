@@ -83,8 +83,6 @@ export default {
       this.isNavNerrow = state;
     },
     onLogOut() {
-      // console.log("dd");
-
       this.$store.dispatch({ type: "logOut" });
       this.user = null;
       this.$router.push("/");
@@ -155,7 +153,7 @@ export default {
         font-size: 30px;
         h1 {
           .w {
-            font-size: 47px;
+            // font-size: 47px;
           }
           color: #f44336;
         }
@@ -237,7 +235,6 @@ export default {
         h1 {
           .w {
             color: #f44336;
-            font-size: 47px;
           }
           color: white;
           padding-left: 10px;
@@ -256,7 +253,6 @@ export default {
           transition: 0.3s;
           a {
             text-align: center;
-
             button {
               border: none;
               background-color: unset;

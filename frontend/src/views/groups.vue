@@ -21,7 +21,7 @@
       <h1 v-if="filterTitleToDisp">
         Check Out
         <span :style="{color: '#' + filterTitleToDisp.color}">{{homeFilterTitle}}</span>
-        <a @click="clearFilter">Clear</a>
+        <a @click="clearFilter">Clear Style</a>
       </h1>
       <h1 v-else>Try Something New</h1>
       <GroupList :groups="groups"></GroupList>
@@ -179,9 +179,16 @@ h1 {
   color: rgb(99, 99, 99);
   font-size: 3rem;
   text-transform: uppercase;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   a {
-    margin-left: 10px;
+    margin-left: 40px;
+    opacity: 0.7;
+    padding: 10px;
+    background-color: white;
     font-size: 0.4em;
+    border-radius: 7px;
     color: #cc1616;
     cursor: pointer;
     &:hover {

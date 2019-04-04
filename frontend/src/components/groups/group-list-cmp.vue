@@ -1,15 +1,18 @@
 <template>
   <section>
     <div class="list-container">
-      <div class="group-preview-wrapper" v-for="group in groups" :key="group._id">
-        <!-- <el-button type="success" @click="$emit('delete' , group._id)">Delete</el-button> -->
-        <!-- <router-link :to="'/group/edit/' + group._id">
+      <transition-group name="list">
+        <div class="group-preview-wrapper" v-for="group in groups" :key="group._id">
+          <!-- <el-button type="success" @click="$emit('delete' , group._id)">Delete</el-button> -->
+          <!-- <router-link :to="'/group/edit/' + group._id">
             <el-button type="danger">Edit</el-button>
-        </router-link>-->
-        <router-link :to="'/groups/' + group._id">
-          <GroupPreview class="slide-in-fwd-bottom" :group="group"></GroupPreview>
-        </router-link>
-      </div>
+          </router-link>-->
+          <router-link :to="'/groups/' + group._id">
+            <GroupPreview :group="group"></GroupPreview>
+          </router-link>
+          <!-- class="slide-in-fwd-bottom" -->
+        </div>
+      </transition-group>
     </div>
   </section>
 </template>
@@ -33,6 +36,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+
 section {
   // margin-top: 100px;
 

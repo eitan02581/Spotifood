@@ -64,14 +64,11 @@ export default {
 <style lang="scss" scoped>
 section {
   background-image: url("../assets/group-imgs/beer.jpg");
-  // background-color: lightseagreen;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   height: 100%;
   background-attachment: fixed;
-
-  // margin-top: 150px;
   padding-top: 100px;
   .form-wrapper {
     background-color: #ffffffda;
@@ -89,7 +86,6 @@ section {
     flex-direction: column;
     form {
       height: 350px;
-
       padding: 40px 60px 0 60px;
       *:not(:first-child) {
         margin: 15px 0;

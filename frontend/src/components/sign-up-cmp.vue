@@ -42,7 +42,10 @@
         >
           <input type="radio" :value="Object.keys(cuisine)[0]" :ref="Object.keys(cuisine)[0]">
           <img :src="Object.values(cuisine)[0]">
-          <i class="far fa-check-circle" :class="{selected:cuisine.isSelected , notSelected:!cuisine.isSelected}"></i>
+          <i
+            class="far fa-check-circle"
+            :class="{selected:cuisine.isSelected , notSelected:!cuisine.isSelected}"
+          ></i>
         </div>
       </div>
       <div class="bts">
@@ -195,7 +198,7 @@ section {
     color: #3ed402d4;
     display: block;
   }
-  .notSelected{
+  .notSelected {
     display: none;
   }
   @media (min-width: 550px) {

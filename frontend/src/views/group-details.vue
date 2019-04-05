@@ -152,7 +152,6 @@ export default {
   data() {
     return {
       isAbleToJoin: true,
-      // isAdmin: true,
       user: null,
       currLoc: null,
       imgs: null,
@@ -171,13 +170,11 @@ export default {
       lat: 35,
       lng: 35
     };
-    // console.log("group details created!");
     this.$store
       .dispatch({ type: "getGroupById", groupId: this.$route.params.groupId })
       // get group
       .then(() => {
         this.imgs = this.getImgs();
-        // this.admin = getAdmin()
         this.user = this.$store.getters.user;
         this.checkIfUserIsAdmin();
       })
@@ -193,7 +190,7 @@ export default {
       return this.$store.getters.group;
     },
     pendUsers() {
-      return this.$store.getters.pendUsers;
+      return this.$store.getters.group.pendingUsers;
     },
     isAdmin() {
       return this.$store.getters.isGroupAdmin;
@@ -255,25 +252,13 @@ export default {
       }
     },
     checkIfUserIsAdmin() {
-      this.$store
-        .dispatch({
-          type: "getUserById",
-          userId: this.$store.getters.group.admin
-        })
-        // check if admin
-        .then(adminUser => {
-          if (!adminUser) return;
-          this.admin = adminUser;
-          // if user is the group admin => disable to join
-          if (!this.user || this.user._id !== adminUser._id) {
+          if (!this.group.admin) return;
+          this.admin = this.group.admin;
+          if (!this.user || this.user._id !== this.group.admin._id) {
             this.$store.commit({ type: "setIsGroupAdmin", bool: false });
-            // this.isAdmin = false;
-          } else if (this.user._id === adminUser._id) {
+          } else if (this.user._id === this.group.admin._id) {
             this.$store.commit({ type: "setIsGroupAdmin", bool: true });
-            // this.isAdmin = true;
           }
-          this.$store.commit("setAdminObj", { admin: adminUser });
-        });
     },
     checkIfUserAbaleToJoin() {
       var group = this.$store.getters.group;
@@ -575,7 +560,7 @@ export default {
       height: 400px;
       border-radius: 5px;
       width: 100%;
-      margin-left: 5px;
+      padding: 0 5px;
       .vue-map-container {
         height: 100%;
       }
@@ -809,6 +794,7 @@ export default {
       margin-bottom: 100px;
       width: 100%;
       height: 300px;
+      padding: 0 5px;
       .vue-map-container {
         height: 100%;
       }

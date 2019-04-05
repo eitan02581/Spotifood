@@ -24,7 +24,7 @@
           </transition>
         </div>
         <div class="groups-previews">
-          <h1 v-if="user&&userGroups.length">My Events</h1>
+          <h1 v-if="user">My Events</h1>
           <div v-if="user" class="group-container">
             <GroupPreview v-for="group in userGroups" :key="group._id" :group="group"></GroupPreview>
           </div>

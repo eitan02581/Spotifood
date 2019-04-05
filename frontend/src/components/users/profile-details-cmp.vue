@@ -15,10 +15,6 @@ export default {
       type: Object,
       required: true
     },
-    groups: {
-      type: Array,
-      required: true
-    },
     isMyUserProfile: {
       type: Boolean,
       required: true
@@ -31,9 +27,15 @@ export default {
   data() {
     return {};
   },
+  created() {
+    console.log('user is', this.$store.getters.user)
+    
+  },
   computed: {
     sortedGroups() {
-      return this.groups.sort((a, b) => a.time - b.time);
+      return this.user.groups
+        .concat(this.user.createdGroups)
+        .sort((a, b) => a.time - b.time);
     }
   },
   methods: {}

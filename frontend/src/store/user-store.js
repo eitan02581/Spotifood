@@ -26,12 +26,12 @@ const userStore = {
             // state.is
         },
         initCurrSocket(state, { user }) {
-            console.log(this)
             if (user) {
                 let { _id } = user;
                 state.currSocket = socketService.connect(_id);
-                state.currSocket.on('hey', userId => {
-                    this.commit({ type: 'addPendUser', userId })
+                state.currSocket.on('userJoined', user=> {
+                    console.log('user id', user)
+                    this.commit({ type: 'addPendUser', userId: user._id })
                 })
             }
         }
@@ -75,7 +75,6 @@ const userStore = {
             return userService.updateUser(user).then(res => res)
         },
         uploadImg({ commit }, { userId, img }) {
-            // console.log("userId",userId)
             return uploadService.uploadUserImg(img, userId).then(res => res)
         }
     }

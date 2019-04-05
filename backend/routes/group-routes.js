@@ -6,18 +6,13 @@ function addGroupRoutes(app, io) {
     app.get('/group', (req, res) => {
         const filterBy = req.query
         GroupService.query(filterBy)
-            .then(groups => {
-                // console.log('answer from query', groups)
-                return res.json(groups)
-            })
+            .then(groups => res.json(groups))
     })
 
     app.get('/group/:groupId', (req, res) => {
         let groupId = req.params.groupId
-        console.log('group id to get is', groupId)
         GroupService.getById(groupId)
             .then(group => {
-                // console.log('group retrieved is', group.admin)
                 res.json(group)
             })
     })
@@ -27,7 +22,6 @@ function addGroupRoutes(app, io) {
         console.log('group to add in route is', group)
         GroupService.add(group)
             .then(updatedGroup => {
-                // console.log('group added and is', updatedGroup)
                 res.json(updatedGroup)
             })
     })
@@ -54,15 +48,13 @@ function addGroupRoutes(app, io) {
             .then(result => {
                 console.log('successfuly updated pending request')
                 GroupService.getById(ids.groupId).then(group => {
-                    console.log('group admin is', group.admin)
-                    console.log('these are sockets:',Object.values(io.sockets.connected))
                     let sockets = Object.values(io.sockets.connected)
                     let targetSocket = sockets.find(socket => { 
-                        let groupAdminId = ObjectId(group.admin).toString()
-                        return socket.userId === groupAdminId
+                        let socketUserId = socket.userId
+                        return String(socketUserId) === String(group.admin._id)
                     })
                     console.log('target socket id:', targetSocket.id)
-                    io.to(`${targetSocket.id}`).emit('hey', ids.userId);
+                    io.to(`${targetSocket.id}`).emit('userJoined', ids.user);
 
                 })
                 return res.json()
@@ -70,7 +62,6 @@ function addGroupRoutes(app, io) {
     })
     app.put('/group/leave/:groupId', (req, res) => {
         const ids = req.body;
-        UserService.removeGroupFromUser(ids)
         GroupService.removeUserFromGroup(ids)
             .then(() => {
                 console.log('successfuly leaved')
@@ -83,28 +74,21 @@ function addGroupRoutes(app, io) {
     app.put('/group/accept/:groupId', (req, res) => {
         const ids = req.body;
         GroupService.addParticipant(ids)
-            .then(() => {
-                console.log('successfuly added participant')
-                return res.json('added!!')
-            })
+            .then(user => res.json(user))
     })
 
     // remove user from pending request
     app.put('/group/decline/:groupId', (req, res) => {
         const ids = req.body;
-        console.log('requesשדגate', ids)
         GroupService.removePendingUser(ids)
             .then(() => {
-                console.log('successfuly added participant')
                 return res.json('added!!')
             })
     })
     app.put('/group/:groupId', (req, res) => {
         const group = req.body;
-        // console.log('request group to update', group)
         GroupService.update(group)
             .then(group => {
-                console.log('successfuly updated group')
                 return res.json(group)
             })
     })

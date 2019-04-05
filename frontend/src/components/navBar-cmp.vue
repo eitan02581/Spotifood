@@ -5,7 +5,7 @@
     </div>
     <div :class="{'nav-container':true , anim: isHamClicked}">
       <div @click="isHamClicked = !isHamClicked" class="logo-wrapper">
-        <router-link to="/">
+        <router-link to="/" exact>
           <h1>
             <span class="w">W</span>Eat
           </h1>
@@ -31,7 +31,7 @@
         </template>
         <template v-if="user">
           <div class="user-info-container">
-            <router-link :to="'/user/' + user._id">
+            <router-link class="img-link" :to="'/user/' + user._id">
               <img :src="userImg" alt>
             </router-link>
           </div>
@@ -120,6 +120,7 @@ export default {
   max-width: 1500px;
   margin: 0 auto;
 }
+
 @media only screen and (min-width: 600px) {
   .ham-container {
     display: none;
@@ -163,6 +164,18 @@ export default {
         display: flex;
         max-width: 600px;
         width: 90%;
+        .router-link-exact-active {
+          background-color: #f44336;
+          button {
+            color: white !important;
+          }
+        }
+        .img-link {
+            background-color: unset !important;
+            button {
+              color: white !important;
+            }
+        }
         .user-info-container {
           display: flex;
           flex-direction: row;

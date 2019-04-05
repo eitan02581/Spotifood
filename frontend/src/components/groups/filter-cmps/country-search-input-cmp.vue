@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="input-container">
-      <input @keyup="onCountry" placeholder="Type Country Name" v-model="country">
+      <input @keyup="onCountry" placeholder="Type Country" v-model="country">
       <button v-if="country.length >=1" @click="clearSelect" class="clear-btn">X</button>
     </div>
   </section>
@@ -67,5 +67,13 @@ input {
 .el-range-editor.is-active:hover,
 .el-select .el-input.is-focus .el-input__inner {
   height: 40px;
+}
+
+@media only screen and (min-width: 600px) and (max-width: 900px) {
+  input {
+    padding-left: 0px;
+    font-size: 13px;
+    width: 100px;
+  }
 }
 </style>

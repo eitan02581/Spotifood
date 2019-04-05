@@ -45,6 +45,8 @@ function addUserToGroup(ids) {
 
 }
 function declineUserRequest(ids) {
+    console.log('try to decline');
+
     return axios.put(`${GROUP_ROUTE}/decline/${ids.groupId}`, ids).then((res) => res.data)
 }
 

@@ -35,6 +35,13 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+@media only screen and (min-width: 600px) and (max-width: 900px) {
+  input {
+    padding-left: 0px !important;
+    font-size: 13px !important;
+    width: 80px !important;
+  }
+}
 input {
   width: 212px;
 

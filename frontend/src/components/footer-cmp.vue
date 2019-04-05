@@ -15,13 +15,13 @@
         <div class="follow">
           <h1>Follow</h1>
           <ul>
-            <router-link to>
+            <router-link to="/" exact>
               <li>Face</li>
             </router-link>
-            <router-link to>
+            <router-link to="/" exact>
               <li>Inst</li>
             </router-link>
-            <router-link to>
+            <router-link to="/" exact>
               <li>Twit</li>
             </router-link>
           </ul>
@@ -80,6 +80,7 @@ section {
     width: 50%;
     min-width: 250px;
     h1 {
+      color: #f44336;
       border-bottom: 1px grey solid;
       cursor: default;
     }
@@ -92,6 +93,7 @@ section {
       width: 50%;
     }
     ul {
+      padding: 0;
       a {
         display: inline-block;
       }

@@ -2,7 +2,7 @@
   <section>
     <div id="backgroundDiv">
       <div id="backgroundBlock">
-        <carousel :per-page="1" :autoplay="true" :autoplayTimeout="3500" :loop="true">
+        <carousel :per-page="1" :autoplay="true" :autoplayTimeout="7000" :loop="true">
           <slide v-for="backGround in backGrounds" :key="backGround">
             <img :src="backGround">
           </slide>
@@ -55,10 +55,10 @@ section {
     align-items: center;
     width: 100%;
     height: 100%;
-    h1{
-      font-size:90px;
+    h1 {
+      font-size: 90px;
     }
-    h1.slogan{
+    h1.slogan {
       font-size: 70px;
       margin: 10px auto;
     }

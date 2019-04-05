@@ -146,8 +146,8 @@ function remove(groupId) {
 // ask join group
 // TODO: CHECK IF USERSID EXISTS IN PRENDINGUSERS AND ONLY IF NOT PUSH USERID
 function askJoin(ids) {
-    group_id = new ObjectId(ids.groupId)
-    user_id =  new ObjectId(ids.userId)
+    const group_id = new ObjectId(ids.groupId)
+    const user_id = new ObjectId(ids.userId)
 
     return mongoService.connect()
         .then(db => {
@@ -160,15 +160,19 @@ function askJoin(ids) {
 async function removeUserFromGroup(ids) {
     const group_id = new ObjectId(ids.groupId)
     const user_id = new ObjectId(ids.userId)
+    console.log('user11 ', group_id);
+
     var db = await mongoService.connect()
     userService.removeGroupFromUser(db, user_id, ids.groupId)
+    removePendingUser(ids)
     return db.collection(GROUP_COLLECTION).updateOne({ _id: group_id }, { $pull: { users: user_id } })
+    // TODO: consider remove pending user 
 }
 
 // add participant to group
 async function addParticipant(ids) {
-    user_id = new ObjectId(ids.userId)
-    group_id = new ObjectId(ids.groupId)
+    const user_id = new ObjectId(ids.userId)
+    const group_id = new ObjectId(ids.groupId)
     var db = await mongoService.connect()
 
     db.collection(GROUP_COLLECTION)
@@ -182,8 +186,8 @@ async function addParticipant(ids) {
 }
 
 async function removePendingUser(ids) {
-    user_id = new ObjectId(ids.userId)
-    group_id = new ObjectId(ids.groupId)
+    const user_id = new ObjectId(ids.userId)
+    const group_id = new ObjectId(ids.groupId)
     var db = await mongoService.connect()
     return db.collection(GROUP_COLLECTION).updateOne({ _id: group_id }, { $pull: { pendingUsers: user_id } })
 }

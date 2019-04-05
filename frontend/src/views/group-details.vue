@@ -6,13 +6,13 @@
       </div>
       <div v-if="imgs" class="img-carusel">
         <!-- for desktop -->
-        <el-carousel id="desk-car" :interval="4000" type="card" height="400px">
+        <el-carousel id="desk-car" :interval="8000" type="card" height="400px">
           <el-carousel-item v-for="img in imgs" :key="img">
             <img :src="img" alt>
           </el-carousel-item>
         </el-carousel>
         <!-- for phone -->
-        <el-carousel id="mob-car" :interval="5000" arrow="always">
+        <el-carousel id="mob-car" :interval="7000" arrow="always">
           <el-carousel-item v-for="img in imgs" :key="img">
             <img :src="img" alt>
           </el-carousel-item>
@@ -252,29 +252,24 @@ export default {
       }
     },
     checkIfUserIsAdmin() {
-          if (!this.group.admin) return;
-          this.admin = this.group.admin;
-          if (!this.user || this.user._id !== this.group.admin._id) {
-            this.$store.commit({ type: "setIsGroupAdmin", bool: false });
-          } else if (this.user._id === this.group.admin._id) {
-            this.$store.commit({ type: "setIsGroupAdmin", bool: true });
-          }
+      if (!this.group.admin) return;
+      this.admin = this.group.admin;
+      if (!this.user || this.user._id !== this.group.admin._id) {
+        this.$store.commit({ type: "setIsGroupAdmin", bool: false });
+      } else if (this.user._id === this.group.admin._id) {
+        this.$store.commit({ type: "setIsGroupAdmin", bool: true });
+      }
     },
     checkIfUserAbaleToJoin() {
       var group = this.$store.getters.group;
-      // TODO: CHANGE FINDINDEX TO INCLUDES
-      var isPending = group.pendingUsers.findIndex(pending => {
-        if (pending) {
-          return this.user && pending === this.user._id;
-        }
+      let inPending = group.pendingUsers.find(user => {
+        console.log(user);
+        return user._id === this.user._id;
       });
-      var isParticipant = group.users.findIndex(participant => {
-        return this.user && participant._id === this.user._id;
+      let inUsers = group.users.find(user => {
+        return user._id === this.user._id;
       });
-
-      if (isPending !== -1 || isParticipant !== -1) {
-        this.isAbleToJoin = false;
-      }
+      if (inPending || inUsers) this.isAbleToJoin = false;
     }
   },
   destroyed() {
@@ -308,7 +303,7 @@ export default {
     .img-carusel {
       width: 100%;
       height: 500px;
-      min-width: 762px;
+      // min-width: 762px;
       text-align: center;
       img {
         width: 100%;
@@ -387,7 +382,8 @@ export default {
         }
 
         button {
-          height: 50px;
+          font-size: 38px;
+          letter-spacing: 2px;
           width: 261px;
         }
       }
@@ -574,6 +570,30 @@ export default {
     margin-left: -50px;
   }
 }
+@media only screen and (min-width: 600px) and (max-width: 900px) {
+  .join-btn-holder {
+    button {
+      // height: 50px;
+      width: 220px !important;
+    }
+  }
+  .hosted-by-container {
+    margin-top: -25px;
+    position: absolute;
+    left: 0;
+    font-size: 70px;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    .hosted {
+      h1 {
+        font-size: 30px !important;
+        color: #607d8b;
+      }
+    }
+  }
+}
+
 @media only screen and (max-width: 600px) {
   .group-details {
     padding: 50px 30px 0 30px;

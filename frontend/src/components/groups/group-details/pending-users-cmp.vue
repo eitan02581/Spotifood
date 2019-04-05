@@ -54,6 +54,7 @@ export default {
     },
     onDeclineUser(user) {
       this.$store
+
         .dispatch({
           type: "declineUserRequest",
           ids: { userId: user._id, groupId: this.groupId }

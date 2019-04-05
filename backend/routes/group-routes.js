@@ -43,6 +43,8 @@ function addGroupRoutes(app, io) {
 
     // ask to join group
     app.put('/group/join/:groupId', (req, res) => {
+        console.log('try to add');
+
         const ids = req.body;
         GroupService.askJoin(ids)
             .then(result => {
@@ -80,9 +82,13 @@ function addGroupRoutes(app, io) {
     // remove user from pending request
     app.put('/group/decline/:groupId', (req, res) => {
         const ids = req.body;
+        console.log('what');
+        
         GroupService.removePendingUser(ids)
             .then(() => {
-                return res.json('added!!')
+                console.log('pending removed');
+                
+                return res.json('pending removed')
             })
     })
     app.put('/group/:groupId', (req, res) => {

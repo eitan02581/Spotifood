@@ -24,7 +24,7 @@ const groupStore = {
             return state.group
         },
         pendUsers(state) {
-            return state.pendUsers
+            return state.group.pendingUsers
         },
         groupAdmin(state) {
             return state.groupAdmin
@@ -85,6 +85,13 @@ const groupStore = {
         },
         clearFilter(state) {
             state.homePageFitler = null
+        },
+        addUserToGroup(state, { user }) {
+            state.group.users.push(user)
+        },
+        removeUserFromPend(state, { userId }) {
+            let idx = state.group.pendingUsers.findIndex(user => user._id === userId)
+            state.group.pendingUsers.splice(idx, 1)
         }
     },
     actions: {
@@ -106,7 +113,6 @@ const groupStore = {
             return groupService.getById(groupId)
                 .then(group => {
                     commit({ type: 'setGroup', group })
-                    commit({ type: 'setPendUsers', pendUsers: group.pendingUsers })
                     return group
                 })
         },
@@ -138,16 +144,17 @@ const groupStore = {
                 commit({ type: 'removeUserFromGroup', userId: ids.userId })
             })
         },
-        acceptUserToGroup({ commit }, { ids, user }) {
-            return groupService.addUserToGroup(ids).then((res) => {
-                console.log('after adding ', user);
-
-                commit({ type: 'addUserToGroup', user })
+        acceptUserToGroup({ commit }, { ids }) {
+            return groupService.addUserToGroup(ids).then(user => {
+                commit({ type: 'addUserToGroup', user: user })
+                commit({ type: 'removeUserFromPend', userId: ids.userId })
             })
 
         },
         declineUserRequest({ commit }, { ids }) {
-            return groupService.declineUserRequest(ids).then((res) => res)
+            return groupService.declineUserRequest(ids).then(() => {
+                commit({ type: 'removeUserFromPend', userId: ids.userId })
+            })
         },
 
     }

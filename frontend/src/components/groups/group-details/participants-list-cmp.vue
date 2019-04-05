@@ -49,7 +49,6 @@ export default {
       var groupId = this.$store.getters.group._id;
       var ids = { userId, groupId };
       this.$store.dispatch({ type: "removeUserFromGroup", ids }).then(() => {
-        this.users = this.users.filter(user => user._id !== userId);
         this.$toast.Error(`Removed!`);
       });
     }

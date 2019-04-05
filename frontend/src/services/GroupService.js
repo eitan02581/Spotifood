@@ -34,21 +34,6 @@ function remove(groupId) {
 function getById(groupId) {
     return axios.get(`${GROUP_ROUTE}/${groupId}`)
         .then(res => res.data)
-        .then(group => {
-            var groupUsers = group.users.map(userId => {
-                    return userService.getUserById(userId)
-                })
-            var groupRecipes = group.recipes.map(recipeId => {
-                return recipesService.getRecipeById(recipeId)
-            })
-            var promiseArray = [Promise.all(groupUsers), Promise.all(groupRecipes)]
-            return Promise.all(promiseArray)
-                .then(array => {
-                    group.users = array[0]
-                    group.recipes = array[1]
-                    return group
-                })
-        })
 }
 
 function askJoinGroup(ids) {
@@ -60,6 +45,8 @@ function addUserToGroup(ids) {
 
 }
 function declineUserRequest(ids) {
+    console.log('try to decline');
+
     return axios.put(`${GROUP_ROUTE}/decline/${ids.groupId}`, ids).then((res) => res.data)
 }
 

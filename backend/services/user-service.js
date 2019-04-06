@@ -52,8 +52,6 @@ async function login(userInfo) {
         $and: [{ username: userInfo.username }, { password: userInfo.password }]
     }
     var db = await mongoService.connect()
-
-    // var user = await db.collection(USER_COLLECTION).findOne(userDetails)
     var fullUser = await db.collection(USER_COLLECTION).aggregate(
         [
             {
@@ -74,9 +72,15 @@ async function login(userInfo) {
                     foreignField: "_id",
                     as: "createdGroups"
                 }
-            },
+            }
         ]).toArray()
     delete fullUser[0].password
+    fullUser[0].createdGroups.forEach(group => {
+        group.admin = {
+            username: fullUser[0].username,
+            img: fullUser[0].img
+        }
+    })
     return fullUser[0]
     // TODO: RETURN ERR IF NOT MATCHED
 }

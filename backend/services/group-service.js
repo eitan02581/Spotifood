@@ -163,7 +163,7 @@ async function removeUserFromGroup(ids) {
     console.log('user11 ', group_id);
 
     var db = await mongoService.connect()
-    userService.removeGroupFromUser(db, user_id, ids.groupId)
+    userService.removeGroupFromUser(db, user_id, group_id)
     removePendingUser(ids)
     return db.collection(GROUP_COLLECTION).updateOne({ _id: group_id }, { $pull: { users: user_id } })
     // TODO: consider remove pending user 

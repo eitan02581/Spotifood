@@ -1,6 +1,7 @@
 
 import axios from 'axios'
 import storageService from './StorageService.js'
+import SocketService from './SocketService.js'
 // import 
 var users = null
 const USER_ROUTE = (process.env.NODE_ENV !== 'development') ? '/user' : 'http://localhost:3007/user'
@@ -50,12 +51,10 @@ function signUp(newUser) {
 
 function checkIfLogged() {
     var loggedUser = storageService.load(CURR_USER)
-    if (loggedUser) {
-        SocketService.connect(loggedUser._id)
-        return loggedUser
-    }
-
-    return Promise.reject()
+    // if (loggedUser) {
+    //     SocketService.connect(loggedUser._id)
+    // }
+    return loggedUser
 }
 
 function logOut() {

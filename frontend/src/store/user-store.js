@@ -17,9 +17,7 @@ const userStore = {
     },
     mutations: {
         setUser(state, { user }) {
-            console.log('setting user')
             state.user = user
-            state.currSocket = socketService.connect(user._id)
         },
         cleanUser(state) {
             state.user = null
@@ -29,9 +27,12 @@ const userStore = {
             if (user) {
                 let { _id } = user;
                 state.currSocket = socketService.connect(_id);
-                state.currSocket.on('userJoined', user=> {
-                    console.log('user id', user)
-                    this.commit({ type: 'addPendUser', userId: user._id })
+                state.currSocket.on('testEmit', txt => {
+                    console.log(txt)
+                })
+                state.currSocket.on('Join', (group)=> {
+                    console.log('new group is', group)
+                    this.commit({ type: 'setGroup', group })
                 })
             }
         }
@@ -41,8 +42,8 @@ const userStore = {
             var user = userService.checkIfLogged()
             console.log('user is', user)
             if (!user) return Promise.reject()
-            commit({ type: 'initCurrSocket', user })
             commit({ type: 'setUser', user })
+            commit({ type: 'initCurrSocket', user })
             return user
         },
         logIn({ commit }, { user }) {

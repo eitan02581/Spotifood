@@ -5,12 +5,12 @@ function addSocketRoutes(io) {
     let { userId } = socket.handshake.query
     socket.userId = userId
     connectedSockets.push(socket)
-    socket.broadcast.emit('a user logged in', 'hello friends')
+    console.log(`userId:${socket.userId}, socketId:${socket.id}`)
+    socket.emit('testEmit', 'this is a test')
+    socket.on('disconnect', () =>{
+      console.log('user disconnected', socket.userId)
+    })
   });
-  io.on('user joined', group => {
-    console.log('inside specific socket emit')
-    // io.to(getSocketByUserId(group.admin)).emit('a user joined your group', 'a user joined your group')
-  })
 
   function getSocketByUserId(userId) {
     return connectedSockets.find(socket => {

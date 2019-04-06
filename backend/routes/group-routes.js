@@ -55,9 +55,7 @@ function addGroupRoutes(app, io) {
                         let socketUserId = socket.userId
                         return String(socketUserId) === String(group.admin._id)
                     })
-                    console.log('target socket id:', targetSocket.id)
-                    io.to(`${targetSocket.id}`).emit('userJoined', ids.user);
-
+                    io.to(`${targetSocket.id}`).emit('Join',group);
                 })
                 return res.json()
             })
@@ -82,8 +80,6 @@ function addGroupRoutes(app, io) {
     // remove user from pending request
     app.put('/group/decline/:groupId', (req, res) => {
         const ids = req.body;
-        console.log('what');
-        
         GroupService.removePendingUser(ids)
             .then(() => {
                 console.log('pending removed');

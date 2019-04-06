@@ -63,7 +63,6 @@ const groupStore = {
             console.log(userId);
             state.group.users = state.group.users.filter(user => user._id !== userId)
             console.log(state.group.users);
-
         },
         removeRecipeFromGroup(state, { recipeId }) {
             let recipeIdx = state.group.recipes.findIndex(recipe => recipe._id === recipeId)

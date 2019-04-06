@@ -232,7 +232,7 @@ export default {
         this.$store
           .dispatch({
             type: "askJoinGroup",
-            ids: { user, groupId: group._id }
+            ids: { userId: user._id, groupId: group._id }
           })
           .then(() => {
             this.$toast.Success("Request Sent");
@@ -263,7 +263,6 @@ export default {
     checkIfUserAbaleToJoin() {
       var group = this.$store.getters.group;
       let inPending = group.pendingUsers.find(user => {
-        console.log(user);
         return user._id === this.user._id;
       });
       let inUsers = group.users.find(user => {

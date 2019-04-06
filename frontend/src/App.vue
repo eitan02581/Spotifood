@@ -27,7 +27,6 @@ export default {
   },
   created() {
     this.$store.dispatch({ type: "checkIfLogged" }).then(user => {
-      console.log("logged");
       eventBus.$emit("USER_LOGGED", user);
     })
     .catch(()=>console.log('sorry user not connected'));

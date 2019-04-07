@@ -40,7 +40,6 @@ export default {
       pendingMsg: null
     };
   },
-  created() {},
   methods: {
     onAcceptUser(user) {
       this.$store

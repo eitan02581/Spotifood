@@ -27,6 +27,10 @@ export default {
   data() {
     return {};
   },
+  created() {
+    console.log('user is', this.$store.getters.user)
+    
+  },
   computed: {
     sortedGroups() {
       return this.user.groups

@@ -4,16 +4,16 @@ import userService from '../services/UserService.js';
 import uploadService from '../services/UploadService.js'
 import socketService from '../services/SocketService.js'
 
-
-
 Vue.use(Vuex)
 
 const userStore = {
     state: {
-        user: null
+        user: null,
+        currSocket: null,
     },
     getters: {
-        user: (state) => state.user
+        user: (state) => state.user,
+        currSocket: (state) => state.currSocket,
     },
     mutations: {
         setUser(state, { user }) {
@@ -21,22 +21,36 @@ const userStore = {
         },
         cleanUser(state) {
             state.user = null
+            // state.is
+        },
+        initCurrSocket(state, { user }) {
+            if (user) {
+                let { _id } = user;
+                state.currSocket = socketService.connect(_id);
+                state.currSocket.on('testEmit', txt => {
+                    console.log(txt)
+                })
+                state.currSocket.on('Join', (group)=> {
+                    console.log('new group is', group)
+                    this.commit({ type: 'setGroup', group })
+                })
+            }
         }
     },
     actions: {
-        checkIfLogged({ commit }) {
+        checkIfLogged({ commit, state }) {
             var user = userService.checkIfLogged()
-            if (!user) return
+            console.log('user is', user)
+            if (!user) return Promise.reject()
             commit({ type: 'setUser', user })
-            return Promise.resolve(user)
+            commit({ type: 'initCurrSocket', user })
+            return user
         },
         logIn({ commit }, { user }) {
             return userService.logIn(user).then(user => {
                 commit({ type: 'setUser', user })
-                socketService.connect(user._id)
                 // TODO: RETURN A LOG FIX IT 
             }).catch((res) => { throw ('login err') })
-
         },
         signUp({ commit }, { newUser }) {
             return userService.signUp(newUser)
@@ -47,13 +61,16 @@ const userStore = {
                 }).catch((res) => console.log(res))
         },
         logOut({ state, dispatch, commit }) {
-            socketService.disconnect(state.user._id)
             commit({ type: 'cleanUser' })
             userService.logOut()
         },
         getUserById({ commit }, { userId }) {
             return userService.getUserById(userId)
                 .then((user) => user)
+        },
+        addGroupToUser({ dispatch, commit }, { ids }) {
+            console.log('hey man ', ids);
+            return userService.addGroupToUser(ids).then(() => { 'group added' })
         },
         updateUser({ commit }, { user }) {
             return userService.updateUser(user).then(res => res)

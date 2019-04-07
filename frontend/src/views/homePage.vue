@@ -172,7 +172,6 @@ export default {
 
     if (this.user) {
       this.userGroups = this.user.createdGroups
-      console.log(this.user)
       // .filter(
       //   group => group.admin === this.user._id
       // );

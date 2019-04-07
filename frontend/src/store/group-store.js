@@ -3,7 +3,6 @@ import Vuex from 'vuex'
 
 import groupService from '../services/GroupService.js'
 import RecipeService from '../services/RecipeService.js';
-import socketService from '../services/SocketService.js';
 
 Vue.use(Vuex)
 
@@ -14,7 +13,6 @@ const groupStore = {
         pendUsers: [],
         homePageFitler: null,
         isGroupAdmin: false,
-
 
     }, getters: {
         groups(state) {
@@ -48,17 +46,14 @@ const groupStore = {
         setGroup(state, { group }) {
             state.group = group
         },
-        // socket
-        addPendUser(state, { pendUserId }) {
-            console.log('pend socket!', state.pendUsers);
-            state.pendUsers.push(pendUserId)
-            console.log('pend socket!', state.pendUsers);
-
-
-        }
-        ,
         setPendUsers(state, { pendUsers }) {
             state.pendUsers = pendUsers
+            console.log(state.pendUsers)
+        },
+        addPendUser(state, { userId }) {
+            console.log('state.pendUSers', state.group.pendingUsers)
+            state.group.pendingUsers.push(userId)
+            console.log('state.pendUSers', state.group.pendingUsers)
         },
         // for reactive adding
         addUserToGroup(state, { user }) {
@@ -68,7 +63,6 @@ const groupStore = {
             console.log(userId);
             state.group.users = state.group.users.filter(user => user._id !== userId)
             console.log(state.group.users);
-
         },
         removeRecipeFromGroup(state, { recipeId }) {
             let recipeIdx = state.group.recipes.findIndex(recipe => recipe._id === recipeId)
@@ -99,6 +93,7 @@ const groupStore = {
             commit({ type: 'cleanGroup' })
         },
         getGroups({ commit }) {
+
             return groupService.query().then(groups => commit({ type: 'setGroups', groups }))
         },
         setFilterFromHome({ commit }, { filterObj }) {
@@ -116,7 +111,6 @@ const groupStore = {
                     return group
                 })
         },
-
         removeRecipeFromGroup({ commit }, { recipeId, groupId }) {
             groupService.removeRecipeFromGroup(recipeId, groupId)
                 .then(() => commit({ type: 'removeRecipeFromGroup', recipeId }))
@@ -130,9 +124,6 @@ const groupStore = {
         },
         askJoinGroup(context, { ids }) {
             return groupService.askJoinGroup(ids).then(() => {
-                var user = context.getters.user
-                var group = context.getters.group
-                socketService.emit('joinGroup', { user, group })
                 return 'asked successfuly'
             })
         },

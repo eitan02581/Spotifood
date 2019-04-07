@@ -1,45 +1,13 @@
-import ioClient from 'socket.io-client'
+import io from 'socket.io-client';
 
-const URl = (process.env.NODE_ENV !== 'development') ? '' : '//localhost:3007'
-var socket = ioClient(URl)
-
-
-
-connectSocket();
-
-function connectSocket() {
-    // socket = ioClient(URl);
-}
-
+const serverUrl = process.env.NODE_ENV !== 'development' ? '' : 'http://localhost:3007';
+var socket
 
 function connect(userId) {
-    ioClient(URl, { query: `userId=${userId}` })
-    socket.on("sendRequest", txt => {
-        console.log("lalalala", txt);
-        alert("yeah");
-    });
-
+    socket = io(serverUrl, { query: `userId=${userId}` });
+    return socket
 }
-function disconnect(userId) {
-    socket.emit('disconnectUser', userId)
-}
-
-function emit(eventName, data) {
-    socket.emit(eventName, data)
-}
-
-function on(eventName, cb) {
-    console.log('event name', eventName);
-    socket.on(eventName, cb)
-}
-
-
-
-
 
 export default {
     connect,
-    disconnect,
-    emit,
-    on
 }

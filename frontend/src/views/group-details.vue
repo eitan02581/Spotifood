@@ -263,7 +263,6 @@ export default {
     checkIfUserAbaleToJoin() {
       var group = this.$store.getters.group;
       let inPending = group.pendingUsers.find(user => {
-        console.log(user);
         return user._id === this.user._id;
       });
       let inUsers = group.users.find(user => {
@@ -281,9 +280,6 @@ export default {
 
 //TODO: REFACTOR STYLE
 <style scoped lang="scss">
-section {
-  // min-height: 100vh;
-}
 @media only screen and (min-width: 600px) {
   .group-details > div {
     flex-grow: 1;
@@ -342,7 +338,6 @@ section {
       height: 200px;
       margin-top: -100px;
       position: relative;
-
       .left-box {
         display: flex;
         justify-content: center;
@@ -635,8 +630,6 @@ section {
         margin-top: -25px;
         position: absolute;
         left: 0;
-        font-size: 70px;
-
         display: flex;
         align-items: center;
         .hosted {

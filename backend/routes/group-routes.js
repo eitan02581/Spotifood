@@ -1,8 +1,8 @@
 const GroupService = require('../services/group-service')
 const UserService = require('../services/user-service')
+const ObjectId = require('mongodb').ObjectId;
 
-function addGroupRoutes(app) {
-
+function addGroupRoutes(app, io) {
     app.get('/group', (req, res) => {
         const filterBy = req.query
         GroupService.query(filterBy)
@@ -47,8 +47,16 @@ function addGroupRoutes(app) {
 
         const ids = req.body;
         GroupService.askJoin(ids)
-            .then(() => {
+            .then(result => {
                 console.log('successfuly updated pending request')
+                GroupService.getById(ids.groupId).then(group => {
+                    let sockets = Object.values(io.sockets.connected)
+                    let targetSocket = sockets.find(socket => { 
+                        let socketUserId = socket.userId
+                        return String(socketUserId) === String(group.admin._id)
+                    })
+                    io.to(`${targetSocket.id}`).emit('Join',group);
+                })
                 return res.json()
             })
     })
@@ -72,8 +80,6 @@ function addGroupRoutes(app) {
     // remove user from pending request
     app.put('/group/decline/:groupId', (req, res) => {
         const ids = req.body;
-        console.log('what');
-        
         GroupService.removePendingUser(ids)
             .then(() => {
                 console.log('pending removed');

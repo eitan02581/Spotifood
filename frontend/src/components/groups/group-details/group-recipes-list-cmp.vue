@@ -36,11 +36,7 @@
           </div>
 
           <ol>
-<<<<<<< HEAD
           <h1>Instructions</h1>
-=======
-            <h1>Instructions</h1>
->>>>>>> 4c118e1268165997504fa3f36bf4b906ca1d098f
             <li v-for="(instruction,idx) in recipe.instructions" :key="idx">{{instruction}}</li>
           </ol>
         </div>

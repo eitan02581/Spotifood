@@ -36,7 +36,11 @@
           </div>
 
           <ol>
+<<<<<<< HEAD
           <h1>Instructions</h1>
+=======
+            <h1>Instructions</h1>
+>>>>>>> 4c118e1268165997504fa3f36bf4b906ca1d098f
             <li v-for="(instruction,idx) in recipe.instructions" :key="idx">{{instruction}}</li>
           </ol>
         </div>
@@ -150,6 +154,7 @@ export default {
     img {
       width: 100%;
       height: 100%;
+      object-fit: cover;
     }
   }
   .el-carousel__item:nth-child(2n) {
@@ -212,6 +217,8 @@ export default {
     height: 200px;
     img {
       width: 100%;
+      object-fit: cover;
+
       height: 100%;
     }
   }

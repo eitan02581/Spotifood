@@ -51,11 +51,11 @@ function addGroupRoutes(app, io) {
                 console.log('successfuly updated pending request')
                 GroupService.getById(ids.groupId).then(group => {
                     let sockets = Object.values(io.sockets.connected)
-                    let targetSocket = sockets.find(socket => { 
+                    let targetSocket = sockets.find(socket => {
                         let socketUserId = socket.userId
                         return String(socketUserId) === String(group.admin._id)
                     })
-                    io.to(`${targetSocket.id}`).emit('Join',group);
+                    io.to(`${targetSocket.id}`).emit('Join', group);
                 })
                 return res.json()
             })
@@ -74,7 +74,17 @@ function addGroupRoutes(app, io) {
     app.put('/group/accept/:groupId', (req, res) => {
         const ids = req.body;
         GroupService.addParticipant(ids)
-            .then(user => res.json(user))
+            .then(user => {
+                GroupService.getById(ids.groupId).then(group => {
+                    let sockets = Object.values(io.sockets.connected)
+                    let targetSocket = sockets.find(socket => {
+                        let socketUserId = socket.userId
+                        return String(socketUserId) === String(ids.userId)
+                    })
+                    io.to(`${targetSocket.id}`).emit('accepted', group);
+                })
+                return res.json(user)
+            })
     })
 
     // remove user from pending request
@@ -83,7 +93,7 @@ function addGroupRoutes(app, io) {
         GroupService.removePendingUser(ids)
             .then(() => {
                 console.log('pending removed');
-                
+
                 return res.json('pending removed')
             })
     })

@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.d128354ca0e01b8faefe319214791aad.js"
+  "/precache-manifest.0151771bf368dae8297b673c8676b563.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "spotifood"});

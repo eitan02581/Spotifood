@@ -48,21 +48,16 @@ const groupStore = {
         },
         setPendUsers(state, { pendUsers }) {
             state.pendUsers = pendUsers
-            console.log(state.pendUsers)
         },
         addPendUser(state, { userId }) {
-            console.log('state.pendUSers', state.group.pendingUsers)
             state.group.pendingUsers.push(userId)
-            console.log('state.pendUSers', state.group.pendingUsers)
         },
         // for reactive adding
         addUserToGroup(state, { user }) {
             state.group.users.push(user)
         },
         removeUserFromGroup(state, { userId }) {
-            console.log(userId);
             state.group.users = state.group.users.filter(user => user._id !== userId)
-            console.log(state.group.users);
         },
         removeRecipeFromGroup(state, { recipeId }) {
             let recipeIdx = state.group.recipes.findIndex(recipe => recipe._id === recipeId)

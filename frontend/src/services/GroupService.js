@@ -41,12 +41,8 @@ function askJoinGroup(ids) {
 }
 function addUserToGroup(ids) {
     return axios.put(`${GROUP_ROUTE}/accept/${ids.groupId}`, ids).then((res) => res.data)
-
-
 }
 function declineUserRequest(ids) {
-    console.log('try to decline');
-
     return axios.put(`${GROUP_ROUTE}/decline/${ids.groupId}`, ids).then((res) => res.data)
 }
 

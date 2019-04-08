@@ -1,9 +1,9 @@
 <template>
-  <section v-if="pendUsers.length >= 1">
+  <section  v-if="pendUsers.length >= 1">
     <div class="title">
       <h1>Pending Users</h1>
     </div>
-    <div class="pending-container">
+    <div dada-aos="fade" class="pending-container ">
       <div class="user-container" v-for="user in pendUsers" :key="user._id">
         <div class="info-container">
           <div class="name">{{user.username}}</div>

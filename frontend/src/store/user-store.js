@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import userService from '../services/UserService.js';
 import uploadService from '../services/UploadService.js'
 import socketService from '../services/SocketService.js'
+import { eventBus, USER_LOGGED } from "../services/EventBusService.js";
 
 Vue.use(Vuex)
 
@@ -27,12 +28,13 @@ const userStore = {
             if (user) {
                 let { _id } = user;
                 state.currSocket = socketService.connect(_id);
-                state.currSocket.on('testEmit', txt => {
-                    console.log(txt)
-                })
-                state.currSocket.on('Join', (group)=> {
-                    console.log('new group is', group)
+                state.currSocket.on('Join', (group) => {
                     this.commit({ type: 'setGroup', group })
+                    eventBus.$emit('userJoined', group)
+                })
+                state.currSocket.on('accepted', group => {
+                    this.commit({ type: 'setGroup', group })
+                    eventBus.$emit('acceptedToGroup', group)
                 })
             }
         }

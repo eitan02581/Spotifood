@@ -133,6 +133,7 @@ export default {
   },
   async created() {
     await this.$store.dispatch({ type: "getGroups" });
+    // Filter By Time Of day
     this.breakfastGroups = this.$store.getters.groups
       .filter(group => group.eventType === "Breakfast")
       .slice(0, 7);
@@ -142,6 +143,8 @@ export default {
     this.dinnerGroups = this.$store.getters.groups
       .filter(group => group.eventType === "Dinner")
       .slice(0, 7);
+
+    // Filter By Closest Timestamp
     this.soonGroups = this.$store.getters.groups
       .filter(
         group =>
@@ -149,6 +152,8 @@ export default {
           group.time - new Date().getTime() > 0
       )
       .sort((a, b) => a.time - b.time);
+
+    // Filter By Closest Location
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(({ coords }) => {
         this.currLoc = {
@@ -171,7 +176,7 @@ export default {
     }
 
     if (this.user) {
-      this.userGroups = this.user.createdGroups
+      this.userGroups = this.user.createdGroups;
       // .filter(
       //   group => group.admin === this.user._id
       // );

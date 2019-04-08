@@ -34,9 +34,9 @@
               </li>
             </ul>
           </div>
-          <h1>Instructions</h1>
 
           <ol>
+          <h1>Instructions</h1>
             <li v-for="(instruction,idx) in recipe.instructions" :key="idx">{{instruction}}</li>
           </ol>
         </div>

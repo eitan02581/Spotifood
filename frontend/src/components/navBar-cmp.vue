@@ -7,7 +7,7 @@
       <div @click="isHamClicked = !isHamClicked" class="logo-wrapper">
         <router-link to="/" exact>
           <h1>
-            <span class="w">W</span>Eat
+            <span class="w" style="-webkit-text-stroke-width: 1px;-webkit-text-stroke-color: rgba(255, 232, 232, 0.863);">W</span>Eat
           </h1>
         </router-link>
       </div>

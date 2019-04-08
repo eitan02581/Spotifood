@@ -15,11 +15,14 @@ import vueEventCalendar from 'vue-event-calendar'
 import FunctionalCalendar from 'vue-functional-calendar';
 import Vuetify from 'vuetify'
 import VuetifyToast from 'vuetify-toast-snackbar'
+import Notifications from 'vue-notification'
 
 // import VueAwesomeSwiper from 'vue-awesome-swiper'
 require('vuetify/dist/vuetify.min.css')
 // import 'swiper/dist/css/swiper.css'
 var VueScrollTo = require('vue-scrollto');
+
+Vue.use(Notifications)
 
 Vue.use(VueScrollTo)
 

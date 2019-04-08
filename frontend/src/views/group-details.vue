@@ -24,7 +24,7 @@
           <router-link v-if="admin" :to="'/user/' + admin._id">
             <div class="hosted-by-container">
               <div class="hosted">
-                <h1>Hosted By: {{admin.username}}</h1>
+                <h1>Cook With: {{admin.username}}</h1>
               </div>
               <div class="image">
                 <img :src="admin.img" alt>
@@ -49,7 +49,7 @@
             </div>
             <div v-else class="cancel- btn-container">
               <div class="cancel-btn-container">
-                <el-button @click.native="onStatusActionGroup('leave')" type="danger">leave</el-button>
+                <el-button @click.native="onStatusActionGroup('leave')" type="danger">Leave</el-button>
               </div>
             </div>
           </template>

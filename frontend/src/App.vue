@@ -6,6 +6,7 @@
     <a :class="{show:scrollable}" id="button" v-scroll-to="'#top'">
       <i class="fas fa-arrow-up"></i>
     </a>
+    <Popup></Popup>
     <Footer></Footer>
   </div>
 </template> 
@@ -13,11 +14,13 @@
 <script>
 import Header from "@/components/header-cmp";
 import Footer from "@/components/footer-cmp";
+import Popup from "@/components/popup";
 import { eventBus, USER_LOGGED } from "./services/EventBusService.js";
 
 export default {
   components: {
     Header,
+    Popup,
     Footer
   },
   data() {
@@ -26,10 +29,12 @@ export default {
     };
   },
   created() {
-    this.$store.dispatch({ type: "checkIfLogged" }).then(user => {
-      eventBus.$emit("USER_LOGGED", user);
-    })
-    .catch(()=>console.log('sorry user not connected'));
+    this.$store
+      .dispatch({ type: "checkIfLogged" })
+      .then(user => {
+        eventBus.$emit('USER_LOGGED', user)
+      })
+      .catch(() => console.log("sorry user not connected"));
     var vm = this;
     window.addEventListener("scroll", function(e) {
       var scrollPos = window.scrollY;

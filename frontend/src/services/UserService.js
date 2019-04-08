@@ -51,6 +51,7 @@ function signUp(newUser) {
 
 function checkIfLogged() {
     var loggedUser = storageService.load(CURR_USER)
+    console.log('user in storage', loggedUser)
     // if (loggedUser) {
     //     SocketService.connect(loggedUser._id)
     // }
